@@ -1,0 +1,127 @@
+{
+    "onboarding1": {
+        "title": "احجز أفضل قاعة مناسبات",
+        "subtitle": "ابحث عن أفضل القاعات واقرأ تقييمات العملاء الآخرين."
+    },
+    "onboarding2": {
+        "title": "احجز مصورك الخاص",
+        "subtitle": "لا تضيع وقتك في البحث، ابحث عن مصورك معنا بسهولة."
+    },
+    "onboarding3": {
+        "title": "كن منظم فعاليات",
+        "subtitle": "احصل على منظم فعاليات ليجهز مناسبتك الخاصة، أو كن مقدم خدمة."
+    },
+    "onboardingNext": "التالي",
+    "userType": {
+        "welcome": "مرحبًا بك في",
+        "question": "كيف ترغب في استخدام التطبيق؟",
+        "customer": "كعميل",
+        "provider": "كمقدم خدمة"
+    },
+    "auth": {
+        "email": "البريد الإلكتروني",
+        "password": "كلمة المرور",
+        "phone": "رقم الجوال",
+        "crNumber": "رقم السجل التجاري",
+        "username": "اسم المستخدم",
+        "forgetPassword": "نسيت كلمة المرور؟",
+        "noAccount": "ليس لديك حساب؟",
+        "haveAccount": "لديك حساب بالفعل؟",
+        "signUpNow": "سجل الآن",
+        "agree": "أوافق على",
+        "terms": "شروط الخدمة",
+        "guest": "الدخول كزائر",
+        "login": "تسجيل الدخول",
+        "signUp": "إنشاء حساب"
+    },
+    "home": {
+        "hello": "مرحبًا",
+        "question": "ماذا تريد\n أن تحجز اليوم؟",
+        "search": "بحث",
+        "chooseCategory": "اختر الفئة",
+        "recommended": "موصى به",
+        "ratings": "التقييمات",
+        "allServices": "كل الخدمات",
+        "change_language": "تغيير اللغة إلى الإنجليزية"
+    },
+    "serviceDetails": {
+        "about": "عن الخدمة",
+        "packages": "الباقات",
+        "gallery": "معرض الصور",
+        "location": "الموقع",
+        "availableDates": "التواريخ المتاحة",
+        "reviews": "الاراء",
+        "book": "احجز"
+    },
+    "bookingReview": {
+        "details": "تفاصيل الحجز",
+        "city": "المدينة",
+        "timeAndDate": "الوقت والتاريخ",
+        "location": "الموقع",
+        "next": "التالي",
+        "summary": "ملخص الفاتورة",
+        "tax": "الضريبة",
+        "total": "الإجمالي",
+        "paymentMethod": "طريقة الدفع",
+        "addMore": "إضافة المزيد",
+        "pay": "ادفع",
+        "payment_success": "تم الدفع بنجاح",
+        "wait_for_acceptance": "انتظر حتى يقوم مقدم الخدمة بقبول طلبك.",
+        "back_to_home": "العودة إلى الصفحة الرئيسية"
+    },
+    "bookings": {
+        "myBookings": "حجوزاتي",
+        "current": "الحالية",
+        "past": "السابقة",
+        "canceled": "الملغاة",
+        "orderStatus": "حالة الطلب",
+        "giveRating": "إعطاء تقييم",
+        "chatWithProvider": "الدردشة مع مقدم الخدمة",
+        "awaitingResponse": "حجوزات بانتظار ردك",
+        "chatWithCustomer": "الدردشة مع العميل",
+        "cancel": "إلغاء",
+        "accept": "قبول",
+        "acceptedOrders": "الطلبات المقبولة"
+    },
+    "profile": {
+        "title": "الملف الشخصي",
+        "system": "النظام",
+        "arabic": "العربية",
+        "favorite": "المفضلة",
+        "personalInfo": "المعلومات الشخصية",
+        "darkMode": "الوضع الليلي",
+        "more": "المزيد",
+        "paymentMethod": "طريقة الدفع",
+        "support": "الدعم",
+        "privacy": "سياسة الخصوصية",
+        "logout": "تسجيل الخروج",
+        "changeEmail": "تغيير البريد الإلكتروني",
+        "changePhone": "تغيير رقم الجوال",
+        "changePassword": "تغيير كلمة المرور",
+        "save": "حفظ",
+        "addMore": "إضافة المزيد"
+    },
+    "chat": {
+        "title": "المحادثة",
+        "placeholder": "اكتب هنا ..."
+    },
+    "services": {
+        "myServices": "خدماتي",
+        "addMore": "إضافة المزيد",
+        "newService": "خدمة جديدة",
+        "generalInfo": "معلومات عامة",
+        "category": "فئة الخدمة",
+        "categoryPlaceholder": "اختر فئة الخدمة",
+        "about": "عن الخدمة",
+        "guests": "عدد الضيوف",
+        "inputPlaceholder": "اكتب هنا ...",
+        "dates": "التواريخ المتاحة",
+        "datePlaceholder": "اختر التاريخ",
+        "addPackages": "إضافة باقات",
+        "price": "السعر",
+        "locationAndPhotos": "الموقع والصور",
+        "attach": "إرفاق صور وملفات",
+        "servicePrice": "سعر الخدمة",
+        "save": "حفظ"
+    }
+}

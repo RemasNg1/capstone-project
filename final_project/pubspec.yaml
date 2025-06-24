@@ -1,0 +1,38 @@
+name: final_project
+description: "A new Flutter project."
+publish_to: 'none' 
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.8.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flutter_bloc: ^9.1.1
+  easy_localization: ^3.0.7
+  supabase_flutter: ^2.9.1
+  flutter_dotenv: ^5.2.1
+  flutter_svg: ^2.2.0
+  get_it: ^8.0.3
+  google_fonts: ^6.2.1
+  onesignal_flutter: ^5.3.3
+  skeletonizer: ^2.0.1
+
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^5.0.0
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
+    - assets/translations/
+    - .env

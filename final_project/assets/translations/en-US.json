@@ -1,0 +1,127 @@
+{
+    "onboarding1": {
+        "title": "Book the best event venue",
+        "subtitle": "Find the best event venues to book and read reviews from other customers."
+    },
+    "onboarding2": {
+        "title": "Book your own photographer",
+        "subtitle": "Don't waste time searching — find your photographer with us easily."
+    },
+    "onboarding3": {
+        "title": "Be an event planner",
+        "subtitle": "Get an event planner to prepare your special day, or become a service provider."
+    },
+    "onboardingNext": "Next",
+    "userType": {
+        "welcome": "Welcome to",
+        "question": "How do you want to use the app?",
+        "customer": "As Customer",
+        "provider": "As Service Provider"
+    },
+    "auth": {
+        "email": "Email",
+        "password": "Password",
+        "phone": "Phone Number",
+        "crNumber": "CR Number",
+        "username": "Username",
+        "forgetPassword": "Forget password?",
+        "noAccount": "Don’t have an account?",
+        "haveAccount": "Already have an account?",
+        "signUpNow": "Sign up",
+        "agree": "Agree to our",
+        "terms": "Terms of Service",
+        "guest": "Join as Guest",
+        "login": "Login",
+        "signUp": "Sign up"
+    },
+    "home": {
+        "hello": "Hello",
+        "question": "What do you\n want to book today?",
+        "search": "Search",
+        "chooseCategory": "Choose Category",
+        "recommended": "Recommended",
+        "ratings": "Ratings",
+        "allServices": "All Services",
+        "change_language": "Change Language to Arabic"
+    },
+    "serviceDetails": {
+        "about": "About the Service",
+        "packages": "Packages",
+        "gallery": "Gallery Photo",
+        "location": "Location",
+        "availableDates": "Available Dates",
+        "reviews": "Reviews",
+        "book": "Book"
+    },
+    "bookingReview": {
+        "details": "Booking Details",
+        "city": "City",
+        "timeAndDate": "Time and Date",
+        "location": "Location",
+        "next": "Next",
+        "summary": "Billing Summary",
+        "tax": "Tax",
+        "total": "Total",
+        "paymentMethod": "Payment Method",
+        "addMore": "Add More",
+        "pay": "Pay",
+        "payment_success": "Payment Successfully",
+        "wait_for_acceptance": "Wait for the service provider to accept your order.",
+        "back_to_home": "Back to home"
+    },
+    "bookings": {
+        "myBookings": "My Bookings",
+        "current": "Currently",
+        "past": "In the past",
+        "canceled": "Canceled",
+        "orderStatus": "Order Status",
+        "giveRating": "Give Rating",
+        "chatWithProvider": "Chat with the Service Provider",
+        "awaitingResponse": "Bookings Awaiting Your Response",
+        "chatWithCustomer": "Chat with the Customer",
+        "cancel": "Cancel",
+        "accept": "Accept",
+        "acceptedOrders": "Accepted Orders"
+    },
+    "profile": {
+        "title": "Profile",
+        "system": "System",
+        "arabic": "Arabic",
+        "favorite": "Favorite",
+        "personalInfo": "Personal Information",
+        "darkMode": "Dark Mode",
+        "more": "More",
+        "paymentMethod": "Payment Method",
+        "support": "Support",
+        "privacy": "Privacy Policy",
+        "logout": "Logout",
+        "changeEmail": "Change Email",
+        "changePhone": "Change Phone Number",
+        "changePassword": "Change Password",
+        "save": "Save",
+        "addMore": "Add More"
+    },
+    "chat": {
+        "title": "Chat",
+        "placeholder": "Type here ..."
+    },
+    "services": {
+        "myServices": "My Services",
+        "addMore": "Add More",
+        "newService": "New Service",
+        "generalInfo": "General Information",
+        "category": "Service Category",
+        "categoryPlaceholder": "Select a category",
+        "about": "About the Service",
+        "guests": "Number of Guests",
+        "inputPlaceholder": "Type here ...",
+        "dates": "Available Dates",
+        "datePlaceholder": "Select a date",
+        "addPackages": "Add Packages",
+        "price": "Price",
+        "locationAndPhotos": "Location and Photos",
+        "attach": "Attach Photos and Files",
+        "servicePrice": "Service Price",
+        "save": "Save"
+    }
+}

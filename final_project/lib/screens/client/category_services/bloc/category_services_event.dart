@@ -1,0 +1,4 @@
+part of 'category_services_bloc.dart';
+
+@immutable
+sealed class CategoryServicesEvent {}
