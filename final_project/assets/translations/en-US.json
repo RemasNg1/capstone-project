@@ -9,7 +9,8 @@
     },
     "onboarding3": {
         "title": "Be an event planner",
-        "subtitle": "Get an event planner to prepare your special day, or become a service provider."
+        "subtitle": "Get an event planner to prepare your special day, or become a service provider.",
+        "get_started": "Get Started"
     },
     "onboardingNext": "Next",
     "userType": {

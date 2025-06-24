@@ -40,4 +40,8 @@ class AppTextStyles {
   static TextStyle interSize28(BuildContext context) => Theme.of(
     context,
   ).textTheme.bodyMedium!.copyWith(fontSize: 28, fontWeight: FontWeight.w600);
+
+  static TextStyle interSize48(BuildContext context) => Theme.of(
+    context,
+  ).textTheme.bodyMedium!.copyWith(fontSize: 48, fontWeight: FontWeight.bold);
 }
