@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:final_project/style/app_spacing.dart';
 import 'package:final_project/style/app_text_styles.dart';
 import 'package:final_project/utils/extensions/screen/screen_size.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +57,7 @@ class ContentOfOnboarding extends StatelessWidget {
                         context,
                       ).copyWith(color: Theme.of(context).colorScheme.surface),
                     ),
-                    const SizedBox(height: 12),
+                    AppSpacing.h16,
                     Text(
                       description.tr(),
                       style: AppTextStyles.interSize18(
