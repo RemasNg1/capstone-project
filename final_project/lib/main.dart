@@ -5,6 +5,7 @@ import 'package:final_project/style/app_theme.dart';
 import 'package:final_project/utils/setup.dart';
 import 'package:flutter/material.dart';
 
+//main
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SupabaseConnect.init();
