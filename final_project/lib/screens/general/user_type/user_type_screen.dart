@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/screens/client/client_login/client_login_screen.dart';
 import 'package:final_project/screens/service_provider/login/provider_login_screen.dart';
+import 'package:final_project/screens/service_provider/provider_bottom_navbar/provider_bottom_navbar_screen.dart';
 import 'package:final_project/style/app_buttons.dart';
 import 'package:final_project/style/app_spacing.dart';
 import 'package:final_project/style/app_text_styles.dart';
@@ -16,25 +17,21 @@ class UserTypeScreen extends StatelessWidget {
         child: Column(
           children: [
             Image.asset('assets/images/entry.png'),
-
             Padding(
               padding: const EdgeInsets.all(24.0),
               child: Column(
                 children: [
                   AppSpacing.h48,
-
                   Text(
                     'userType.welcome'.tr(),
                     style: AppTextStyles.interSize16(context),
                   ),
                   AppSpacing.h4,
-
                   Text(
                     'userType.question'.tr(),
                     style: AppTextStyles.interSize16(context),
                   ),
                   AppSpacing.h24,
-
                   ElevatedButton(
                     style: AppButtons.large,
                     onPressed: () {
@@ -54,7 +51,7 @@ class UserTypeScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ProviderLoginScreen(),
+                          builder: (context) => ProviderBottomNavbarScreen(),
                         ),
                       );
                     },
