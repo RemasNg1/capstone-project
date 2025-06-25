@@ -14,7 +14,7 @@
     "onboardingNext": "التالي",
     "get_started": "ابدأ الان",
     "userType": {
-        "welcome": "مرحبًا بك في",
+        "welcome": "مرحبًا بك في تجمَّل",
         "question": "كيف ترغب في استخدام التطبيق؟",
         "customer": "كعميل",
         "provider": "كمقدم خدمة"
@@ -33,7 +33,8 @@
         "terms": "شروط الخدمة",
         "guest": "الدخول كزائر",
         "login": "تسجيل الدخول",
-        "signUp": "إنشاء حساب"
+        "signUp": "إنشاء حساب",
+        "stepAway": "خطوة واحدة تفصلك عن المناسبة المثالية"
     },
     "home": {
         "hello": "مرحبًا",
@@ -91,8 +92,10 @@
         "favorite": "المفضلة",
         "personalInfo": "المعلومات الشخصية",
         "darkMode": "الوضع الليلي",
+        "language": "اللغة",
+        "mode": "الوضع",
         "more": "المزيد",
-        "paymentMethod": "طريقة الدفع",
+        "paymentMethod": "طرق الدفع",
         "support": "الدعم",
         "privacy": "سياسة الخصوصية",
         "logout": "تسجيل الخروج",
@@ -100,7 +103,9 @@
         "changePhone": "تغيير رقم الجوال",
         "changePassword": "تغيير كلمة المرور",
         "save": "حفظ",
-        "addMore": "إضافة المزيد"
+        "addMore": "إضافة المزيد",
+        "preferences": "التفضيلات",
+        "accountSettings": "إعدادات الحساب"
     },
     "chat": {
         "title": "المحادثة",

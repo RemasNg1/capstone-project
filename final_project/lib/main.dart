@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/repo/supabase.dart';
 import 'package:final_project/screens/general/onboarding/onboarding_screen.dart';
+import 'package:final_project/screens/general/splash/splash_screen.dart';
 import 'package:final_project/style/app_theme.dart';
 import 'package:final_project/utils/setup.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
       locale: context.locale,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme(context),
-      home: OnboardingScreen(),
+      home: SplashScreen(),
     );
   }
 }

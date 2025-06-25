@@ -14,7 +14,7 @@
     },
     "onboardingNext": "Next",
     "userType": {
-        "welcome": "Welcome to",
+        "welcome": "Welcome to Tajammal",
         "question": "How do you want to use the app?",
         "customer": "As Customer",
         "provider": "As Service Provider"
@@ -33,7 +33,8 @@
         "terms": "Terms of Service",
         "guest": "Join as Guest",
         "login": "Login",
-        "signUp": "Sign up"
+        "signUp": "Sign up",
+        "stepAway": "You're one step away from the perfect event"
     },
     "home": {
         "hello": "Hello",
@@ -91,8 +92,10 @@
         "favorite": "Favorite",
         "personalInfo": "Personal Information",
         "darkMode": "Dark Mode",
+        "language": "Language",
+        "mode": "Mode",
         "more": "More",
-        "paymentMethod": "Payment Method",
+        "paymentMethod": "Payment Methods",
         "support": "Support",
         "privacy": "Privacy Policy",
         "logout": "Logout",
@@ -100,7 +103,9 @@
         "changePhone": "Change Phone Number",
         "changePassword": "Change Password",
         "save": "Save",
-        "addMore": "Add More"
+        "addMore": "Add More",
+        "preferences": "Preferences",
+        "accountSettings": "Account Settings"
     },
     "chat": {
         "title": "Chat",

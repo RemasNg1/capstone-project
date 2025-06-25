@@ -1,11 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/screens/client/client_bottom_navbar/client_bottom_navbar_screen.dart';
 import 'package:final_project/screens/client/client_login/client_login_screen.dart';
+import 'package:final_project/screens/client/home/home_screen.dart';
 import 'package:final_project/style/app_buttons.dart';
 import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_spacing.dart';
 import 'package:final_project/style/app_text_styles.dart';
+import 'package:final_project/utils/extensions/screen/screen_size.dart';
 import 'package:final_project/widgets/custom_text_form_field.dart';
+import 'package:final_project/widgets/localized_aligned_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -22,10 +25,31 @@ class ClientSignupScreen extends StatelessWidget {
             padding: EdgeInsets.all(24),
             child: Column(
               children: [
-                Text("App Logo", style: AppTextStyles.interSize28(context)),
+                // Image.asset(
+                //   'assets/images/logo_blue.png',
+                //   height: context.getHeight(factor: 0.16),
+                // ),
+                // Text("App Logo", style: AppTextStyles.interSize28(context)),
+                // AppSpacing.h72,
+                // AppSpacing.h24,
+                // AppSpacing.h16,
                 AppSpacing.h72,
                 AppSpacing.h24,
+                LocalizedAlignedText(
+                  text: "auth.signUp".tr(),
+                  style: AppTextStyles.interSize26(
+                    context,
+                  ).copyWith(color: Theme.of(context).colorScheme.primary),
+                ),
+                AppSpacing.h4,
+                LocalizedAlignedText(
+                  text: "auth.stepAway".tr(),
+                  style: AppTextStyles.interSize14(
+                    context,
+                  ).copyWith(color: Theme.of(context).colorScheme.onSurface),
+                ),
                 AppSpacing.h16,
+
                 CustomTextFormField(
                   labelText: "auth.username".tr(),
                   icon: Icon(CupertinoIcons.person),
@@ -43,7 +67,9 @@ class ClientSignupScreen extends StatelessWidget {
                 AppSpacing.h16,
                 CustomTextFormField(
                   labelText: "auth.password".tr(),
+                  obscureText: true,
                   icon: Icon(CupertinoIcons.lock),
+                  suffixIcon: Icon(CupertinoIcons.eye_slash),
                 ),
                 AppSpacing.h16,
 
@@ -60,15 +86,14 @@ class ClientSignupScreen extends StatelessWidget {
                       TextSpan(
                         text: "${'auth.agree'.tr()} ",
 
-                        style: TextStyle(color: AppColors.mediumGray),
+                        style: AppTextStyles.interSize14(context).copyWith(
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
                         children: [
                           TextSpan(
                             text: 'auth.terms'.tr(),
                             style: AppTextStyles.interSize14(context),
-                            // TextStyle(
 
-                            // color: AppColors.whiteTransparent,
-                            // ),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 Navigator.push(
@@ -101,7 +126,9 @@ class ClientSignupScreen extends StatelessWidget {
                 Text.rich(
                   TextSpan(
                     text: "${'auth.haveAccount'.tr()} ",
-                    style: TextStyle(color: AppColors.mediumGray),
+                    style: AppTextStyles.interSize14(
+                      context,
+                    ).copyWith(color: Theme.of(context).colorScheme.onSurface),
                     children: [
                       TextSpan(
                         text: 'auth.login'.tr(),
@@ -119,9 +146,24 @@ class ClientSignupScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-
-                AppSpacing.h8,
-                Text("auth.guest".tr()),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ClientBottomNavbarScreen(),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    "auth.guest".tr(),
+                    style: AppTextStyles.interSize14(
+                      context,
+                    ).copyWith(color: Theme.of(context).colorScheme.onSurface),
+                  ),
+                ),
+                // AppSpacing.h8,
+                // Text("auth.guest".tr()),
               ],
             ),
           ),

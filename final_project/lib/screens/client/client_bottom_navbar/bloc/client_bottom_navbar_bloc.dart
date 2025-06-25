@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:final_project/screens/client/bookings/bookings_screen.dart';
 import 'package:final_project/screens/general/chats/chats_screen.dart';
 import 'package:final_project/screens/client/home/home_screen.dart';
-import 'package:final_project/screens/client/profile/profile_screen.dart';
+import 'package:final_project/screens/client/profile/client_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
@@ -19,7 +19,7 @@ class ClientBottomNavbarBloc
     HomeScreen(),
     BookingsScreen(),
     ChatsScreen(),
-    ProfileScreen(),
+    ClientProfileScreen(),
   ];
 
   ClientBottomNavbarBloc() : super(ClientBottomNavbarInitial()) {
