@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:final_project/screens/booking/helper/functions.dart';
 import 'package:final_project/screens/general/chats/chats_screen.dart';
+import 'package:final_project/screens/general/chats/conversation_screen.dart';
 import 'package:final_project/screens/service_provider/home/provider_home_screen.dart';
 import 'package:final_project/screens/service_provider/provider_profile/provider_profile_screen.dart';
 import 'package:final_project/screens/service_provider/services/services_screen.dart';
@@ -20,7 +22,8 @@ class ProviderBottomNavbarBloc
     ProviderHomeScreen(),
     ServicesBookingsScreen(),
     ServicesScreen(),
-    ChatsScreen(),
+    // toDo change message with own user message
+    ConversationScreen(messages: getUnique(),),
     ProviderProfileScreen(),
   ];
   ProviderBottomNavbarBloc() : super(ProviderBottomNavbarInitial()) {
