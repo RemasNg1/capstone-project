@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:final_project/screens/booking/helper/functions.dart';
 import 'package:final_project/screens/client/bookings/bookings_screen.dart';
