@@ -22,6 +22,8 @@ dependencies:
   smooth_page_indicator: ^1.2.1
 
   cupertino_icons: ^1.0.8
+  flutter_chat_core: ^2.6.1
+  flutter_chat_ui: ^2.5.2
 
 dev_dependencies:
   flutter_test:
