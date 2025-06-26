@@ -1,7 +1,6 @@
-import 'package:final_project/screens/booking/enum/types.dart';
-import 'package:final_project/screens/booking/models/booking_temp_model.dart';
-import 'package:final_project/screens/booking/widget/row/custom_row_icon_title.dart';
-import 'package:final_project/utils/extensions/screen/screen_size.dart';
+import 'package:final_project/models/temp_bookin/booking_temp_model.dart';
+import 'package:final_project/core/enum/types.dart';import 'package:final_project/utils/extensions/screen/screen_size.dart';
+import 'package:final_project/widgets/booking/row/custom_row_icon_title.dart';
 import 'package:flutter/material.dart';
 
 class ContainerBookingCard extends StatelessWidget {

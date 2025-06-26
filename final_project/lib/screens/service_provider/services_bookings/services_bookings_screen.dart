@@ -1,8 +1,8 @@
-import 'package:final_project/screens/booking/enum/types.dart';
-import 'package:final_project/screens/booking/helper/functions.dart';
-import 'package:final_project/screens/booking/models/booking_temp_model.dart';
-import 'package:final_project/screens/booking/widget/column/custom_column_tab_view_cards.dart';
-import 'package:final_project/screens/booking/widget/tab%20view/custom_tab_view.dart';
+import 'package:final_project/core/helper/functions.dart';
+import 'package:final_project/models/temp_bookin/booking_temp_model.dart';
+import 'package:final_project/core/enum/types.dart';
+import 'package:final_project/widgets/booking/column/custom_column_tab_view_cards.dart';
+import 'package:final_project/widgets/booking/tab%20view/custom_tab_view.dart';
 import 'package:flutter/material.dart';
 
 class ServicesBookingsScreen extends StatelessWidget {

@@ -1,6 +1,6 @@
-import 'package:final_project/screens/booking/models/booking_temp_model.dart';
-import 'package:final_project/screens/booking/widget/Containers/container_booking_card.dart';
+import 'package:final_project/models/temp_bookin/booking_temp_model.dart';
 import 'package:final_project/utils/extensions/screen/screen_size.dart';
+import 'package:final_project/widgets/booking/Container/container_booking_card.dart';
 
 import 'package:flutter/material.dart';
 

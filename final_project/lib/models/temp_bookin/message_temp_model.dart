@@ -1,8 +1,7 @@
 
-import 'package:final_project/screens/booking/enum/types.dart';
-import 'package:final_project/screens/booking/models/provider_temp_model.dart';
-import 'package:final_project/screens/booking/models/user_temp_model.dart';
-
+import 'package:final_project/models/temp_bookin/provider_temp_model.dart';
+import 'package:final_project/models/temp_bookin/user_temp_model.dart';
+import 'package:final_project/core/enum/types.dart';
 class MessageTempModel {
   final int id;
   final ProviderTempModel provider;

@@ -1,4 +1,4 @@
-import 'package:final_project/screens/booking/models/message_temp_model.dart';
+import 'package:final_project/models/temp_bookin/message_temp_model.dart';
 import 'package:final_project/screens/general/chats/chats_screen.dart';
 import 'package:final_project/utils/extensions/screen/screen_size.dart';
 import 'package:flutter/material.dart';

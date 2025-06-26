@@ -1,8 +1,7 @@
 
-
-import 'package:final_project/screens/booking/enum/types.dart';
-import 'package:final_project/screens/booking/models/booking_temp_model.dart';
-import 'package:final_project/screens/booking/models/message_temp_model.dart';
+import 'package:final_project/core/enum/types.dart';
+import 'package:final_project/models/temp_bookin/booking_temp_model.dart';
+import 'package:final_project/models/temp_bookin/message_temp_model.dart';
 
 List<BookingTempModel> getBookingWithSameStatus(
   List<BookingTempModel> bookingList,

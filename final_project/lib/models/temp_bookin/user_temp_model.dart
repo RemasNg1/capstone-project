@@ -1,6 +1,5 @@
 
-import 'package:final_project/screens/booking/enum/types.dart';
-
+import 'package:final_project/core/enum/types.dart';
 class UserTempModel {
  final int id ;
  final String name ;
