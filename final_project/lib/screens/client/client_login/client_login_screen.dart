@@ -1,18 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/screens/client/client_bottom_navbar/client_bottom_navbar_screen.dart';
 import 'package:final_project/screens/client/client_signup/client_signup_screen.dart';
-import 'package:final_project/screens/client/home/home_screen.dart';
+import 'package:final_project/screens/client/forgot_password/forgot_password_screen.dart';
 import 'package:final_project/style/app_buttons.dart';
-import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_spacing.dart';
 import 'package:final_project/style/app_text_styles.dart';
-import 'package:final_project/utils/extensions/screen/screen_size.dart';
 import 'package:final_project/widgets/custom_text_form_field.dart';
 import 'package:final_project/widgets/localized_aligned_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class ClientLoginScreen extends StatelessWidget {
   const ClientLoginScreen({super.key});
@@ -46,7 +43,7 @@ class ClientLoginScreen extends StatelessWidget {
                 ),
                 AppSpacing.h4,
                 LocalizedAlignedText(
-                  text: "auth.stepAway".tr(),
+                  text: "auth.step_away".tr(),
                   style: AppTextStyles.interSize14(
                     context,
                   ).copyWith(color: Theme.of(context).colorScheme.onSurface),
@@ -109,12 +106,29 @@ class ClientLoginScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(
-                      "auth.forgetPassword".tr(),
-                      style: AppTextStyles.interSize14(context).copyWith(
-                        color: Theme.of(context).colorScheme.onSurface,
+                    TextButton(
+                      style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ForgotPasswordScreen(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        "auth.forget_password".tr(),
+                        style: AppTextStyles.interSize14(context).copyWith(
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
                       ),
                     ),
+                    // Text(
+                    //   "auth.forgetPassword".tr(),
+                    //   style: AppTextStyles.interSize14(context).copyWith(
+                    //     color: Theme.of(context).colorScheme.onSurface,
+                    //   ),
+                    // ),
                   ],
                 ),
                 AppSpacing.h24,
@@ -135,14 +149,14 @@ class ClientLoginScreen extends StatelessWidget {
 
                 Text.rich(
                   TextSpan(
-                    text: "${'auth.noAccount'.tr()} ",
+                    text: "${'auth.no_account'.tr()} ",
 
                     style: AppTextStyles.interSize14(
                       context,
                     ).copyWith(color: Theme.of(context).colorScheme.onSurface),
                     children: [
                       TextSpan(
-                        text: 'auth.signUpNow'.tr(),
+                        text: 'auth.signup_now'.tr(),
                         style: AppTextStyles.interSize14(context),
                         // TextStyle(
 

@@ -5,6 +5,7 @@ import 'package:final_project/style/app_spacing.dart';
 import 'package:final_project/style/app_text_styles.dart';
 import 'package:final_project/widgets/avatar.dart';
 import 'package:final_project/widgets/custom_list_tile.dart';
+import 'package:final_project/widgets/info_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -35,7 +36,7 @@ class ClientProfileScreen extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          "profile.accountSettings".tr(),
+                          "profile.account_settings".tr(),
                           style: AppTextStyles.interSize18(context).copyWith(
                             color: Theme.of(context).colorScheme.primary,
                           ),
@@ -44,7 +45,7 @@ class ClientProfileScreen extends StatelessWidget {
                     ),
                     CustomListTile(
                       leadingIcon: SvgPicture.asset("assets/icons/edit.svg"),
-                      title: "profile.personalInfo".tr(),
+                      title: "profile.personal_info".tr(),
                       trailing: Icon(
                         Icons.arrow_forward_ios,
                         color: Colors.black,
@@ -70,7 +71,7 @@ class ClientProfileScreen extends StatelessWidget {
                     ),
                     CustomListTile(
                       leadingIcon: SvgPicture.asset("assets/icons/card.svg"),
-                      title: "profile.paymentMethod".tr(),
+                      title: "profile.payment_method".tr(),
                       trailing: Icon(
                         Icons.arrow_forward_ios,
                         color: Colors.black,
@@ -144,6 +145,16 @@ class ClientProfileScreen extends StatelessWidget {
                         Icons.arrow_forward_ios,
                         color: Colors.black,
                       ),
+                      onTrailingTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => InfoDialog(
+                            title: "profile.support".tr(),
+                            content: "profile.contact_us".tr(),
+                            email: 'tajammal.team@gmail.com',
+                          ),
+                        );
+                      },
                       // onTrailingTap: () {
                       //   showDialog(
                       //     context: context,

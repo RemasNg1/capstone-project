@@ -1,14 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/screens/client/client_bottom_navbar/client_bottom_navbar_screen.dart';
 import 'package:final_project/screens/client/client_login/client_login_screen.dart';
-import 'package:final_project/screens/client/home/home_screen.dart';
 import 'package:final_project/style/app_buttons.dart';
-import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_spacing.dart';
 import 'package:final_project/style/app_text_styles.dart';
-import 'package:final_project/utils/extensions/screen/screen_size.dart';
 import 'package:final_project/widgets/custom_text_form_field.dart';
 import 'package:final_project/widgets/localized_aligned_text.dart';
+import 'package:final_project/widgets/terms_of_use_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -36,14 +34,14 @@ class ClientSignupScreen extends StatelessWidget {
                 AppSpacing.h72,
                 AppSpacing.h24,
                 LocalizedAlignedText(
-                  text: "auth.signUp".tr(),
+                  text: "auth.signup".tr(),
                   style: AppTextStyles.interSize26(
                     context,
                   ).copyWith(color: Theme.of(context).colorScheme.primary),
                 ),
                 AppSpacing.h4,
                 LocalizedAlignedText(
-                  text: "auth.stepAway".tr(),
+                  text: "auth.step_away".tr(),
                   style: AppTextStyles.interSize14(
                     context,
                   ).copyWith(color: Theme.of(context).colorScheme.onSurface),
@@ -96,11 +94,15 @@ class ClientSignupScreen extends StatelessWidget {
 
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ClientSignupScreen(),
+                                showModalBottomSheet(
+                                  context: context,
+                                  isScrollControlled: true,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(24),
+                                    ),
                                   ),
+                                  builder: (_) => const TermsOfUseSheet(),
                                 );
                               },
                           ),
@@ -120,12 +122,12 @@ class ClientSignupScreen extends StatelessWidget {
                       ),
                     );
                   },
-                  child: Text("auth.signUp".tr()),
+                  child: Text("auth.signup".tr()),
                 ),
                 AppSpacing.h16,
                 Text.rich(
                   TextSpan(
-                    text: "${'auth.haveAccount'.tr()} ",
+                    text: "${'auth.have_account'.tr()} ",
                     style: AppTextStyles.interSize14(
                       context,
                     ).copyWith(color: Theme.of(context).colorScheme.onSurface),
