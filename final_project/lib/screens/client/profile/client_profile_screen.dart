@@ -1,5 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:final_project/screens/client/favorites/favorites_screen.dart';
+import 'package:final_project/screens/client/favorites/favorite_screen.dart';
 import 'package:final_project/screens/client/profile/bloc/client_profile_bloc.dart';
 import 'package:final_project/style/app_spacing.dart';
 import 'package:final_project/style/app_text_styles.dart';
@@ -64,7 +64,7 @@ class ClientProfileScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => FavoritesScreen(),
+                            builder: (context) => FavoriteScreen(),
                           ),
                         );
                       },

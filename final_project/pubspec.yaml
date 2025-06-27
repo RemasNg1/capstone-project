@@ -20,6 +20,8 @@ dependencies:
   onesignal_flutter: ^5.3.3
   skeletonizer: ^2.0.1
   smooth_page_indicator: ^1.2.1
+  table_calendar: ^3.2.0
+  google_maps_flutter: ^2.12.3
 
   cupertino_icons: ^1.0.8
   flutter_chat_core: ^2.6.1
