@@ -118,7 +118,7 @@ class ClientProfileScreen extends StatelessWidget {
                       ),
                       title: "profile.mode".tr(),
                       trailing: CustomSwitch(
-                        value: context.locale.languageCode == 'en',
+                        value: true,
                         activeIcon: SvgPicture.asset(
                           'assets/icons/light_mode.svg',
                         ),
@@ -126,9 +126,9 @@ class ClientProfileScreen extends StatelessWidget {
                           'assets/icons/dark_mode.svg',
                         ),
                         onToggle: (val) {
-                          context.setLocale(
-                            val ? Locale('en', 'US') : Locale('ar', 'AR'),
-                          );
+                          // context.setLocale(
+                          //   val ? Locale('en', 'US') : Locale('ar', 'AR'),
+                          // );
                         },
                       ),
                     ),
