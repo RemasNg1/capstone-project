@@ -75,7 +75,7 @@ class OnboardingScreen extends StatelessWidget {
                           },
                           child: Text(
                             (bloc.pages.length - 1 == state.index)
-                                ? "get_started".tr()
+                                ? "onboarding3.get_started".tr()
                                 : "onboardingNext".tr(),
                             style: AppTextStyles.interSize16(context),
                           ),

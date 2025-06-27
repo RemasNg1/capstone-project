@@ -5,7 +5,9 @@ import 'package:final_project/style/app_spacing.dart';
 import 'package:final_project/style/app_text_styles.dart';
 import 'package:final_project/widgets/avatar.dart';
 import 'package:final_project/widgets/custom_list_tile.dart';
+import 'package:final_project/widgets/custom_switch.dart';
 import 'package:final_project/widgets/info_dialog.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -94,20 +96,40 @@ class ClientProfileScreen extends StatelessWidget {
                         "assets/icons/language.svg",
                       ),
                       title: "profile.language".tr(),
-                      trailing: Icon(
-                        Icons.arrow_forward_ios,
-                        color: Colors.black,
+
+                      trailing: CustomSwitch(
+                        value: context.locale.languageCode == 'en',
+                        activeText: 'AR',
+                        inactiveText: 'EN',
+                        activeIcon: Icon(CupertinoIcons.globe),
+                        inactiveIcon: Icon(CupertinoIcons.globe),
+                        onToggle: (val) {
+                          context.setLocale(
+                            val ? Locale('en', 'US') : Locale('ar', 'AR'),
+                          );
+                        },
                       ),
                     ),
 
                     CustomListTile(
                       leadingIcon: SvgPicture.asset(
-                        "assets/icons/light_mode.svg",
+                        "assets/icons/mode.svg",
+                        width: 28,
                       ),
                       title: "profile.mode".tr(),
-                      trailing: Icon(
-                        Icons.arrow_forward_ios,
-                        color: Colors.black,
+                      trailing: CustomSwitch(
+                        value: context.locale.languageCode == 'en',
+                        activeIcon: SvgPicture.asset(
+                          'assets/icons/light_mode.svg',
+                        ),
+                        inactiveIcon: SvgPicture.asset(
+                          'assets/icons/dark_mode.svg',
+                        ),
+                        onToggle: (val) {
+                          context.setLocale(
+                            val ? Locale('en', 'US') : Locale('ar', 'AR'),
+                          );
+                        },
                       ),
                     ),
                     AppSpacing.h8,
@@ -118,26 +140,10 @@ class ClientProfileScreen extends StatelessWidget {
                           style: AppTextStyles.interSize18(context).copyWith(
                             color: Theme.of(context).colorScheme.primary,
                           ),
-                          // TextStyle(
-                          //   fontSize: 18,
-                          //   fontWeight: FontWeight.w600,
-                          // ),
                         ),
                       ],
                     ),
-                    // Align(
-                    //   alignment: Alignment.topLeft,
-                    //   child: Text(
-                    //     "profile.more".tr(),
-                    //     style: AppTextStyles.interSize18(context).copyWith(
-                    //       color: Theme.of(context).colorScheme.primary,
-                    //     ),
-                    //     // TextStyle(
-                    //     //   fontSize: 18,
-                    //     //   fontWeight: FontWeight.w600,
-                    //     // ),
-                    //   ),
-                    // ),
+
                     CustomListTile(
                       leadingIcon: SvgPicture.asset("assets/icons/support.svg"),
                       title: "profile.support".tr(),
@@ -155,16 +161,6 @@ class ClientProfileScreen extends StatelessWidget {
                           ),
                         );
                       },
-                      // onTrailingTap: () {
-                      //   showDialog(
-                      //     context: context,
-                      //     builder: (context) => const InfoDialog(
-                      //       title: "Support",
-                      //       content:
-                      //           "For Help and more Information\ncontact with us via email\n\nNote@gmail.com",
-                      //     ),
-                      //   );
-                      // },
                     ),
 
                     CustomListTile(
@@ -196,208 +192,3 @@ class ClientProfileScreen extends StatelessWidget {
     );
   }
 }
-
-  // CustomListTile(
-  //                     leadingIcon: Icon(Icons.support_agent_outlined),
-  //                     title: "Support",
-  //                     trailing: Icon(
-  //                       Icons.keyboard_arrow_right_outlined,
-  //                       color: Colors.black,
-  //                     ),
-  //                   ),
-
-//  "profile": {
-//         "title": "الملف الشخصي",
-//         "system": "النظام",
-//         "arabic": "العربية",
-//         "favorite": "المفضلة",
-//         "personalInfo": "المعلومات الشخصية",
-//         "darkMode": "الوضع الليلي",
-//         "more": "المزيد",
-//         "paymentMethod": "طريقة الدفع",
-//         "support": "الدعم",
-//         "privacy": "سياسة الخصوصية",
-//         "logout": "تسجيل الخروج",
-//         "changeEmail": "تغيير البريد الإلكتروني",
-//         "changePhone": "تغيير رقم الجوال",
-//         "changePassword": "تغيير كلمة المرور",
-//         "save": "حفظ",
-//         "addMore": "إضافة المزيد"
-//     },
-  // onTrailingTap: () {
-                      //   showDialog(
-                      //     context: context,
-                      //     builder: (context) => const InfoDialog(
-                      //       title: "Support",
-                      //       content:
-                      //           "For Help and more Information\ncontact with us via email\n\nNote@gmail.com",
-                      //     ),
-                      //   );
-                      // },
-
-
-                    // CustomListTile(
-                    //   leadingIcon: Icons.support_agent_outlined,
-                    //   title: "Support",
-                    //   trailing: Icon(
-                    //     Icons.keyboard_arrow_right_outlined,
-                    //     color: Colors.black,
-                    //   ),
-                    //   onTrailingTap: () {
-                    //     showDialog(
-                    //       context: context,
-                    //       builder: (context) => const InfoDialog(
-                    //         title: "Support",
-                    //         content:
-                    //             "For Help and more Information\ncontact with us via email\n\nNote@gmail.com",
-                    //       ),
-                    //     );
-                    //   },
-                    // ),
-
-                    // CustomListTile(
-                    //   leadingIcon: Icons.logout_sharp,
-                    //   title: "Logout",
-                    //   trailing: Icon(
-                    //     Icons.keyboard_arrow_right_outlined,
-                    //     color: Colors.black,
-                    //   ),
-                    //   onTrailingTap: () {
-                    //     showDialog(
-                    //       context: context,
-                    //       builder: (context) => BlocProvider.value(
-                    //         value: bloc,
-                    //         child: LogoutDialog(),
-                    //       ),
-                    //     );
-                    //   },
-                    // ),
-                      // onTrailingTap: () {
-                      //   showDialog(
-                      //     context: context,
-                      //     builder: (context) => const InfoDialog(
-                      //       title: "Support",
-                      //       content:
-                      //           "For Help and more Information\ncontact with us via email\n\nNote@gmail.com",
-                      //     ),
-                      //   );
-                      // },
-                       // onTrailingTap: () {
-                      //   showDialog(
-                      //     context: context,
-                      //     builder: (context) => const InfoDialog(
-                      //       title: "Support",
-                      //       content:
-                      //           "For Help and more Information\ncontact with us via email\n\nNote@gmail.com",
-                      //     ),
-                      //   );
-                      // },
-                                                // color: AppColors.orange,
-       // onTrailingTap: () {
-                      //   showDialog(
-                      //     context: context,
-                      //     builder: (context) => const InfoDialog(
-                      //       title: "Support",
-                      //       content:
-                      //           "For Help and more Information\ncontact with us via email\n\nNote@gmail.com",
-                      //     ),
-                      //   );
-                      // },
-                        // onTrailingTap: () {
-                      //   showDialog(
-                      //     context: context,
-                      //     builder: (context) => const InfoDialog(
-                      //       title: "Support",
-                      //       content:
-                      //           "For Help and more Information\ncontact with us via email\n\nNote@gmail.com",
-                      //     ),
-                      //   );
-                      // },
-
-
-                    // FutureBuilder<String?>(
-                    //   future: SupabaseConnect.getUsername(),
-                    //   builder: (context, snapshot) {
-                    //     if (snapshot.connectionState ==
-                    //         ConnectionState.waiting) {
-                    //       return SizedBox.shrink();
-                    //     } else if (snapshot.hasError) {
-                    //       return Text('Error loading username');
-                    //     } else if (!snapshot.hasData || snapshot.data == null) {
-                    //       return Text('No username found');
-                    //     } else {
-                    //       return Text(
-                    //         snapshot.data!,
-                    //         style: TextStyle(
-                    //           fontSize: 16,
-                    //           fontWeight: FontWeight.w600,
-                    //         ),
-                    //       );
-                    //     }
-                    //   },
-                    // ),
-                       // CustomListTile(
-                    //   leadingIcon: Icons.edit_note_sharp,
-                    //   title: "Edit personal information",
-                    //   trailing: Icon(
-                    //     Icons.keyboard_arrow_right_outlined,
-                    //     color: Colors.black,
-                    //   ),
-                    //   onTrailingTap: () async {
-                    //     final user = Supabase.instance.client.auth.currentUser;
-
-                    //     final response = await Supabase.instance.client
-                    //         .from('user_info')
-                    //         .select('name')
-                    //         .eq('authid', user!.id)
-                    //         .maybeSingle();
-
-                    //     bloc.nameController.text = response?['name'] ?? '';
-                    //     bloc.passwordController.clear();
-
-                    //     showDialog(
-                    //       context: context,
-                    //       builder: (context) => BlocProvider.value(
-                    //         value: bloc,
-                    //         child: EditInfoDialog(),
-                    //       ),
-                    //     );
-                    //   },
-                    // ),
-
-                    // CustomListTile(
-                    //   leadingIcon: Icons.notifications_none,
-                    //   title: "Notification",
-                    //   trailing: BlocBuilder<ProfileBloc, ProfileState>(
-                    //     builder: (context, state) {
-                    //       return InkWell(
-                    //         onTap: () {
-                    //           bloc.add(ChangeNotificationEvent());
-                    //         },
-                    //         child: AnimatedContainer(
-                    //           duration: Duration(milliseconds: 200),
-                    //           width: 60,
-                    //           height: 28,
-                    //           padding: EdgeInsets.symmetric(horizontal: 4),
-                    //           decoration: BoxDecoration(
-                    //             borderRadius: BorderRadius.circular(20),
-                    //             color: bloc.isEnable
-                    //                 ? Colors.orange
-                    //                 : Colors.grey.shade400,
-                    //           ),
-                    //           alignment: bloc.isEnable
-                    //               ? Alignment.centerRight
-                    //               : Alignment.centerLeft,
-                    //           child: Container(
-                    //             width: 20,
-                    //             height: 20,
-                    //             decoration: BoxDecoration(
-                    //               shape: BoxShape.circle,
-                    //               color: Colors.white,
-                    //             ),
-                    //           ),
-                    //         ),
-                    //       );
-                    //     },
-                    //   ),
-                    // ),
