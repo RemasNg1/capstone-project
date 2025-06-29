@@ -4,6 +4,9 @@ plugins {
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
 }
+manifestPlaceholders = [
+  GOOGLE_MAPS_API_KEY: dotenv.env['GOOGLE_MAPS_ANDROID_KEY']
+]
 
 android {
     namespace = "com.example.final_project"
