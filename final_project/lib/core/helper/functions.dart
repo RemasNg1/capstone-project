@@ -65,7 +65,6 @@ double scaleValue(num x) {
 // this set title of incoming chart
 String leftSideIncomingTitle(num scaledValue) {
   int rounded = scaledValue.round();
-
   if (rounded == 1) {
     return '1K';
   } else if (rounded == 11) {
