@@ -4,12 +4,14 @@ import 'package:table_calendar/table_calendar.dart';
 
 class CalendarWidget extends StatelessWidget {
   final DateTime selectedDay;
+  final Set<DateTime>? selectedDays; // list of booking days 
   final Set<DateTime> unavailableDays; // Set of unavailable
 
   const CalendarWidget({
     super.key,
     required this.selectedDay,
     required this.unavailableDays,
+    this.selectedDays,
   });
 
   // Helper method to check if two DateTime objects refer to the same calendar day
@@ -33,14 +35,17 @@ class CalendarWidget extends StatelessWidget {
           ),
         ],
       ),
-
       // Main calendar UI
       child: TableCalendar(
         firstDay: DateTime.utc(2025),
         lastDay: DateTime.utc(2030),
         focusedDay: selectedDay, // Initially focused day (current month)
         // Highlight the selected day
-        selectedDayPredicate: (day) => isSameDay(day, selectedDay),
+        selectedDayPredicate:
+        // if a pass selected date then will halite this days else will halite only current day 
+          (day) {
+                return  selectedDays != null ? selectedDays!.any((d) => isSameDay(d, day)) : isSameDay(day, selectedDay) ;
+              },
 
         calendarFormat: CalendarFormat.month, // Month view only
         availableGestures: AvailableGestures.all, // Allow swipe gestures
@@ -57,8 +62,8 @@ class CalendarWidget extends StatelessWidget {
             shape: BoxShape.circle,
           ),
           selectedDecoration: BoxDecoration(
-            color: AppColors.blue,
-            shape: BoxShape.circle,
+            color:selectedDays!=null? AppColors.contentColorYellow : AppColors.blue,
+            shape: selectedDays!=null? BoxShape.rectangle: BoxShape.rectangle,
           ),
           weekendTextStyle: const TextStyle(color: Colors.black),
           defaultTextStyle: const TextStyle(color: Colors.black),

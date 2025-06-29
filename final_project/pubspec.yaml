@@ -27,6 +27,7 @@ dependencies:
   flutter_chat_core: ^2.6.1
   flutter_chat_ui: ^2.5.2
   flutter_switch: ^0.3.2
+  fl_chart: ^1.0.0
 
 dev_dependencies:
   flutter_test:
