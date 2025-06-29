@@ -25,6 +25,7 @@ dependencies:
   flutter_chat_core: ^2.6.1
   flutter_chat_ui: ^2.5.2
   flutter_switch: ^0.3.2
+  google_maps_flutter: ^2.12.3
 
 dev_dependencies:
   flutter_test:
