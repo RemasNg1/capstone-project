@@ -55,22 +55,13 @@ List<BarChartGroupData> makeGroupDataStatic({
 }
 
 
-/// تقوم هذه الدالة بتحويل قيمة رقمية إلى قيمة من 1 إلى 20 بشكل لوغاريتمي
 double scaleValue(num x) {
-  // إذا كانت القيمة أقل من أو تساوي صفر، نرجع 0 لتجنب الخطأ
   if (x <= 0) return 0;
-
-  // نحسب اللوغاريتم العشري للقيمة x
-  // log(x) / ln10 يعطينا log10(x)
   double logValue = log(x) / ln10;
-
-  // نحول النتيجة من النطاق [3 → 6] ( من 1000 إلى 1000000)
-  // إلى النطاق [1 → 20] باستخدام معادلة تحويل خطي
   double scaled = (logValue - 3) * (19 / 3) + 1;
-
-  // نضمن أن القيمة النهائية لا تتعدى النطاق [0 → 20]
   return scaled.clamp(0, 20);
 }
+
 // this set title of incoming chart
 String leftSideIncomingTitle(num scaledValue) {
   int rounded = scaledValue.round();
