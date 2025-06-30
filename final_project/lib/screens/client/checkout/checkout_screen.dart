@@ -1,6 +1,5 @@
 import 'package:final_project/data/dummy_data.dart';
-import 'package:final_project/screens/client/home/home_screen.dart';
-import 'package:final_project/screens/client/home/totesthome.dart';
+import 'package:final_project/screens/client/home/homeee_screen.dart';
 import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/widgets/booking_bottom_bar.dart';
 import 'package:final_project/widgets/custom_result_dialog.dart';
@@ -63,7 +62,7 @@ class CheckoutScreen extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Totesthome()),
+                MaterialPageRoute(builder: (context) => HomeeScreen()),
               );
             },
           );

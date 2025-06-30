@@ -83,3 +83,45 @@ class PaymentMethod {
     this.isIconOnly = false,
   });
 }
+
+class MyService {
+  final String id;
+  final String name;
+  final String category;
+  final String location;
+  final double rating;
+  final int reviewCount;
+  final int price;
+  final String imageUrl;
+
+  MyService({
+    required this.id,
+    required this.name,
+    required this.category,
+    required this.location,
+    required this.rating,
+    required this.reviewCount,
+    required this.price,
+    required this.imageUrl,
+  });
+
+  factory MyService.fromJson(Map<String, dynamic> json) {
+    return MyService(
+      id: json['id'],
+      name: json['name'],
+      category: json['category'],
+      location: json['location'],
+      rating: (json['rating'] ?? 0).toDouble(),
+      reviewCount: json['review_count'] ?? 0,
+      price: json['price'],
+      imageUrl: json['image_url'],
+    );
+  }
+}
+
+class CategoryModel {
+  final String name;
+  final String iconPath;
+
+  CategoryModel({required this.name, required this.iconPath});
+}

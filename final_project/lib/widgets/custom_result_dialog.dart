@@ -1,4 +1,4 @@
-import 'package:final_project/screens/client/home/totesthome.dart';
+import 'package:final_project/screens/client/home/home_screen.dart';
 
 import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/widgets/custom_button.dart';
@@ -49,7 +49,7 @@ class CustomResultDialog {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Totesthome()),
+                    MaterialPageRoute(builder: (context) => HomeScreen()),
                   );
                 },
                 title: 'Back to home',

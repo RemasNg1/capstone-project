@@ -19,8 +19,8 @@ class AppColors {
   static const Color dimGray = Color(0xff1C1C1C);
   static const Color black = Color(0xff0D0D0D);
 
-  // chart part 
-   static const Color primary = contentColorCyan;
+  // chart part
+  static const Color primary = contentColorCyan;
   static const Color menuBackground = Color(0xFF090912);
   static const Color itemsBackground = Color(0xFF1B2339);
   static const Color pageBackground = Color(0xFF282E45);
@@ -41,4 +41,5 @@ class AppColors {
   static const Color contentColorPink = Color(0xFFFF3AF2);
   static const Color contentColorRed = Color(0xFFE80054);
   static const Color contentColorCyan = Color(0xFF50E4FF);
+  static const Color redAccent = Color(0xffFFAEAE);
 }
