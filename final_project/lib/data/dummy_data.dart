@@ -68,3 +68,88 @@ final List<PaymentMethod> dummyPaymentMethods = [
     isIconOnly: true,
   ),
 ];
+
+final List<CategoryModel> dummyCategories = [
+  CategoryModel(name: 'Venues', iconPath: 'assets/icons/CityHall.svg'),
+  CategoryModel(name: 'Photographers', iconPath: 'assets/icons/CityHall.svg'),
+  CategoryModel(name: 'Planners', iconPath: 'assets/icons/CityHall.svg'),
+  CategoryModel(name: 'Buffet', iconPath: 'assets/icons/CityHall.svg'),
+  CategoryModel(name: 'Hospitality', iconPath: 'assets/icons/CityHall.svg'),
+  CategoryModel(name: 'Cars', iconPath: 'assets/icons/CityHall.svg'),
+];
+
+final List<MyService> recommendedServices = [
+  MyService(
+    id: '1',
+    name: 'Nyara Venue',
+    category: 'Venue',
+    location: 'Riyadh',
+    rating: 4.8,
+    reviewCount: 185,
+    price: 50000,
+    imageUrl: dummyService.mainImage,
+  ),
+  MyService(
+    id: '2',
+    name: 'Elite Hall',
+    category: 'Venue',
+    location: 'Jeddah',
+    rating: 4.6,
+    reviewCount: 150,
+    price: 45000,
+    imageUrl: dummyService.mainImage,
+  ),
+  MyService(
+    id: '3',
+    name: 'Dream Palace',
+    category: 'Venue',
+    location: 'Dammam',
+    rating: 4.7,
+    reviewCount: 120,
+    price: 47000,
+    imageUrl: dummyService.mainImage,
+  ),
+];
+
+final List<MyService> allServices = [
+  MyService(
+    id: '4',
+    name: 'Royal Buffet',
+    category: 'Buffet',
+    location: 'Riyadh',
+    rating: 4.5,
+    reviewCount: 200,
+    price: 15000,
+    imageUrl: dummyService.mainImage,
+  ),
+  MyService(
+    id: '5',
+    name: 'Mas Pro Studio',
+    category: 'Photographers',
+    location: 'Jeddah',
+    rating: 4.2,
+    reviewCount: 220,
+    price: 10000,
+    imageUrl: dummyService.mainImage,
+  ),
+  MyService(
+    id: '6',
+    name: 'Opal Hall',
+    category: 'Venue',
+    location: 'Khobar',
+    rating: 4.3,
+    reviewCount: 180,
+    price: 52000,
+    imageUrl: dummyService.mainImage,
+  ),
+  MyService(
+    id: '7',
+    name: 'Luxury Drive',
+    category: 'Car Rent',
+    location: 'Riyadh',
+    rating: 4.0,
+    reviewCount: 100,
+    price: 8000,
+    imageUrl: dummyService.mainImage,
+  ),
+];

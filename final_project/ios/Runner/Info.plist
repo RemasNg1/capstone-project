@@ -6,6 +6,8 @@
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>GOOGLE_MAPS_IOS_KEY</key>
 <string>${GOOGLE_MAPS_IOS_KEY}</string>
+<key>NSPhotoLibraryUsageDescription</key>
+<string>We need access to your gallery to upload service images.</string>
 	<key>CFBundleDisplayName</key>
 	<string>Final Project</string>
 	<key>CFBundleExecutable</key>

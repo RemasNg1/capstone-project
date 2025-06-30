@@ -1,5 +1,6 @@
 import 'package:final_project/data/dummy_data.dart';
 import 'package:final_project/screens/client/booking_details/booking_details_screen.dart';
+import 'package:final_project/screens/general/chats/conversation_screen.dart';
 import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_text_styles.dart';
 import 'package:final_project/widgets/booking_bottom_bar.dart';
@@ -89,11 +90,24 @@ class ServiceDetailsScreen extends StatelessWidget {
             children: [
               // Top service card
               ServiceCard(
-                title: dummyService.name,
-                location: dummyService.location,
-                rating: dummyService.rating,
-                imageUrl: dummyService.mainImage,
-                onChatPressed: () {},
+                title: 'Nyara Venue',
+                location: 'Riyadh',
+                imagePath: dummyService.mainImage,
+                rating: 4.8,
+                reviewCount: 185,
+                width: 343,
+                height: 224,
+                showReviewCount: true,
+                onTap: () {},
+                icon: Icons.chat_bubble_outline,
+                onIconPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ConversationScreen(messages: []),
+                    ),
+                  );
+                },
               ),
 
               ImageGallery(imageUrls: dummyService.galleryImages),
