@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/screens/client/auth/bloc/auth_bloc.dart';
+import 'package:final_project/screens/client/auth/client_login_screen.dart';
 import 'package:final_project/screens/client/auth/otp_bottom_sheet.dart';
 import 'package:final_project/screens/client/client_bottom_navbar/client_bottom_navbar_screen.dart';
-import 'package:final_project/screens/client/client_login/client_login_screen.dart';
 import 'package:final_project/style/app_buttons.dart';
 import 'package:final_project/style/app_spacing.dart';
 import 'package:final_project/style/app_text_styles.dart';
