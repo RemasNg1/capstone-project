@@ -8,6 +8,7 @@ class CustomTextFormField extends StatelessWidget {
   final Widget? suffixIcon;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
+  final TextInputType? keyboardType;
 
   const CustomTextFormField({
     super.key,
@@ -19,6 +20,7 @@ class CustomTextFormField extends StatelessWidget {
     this.suffixIcon,
     this.controller,
     this.validator,
+    this.keyboardType = TextInputType.text,
   });
 
   // A reusable styled text field widget with customizable icon, hint, validation, and optional password obscuring.
@@ -30,6 +32,10 @@ class CustomTextFormField extends StatelessWidget {
       controller: controller,
       onChanged: onChanged,
       validator: validator,
+      onTapOutside: (event) {
+        FocusScope.of(context).unfocus();
+      },
+      keyboardType: keyboardType,
       decoration: InputDecoration(
         labelText: labelText,
         prefixIcon: icon,

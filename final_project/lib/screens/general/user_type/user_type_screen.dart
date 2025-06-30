@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:final_project/screens/client/client_bottom_navbar/client_bottom_navbar_screen.dart';
-import 'package:final_project/screens/client/client_login/client_login_screen.dart';
+// import 'package:final_project/screens/client/client_bottom_navbar/client_bottom_navbar_screen.dart';
+import 'package:final_project/screens/client/auth/client_login_screen.dart';
 import 'package:final_project/screens/service_provider/provider_bottom_navbar/provider_bottom_navbar_screen.dart';
 import 'package:final_project/style/app_buttons.dart';
 import 'package:final_project/style/app_spacing.dart';
@@ -38,7 +38,7 @@ class UserTypeScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ClientBottomNavbarScreen(),
+                          builder: (context) => ClientLoginScreen(),
                         ),
                       );
                     },
