@@ -1,11 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/core/constant/app_validation.dart';
-import 'package:final_project/screens/client/auth/bloc/auth_bloc.dart';
-import 'package:final_project/screens/client/auth/client_signup_screen.dart';
-import 'package:final_project/screens/client/auth/custom_rich_text.dart';
-import 'package:final_project/screens/client/auth/otp_bottom_sheet.dart';
-import 'package:final_project/screens/client/client_bottom_navbar/client_bottom_navbar_screen.dart';
-import 'package:final_project/screens/client/auth/forgot_password_screen.dart';
+import 'package:final_project/screens/service_provider/auth/bloc/auth_bloc.dart';
+import 'package:final_project/screens/service_provider/auth/custom_rich_text.dart';
+import 'package:final_project/screens/service_provider/auth/otp_bottom_sheet.dart';
+// import 'package:final_project/screens/client/client_bottom_navbar/client_bottom_navbar_screen.dart';
+import 'package:final_project/screens/service_provider/auth/forgot_password_screen.dart';
+import 'package:final_project/screens/service_provider/auth/provider_signup_screen.dart';
+import 'package:final_project/screens/service_provider/provider_bottom_navbar/provider_bottom_navbar_screen.dart';
 import 'package:final_project/style/app_buttons.dart';
 import 'package:final_project/style/app_spacing.dart';
 import 'package:final_project/style/app_text_styles.dart';
@@ -15,8 +16,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ClientLoginScreen extends StatelessWidget {
-  const ClientLoginScreen({super.key});
+class ProviderLoginScreen extends StatelessWidget {
+  const ProviderLoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +47,7 @@ class ClientLoginScreen extends StatelessWidget {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => ClientBottomNavbarScreen(),
+                builder: (context) => ProviderBottomNavbarScreen(),
               ),
             );
           }
@@ -60,7 +61,7 @@ class ClientLoginScreen extends StatelessWidget {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => ClientBottomNavbarScreen(),
+                builder: (context) => ProviderBottomNavbarScreen(),
               ),
             );
           }
@@ -96,7 +97,7 @@ class ClientLoginScreen extends StatelessWidget {
                             ),
                             AppSpacing.h4,
                             LocalizedAlignedText(
-                              text: "auth.step_away".tr(),
+                              text: "auth.step_away_provider_login".tr(),
                               style: AppTextStyles.interSize14(context)
                                   .copyWith(
                                     color: Theme.of(
@@ -203,7 +204,8 @@ class ClientLoginScreen extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => ClientSignupScreen(),
+                                    builder: (context) =>
+                                        ProviderSignupScreen(),
                                   ),
                                 );
                               },

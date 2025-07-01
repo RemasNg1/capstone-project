@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/core/constant/app_validation.dart';
-import 'package:final_project/screens/client/auth/bloc/auth_bloc.dart';
-import 'package:final_project/screens/client/auth/otp_bottom_sheet.dart';
-import 'package:final_project/screens/client/auth/reset_password_screen.dart';
+import 'package:final_project/screens/service_provider/auth/bloc/auth_bloc.dart';
+import 'package:final_project/screens/service_provider/auth/otp_bottom_sheet.dart';
+import 'package:final_project/screens/service_provider/auth/reset_password_screen.dart';
 import 'package:final_project/style/app_buttons.dart';
 import 'package:final_project/style/app_spacing.dart';
 import 'package:final_project/style/app_text_styles.dart';
@@ -38,7 +38,6 @@ class ForgotPasswordScreen extends StatelessWidget {
                             builder: (context) => BlocProvider.value(
                               value: bloc,
                               child: OtpBottomSheet(
-                                isSignUp: false,
                                 onCompleted: (code) {
                                   bloc.add(
                                     VerifyResetPasswordOTPEvent(
@@ -46,7 +45,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                                       otp: code,
                                     ),
                                   );
-                                }, //remasnugaithan+53@gmail.com
+                                },
                               ),
                             ),
                           );

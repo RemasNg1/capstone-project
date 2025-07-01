@@ -76,7 +76,7 @@ class ClientProfileScreen extends StatelessWidget {
                           Icons.arrow_forward_ios,
                           color: Colors.black,
                         ),
-                        onTrailingTap: () {
+                        onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -167,7 +167,7 @@ class ClientProfileScreen extends StatelessWidget {
                           Icons.arrow_forward_ios,
                           color: Colors.black,
                         ),
-                        onTrailingTap: () {
+                        onTap: () {
                           showDialog(
                             context: context,
                             builder: (context) => InfoDialog(
@@ -199,7 +199,7 @@ class ClientProfileScreen extends StatelessWidget {
                           Icons.arrow_forward_ios,
                           color: Colors.black,
                         ),
-                        onTrailingTap: () {
+                        onTap: () {
                           showDialog(
                             context: context,
                             builder: (context) => BlocProvider.value(

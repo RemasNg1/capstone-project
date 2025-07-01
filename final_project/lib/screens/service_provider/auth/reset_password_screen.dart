@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/core/constant/app_validation.dart';
-import 'package:final_project/screens/client/auth/bloc/auth_bloc.dart';
-import 'package:final_project/screens/client/auth/client_login_screen.dart';
+import 'package:final_project/screens/service_provider/auth/bloc/auth_bloc.dart';
+import 'package:final_project/screens/service_provider/auth/provider_login_screen.dart';
 import 'package:final_project/style/app_buttons.dart';
 import 'package:final_project/style/app_spacing.dart';
 import 'package:final_project/style/app_text_styles.dart';
@@ -23,7 +23,7 @@ class ResetPasswordScreen extends StatelessWidget {
         if (state is SuccessState) {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => ClientLoginScreen()),
+            MaterialPageRoute(builder: (context) => ProviderLoginScreen()),
           );
         } else if (state is FailureState) {
           ScaffoldMessenger.of(

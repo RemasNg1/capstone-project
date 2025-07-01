@@ -6,8 +6,8 @@ import 'package:final_project/utils/setup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-//remasnugaithan+36@gmail.com
-//main
+// remasnugaithan+47@gmail.com
+// main
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SupabaseConnect.init();
