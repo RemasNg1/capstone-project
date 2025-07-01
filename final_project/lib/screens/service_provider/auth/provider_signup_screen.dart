@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/core/constant/app_validation.dart';
-import 'package:final_project/screens/client/auth/bloc/auth_bloc.dart';
-import 'package:final_project/screens/client/auth/client_login_screen.dart';
-import 'package:final_project/screens/client/auth/custom_rich_text.dart';
-import 'package:final_project/screens/client/auth/otp_bottom_sheet.dart';
-import 'package:final_project/screens/client/client_bottom_navbar/client_bottom_navbar_screen.dart';
+import 'package:final_project/screens/service_provider/auth/bloc/auth_bloc.dart';
+import 'package:final_project/screens/service_provider/auth/custom_rich_text.dart';
+import 'package:final_project/screens/service_provider/auth/otp_bottom_sheet.dart';
+import 'package:final_project/screens/service_provider/auth/provider_login_screen.dart';
+import 'package:final_project/screens/service_provider/provider_bottom_navbar/provider_bottom_navbar_screen.dart';
 import 'package:final_project/style/app_buttons.dart';
 import 'package:final_project/style/app_spacing.dart';
 import 'package:final_project/style/app_text_styles.dart';
@@ -16,8 +16,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ClientSignupScreen extends StatelessWidget {
-  const ClientSignupScreen({super.key});
+class ProviderSignupScreen extends StatelessWidget {
+  const ProviderSignupScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,8 @@ class ClientSignupScreen extends StatelessWidget {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ClientBottomNavbarScreen(),
+                              builder: (context) =>
+                                  ProviderBottomNavbarScreen(),
                             ),
                           );
                         }
@@ -69,7 +70,8 @@ class ClientSignupScreen extends StatelessWidget {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ClientBottomNavbarScreen(),
+                              builder: (context) =>
+                                  ProviderBottomNavbarScreen(),
                             ),
                           );
                         }
@@ -96,7 +98,7 @@ class ClientSignupScreen extends StatelessWidget {
                             ),
                             AppSpacing.h4,
                             LocalizedAlignedText(
-                              text: "auth.step_away".tr(),
+                              text: "auth.step_away_provider_signup".tr(),
                               style: AppTextStyles.interSize14(context)
                                   .copyWith(
                                     color: Theme.of(
@@ -111,11 +113,22 @@ class ClientSignupScreen extends StatelessWidget {
                               child: Column(
                                 children: [
                                   CustomTextFormField(
-                                    labelText: "auth.username".tr(),
+                                    labelText: "auth.name_en".tr(),
                                     icon: Icon(CupertinoIcons.person),
-                                    controller: bloc.usernameController,
-                                    validator: AppValidation.validateName,
+                                    controller: bloc.nameEnController,
+                                    validator: AppValidation.validateNameEn,
                                   ),
+                                  AppSpacing.h16,
+
+                                  CustomTextFormField(
+                                    labelText:
+                                        "auth.commercial_registration_number"
+                                            .tr(),
+                                    icon: Icon(CupertinoIcons.doc_text),
+                                    controller: bloc.crNumber,
+                                    validator: AppValidation.validateCrNumber,
+                                  ),
+
                                   AppSpacing.h16,
                                   CustomTextFormField(
                                     labelText: "auth.email".tr(),
@@ -270,7 +283,7 @@ class ClientSignupScreen extends StatelessWidget {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              ClientLoginScreen(),
+                                              ProviderLoginScreen(),
                                         ),
                                       );
                                     },
@@ -307,87 +320,39 @@ class ClientSignupScreen extends StatelessWidget {
     );
   }
 }
-
-
-                                  // Text.rich(
-                                  //   TextSpan(
-                                  //     text: "${'auth.have_account'.tr()} ",
-                                  //     style: AppTextStyles.interSize14(context)
-                                  //         .copyWith(
-                                  //           color: Theme.of(
-                                  //             context,
-                                  //           ).colorScheme.onSurface,
-                                  //         ),
-                                  //     children: [
-                                  //       TextSpan(
-                                  //         text: 'auth.login'.tr(),
-                                  //         style: AppTextStyles.interSize14(
-                                  //           context,
-                                  //         ),
-                                  //         recognizer: TapGestureRecognizer()
-                                  //           ..onTap = () {
-                                  //             Navigator.push(
-                                  //               context,
-                                  //               MaterialPageRoute(
-                                  //                 builder: (context) =>
-                                  //                     ClientLoginScreen(),
-                                  //               ),
-                                  //             );
-                                  //           },
-                                  //       ),
-                                  //     ],
-                                  //   ),
+ // CustomTextFormField(
+                                  //   labelText: "auth.name_ar".tr(),
+                                  //   icon: Icon(CupertinoIcons.person),
+                                  //   controller: bloc.nameArController,
+                                  //   validator: AppValidation.validateNameAr,
                                   // ),
+                                  // AppSpacing.h16,
 
-                                  // Row(
-                                  //   mainAxisAlignment: MainAxisAlignment.start,
-                                  //   children: [
-                                  //     Checkbox(
-                                  //       value: bloc.isAgreedToTerms,
-                                  //       onChanged: (value) {
-                                  //         bloc.add(ToggleAgreeToTermsEvent());
-                                  //       },
-                                  //     ),
-                                  //     Text.rich(
-                                  //       TextSpan(
-                                  //         text: "${'auth.agree'.tr()} ",
+                                  // CustomTextFormField(
+                                  //   labelText: "auth.description_ar".tr(),
+                                  //   icon: Icon(CupertinoIcons.doc_text),
+                                  //   controller: bloc.descriptionArController,
+                                  //   validator:
+                                  //       AppValidation.validateDescriptionAr,
+                                  //   maxLines: 3,
+                                  // ),
+                                  // AppSpacing.h16,
 
-                                  //         style:
-                                  //             AppTextStyles.interSize14(
-                                  //               context,
-                                  //             ).copyWith(
-                                  //               color: Theme.of(
-                                  //                 context,
-                                  //               ).colorScheme.onSurface,
-                                  //             ),
-                                  //         children: [
-                                  //           TextSpan(
-                                  //             text: 'auth.terms'.tr(),
-                                  //             style: AppTextStyles.interSize14(
-                                  //               context,
-                                  //             ),
+                                  // CustomTextFormField(
+                                  //   labelText: "auth.description_en".tr(),
+                                  //   icon: Icon(CupertinoIcons.briefcase),
+                                  //   controller: bloc.descriptionEnController,
+                                  //   validator:
+                                  //       AppValidation.validateDescriptionEn,
+                                  //   maxLines: 3,
+                                  // ),
+                                  // AppSpacing.h16,
+                                  // AppSpacing.h16,
 
-                                  //             recognizer: TapGestureRecognizer()
-                                  //               ..onTap = () {
-                                  //                 showModalBottomSheet(
-                                  //                   context: context,
-                                  //                   isScrollControlled: true,
-                                  //                   shape: RoundedRectangleBorder(
-                                  //                     borderRadius:
-                                  //                         BorderRadius.vertical(
-                                  //                           top:
-                                  //                               Radius.circular(
-                                  //                                 24,
-                                  //                               ),
-                                  //                         ),
-                                  //                   ),
-                                  //                   builder: (context) =>
-                                  //                       TermsOfUseSheet(),
-                                  //                 );
-                                  //               },
-                                  //           ),
-                                  //         ],
-                                  //       ),
-                                  //     ),
-                                  //   ],
+                                  // CustomTextFormField(
+                                  //   labelText: "auth.iban".tr(),
+                                  //   icon: Icon(CupertinoIcons.creditcard),
+                                  //   controller: bloc.ibanController,
+                                  //   keyboardType: TextInputType.number,
+                                  //   validator: AppValidation.validateIban,
                                   // ),

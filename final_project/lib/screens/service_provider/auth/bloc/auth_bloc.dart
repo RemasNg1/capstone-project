@@ -16,10 +16,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final signUpFormKey = GlobalKey<FormState>();
   final forgotPasswordFormKey = GlobalKey<FormState>();
   final resetPasswordFormKey = GlobalKey<FormState>();
-
-  TextEditingController usernameController = TextEditingController();
+  TextEditingController nameArController = TextEditingController();
+  TextEditingController nameEnController = TextEditingController();
+  TextEditingController descriptionArController = TextEditingController();
+  TextEditingController descriptionEnController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+  TextEditingController ibanController = TextEditingController();
+
+  TextEditingController crNumber = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final authGetit = GetIt.I.get<AuthLayer>();
   bool isPasswordHidden = true;
@@ -47,17 +52,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     try {
-      await authGetit.clientSignUpMethod(
-        name: usernameController.text,
+      await authGetit.providerSignUpMethod(
         email: emailController.text,
-        phone: phoneController.text,
         password: passwordController.text,
+        // nameAr: nameArController.text,
+        nameEn: nameEnController.text,
+        // descriptionAr: descriptionArController.text,
+        // descriptionEn: descriptionEnController.text,
+        // iban: ibanController.text,
+        phoneNumber: phoneController.text,
+        commercialRegistrationNumber: crNumber.text,
       );
       emit(OTPSentState());
     } catch (e) {
       print("Email: ${emailController.text}");
       print("Password: ${passwordController.text}");
       print("Phone: ${phoneController.text}");
+
       print("Signup error: $e");
       emit(FailureState());
     }
@@ -84,9 +95,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     try {
-      await authGetit.clientVerifyOtpMethod(
+      await authGetit.providerVerifyOtpMethod(
         email: emailController.text,
-
         otp: event.otpCode,
       );
 
@@ -107,18 +117,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(FailureState(error: "Failed to send reset email"));
     }
   }
-
-  // Future<void> resendResetPassword(
-  //   SendResetPasswordOTPEvent event,
-  //   Emitter<AuthState> emit,
-  // ) async {
-  //   try {
-  //     await authGetit.resendForgotPasswordOtpMethod(emailController.text);
-  //     emit(OTPSentState());
-  //   } catch (e) {
-  //     emit(FailureState(error: "Failed to send reset email"));
-  //   }
-  // }
 
   FutureOr<void> verifyResetPasswordOtpMethod(
     VerifyResetPasswordOTPEvent event,
@@ -209,41 +207,3 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(DisableResendOtpState());
   }
 }
-
-  // on<PasswordChangedEvent>((event, emit) {
-  //   final pwd = event.password;
-  //   final bool hasMinLength = pwd.length >= 6;
-  //   final bool hasNumber = RegExp(r'\d').hasMatch(pwd);
-  //   final bool hasUppercase = RegExp(r'[A-Z]').hasMatch(pwd);
-  //   final bool hasSpecialChar = RegExp(
-  //     r'[!@#$%^&*(),.?":{}|<>_]',
-  //   ).hasMatch(pwd);
-
-  //   emit(
-  //     SuccessStatePass(
-  //       password: pwd,
-  //       hasMinLength: hasMinLength,
-  //       hasNumber: hasNumber,
-  //       hasUppercase: hasUppercase,
-  //       hasSpecialChar: hasSpecialChar,
-  //     ),
-  //   );
-  // });
-
-  // on<ToggleConfirmPasswordVisibility>((event, emit) {
-  //   isConfirmPasswordHidden = !isConfirmPasswordHidden;
-  //   emit(ConfirmPasswordVisibilityState());
-  // });
-  // on<TogglePasswordVisibility>((event, emit) {
-  //     isPasswordHidden = !isPasswordHidden;
-  //     emit(PasswordVisibilityState());
-  //   });
-
-  //   on<SignInAnonymouslyEvent>((event, emit) async {
-  //     try {
-  //       await authGetit.signInAnonymouslyMethod();
-  //       emit(SuccessState());
-  //     } catch (e) {
-  //       emit(FailureState(error: e.toString()));
-  //     }
-  //   });

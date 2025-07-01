@@ -44,12 +44,6 @@ class Auth {
     }
   }
 
-  static Future<void> updatePassword(String newPassword) async {
-    await SupabaseConnect.supabase!.client.auth.updateUser(
-      UserAttributes(password: newPassword),
-    );
-  }
-
   Future<void> resendVerificationEmail(String email) async {
     try {
       await SupabaseConnect.supabase!.client.auth.signInWithOtp();
@@ -121,13 +115,50 @@ class Auth {
     }
   }
 
+  static Future<void> updatePassword(String newPassword) async {
+    await SupabaseConnect.supabase!.client.auth.updateUser(
+      UserAttributes(password: newPassword),
+    );
+  }
+
+  //remasnugaithan+15@gmail.com
   static Future<void> sendResetEmail(String email) async {
     try {
       await SupabaseConnect.supabase!.client.auth.resetPasswordForEmail(email);
     } on AuthException catch (error) {
       throw FormatException(error.message);
     } catch (_) {
-      throw FormatException("Failed to send reset link");
+      throw FormatException("Failed to send reset OTP");
     }
+  }
+
+  static Future<bool> isClient() async {
+    final client = SupabaseConnect.supabase!.client;
+    final currentUser = client.auth.currentUser;
+
+    if (currentUser == null) return false;
+
+    final response = await client
+        .from('user')
+        .select('id')
+        .eq('auth_id', currentUser.id)
+        .maybeSingle();
+
+    return response != null;
+  }
+
+  static Future<bool> isProvider() async {
+    final client = SupabaseConnect.supabase!.client;
+    final currentUser = client.auth.currentUser;
+
+    if (currentUser == null) return false;
+
+    final response = await client
+        .from('providers')
+        .select('id')
+        .eq('auth_id', currentUser.id)
+        .maybeSingle();
+
+    return response != null;
   }
 }

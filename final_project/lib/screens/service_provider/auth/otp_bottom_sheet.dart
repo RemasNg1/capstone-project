@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:final_project/screens/client/auth/bloc/auth_bloc.dart';
-import 'package:final_project/screens/client/auth/custom_rich_text.dart';
+import 'package:final_project/screens/service_provider/auth/bloc/auth_bloc.dart';
+import 'package:final_project/screens/service_provider/auth/custom_rich_text.dart';
 import 'package:final_project/style/app_spacing.dart';
 import 'package:final_project/style/app_text_styles.dart';
 import 'package:final_project/utils/extensions/screen/screen_size.dart';
