@@ -35,8 +35,10 @@ class ChatLayer {
     required EnumUserType userType,
     required String reserverAuthId,
   }) {
-
-    print("getMessageWithSameAuthId+++++++++++++++ ${allUserConversions.length}");
+    userMessages = [];
+    print(
+      "getMessageWithSameAuthId+++++++++++++++ ${allUserConversions.length}",
+    );
     userMessages = allUserConversions
         .where((item) {
           return userType == EnumUserType.customer
@@ -55,36 +57,33 @@ class ChatLayer {
     return userMessages;
   }
 
-Future<TextMessage?>  sendMessage({
+  Future<TextMessage?> sendMessage({
     required String reserverAuthId,
     required String senderAuthId,
     required String content,
     required EnumUserType ownerType,
   }) async {
-   ModelMessage newMessage= ModelMessage(
-        content: content,
-        // if owner type is customer that mean senderAuthId is  userAuthId else reserverAuthId is userAuthId.
-        userAuthId: ownerType == EnumUserType.customer
-            ? senderAuthId
-            : reserverAuthId,
+    ModelMessage newMessage = ModelMessage(
+      content: content,
+      // if owner type is customer that mean senderAuthId is  userAuthId else reserverAuthId is userAuthId.
+      userAuthId: ownerType == EnumUserType.customer
+          ? senderAuthId
+          : reserverAuthId,
 
-        // if owner type is customer that mean senderAuthId is  providerAuthId else reserverAuthId is providerAuthId.
-        providerAuthId: ownerType == EnumUserType.customer
-            ? reserverAuthId
-            : senderAuthId,
-        owner: ownerType.name,
-        status: EnumChatStatus.send.name,
-        date: DateTime.now().toString()
-      );
-      
-      // print(newMessage.toJson());
-    var result = await Chat.sendChat(
-      userType: ownerType,
-      message: newMessage
+      // if owner type is customer that mean senderAuthId is  providerAuthId else reserverAuthId is providerAuthId.
+      providerAuthId: ownerType == EnumUserType.customer
+          ? reserverAuthId
+          : senderAuthId,
+      owner: ownerType.name,
+      status: EnumChatStatus.send.name,
+      date: DateTime.now().toString(),
     );
-    if(result==null){
+
+    // print(newMessage.toJson());
+    var result = await Chat.sendChat(userType: ownerType, message: newMessage);
+    if (result == null) {
       allUserConversions.add(newMessage);
-     return makeTextMessage(content: content, authorId: senderAuthId);
+      return makeTextMessage(content: content, authorId: senderAuthId);
     }
     print("sendMessage chat layer $result");
     return null;

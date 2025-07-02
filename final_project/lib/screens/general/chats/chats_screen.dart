@@ -32,7 +32,7 @@ class ChattingScreen extends StatelessWidget {
                   BackButton(
                     onPressed: () {
                       bloc.chatController.dispose();
-                      bloc.chatController=InMemoryChatController();
+                      bloc.chatController =  InMemoryChatController();
                       Navigator.pop(context);
                     },
                   ),

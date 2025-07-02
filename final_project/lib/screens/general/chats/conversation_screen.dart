@@ -43,17 +43,8 @@ class ConversationScreen extends StatelessWidget {
                         child: ListView.builder(
                           itemCount: messages.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return ListTile(
-                              leading: CircleAvatar(
-                                maxRadius: 30,
-                                backgroundImage: NetworkImage(
-                                  messages[index].providers!.avatar!,
-                                ),
-                              ),
-                              title: Text(messages[index].providers!.nameEn!),
-                              subtitle: Text(messages[index].content!),
-                              trailing: InkWell(
-                                onTap: () {
+                            return InkWell(
+                               onTap: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -63,7 +54,16 @@ class ConversationScreen extends StatelessWidget {
                                     ),
                                   );
                                 },
-                                child: Icon(Icons.arrow_forward_ios_outlined),
+                              child: ListTile(
+                                leading: CircleAvatar(
+                                  maxRadius: 30,
+                                  backgroundImage: NetworkImage(
+                                    messages[index].providers!.avatar!,
+                                  ),
+                                ),
+                                title: Text(messages[index].providers!.nameEn!),
+                                subtitle: Text(messages[index].content!),
+                                trailing:Icon(Icons.arrow_forward_ios_outlined),
                               ),
                             );
                           },

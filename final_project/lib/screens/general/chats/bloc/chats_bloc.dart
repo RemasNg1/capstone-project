@@ -47,7 +47,6 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
 
   loadMessage(LoadMessage event, Emitter<ChatsState> emit) async {
     reserverAuthId = event.authId;
-    userMessages = [];
     userMessages = chatLayer.getMessageWithSameAuthId(
       userType: EnumUserType.customer,
       reserverAuthId: reserverAuthId,
@@ -55,6 +54,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     print(userMessages.length);
     chatController.insertAllMessages(userMessages);
     print(userMessages.length);
+    emit(LoadingMessagesSuccessfully());
   }
 
   FutureOr<void> loadConversion(
