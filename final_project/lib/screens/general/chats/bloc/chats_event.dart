@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'chats_bloc.dart';
 
 @immutable
@@ -5,14 +6,14 @@ sealed class ChatsEvent {}
 
 class SendMessage extends ChatsEvent {
   final String userInput;
-  final UserTempModel user;
-  final ProviderTempModel provider;
-
-  SendMessage({required this.userInput, required this.user, required this.provider});
+  
+  SendMessage({required this.userInput});
 }
 
 class LoadMessage extends ChatsEvent {
-  final int senderId;
+  final String authId;
 
-  LoadMessage({required this.senderId});
+  LoadMessage({required this.authId});
 }
+
+class LoadConversion extends ChatsEvent {}

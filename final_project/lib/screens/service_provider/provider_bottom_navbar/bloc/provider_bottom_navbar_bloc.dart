@@ -22,7 +22,7 @@ class ProviderBottomNavbarBloc
     ServicesBookingsScreen(),
     ServicesScreen(),
     // toDo change message with own user message
-    ConversationScreen(messages: getUnique(),),
+    ConversationScreen(),
     ProviderProfileScreen(),
   ];
   ProviderBottomNavbarBloc() : super(ProviderBottomNavbarInitial()) {

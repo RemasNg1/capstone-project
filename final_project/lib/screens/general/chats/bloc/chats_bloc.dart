@@ -1,109 +1,66 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:bloc/bloc.dart';
-import 'package:final_project/models/temp_bookin/message_temp_model.dart';
+import 'package:final_project/data_layer/chat_layer.dart';
+import 'package:final_project/models/chat/model_message.dart';
 import 'package:final_project/models/temp_bookin/provider_temp_model.dart';
 import 'package:final_project/models/temp_bookin/user_temp_model.dart';
-import 'package:final_project/core/enum/types.dart';import 'package:flutter_chat_core/flutter_chat_core.dart';
+import 'package:final_project/core/enum/types.dart';
+import 'package:flutter_chat_core/flutter_chat_core.dart';
 import 'package:meta/meta.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 part 'chats_event.dart';
 part 'chats_state.dart';
 
 class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
-   List<TextMessage> conversionMessages = [];
-  final user = providers[0];
+  List<TextMessage> userMessages = [];
+  List<ModelMessage> conversionMessages = [];
+  ChatLayer chatLayer = ChatLayer();
+  final currentUserAuthId = Supabase.instance.client.auth.currentUser!.id;
+  String reserverAuthId = '';
+
   final chatController = InMemoryChatController();
   ChatsBloc() : super(ChatsInitial()) {
-    
-    on<ChatsEvent>((event, emit) { });
+    on<ChatsEvent>((event, emit) {});
     on<SendMessage>(sendMessage);
     on<LoadMessage>(loadMessage);
+    on<LoadConversion>(loadConversion);
   }
-  
+
   FutureOr<void> sendMessage(
     SendMessage event,
     Emitter<ChatsState> emit,
   ) async {
-    UserTempModel user = event.user;
-    ProviderTempModel provider = event.provider;
-    String content = event.userInput;
-    // make new massage  and add it in messages list
-    var myMessage = makeTextMessage(
-      authorType: EnumUserType.provider,
-      content: content,
-      authorId: user.id,
+    String userInput = event.userInput;
+    emit(LoadingMessages());
+    TextMessage? myMessage = await chatLayer.sendMessage(
+      reserverAuthId: reserverAuthId,
+      senderAuthId: currentUserAuthId,
+      content: userInput,
+      ownerType: EnumUserType.customer,
     );
-
-    chatController.insertMessage(myMessage);
-    conversionMessages.add(myMessage);
-
-    MessageTempModel myMessageAsDbModel = MessageTempModel(
-      id: Random().nextInt(1000) + 1,
-      provider: provider,
-      user: user,
-      content: content,
-      date: DateTime.now(),
-      status: EnumChatStatus.send,
-      authorType: EnumUserType.provider,
-    );
-    // add message to local db
-    messages.add(myMessageAsDbModel);
-    // toDo DB : send message to DB
-    emit(Loading());
-
+    if (myMessage != null) {
+      chatController.insertMessage(myMessage);
+    }
     emit(SendMessageSuccessfully());
   }
 
-  loadMessage(LoadMessage event, Emitter<ChatsState> emit) {
-    int senderId = event.senderId;
-    print("from loadMessage");
-    List<MessageTempModel>? allMessageWithSenderId = messages
-        // this is to get all message from sender
-        .where((message) => message.user.id == senderId)
-        .toList();
-
-    if (allMessageWithSenderId.isNotEmpty) {
-      allMessageWithSenderId.map((message) {
-        EnumUserType authorType= EnumUserType.user;
-        int authorId=message.user.id;
-        if (message.authorType == EnumUserType.provider) {
-          authorType=EnumUserType.provider;
-          authorId=message.provider.id;
-          
-        }
-        // insert all old  message  to chat
-        //toDo whoIAm: EnumUserType.provider should change
-        TextMessage textMessage = makeTextMessage(
-          authorType: authorType,
-          content: message.content,
-          authorId: authorId,
-        );
-        chatController.insertMessage(textMessage);
-      }).toList();
-      emit(LoadOldMessage());
-    }
-
-    //  if(allMessageWithSenderId.isNotEmpty){
-    //   conversionMessages=allMessageWithSenderId;
-    //  }
+  loadMessage(LoadMessage event, Emitter<ChatsState> emit) async {
+    reserverAuthId = event.authId;
+    userMessages = chatLayer.getMessageWithSameAuthId(
+      userType: EnumUserType.customer,
+      reserverAuthId: reserverAuthId,
+    );
+    chatController.insertAllMessages(userMessages);
   }
-}
 
-TextMessage makeTextMessage({
-  required EnumUserType authorType,
-  required String content,
-  required int authorId,
-}) {
-  TextMessage textMessage = TextMessage(
-    createdAt: DateTime.now(),
-    id: '${Random().nextInt(1000) + 1}',
-    authorId: "${authorType.name}.$authorId",
-    text: content,
-  );
-  if (authorType == EnumUserType.provider) {
-    print("provider ----------++++++0+ "+"${authorType.name}.$authorId");
-    print(content);
+  FutureOr<void> loadConversion(
+    LoadConversion event,
+    Emitter<ChatsState> emit,
+  ) async {
+    conversionMessages = await chatLayer.getUserConversions(
+      userType: EnumUserType.customer,
+    );
+    emit(LoadingConversationSuccessfully());
   }
-  return textMessage;
 }
