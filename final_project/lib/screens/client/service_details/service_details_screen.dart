@@ -104,7 +104,7 @@ class ServiceDetailsScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ConversationScreen(messages: []),
+                      builder: (context) => ConversationScreen(),
                     ),
                   );
                 },

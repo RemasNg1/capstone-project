@@ -31,7 +31,7 @@ List<MessageTempModel> messages = [
     content: "I know someone who can do it for you",
     date: DateTime.now(),
     status: EnumChatStatus.send,
-    authorType: EnumUserType.user,
+    authorType: EnumUserType.customer,
   ),
   MessageTempModel(
     id: 33,
@@ -40,7 +40,7 @@ List<MessageTempModel> messages = [
     content: "I aaaae who can do it for you",
     date: DateTime.now(),
     status: EnumChatStatus.send,
-    authorType: EnumUserType.user,
+    authorType: EnumUserType.customer,
   ),
   MessageTempModel(
     id: 44,
@@ -49,7 +49,7 @@ List<MessageTempModel> messages = [
     content: "I knoasdf you",
     date: DateTime.now(),
     status: EnumChatStatus.send,
-    authorType: EnumUserType.user,
+    authorType: EnumUserType.customer,
   ),
   MessageTempModel(
     id: 55,
@@ -67,7 +67,7 @@ List<MessageTempModel> messages = [
     content: "I can help with that!",
     date: DateTime.now(),
     status: EnumChatStatus.send,
-    authorType: EnumUserType.user,
+    authorType: EnumUserType.customer,
   ),
   MessageTempModel(
     id: 3,
@@ -76,7 +76,7 @@ List<MessageTempModel> messages = [
     content: "Sounds good to me.",
     date: DateTime.now(),
     status: EnumChatStatus.send,
-    authorType: EnumUserType.user,
+    authorType: EnumUserType.customer,
   ),
   MessageTempModel(
     id: 4,
@@ -85,7 +85,7 @@ List<MessageTempModel> messages = [
     content: "Let’s schedule a meeting.",
     date: DateTime.now(),
     status: EnumChatStatus.send,
-    authorType: EnumUserType.user,
+    authorType: EnumUserType.customer,
   ),
   MessageTempModel(
     id: 5,
@@ -94,7 +94,7 @@ List<MessageTempModel> messages = [
     content: "I'll get back to you shortly.",
     date: DateTime.now(),
     status: EnumChatStatus.send,
-    authorType: EnumUserType.user,
+    authorType: EnumUserType.customer,
   ),
   MessageTempModel(
     id: 6,
@@ -103,7 +103,7 @@ List<MessageTempModel> messages = [
     content: "Great, thank you!",
     date: DateTime.now(),
     status: EnumChatStatus.send,
-    authorType: EnumUserType.user,
+    authorType: EnumUserType.customer,
   ),
   MessageTempModel(
     id: 7,
@@ -112,7 +112,7 @@ List<MessageTempModel> messages = [
     content: "I'm not sure, let me check.",
     date: DateTime.now(),
     status: EnumChatStatus.send,
-    authorType: EnumUserType.user,
+    authorType: EnumUserType.customer,
   ),
   MessageTempModel(
     id: 8,
@@ -121,6 +121,6 @@ List<MessageTempModel> messages = [
     content: "Absolutely, I’ll handle it.",
     date: DateTime.now(),
     status: EnumChatStatus.send,
-    authorType: EnumUserType.user,
+    authorType: EnumUserType.customer,
   ),
 ];

@@ -21,4 +21,5 @@ class SupabaseConnect {
       throw FormatException("*** There is error with connect DB ***");
     }
   }
+
 }

@@ -1,3 +1,4 @@
+import 'package:final_project/models/chat/model_message.dart' hide User;
 import 'package:final_project/models/temp_bookin/provider_temp_model.dart';
 import 'package:final_project/models/temp_bookin/user_temp_model.dart';
 import 'package:final_project/screens/general/chats/bloc/chats_bloc.dart';
@@ -8,45 +9,51 @@ import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 
 class ChattingScreen extends StatelessWidget {
   const ChattingScreen({super.key, required this.sender});
-  final UserTempModel sender;
+  final ModelMessage sender;
+
   @override
   Widget build(BuildContext context) {
+    String avatar = sender.providers!.avatar!;
+    String name = sender.providers!.nameEn!;
+    //  String authId=sender.providers!.nameEn!;
+
     return BlocProvider(
       create: (context) => ChatsBloc(),
       child: Builder(
         builder: (context) {
-          var bloc = context.read< ChatsBloc>();
-
+          var bloc = context.read<ChatsBloc>();
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              flexibleSpace: 
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 55,
-                  // left: 100,
-                  // right: 100,
-                ), 
+              automaticallyImplyLeading: false,
 
-                child:
-                 Row(
-                  spacing: 4,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      maxRadius: 30,
-                      backgroundImage: NetworkImage(sender.avatar),
-                    ),
-                    Text(sender.name),
-                  ],
-                ),
+              title: Row(
+                children: [
+                  BackButton(
+                    onPressed: () {
+                      bloc.chatController.dispose();
+                      bloc.chatController=InMemoryChatController();
+                      Navigator.pop(context);
+                    },
+                  ),
+                  CircleAvatar(backgroundImage: NetworkImage(avatar)),
+                  SizedBox(width: 16.0 * 0.75),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(name, style: TextStyle(fontSize: 16)),
+                      // Text("Active 3m ago", style: TextStyle(fontSize: 12)),
+                    ],
+                  ),
+                ],
               ),
             ),
-            body: BlocBuilder< ChatsBloc,  ChatsState>(
+            body: BlocBuilder<ChatsBloc, ChatsState>(
               builder: (context, state) {
-                if (state is  ChatsInitial) {
-                  bloc.add(LoadMessage(senderId: sender.id));
+                if (state is ChatsInitial) {
+                  print("ChatsInitial");
+                  // handel this
+                  bloc.add(LoadMessage(authId: sender.providerAuthId!));
                 }
 
                 return Column(
@@ -55,12 +62,13 @@ class ChattingScreen extends StatelessWidget {
                       child: Chat(
                         chatController: bloc.chatController,
                         // toDo change it to user id
-                        currentUserId: "provider${providers[0].id}",
+                        currentUserId: bloc.currentUserAuthId,
                         onMessageSend: (text) {
-                          bloc.add(SendMessage(userInput: text, user: sender, provider: providers[0]));
+                          print(sender.owner);
+                          bloc.add(SendMessage(userInput: text));
                         },
                         resolveUser: (UserID id) async {
-                          return User(id: "user${providers[0].id}", name: 'John Doe');
+                          return User(id: id);
                         },
                       ),
                     ),
