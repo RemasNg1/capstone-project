@@ -1,15 +1,13 @@
-import 'package:final_project/core/helper/functions.dart';
-import 'package:final_project/models/temp_bookin/booking_temp_model.dart';
-import 'package:final_project/core/enum/types.dart';
-import 'package:final_project/screens/client/bookings/bloc/bookings_bloc.dart';
-import 'package:final_project/screens/client/bookings/blocBookingImage/bloc/booking_image_bloc.dart';
+
+import 'package:final_project/screens/service_provider/services_bookings/bloc/bookings_bloc.dart';
+import 'package:final_project/screens/service_provider/services_bookings/blocBookingImage/bloc/booking_image_bloc.dart';
 import 'package:final_project/widgets/booking/column/custom_column_tab_view_cards.dart';
 import 'package:final_project/widgets/booking/tab%20view/custom_tab_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class BookingsScreen extends StatelessWidget {
-  const BookingsScreen({super.key});
+class ServicesBookingsScreen extends StatelessWidget {
+  const ServicesBookingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

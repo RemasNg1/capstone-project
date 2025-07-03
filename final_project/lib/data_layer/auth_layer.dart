@@ -3,10 +3,12 @@ import 'package:final_project/models/client/client_model.dart';
 import 'package:final_project/models/provider/provider_model.dart';
 import 'package:final_project/repo/auth.dart';
 import 'package:final_project/repo/supabase.dart';
+import 'package:hive/hive.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthLayer {
   String? idUser;
+  static final box = Hive.box('userInfo');
 
   Future<void> clientSignUpMethod({
     required String email,
@@ -17,6 +19,7 @@ class AuthLayer {
     try {
       final user = await Auth.signUp(email: email, password: password);
       idUser = user.id;
+
       await insertUserToUsersTable(name: name, phoneNumber: phone);
     } catch (e) {
       rethrow;
@@ -57,6 +60,7 @@ class AuthLayer {
   }) async {
     final user = await Auth.signIn(email: email, password: password);
     idUser = user.id;
+    box.put('authId', "${user.id}");
   }
 
   Future<void> clientVerifyOtpMethod({

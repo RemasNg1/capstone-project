@@ -121,7 +121,7 @@ class ClientLoginScreen extends StatelessWidget {
                                     //     return "Please enter your email";
                                     //   }
                                     //   return null;
-                                    // },
+                                    // }, 
                                   ),
                                   AppSpacing.h16,
 

@@ -7,6 +7,8 @@ import 'package:final_project/style/app_theme.dart';
 import 'package:final_project/utils/setup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 // remasnugaithan+47@gmail.com
 // main
@@ -14,6 +16,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SupabaseConnect.init();
   await EasyLocalization.ensureInitialized();
+    // init Hive
+  await Hive.initFlutter();
+
+  await Hive.openBox('userInfo');
   await dotenv.load(fileName: ".env");
   setup();
 

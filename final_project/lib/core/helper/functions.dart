@@ -1,21 +1,20 @@
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:final_project/core/enum/types.dart';
-import 'package:final_project/models/temp_bookin/booking_temp_model.dart';
+
 import 'package:final_project/models/temp_bookin/message_temp_model.dart';
 import 'package:final_project/style/app_colors.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-//-------------------- Booking part --------------------
+// //-------------------- Booking part --------------------
 
-List<BookingTempModel> getBookingWithSameStatus(
-  List<BookingTempModel> bookingList,
-  EnumBookingStatus status,
-) {
-  return bookingList.where((booking) => booking.status == status).toList();
-}
+// List<BookingTempModel> getBookingWithSameStatus(
+//   List<BookingTempModel> bookingList,
+//   EnumBookingStatus status,
+// ) {
+//   return bookingList.where((booking) => booking.status == status).toList();
+// }
 
 //-------------------- chat part --------------------
 

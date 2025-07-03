@@ -4,14 +4,15 @@ import 'package:bloc/bloc.dart';
 import 'package:final_project/data_layer/auth_layer.dart';
 import 'package:final_project/data_layer/booking_layer.dart';
 import 'package:final_project/models/booking/model_booking.dart';
-
+import 'package:final_project/repo/booking.dart';
+import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 
 part 'bookings_event.dart';
 part 'bookings_state.dart';
 
 class BookingsBloc extends Bloc<BookingsEvent, BookingsState> {
-  List<ModelBooking>? allCustomerBooking = [];
+  List<ModelBooking>? allProviderBooking = [];
   List<ModelBooking>? currentBookingNotAccepted = [];
   List<ModelBooking>? currentBookingAccepted = [];
   List<ModelBooking>? pastBooking = [];
@@ -25,20 +26,21 @@ class BookingsBloc extends Bloc<BookingsEvent, BookingsState> {
     BookingsLoadingData event,
     Emitter<BookingsState> emit,
   ) async {
+
     // box.add('userType',);
     // print(AuthLayer.box.get('userType')); // Dave: 22
-    print(AuthLayer.box.get('authId')); // Dave: 22
+    // print(AuthLayer.box.get('authId')); // Dave: 22
     emit(BookingLoading());
-    allCustomerBooking = await BookingLayer.getAllCustomerBooking();
+    allProviderBooking = await BookingLayer.getAllProviderBooking();
 
     // take all provider id to download his images
-    Set<int?> serviceProvidedIdsSet = allCustomerBooking!
+    Set<int?> serviceProvidedIdsSet = allProviderBooking!
         .map((booking) => booking.serviceProvidedId)
         .toSet();
 
     print("providerd id = : ${serviceProvidedIdsSet.length}");
     Map<String, List<ModelBooking>?>? bookingList =
-        BookingLayer.getBookingByStatus(allBooking: allCustomerBooking);
+        BookingLayer.getBookingByStatus(allBooking: allProviderBooking);
 
     if (bookingList != null) {
       currentBookingNotAccepted = bookingList['currentBookingNotAccepted'];

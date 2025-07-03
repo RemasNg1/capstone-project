@@ -18,7 +18,6 @@ class CustomTabView extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-
           title: Text(titlePage),
           bottom: TabBar(
             tabs: tabTitles.map((title) => Tab(text: title)).toList(),
