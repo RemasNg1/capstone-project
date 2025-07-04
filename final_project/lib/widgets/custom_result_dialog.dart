@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/screens/client/home/home_screen.dart';
 
 import 'package:final_project/style/app_colors.dart';
+import 'package:final_project/style/app_spacing.dart';
 import 'package:final_project/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +27,7 @@ class CustomResultDialog {
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(icon, size: 72, color: iconColor),
-              const SizedBox(height: 24),
+              AppSpacing.h24,
               Text(
                 title,
                 style: const TextStyle(
@@ -35,7 +37,7 @@ class CustomResultDialog {
                 ),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 8),
+              AppSpacing.h8,
               Text(
                 message,
                 style: const TextStyle(
@@ -44,7 +46,7 @@ class CustomResultDialog {
                 ),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 24),
+              AppSpacing.h24,
               CustomButton(
                 onPressed: () {
                   Navigator.push(
@@ -52,7 +54,7 @@ class CustomResultDialog {
                     MaterialPageRoute(builder: (context) => HomeScreen()),
                   );
                 },
-                title: 'Back to home',
+                title: 'bookingReview.back_to_home'.tr(),
                 width: 160,
                 height: 50,
               ),

@@ -1,12 +1,20 @@
+import java.util.Properties
+
+
+val envProperties = Properties().apply {
+    load(rootProject.file(".env").inputStream())
+}
+
+
+val googleMapsApiKey = envProperties["GOOGLE_MAPS_ANDROID_KEY"] as String
+
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
 }
-manifestPlaceholders = [
-  GOOGLE_MAPS_API_KEY: dotenv.env['GOOGLE_MAPS_ANDROID_KEY']
-]
 
 android {
     namespace = "com.example.final_project"
@@ -23,24 +31,23 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.example.final_project"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+
+        
+        resValue("string", "GOOGLE_MAPS_ANDROID_KEY", googleMapsApiKey)
     }
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.getByName("debug")
         }
     }
 }
+
 
 flutter {
     source = "../.."

@@ -12,9 +12,12 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 //main
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
   await SupabaseConnect.init();
   await EasyLocalization.ensureInitialized();
-  await dotenv.load(fileName: ".env");
+  print(dotenv.env['SUPABASE_URL']);
+  print(dotenv.env['SUPABASE_KEY']);
+
   setup();
 
   runApp(
@@ -38,6 +41,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       debugShowCheckedModeBanner: false,
+
       theme: AppTheme.lightTheme(context),
       home: SplashScreen(),
     );
