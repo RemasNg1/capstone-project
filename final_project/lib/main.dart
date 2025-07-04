@@ -14,13 +14,15 @@ import 'package:hive_flutter/hive_flutter.dart';
 // main
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
   await SupabaseConnect.init();
   await EasyLocalization.ensureInitialized();
-    // init Hive
+  // init Hive
   await Hive.initFlutter();
 
   await Hive.openBox('userInfo');
   await dotenv.load(fileName: ".env");
+
   setup();
 
   runApp(
@@ -44,6 +46,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       debugShowCheckedModeBanner: false,
+
       theme: AppTheme.lightTheme(context),
       home: SplashScreen(),
     );

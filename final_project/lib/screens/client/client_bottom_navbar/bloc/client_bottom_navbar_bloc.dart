@@ -19,7 +19,7 @@ class ClientBottomNavbarBloc
   List<Widget> screens = [
     HomeScreen(),
     BookingsScreen(),
-    ConversationScreen(),
+    ConversationScreen(messages: []),
     ClientProfileScreen(),
   ];
 

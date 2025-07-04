@@ -21,7 +21,7 @@ class ProviderBottomNavbarBloc
     ProviderHomeScreen(),
     ServicesBookingsScreen(),
     ServicesScreen(),
-    ConversationScreen(),
+    ConversationScreen(messages: []),
     ProviderProfileScreen(),
   ];
   ProviderBottomNavbarBloc() : super(ProviderBottomNavbarInitial()) {

@@ -191,6 +191,40 @@
         "locationAndPhotos": "Location and Photos",
         "attach": "Attach Photos and Files",
         "servicePrice": "Service Price",
-        "save": "Save"
-    }
+        "save": "Save",
+        "serviceNameEn": "Service Name (English)",
+        "serviceNameAr": "Service Name (Arabic)",
+        "descriptionEn": "Service Description (English)",
+        "descriptionAr": "Service Description (Arabic)",
+        "selectRegion": "Select Region",
+"selectCity": "Select City",
+"yourLocation": "Your Location",
+"saved_successfully": "Saved successfully",
+"error": "Error: {}",
+"images_uploaded": "Images uploaded successfully",
+"saving": "Saving..."
+
+        
+    },
+    "calendar": {
+  "change_availability": "Change availability for:",
+  "unavailable": "Unavailable",
+  "available": "Available",
+  "confirm": "Confirm",
+  "cancel": "Cancel",
+  "saved_successfully": "Saved successfully",
+  "not_saved": "Not saved, try again"
+},
+  "categories": {
+  "venues": "Venues",
+  "photographers": "Photographers",
+  "event_planner": "Event Planning",
+  "buffet": "Buffet",
+  "cars": "Transportation",
+  "kitchens": "Kitchens"
+}
+
+
+
+
 }

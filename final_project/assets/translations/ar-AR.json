@@ -179,18 +179,72 @@
         "addMore": "إضافة المزيد",
         "newService": "خدمة جديدة",
         "generalInfo": "معلومات عامة",
-        "category": "فئة الخدمة",
-        "categoryPlaceholder": "اختر فئة الخدمة",
+        "category": "تصنيف الخدمة",
+        "categoryPlaceholder": "اختر التصنيف",
         "about": "عن الخدمة",
         "guests": "عدد الضيوف",
         "inputPlaceholder": "اكتب هنا ...",
         "dates": "التواريخ المتاحة",
         "datePlaceholder": "اختر التاريخ",
-        "addPackages": "إضافة باقات",
+        "addPackages": "أضف باقات",
         "price": "السعر",
         "locationAndPhotos": "الموقع والصور",
-        "attach": "إرفاق صور وملفات",
+        "attach": "أرفق الصور والملفات",
         "servicePrice": "سعر الخدمة",
-        "save": "حفظ"
-    }
+        "save": "حفظ",
+        "serviceNameEn": "اسم الخدمة (بالإنجليزية)",
+        "serviceNameAr": "اسم الخدمة (بالعربية)",
+        "descriptionEn": "وصف الخدمة (بالإنجليزية)",
+        "descriptionAr": "وصف الخدمة (بالعربية)" ,
+        "services": {
+  "myServices": "خدماتي",
+  "addMore": "إضافة المزيد",
+  "newService": "إضافة خدمة جديدة",
+  "generalInfo": "معلومات عامة",
+  "category": "نوع الخدمة",
+  "categoryPlaceholder": "اختر نوع الخدمة",
+  "about": "عن الخدمة",
+  "guests": "عدد الضيوف",
+  "inputPlaceholder": "اكتب هنا...",
+  "dates": "التواريخ المتاحة",
+  "datePlaceholder": "اختر تاريخاً",
+  "addPackages": "إضافة باقات",
+  "price": "السعر",
+  "locationAndPhotos": "الموقع والصور",
+  "attach": "إرفاق صور وملفات",
+  "servicePrice": "سعر الخدمة",
+  "save": "حفظ",
+  "serviceNameEn": "اسم الخدمة (بالإنجليزية)",
+  "serviceNameAr": "اسم الخدمة (بالعربية)",
+  "descriptionEn": "وصف الخدمة (بالإنجليزية)",
+  "descriptionAr": "وصف الخدمة (بالعربية)",
+  "selectRegion": "اختر المنطقة",
+  "selectCity": "اختر المدينة",
+  "yourLocation": "موقعك",
+  "saved_successfully": "تم الحفظ بنجاح",
+  "error": "خطأ: {}",
+  "images_uploaded": "تم رفع الصور بنجاح",
+  "saving": "جاري الحفظ..."
+}
+
+    },
+    "calendar": {
+  "change_availability": "تغيير التوفر لـ:",
+  "unavailable": "غير متاح",
+  "available": "متاح",
+  "confirm": "تأكيد",
+  "cancel": "إلغاء",
+  "saved_successfully": "تم الحفظ بنجاح",
+  "not_saved": "لم يتم الحفظ، حاول مرة أخرى"
+},
+"categories": {
+  "venues": "القاعات",
+  "photographers": "التصوير",
+  "event_planner": "تنسيق",
+  "buffet": "الضيافة",
+  "cars": "النقل",
+  "kitchens": "المطابخ"
+}
+
+
 }

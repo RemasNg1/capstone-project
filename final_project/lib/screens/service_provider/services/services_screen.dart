@@ -1,12 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/data/dummy_data.dart';
 import 'package:final_project/models/model.dart';
-import 'package:final_project/screens/service_provider/add_new_service/add_new_service_screen.dart';
+import 'package:final_project/screens/service_provider/add_new_service/addNew_service_screen.dart';
+import 'package:final_project/screens/service_provider/add_new_service/bloc/add_new_service_bloc.dart';
+import 'package:final_project/screens/service_provider/add_new_service/bloc/add_new_service_event.dart';
 import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_spacing.dart';
 import 'package:final_project/widgets/service_provider_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
 
 class ServicesScreen extends StatelessWidget {
   const ServicesScreen({super.key});
@@ -83,9 +87,18 @@ class ServicesScreen extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => AddNewServiceScreen()),
+                MaterialPageRoute(
+                  builder: (_) => BlocProvider<AddServiceBloc>(
+                    create: (_) => GetIt.I<AddServiceBloc>()
+                      ..add(LoadServiceTypes())
+                      ..add(LoadRegionsAndCities()),
+
+                    child: const AddNewServiceScreen(),
+                  ),
+                ),
               );
             },
+
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 16),
               decoration: BoxDecoration(

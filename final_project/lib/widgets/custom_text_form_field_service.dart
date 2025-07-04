@@ -11,6 +11,7 @@ class CustomTextFormFieldService extends StatelessWidget {
   final VoidCallback? onSuffixTap;
   final bool readOnly;
   final FormFieldValidator<String>? validator;
+  final ValueChanged<String>? onChanged;
 
   const CustomTextFormFieldService({
     super.key,
@@ -22,6 +23,7 @@ class CustomTextFormFieldService extends StatelessWidget {
     this.onSuffixTap,
     this.readOnly = false,
     this.validator,
+    this.onChanged,
   });
 
   @override

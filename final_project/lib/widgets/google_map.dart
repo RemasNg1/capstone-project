@@ -5,12 +5,14 @@ class GoogleMapWidget extends StatelessWidget {
   final double latitude;
   final double longitude;
   final String label;
+  final void Function(double lat, double lng)? onLocationSelected;
 
   const GoogleMapWidget({
     super.key,
     required this.latitude,
     required this.longitude,
     required this.label,
+    this.onLocationSelected,
   });
 
   @override
@@ -30,6 +32,14 @@ class GoogleMapWidget extends StatelessWidget {
               position: position,
               infoWindow: InfoWindow(title: label),
             ),
+          },
+          onTap: (LatLng selectedPosition) {
+            if (onLocationSelected != null) {
+              onLocationSelected!(
+                selectedPosition.latitude,
+                selectedPosition.longitude,
+              );
+            }
           },
           zoomControlsEnabled: false,
           myLocationButtonEnabled: false,

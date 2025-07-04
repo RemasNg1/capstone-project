@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ConversationScreen extends StatelessWidget {
-  const ConversationScreen({super.key});
+  const ConversationScreen({super.key, required List messages});
 
   @override
   Widget build(BuildContext context) {
@@ -44,16 +44,16 @@ class ConversationScreen extends StatelessWidget {
                           itemCount: messages.length,
                           itemBuilder: (BuildContext context, int index) {
                             return InkWell(
-                               onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ChattingScreen(
-                                        sender: messages[index]!,
-                                      ),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ChattingScreen(
+                                      sender: messages[index]!,
                                     ),
-                                  );
-                                },
+                                  ),
+                                );
+                              },
                               child: ListTile(
                                 leading: CircleAvatar(
                                   maxRadius: 30,
@@ -63,7 +63,9 @@ class ConversationScreen extends StatelessWidget {
                                 ),
                                 title: Text(messages[index].providers!.nameEn!),
                                 subtitle: Text(messages[index].content!),
-                                trailing:Icon(Icons.arrow_forward_ios_outlined),
+                                trailing: Icon(
+                                  Icons.arrow_forward_ios_outlined,
+                                ),
                               ),
                             );
                           },
