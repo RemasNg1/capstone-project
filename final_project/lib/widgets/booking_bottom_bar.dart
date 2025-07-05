@@ -1,9 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:final_project/style/app_buttons.dart';
 import 'package:final_project/style/app_colors.dart';
+import 'package:final_project/style/app_text_styles.dart';
 import 'package:final_project/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
 class BookingBottomBar extends StatelessWidget {
-  final int? price;
+  final String? price;
   final String buttonText;
   final double buttonWidth;
   final VoidCallback? onPressed;
@@ -32,21 +35,27 @@ class BookingBottomBar extends StatelessWidget {
           if (showPrice && price != null)
             Expanded(
               child: Text(
-                'Total $price SR',
+                '${'bookingReview.total'.tr()} $price ${'bookingReview.sr'.tr()}',
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                 ),
+                textAlign: TextAlign.center,
               ),
             )
           else
             const Spacer(),
-          CustomButton(
-            title: buttonText,
-            width: buttonWidth,
-            height: 48,
+          ElevatedButton(
             onPressed: onPressed ?? () {},
+            style: AppButtons.small,
+            child: Text(buttonText, style: AppTextStyles.interSize16(context)),
           ),
+          // CustomButton(
+          //   title: buttonText,
+          //   width: buttonWidth,
+          //   height: 48,
+          //   onPressed: onPressed ?? () {},
+          // ),
         ],
       ),
     );

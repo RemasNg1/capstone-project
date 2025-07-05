@@ -129,9 +129,12 @@
         "paymentMethod": "Payment Method",
         "addMore": "Add More",
         "pay": "Pay",
+        "payment": "Payment",
         "payment_success": "Payment Successfully",
         "wait_for_acceptance": "Wait for the service provider to accept your order.",
-        "back_to_home": "Back to home"
+        "back_to_home": "Back to home",
+        "sr": "SR",
+        "date": "Date"
     },
     "bookings": {
         "myBookings": "My Bookings",

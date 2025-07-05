@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/screens/client/home/home_screen.dart';
+import 'package:final_project/style/app_buttons.dart';
 
 import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_spacing.dart';
+import 'package:final_project/style/app_text_styles.dart';
 import 'package:final_project/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
@@ -46,18 +48,31 @@ class CustomResultDialog {
                 ),
                 textAlign: TextAlign.center,
               ),
-              AppSpacing.h24,
-              CustomButton(
+              const SizedBox(height: 24),
+              ElevatedButton(
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => HomeScreen()),
                   );
                 },
-                title: 'bookingReview.back_to_home'.tr(),
-                width: 160,
-                height: 50,
+                style: AppButtons.medium,
+                child: Text(
+                  buttonText,
+                  style: AppTextStyles.interSize16(context),
+                ),
               ),
+              // CustomButton(
+              //   onPressed: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(builder: (context) => HomeScreen()),
+              //     );
+              //   },
+              //   title: buttonText,
+              //   width: 160,
+              //   height: 50,
+              // ),
             ],
           ),
         ),

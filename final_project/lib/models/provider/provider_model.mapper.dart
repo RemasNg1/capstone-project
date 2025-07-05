@@ -26,7 +26,7 @@ class ProviderModelMapper extends ClassMapperBase<ProviderModel> {
   static String? _$nameAr(ProviderModel v) => v.nameAr;
   static const Field<ProviderModel, String> _f$nameAr =
       Field('nameAr', _$nameAr, key: r'name_ar');
-  static String _$nameEn(ProviderModel v) => v.nameEn;
+  static String? _$nameEn(ProviderModel v) => v.nameEn;
   static const Field<ProviderModel, String> _f$nameEn =
       Field('nameEn', _$nameEn, key: r'name_en');
   static String? _$descriptionAr(ProviderModel v) => v.descriptionAr;
@@ -48,17 +48,17 @@ class ProviderModelMapper extends ClassMapperBase<ProviderModel> {
   static EnumUserStatus _$status(ProviderModel v) => v.status;
   static const Field<ProviderModel, EnumUserStatus> _f$status =
       Field('status', _$status);
-  static String _$phoneNumber(ProviderModel v) => v.phoneNumber;
+  static String? _$phoneNumber(ProviderModel v) => v.phoneNumber;
   static const Field<ProviderModel, String> _f$phoneNumber =
       Field('phoneNumber', _$phoneNumber, key: r'phone_number');
   static String? _$authId(ProviderModel v) => v.authId;
   static const Field<ProviderModel, String> _f$authId =
       Field('authId', _$authId, key: r'auth_id', opt: true);
-  static bool _$isDeleted(ProviderModel v) => v.isDeleted;
+  static bool? _$isDeleted(ProviderModel v) => v.isDeleted;
   static const Field<ProviderModel, bool> _f$isDeleted = Field(
       'isDeleted', _$isDeleted,
       key: r'is_deleted', opt: true, def: false);
-  static bool _$isVerified(ProviderModel v) => v.isVerified;
+  static bool? _$isVerified(ProviderModel v) => v.isVerified;
   static const Field<ProviderModel, bool> _f$isVerified =
       Field('isVerified', _$isVerified, key: r'is_verified');
   static DateTime? _$createdAt(ProviderModel v) => v.createdAt;
@@ -197,24 +197,24 @@ class _ProviderModelCopyWithImpl<$R, $Out>
   $R call(
           {Object? id = $none,
           Object? nameAr = $none,
-          String? nameEn,
+          Object? nameEn = $none,
           Object? descriptionAr = $none,
           Object? descriptionEn = $none,
           Object? avatar = $none,
           Object? iban = $none,
           Object? commercialRegistrationNumber = $none,
           EnumUserStatus? status,
-          String? phoneNumber,
+          Object? phoneNumber = $none,
           Object? authId = $none,
-          bool? isDeleted,
-          bool? isVerified,
+          Object? isDeleted = $none,
+          Object? isVerified = $none,
           Object? createdAt = $none,
           Object? updatedAt = $none,
           Object? notificationId = $none}) =>
       $apply(FieldCopyWithData({
         if (id != $none) #id: id,
         if (nameAr != $none) #nameAr: nameAr,
-        if (nameEn != null) #nameEn: nameEn,
+        if (nameEn != $none) #nameEn: nameEn,
         if (descriptionAr != $none) #descriptionAr: descriptionAr,
         if (descriptionEn != $none) #descriptionEn: descriptionEn,
         if (avatar != $none) #avatar: avatar,
@@ -222,10 +222,10 @@ class _ProviderModelCopyWithImpl<$R, $Out>
         if (commercialRegistrationNumber != $none)
           #commercialRegistrationNumber: commercialRegistrationNumber,
         if (status != null) #status: status,
-        if (phoneNumber != null) #phoneNumber: phoneNumber,
+        if (phoneNumber != $none) #phoneNumber: phoneNumber,
         if (authId != $none) #authId: authId,
-        if (isDeleted != null) #isDeleted: isDeleted,
-        if (isVerified != null) #isVerified: isVerified,
+        if (isDeleted != $none) #isDeleted: isDeleted,
+        if (isVerified != $none) #isVerified: isVerified,
         if (createdAt != $none) #createdAt: createdAt,
         if (updatedAt != $none) #updatedAt: updatedAt,
         if (notificationId != $none) #notificationId: notificationId

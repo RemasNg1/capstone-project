@@ -4,13 +4,16 @@ import 'package:table_calendar/table_calendar.dart';
 
 class CalendarWidget extends StatelessWidget {
   final DateTime selectedDay;
-  final Set<DateTime>? selectedDays; // list of booking days 
+  final Set<DateTime>? selectedDays; // list of booking days
   final Set<DateTime> unavailableDays; // Set of unavailable
+  final void Function(DateTime selectedDay)? onDaySelected;
 
   const CalendarWidget({
     super.key,
     required this.selectedDay,
     required this.unavailableDays,
+    this.onDaySelected,
+
     this.selectedDays,
   });
 
@@ -42,10 +45,12 @@ class CalendarWidget extends StatelessWidget {
         focusedDay: selectedDay, // Initially focused day (current month)
         // Highlight the selected day
         selectedDayPredicate:
-        // if a pass selected date then will halite this days else will halite only current day 
-          (day) {
-                return  selectedDays != null ? selectedDays!.any((d) => isSameDay(d, day)) : isSameDay(day, selectedDay) ;
-              },
+            // if a pass selected date then will halite this days else will halite only current day
+            (day) {
+              return selectedDays != null
+                  ? selectedDays!.any((d) => isSameDay(d, day))
+                  : isSameDay(day, selectedDay);
+            },
 
         calendarFormat: CalendarFormat.month, // Month view only
         availableGestures: AvailableGestures.all, // Allow swipe gestures
@@ -57,13 +62,15 @@ class CalendarWidget extends StatelessWidget {
         ),
 
         calendarStyle: CalendarStyle(
-          todayDecoration: BoxDecoration(
-            color: AppColors.lightBlue,
-            shape: BoxShape.circle,
-          ),
+          todayTextStyle: TextStyle(color: Colors.black),
+          todayDecoration: BoxDecoration(),
           selectedDecoration: BoxDecoration(
-            color:selectedDays!=null? AppColors.contentColorYellow : AppColors.blue,
-            shape: selectedDays!=null? BoxShape.rectangle: BoxShape.rectangle,
+            color: selectedDays != null
+                ? AppColors.contentColorYellow
+                : AppColors.blue,
+            shape: selectedDays != null
+                ? BoxShape.rectangle
+                : BoxShape.rectangle,
           ),
           weekendTextStyle: const TextStyle(color: Colors.black),
           defaultTextStyle: const TextStyle(color: Colors.black),
@@ -100,7 +107,11 @@ class CalendarWidget extends StatelessWidget {
           },
         ),
 
-        onDaySelected: (selected, focused) {},
+        onDaySelected: (selected, focused) {
+          if (onDaySelected != null) {
+            onDaySelected!(selected);
+          }
+        },
       ),
     );
   }

@@ -1,5 +1,4 @@
-import 'package:final_project/data/dummy_data.dart';
-import 'package:final_project/models/model.dart';
+import 'package:final_project/models/services_models/services_provided/services_provided_model.dart';
 import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/widgets/category_card.dart';
 import 'package:flutter/material.dart';
@@ -8,13 +7,16 @@ import 'package:flutter/material.dart';
 
 class CategoryServiceScreen extends StatelessWidget {
   final String categoryName;
+  final List<ServicesProvidedModel> filteredServices;
 
-  const CategoryServiceScreen({super.key, required this.categoryName});
+  const CategoryServiceScreen({
+    super.key,
+    required this.categoryName,
+    required this.filteredServices,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final List<DummyService> services = List.generate(8, (_) => dummyService);
-
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: AppBar(
@@ -71,7 +73,7 @@ class CategoryServiceScreen extends StatelessWidget {
               child: SizedBox(
                 height: MediaQuery.of(context).size.height * 0.6,
                 child: GridView.builder(
-                  itemCount: services.length,
+                  itemCount: filteredServices.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisSpacing: 16,
@@ -79,13 +81,13 @@ class CategoryServiceScreen extends StatelessWidget {
                     childAspectRatio: 160 / 205, // Card ratio
                   ),
                   itemBuilder: (context, index) {
-                    final service = services[index];
+                    final service = filteredServices[index];
                     return CategoryCard(
-                      imageUrl: service.mainImage,
-                      title: service.name,
-                      location: service.location,
-                      rating: service.rating,
-                      ratingCount: service.reviews.length,
+                      imageUrl: service.servicImage!.first.imageUrl!,
+                      title: service.titleAr!,
+                      location: service.locations!.first.city!.nameAr!,
+                      rating: service.ratings!.first.rating!,
+                      ratingCount: service.ratings!.length,
                     );
                   },
                 ),
