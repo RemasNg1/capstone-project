@@ -55,10 +55,10 @@ class DummyService {
 }
 
 class PaymentDetails {
-  final int venuePrice;
-  final int buffetPrice;
-  final int plannerPrice;
-  final int tax;
+  final double venuePrice;
+  final double buffetPrice;
+  final double plannerPrice;
+  final double tax;
 
   PaymentDetails({
     required this.venuePrice,
@@ -67,7 +67,7 @@ class PaymentDetails {
     required this.tax,
   });
 
-  int get total => venuePrice + buffetPrice + plannerPrice + tax;
+  double get total => venuePrice + buffetPrice + plannerPrice + tax;
 }
 
 class PaymentMethod {
@@ -91,7 +91,7 @@ class MyService {
   final String location;
   final double rating;
   final int reviewCount;
-  final int price;
+  final double price;
   final String imageUrl;
 
   MyService({

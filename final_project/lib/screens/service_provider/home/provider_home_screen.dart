@@ -28,7 +28,9 @@ class ProviderHomeScreen extends StatelessWidget {
               child: Builder(
                 builder: (context) {
                   final bloc = context.read<ProviderHomeBloc>();
-                  final int totalIncoming = bloc.listOfValue.fold(0, (a, b) => a + b).toInt();
+                  final int totalIncoming = bloc.listOfValue
+                      .fold(0, (a, b) => a + b)
+                      .toInt();
 
                   return BlocBuilder<ProviderHomeBloc, ProviderHomeState>(
                     builder: (context, state) {
@@ -41,10 +43,15 @@ class ProviderHomeScreen extends StatelessWidget {
                               children: <Widget>[
                                 AppSpacing.h32,
                                 CustomGroupButtons(
-                                   selected:bloc.selectedDataView,
-                                  onSelection: ( newSelection) { 
-                                      bloc.add(ChangeDataView(selectedDataView: newSelection.first));
-                                 }),
+                                  selected: bloc.selectedDataView,
+                                  onSelection: (newSelection) {
+                                    bloc.add(
+                                      ChangeDataView(
+                                        selectedDataView: newSelection.first,
+                                      ),
+                                    );
+                                  },
+                                ),
                                 AppSpacing.h32,
                                 Column(
                                   spacing: 24,
@@ -80,7 +87,7 @@ class ProviderHomeScreen extends StatelessWidget {
                                 IncomingChart(
                                   title: 'Incoming',
                                   valuesToDisplay: bloc.listOfValue,
-                                  typeOfShowChart:bloc.selectedDataView,
+                                  typeOfShowChart: bloc.selectedDataView,
                                 ),
                                 AppSpacing.h32,
 

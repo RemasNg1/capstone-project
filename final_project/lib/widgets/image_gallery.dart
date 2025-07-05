@@ -1,10 +1,11 @@
 //
 
+import 'package:final_project/models/services_models/service_image/service_image_model.dart';
 import 'package:final_project/style/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class ImageGallery extends StatelessWidget {
-  final List<String> imageUrls;
+  final List<ServiceImageModel> imageUrls;
   final VoidCallback? onMorePressed;
 
   const ImageGallery({super.key, required this.imageUrls, this.onMorePressed});
@@ -25,7 +26,7 @@ class ImageGallery extends StatelessWidget {
               itemBuilder: (context, index) {
                 return InteractiveViewer(
                   child: Image.network(
-                    imageUrls[index],
+                    imageUrls[index].imageUrl!,
                     fit: BoxFit.contain,
                     height: 400,
                   ),
@@ -75,7 +76,7 @@ class ImageGallery extends StatelessWidget {
                               height: 91,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                  image: NetworkImage(url),
+                                  image: NetworkImage(url.imageUrl!),
                                   fit: BoxFit.cover,
                                   colorFilter: ColorFilter.mode(
                                     Color(0x66000000),
@@ -97,7 +98,7 @@ class ImageGallery extends StatelessWidget {
                               ),
                             )
                           : Image.network(
-                              url,
+                              url.imageUrl!,
                               width: 100,
                               height: 91,
                               fit: BoxFit.cover,

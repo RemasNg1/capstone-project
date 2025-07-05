@@ -119,6 +119,7 @@
 //   }
 // }
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_spacing.dart';
@@ -230,7 +231,7 @@ class ServiceCard extends StatelessWidget {
                       AppSpacing.w8,
                       Text(
                         showReviewCount
-                            ? '($reviewCount ratings)'
+                            ? '($reviewCount ${'home.ratings'.tr()})'
                             : rating.toStringAsFixed(1),
                         style: AppTextStyles.interSize14(
                           context,

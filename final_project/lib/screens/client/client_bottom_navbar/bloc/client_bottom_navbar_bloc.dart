@@ -6,6 +6,7 @@ import 'package:final_project/screens/client/home/home_screen.dart';
 import 'package:final_project/screens/client/home/homeee_screen.dart';
 import 'package:final_project/screens/client/profile/client_profile_screen.dart';
 import 'package:final_project/screens/general/chats/conversation_screen.dart';
+import 'package:final_project/screens/test/testing_home/testing_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
@@ -17,7 +18,8 @@ class ClientBottomNavbarBloc
   int selectIndex = 0;
 
   List<Widget> screens = [
-    HomeScreen(),
+    // HomeScreen(),
+    TestingHomeScreen(),
     BookingsScreen(),
     ConversationScreen(messages: getUnique()),
     ClientProfileScreen(),

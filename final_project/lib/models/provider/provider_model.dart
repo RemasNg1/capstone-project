@@ -11,7 +11,7 @@ class ProviderModel with ProviderModelMappable {
   final String? nameAr;
 
   @MappableField(key: 'name_en')
-  final String nameEn;
+  final String? nameEn;
 
   @MappableField(key: 'description_ar')
   final String? descriptionAr;
@@ -28,16 +28,16 @@ class ProviderModel with ProviderModelMappable {
   final EnumUserStatus status;
 
   @MappableField(key: 'phone_number')
-  final String phoneNumber;
+  final String? phoneNumber;
 
   @MappableField(key: 'auth_id')
   final String? authId;
 
   @MappableField(key: 'is_deleted')
-  final bool isDeleted;
+  final bool? isDeleted;
 
   @MappableField(key: 'is_verified')
-  final bool isVerified;
+  final bool? isVerified;
 
   @MappableField(key: 'created_at')
   final DateTime? createdAt;

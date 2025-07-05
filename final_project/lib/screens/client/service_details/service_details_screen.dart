@@ -59,7 +59,7 @@ class ServiceDetailsScreen extends StatelessWidget {
 
       // Booking bar
       bottomNavigationBar: BookingBottomBar(
-        price: dummyService.packages.first.price,
+        price: dummyService.packages.first.price.toString(),
         buttonText: 'Book',
         buttonWidth: 120,
         onPressed: () {
@@ -110,8 +110,7 @@ class ServiceDetailsScreen extends StatelessWidget {
                 },
               ),
 
-              ImageGallery(imageUrls: dummyService.galleryImages),
-
+              // ImageGallery(imageUrls: dummyService.galleryImages),
               const SizedBox(height: 20),
               // Description section
               ServiceDescriptionSection(

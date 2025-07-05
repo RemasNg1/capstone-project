@@ -161,4 +161,25 @@ class Auth {
 
     return response != null;
   }
+
+  // static fetchCurrentUser() async {
+  //   try {
+  //     final authId = Supabase.instance.client.auth.currentUser?.id;
+
+  //     if (authId == null) {
+  //       return null;
+  //     }
+
+  //     final userInfo = await Supabase.instance.client
+  //         .from('user')
+  //         .select()
+  //         .eq('auth_id', authId)
+  //         .single();
+
+  //     return ClientModelMapper.fromMap(userInfo);
+  //   } catch (e) {
+  //     print('Error fetching user info: $e');
+  //     return null;
+  //   }
+  // }
 }

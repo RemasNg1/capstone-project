@@ -33,9 +33,11 @@ class CheckoutScreen extends StatelessWidget {
             const SizedBox(height: 16),
 
             PaymentSummaryCard(
-              venuePrice: payment.venuePrice,
-              buffetPrice: payment.buffetPrice,
-              plannerPrice: payment.plannerPrice,
+              // venuePrice: payment.venuePrice,
+              // buffetPrice: payment.buffetPrice,
+              // plannerPrice: payment.plannerPrice,
+              serviceTitle: "test",
+              servicePrice: 555,
               tax: payment.tax,
               total: payment.total,
             ),
@@ -48,7 +50,7 @@ class CheckoutScreen extends StatelessWidget {
       ),
 
       bottomNavigationBar: BookingBottomBar(
-        price: payment.total,
+        price: payment.total.toString(),
         buttonText: 'Pay',
         buttonWidth: 100,
         onPressed: () {

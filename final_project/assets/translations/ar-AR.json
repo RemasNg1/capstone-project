@@ -104,7 +104,7 @@
         "search": "بحث",
         "chooseCategory": "اختر الفئة",
         "recommended": "موصى به",
-        "ratings": "التقييمات",
+        "ratings": "تقييمات",
         "allServices": "كل الخدمات",
         "change_language": "تغيير اللغة إلى الإنجليزية"
     },
@@ -129,9 +129,12 @@
         "paymentMethod": "طريقة الدفع",
         "addMore": "إضافة المزيد",
         "pay": "ادفع",
+        "payment": "الدفع",
         "payment_success": "تم الدفع بنجاح",
         "wait_for_acceptance": "انتظر حتى يقوم مقدم الخدمة بقبول طلبك.",
-        "back_to_home": "العودة إلى الصفحة الرئيسية"
+        "back_to_home": "العودة إلى الصفحة الرئيسية",
+        "sr": "ريال",
+        "date": "التاريخ"
     },
     "bookings": {
         "myBookings": "حجوزاتي",
