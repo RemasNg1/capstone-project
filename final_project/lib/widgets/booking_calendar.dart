@@ -1,22 +1,28 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:final_project/models/add_service/service_model.dart';
 import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_spacing.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class BookingCalendar extends StatefulWidget {
-  final void Function(String)? onDateSelected;
-  const BookingCalendar({super.key, this.onDateSelected});
+  final int serviceLocationId;
+  final void Function(DateTime)? onDateSelected;
+  final void Function(List<DateTimeRangeModel>)? onUnavailableDatesChanged;
+
+  const BookingCalendar({
+    super.key,
+    this.onDateSelected,
+    this.onUnavailableDatesChanged,
+    required this.serviceLocationId,
+  });
 
   @override
   State<BookingCalendar> createState() => _BookingCalendarState();
 }
 
 class _BookingCalendarState extends State<BookingCalendar> {
-  final int serviceLocationId = 3; // This should be dynamically
   DateTime selectedMonth = DateTime.now();
-  final Set<DateTime> unavailableDates = {}; // Local set of unavailable days
+  final Set<DateTime> unavailableDates = {};
   DateTime? startDate;
   DateTime? endDate;
 
@@ -32,7 +38,7 @@ class _BookingCalendarState extends State<BookingCalendar> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            // Top month & year selector row
+            // Header
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -84,7 +90,7 @@ class _BookingCalendarState extends State<BookingCalendar> {
             ),
             AppSpacing.h16,
 
-            // Weekday labels (Sun, Mon, ...)
+            // Days of week
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: List.generate(7, (index) {
@@ -99,7 +105,7 @@ class _BookingCalendarState extends State<BookingCalendar> {
 
             AppSpacing.h16,
 
-            // Calendar grid showing the days
+            // Calendar days
             Expanded(
               child: GridView.builder(
                 itemCount: daysInMonth,
@@ -114,14 +120,13 @@ class _BookingCalendarState extends State<BookingCalendar> {
                     selectedMonth.month,
                     index + 1,
                   );
-                  final isUnavailable = unavailableDates.contains(day);
 
+                  final isUnavailable = unavailableDates.contains(day);
                   final isInRange =
                       startDate != null &&
                       endDate != null &&
                       !day.isBefore(startDate!) &&
                       !day.isAfter(endDate!);
-
                   final isStartOnly =
                       startDate != null && endDate == null && day == startDate;
 
@@ -151,7 +156,6 @@ class _BookingCalendarState extends State<BookingCalendar> {
     );
   }
 
-  /// Handles when the user taps a day
   void _handleDayTap(DateTime day) {
     setState(() {
       if (startDate == null || (startDate != null && endDate != null)) {
@@ -169,7 +173,6 @@ class _BookingCalendarState extends State<BookingCalendar> {
     });
   }
 
-  /// Shows the bottom sheet to select availability
   void _showAvailabilityBottomSheet() {
     bool tempUnavailable = true;
 
@@ -202,7 +205,7 @@ class _BookingCalendarState extends State<BookingCalendar> {
                   ),
                   const SizedBox(height: 24),
 
-                  // Toggle buttons for Available/Unavailable
+                  // Toggle buttons
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
@@ -232,116 +235,83 @@ class _BookingCalendarState extends State<BookingCalendar> {
 
                   AppSpacing.h24,
 
-                  // Confirm button: Save to Supabase
+                  // Confirm button
                   Row(
                     children: [
-                      // Cancel on the left
-                      Expanded(
-                        child: OutlinedButton(
-                          onPressed: () {
-                            setState(() {
-                              startDate = null;
-                              endDate = null;
-                            });
-                            Navigator.pop(context);
-                          },
-                          child: Text('calendar.cancel'.tr()),
-                        ),
-                      ),
-                      AppSpacing.w16,
-                      // Confirm on the right
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: () async {
+                          onPressed: () {
                             if (startDate == null) return;
                             endDate ??= startDate;
 
-                            final supabase = Supabase.instance.client;
-                            final start = DateFormat(
-                              'yyyy-MM-dd',
-                            ).format(startDate!);
-                            final end = DateFormat(
-                              'yyyy-MM-dd',
-                            ).format(endDate!);
-
-                            try {
-                              if (tempUnavailable) {
-                                await supabase.from('disabled_dates').insert({
-                                  'start_date': start,
-                                  'end_date': end,
-                                  'service_location_id': serviceLocationId,
-                                });
-
-                                setState(() {
-                                  for (
-                                    var day = startDate!;
-                                    day.isBefore(
-                                      endDate!.add(const Duration(days: 1)),
-                                    );
-                                    day = day.add(const Duration(days: 1))
-                                  ) {
-                                    unavailableDates.add(
-                                      DateTime(day.year, day.month, day.day),
-                                    );
-                                  }
-                                });
-                              } else {
-                                await supabase
-                                    .from('disabled_dates')
-                                    .delete()
-                                    .match({
-                                      'start_date': start,
-                                      'end_date': end,
-                                      'service_location_id': serviceLocationId,
-                                    });
-
-                                setState(() {
-                                  for (
-                                    var day = startDate!;
-                                    day.isBefore(
-                                      endDate!.add(const Duration(days: 1)),
-                                    );
-                                    day = day.add(const Duration(days: 1))
-                                  ) {
-                                    unavailableDates.remove(
-                                      DateTime(day.year, day.month, day.day),
-                                    );
-                                  }
-                                });
+                            setState(() {
+                              for (
+                                var day = startDate!;
+                                day.isBefore(
+                                  endDate!.add(const Duration(days: 1)),
+                                );
+                                day = day.add(const Duration(days: 1))
+                              ) {
+                                if (tempUnavailable) {
+                                  unavailableDates.add(
+                                    DateTime(day.year, day.month, day.day),
+                                  );
+                                } else {
+                                  unavailableDates.remove(
+                                    DateTime(day.year, day.month, day.day),
+                                  );
+                                }
                               }
 
-                              if (tempUnavailable &&
-                                  widget.onDateSelected != null) {
-                                final selectedText =
-                                    startDate!.isAtSameMomentAs(endDate!)
-                                    ? DateFormat.yMMMd().format(startDate!)
-                                    : '${DateFormat.yMMMd().format(startDate!)} → ${DateFormat.yMMMd().format(endDate!)}';
-                                widget.onDateSelected!(selectedText);
-                              }
+                              final sortedDates = unavailableDates.toList()
+                                ..sort();
+                              final List<DateTimeRangeModel> ranges = [];
 
-                              if (mounted) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      'calendar.saved_successfully'.tr(),
-                                    ),
+                              if (sortedDates.isNotEmpty) {
+                                DateTime rangeStart = sortedDates.first;
+                                DateTime rangeEnd = sortedDates.first;
+
+                                for (int i = 1; i < sortedDates.length; i++) {
+                                  final current = sortedDates[i];
+
+                                  if (current.difference(rangeEnd).inDays ==
+                                      1) {
+                                    rangeEnd = current;
+                                  } else {
+                                    ranges.add(
+                                      DateTimeRangeModel(
+                                        start: rangeStart,
+                                        end: rangeEnd,
+                                      ),
+                                    );
+                                    rangeStart = current;
+                                    rangeEnd = current;
+                                  }
+                                }
+
+                                ranges.add(
+                                  DateTimeRangeModel(
+                                    start: rangeStart,
+                                    end: rangeEnd,
                                   ),
                                 );
-                                Navigator.pop(context);
                               }
-                            } catch (error) {
-                              debugPrint('Supabase Error: $error');
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text('calendar.not_saved'.tr()),
-                                ),
-                              );
-                            }
+                              widget.onUnavailableDatesChanged?.call(ranges);
 
-                            setState(() {
                               startDate = null;
                               endDate = null;
                             });
+
+                            if (mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'calendar.saved_successfully'.tr(),
+                                  ),
+                                ),
+                              );
+                              Navigator.pop(context);
+                            }
                           },
                           child: Text('calendar.confirm'.tr()),
                         ),
@@ -357,7 +327,6 @@ class _BookingCalendarState extends State<BookingCalendar> {
     );
   }
 
-  /// Builds a single toggle button (Available/Unavailable)
   Widget _buildToggleButton(
     BuildContext context, {
     required String label,
