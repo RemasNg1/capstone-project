@@ -19,3 +19,9 @@ class SubmitBooking extends BookingEvent {
     required this.date,
   });
 }
+
+class ToggleFavoriteEvent extends BookingEvent {
+  final int serviceId;
+
+  ToggleFavoriteEvent({required this.serviceId});
+}

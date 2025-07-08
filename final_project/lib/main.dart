@@ -8,8 +8,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-// remasnugaithan+47@gmail.com
-// main
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
@@ -50,4 +48,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-// test

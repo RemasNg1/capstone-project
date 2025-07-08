@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/core/constant/app_validation.dart';
 import 'package:final_project/screens/client/auth/bloc/auth_bloc.dart';
@@ -46,7 +47,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                                       otp: code,
                                     ),
                                   );
-                                }, //remasnugaithan+53@gmail.com
+                                },
                               ),
                             ),
                           );
@@ -66,15 +67,37 @@ class ForgotPasswordScreen extends StatelessWidget {
                         }
 
                         if (state is ResetPasswordOTPFailureState) {
-                          ScaffoldMessenger.of(
-                            context,
-                          ).showSnackBar(SnackBar(content: Text(state.error)));
+                          Flushbar(
+                            messageText: Text(
+                              state.error,
+                              style: AppTextStyles.interSize16(
+                                context,
+                              ).copyWith(color: Colors.white),
+                            ),
+                            backgroundColor: Colors.red,
+                            icon: Icon(Icons.error, color: Colors.white),
+                            duration: Duration(seconds: 3),
+                            flushbarPosition: FlushbarPosition.BOTTOM,
+                            borderRadius: BorderRadius.circular(8),
+                            margin: EdgeInsets.all(16),
+                          ).show(context);
                         }
 
                         if (state is FailureState) {
-                          ScaffoldMessenger.of(
-                            context,
-                          ).showSnackBar(SnackBar(content: Text(state.error!)));
+                          Flushbar(
+                            messageText: Text(
+                              state.error!,
+                              style: AppTextStyles.interSize16(
+                                context,
+                              ).copyWith(color: Colors.white),
+                            ),
+                            backgroundColor: Colors.red,
+                            icon: Icon(Icons.error, color: Colors.white),
+                            duration: Duration(seconds: 3),
+                            flushbarPosition: FlushbarPosition.BOTTOM,
+                            borderRadius: BorderRadius.circular(8),
+                            margin: EdgeInsets.all(16),
+                          ).show(context);
                         }
                       },
                       builder: (context, state) {

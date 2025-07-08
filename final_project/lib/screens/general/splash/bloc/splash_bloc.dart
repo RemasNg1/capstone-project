@@ -24,27 +24,25 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
     Emitter<SplashState> emit,
   ) async {
     emit(LoadingState());
-    await Future.delayed(Duration(seconds: 6));
+    await Future.delayed(Duration(seconds: 3));
     final user = SupabaseConnect.supabase!.client.auth.currentUser;
     if (user != null) {
       final isClient = await authGetit.isClient();
       final isProvider = await authGetit.isProvider();
       print('isClient $isClient');
       print('isProvider $isProvider');
-      final  box =  Hive.box('userInfo');
+      final box = Hive.box('userInfo');
 
       if (isClient) {
         userType = EnumUserType.customer;
-         box.put('userType', userType!.name);
+        box.put('userType', userType!.name);
         emit(UserLoggedInAsClientState());
       } else if (isProvider) {
         userType = EnumUserType.provider;
-         box.put('userType', userType!.name);
+        box.put('userType', userType!.name);
 
         emit(UserLoggedInAsProviderState());
       } else {
-        // await box.put('userType', userType);
-
         emit(UserLoggedInAsAnonymousState());
       }
     } else {

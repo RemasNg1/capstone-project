@@ -1,17 +1,17 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:final_project/data/dummy_data.dart';
 import 'package:final_project/models/services_models/services_provided/services_provided_model.dart';
 import 'package:final_project/screens/client/booking_flow/bloc/booking_bloc.dart';
-import 'package:final_project/screens/client/home/homeee_screen.dart';
+import 'package:final_project/screens/client/client_bottom_navbar/client_bottom_navbar_screen.dart';
 import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_spacing.dart';
-import 'package:final_project/widgets/booking_bottom_bar.dart';
+import 'package:final_project/style/app_text_styles.dart';
 import 'package:final_project/widgets/custom_result_dialog.dart';
-import 'package:final_project/widgets/payment_method_list.dart';
 import 'package:final_project/widgets/payment_summary_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moyasar/moyasar.dart';
+import 'dart:ui' as ui;
 
 class CheckoutScreen extends StatelessWidget {
   final ServicesProvidedModel service;
@@ -20,7 +20,6 @@ class CheckoutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final payment = dummyService.paymentDetails;
     final bloc = context.read<BookingBloc>();
 
     return Scaffold(
@@ -44,79 +43,62 @@ class CheckoutScreen extends StatelessWidget {
             PaymentSummaryCard(
               servicePrice: service.price!,
               serviceTitle: service.titleAr!,
-              // buffetPrice: payment.buffetPrice,
-              // plannerPrice: payment.plannerPrice,
               tax: service.price! * 0.15,
               total: service.price! * 1.15,
             ),
-            AppSpacing.h24,
-            CreditCard(
-              config: configMethod(amount: (service.price! * 115)),
-              onPaymentResult: (PaymentResponse value) async {
-                if (value.status == PaymentStatus.paid) {
-                  bloc.add(
-                    SubmitBooking(
-                      serviceId: service.id!,
-                      serviceLocationId: service.locations!.first.id!,
-                      date: bloc.selectedDay,
-                    ),
-                  );
-                  CustomResultDialog.show(
-                    context,
-                    icon: Icons.check_circle,
-                    iconColor: AppColors.blue,
-                    title: 'bookingReview.payment_success'.tr(),
-                    message: 'bookingReview.wait_for_acceptance'.tr(),
-                    buttonText: 'bookingReview.back_to_home'.tr(),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => HomeeScreen()),
-                      );
-                    },
-                  );
-                  // await sendNotificationByExternalId(
-                  //   externalUserId: ['34298'],
-                  //   title: 'Payment Successful',
-                  //   message:
-                  //       'Your payment of \$${bloc.amount} was successful!',
-                  // );
-                } else {
-                  // await sendNotificationByExternalId(
-                  //   externalUserId: ['34298'],
-                  //   title: 'Payment Not Successful',
-                  //   message:
-                  //       'Your payment of \$${bloc.amount} not successful!',
-                  // );
-                }
-              },
+            AppSpacing.h72,
+            Directionality(
+              textDirection: ui.TextDirection.ltr,
+              child: CreditCard(
+                config: configMethod(amount: (service.price! * 115)),
+
+                onPaymentResult: (PaymentResponse value) async {
+                  if (value.status == PaymentStatus.paid) {
+                    bloc.add(
+                      SubmitBooking(
+                        serviceId: service.id!,
+                        serviceLocationId: service.locations!.first.id!,
+                        date: bloc.selectedDay,
+                      ),
+                    );
+                    CustomResultDialog.show(
+                      context,
+                      icon: Icons.check_circle,
+                      iconColor: AppColors.blue,
+                      title: 'bookingReview.payment_success'.tr(),
+                      message: 'bookingReview.wait_for_acceptance'.tr(),
+                      buttonText: 'bookingReview.back_to_home'.tr(),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ClientBottomNavbarScreen(),
+                          ),
+                        );
+                      },
+                    );
+                  } else {
+                    Flushbar(
+                      messageText: Text(
+                        "فشلت عملية الدفع، حاول مرة أخرى.",
+                        style: AppTextStyles.interSize16(
+                          context,
+                        ).copyWith(color: Colors.white),
+                      ),
+                      backgroundColor: Colors.red,
+                      icon: Icon(Icons.error, color: Colors.white),
+                      duration: Duration(seconds: 3),
+                      flushbarPosition: FlushbarPosition.BOTTOM,
+                      borderRadius: BorderRadius.circular(8),
+                      margin: EdgeInsets.all(16),
+                    ).show(context);
+                  }
+                },
+              ),
             ),
-            // PaymentMethodList(methods: dummyPaymentMethods),
           ],
         ),
       ),
-
-      // bottomNavigationBar: BookingBottomBar(
-      //   price: (service.price! * 1.15).toStringAsFixed(2),
-      //   buttonText: 'bookingReview.pay'.tr(),
-      //   buttonWidth: 100,
-      //   onPressed: () {
-      //     CustomResultDialog.show(
-      //       context,
-      //       icon: Icons.check_circle,
-      //       iconColor: AppColors.blue,
-      //       title: 'bookingReview.payment_success'.tr(),
-      //       message: 'bookingReview.wait_for_acceptance'.tr(),
-      //       buttonText: 'bookingReview.back_to_home'.tr(),
-      //       onPressed: () {
-      //         Navigator.push(
-      //           context,
-      //           MaterialPageRoute(builder: (context) => HomeeScreen()),
-      //         );
-      //       },
-      //     );
-      //   },
-      // ),
     );
   }
 }
@@ -125,6 +107,7 @@ PaymentConfig configMethod({required double amount}) {
   return PaymentConfig(
     publishableApiKey: "",
     amount: amount.toInt(),
-    description: "test",
+    description: "Service Reservation",
+    metadata: {"capture": false},
   );
 }

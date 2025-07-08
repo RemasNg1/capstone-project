@@ -11,7 +11,18 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  // final formKey = GlobalKey<FormState>();
+  final Map<String, String> providerTermsKeys = {
+    "provider_terms.title_1": "provider_terms.body_1",
+    "provider_terms.title_2": "provider_terms.body_2",
+    "provider_terms.title_3": "provider_terms.body_3",
+    "provider_terms.title_4": "provider_terms.body_4",
+    "provider_terms.title_5": "provider_terms.body_5",
+    "provider_terms.title_6": "provider_terms.body_6",
+    "provider_terms.title_7": "provider_terms.body_7",
+    "provider_terms.title_8": "provider_terms.body_8",
+    "provider_terms.title_9": "provider_terms.body_9",
+  };
+
   final loginFormKey = GlobalKey<FormState>();
   final signUpFormKey = GlobalKey<FormState>();
   final forgotPasswordFormKey = GlobalKey<FormState>();
@@ -55,11 +66,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await authGetit.providerSignUpMethod(
         email: emailController.text,
         password: passwordController.text,
-        // nameAr: nameArController.text,
+        nameAr: nameArController.text,
         nameEn: nameEnController.text,
         // descriptionAr: descriptionArController.text,
         // descriptionEn: descriptionEnController.text,
-        // iban: ibanController.text,
+        iban: ibanController.text,
         phoneNumber: phoneController.text,
         commercialRegistrationNumber: crNumber.text,
       );

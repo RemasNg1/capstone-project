@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:final_project/models/services_models/favorite_service/favorite_service_model.dart';
 import 'package:final_project/models/services_models/services_provided/services_provided_model.dart';
 import 'package:final_project/models/services_models/service/service_model.dart';
 import 'package:final_project/repo/supabase.dart';
@@ -107,5 +108,26 @@ class Service {
 
     final data = await supabase.from('services').select();
     return (data as List).map((e) => ServiceModelMapper.fromMap(e)).toList();
+  }
+
+  static fetchFavoriteServices() async {
+    final user = SupabaseConnect.supabase!.client.auth.currentUser;
+    if (user == null) return [];
+
+    final userId = user.id;
+
+    final result = await SupabaseConnect.supabase!.client
+        .from('favorit_services')
+        .select()
+        .eq('user_auth_id', userId);
+
+    List<FavoriteService> favorites = [];
+
+    if (result.isNotEmpty) {
+      favorites = result.map((fav) {
+        return FavoriteServiceMapper.fromMap(fav);
+      }).toList();
+    }
+    return favorites;
   }
 }

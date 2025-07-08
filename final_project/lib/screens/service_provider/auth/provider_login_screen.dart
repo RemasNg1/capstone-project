@@ -1,9 +1,9 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/core/constant/app_validation.dart';
 import 'package:final_project/screens/service_provider/auth/bloc/auth_bloc.dart';
 import 'package:final_project/screens/service_provider/auth/custom_rich_text.dart';
 import 'package:final_project/screens/service_provider/auth/otp_bottom_sheet.dart';
-// import 'package:final_project/screens/client/client_bottom_navbar/client_bottom_navbar_screen.dart';
 import 'package:final_project/screens/service_provider/auth/forgot_password_screen.dart';
 import 'package:final_project/screens/service_provider/auth/provider_signup_screen.dart';
 import 'package:final_project/screens/service_provider/provider_bottom_navbar/provider_bottom_navbar_screen.dart';
@@ -53,9 +53,20 @@ class ProviderLoginScreen extends StatelessWidget {
           }
 
           if (state is OTPFailureState) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text(state.error)));
+            Flushbar(
+              messageText: Text(
+                state.error!,
+                style: AppTextStyles.interSize16(
+                  context,
+                ).copyWith(color: Colors.white),
+              ),
+              backgroundColor: Colors.red,
+              icon: Icon(Icons.error, color: Colors.white),
+              duration: Duration(seconds: 3),
+              flushbarPosition: FlushbarPosition.BOTTOM,
+              borderRadius: BorderRadius.circular(8),
+              margin: EdgeInsets.all(16),
+            ).show(context);
           }
           if (state is SuccessState) {
             Navigator.pushReplacement(
@@ -67,9 +78,20 @@ class ProviderLoginScreen extends StatelessWidget {
           }
 
           if (state is FailureState) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text(state.error!)));
+            Flushbar(
+              messageText: Text(
+                state.error!,
+                style: AppTextStyles.interSize16(
+                  context,
+                ).copyWith(color: Colors.white),
+              ),
+              backgroundColor: Colors.red,
+              icon: Icon(Icons.error, color: Colors.white),
+              duration: Duration(seconds: 3),
+              flushbarPosition: FlushbarPosition.BOTTOM,
+              borderRadius: BorderRadius.circular(8),
+              margin: EdgeInsets.all(16),
+            ).show(context);
           }
         },
         builder: (context, state) {

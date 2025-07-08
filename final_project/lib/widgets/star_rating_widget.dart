@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class StarRatingWidget extends StatelessWidget {
-  final double rating; // بين 0 و 5
+  final double rating;
   final int maxStars;
 
   const StarRatingWidget({super.key, required this.rating, this.maxStars = 5});

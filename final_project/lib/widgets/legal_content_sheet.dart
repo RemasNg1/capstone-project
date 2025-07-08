@@ -1,10 +1,17 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/style/app_spacing.dart';
+import 'package:final_project/utils/extensions/localization_helper.dart';
 import 'package:final_project/utils/extensions/screen/screen_size.dart';
 import 'package:flutter/material.dart';
 
-class TermsOfUseSheet extends StatelessWidget {
-  const TermsOfUseSheet({super.key});
+class LegalContentSheet extends StatelessWidget {
+  final String title;
+  final Map<String, String> content;
+  const LegalContentSheet({
+    super.key,
+    required this.title,
+    required this.content,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,17 +37,17 @@ class TermsOfUseSheet extends StatelessWidget {
                 ),
               ),
               Text(
-                'auth.terms'.tr(),
+                title,
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
               AppSpacing.h16,
               Expanded(
                 child: ListView.builder(
-                  itemCount: 9,
+                  itemCount: content.length,
                   itemBuilder: (context, index) {
-                    final titleKey = 'terms.title_${index + 1}';
-                    final bodyKey = 'terms.body_${index + 1}';
+                    final titleKey = content.keys.elementAt(index);
+                    final bodyKey = content.values.elementAt(index);
                     return TermsParagraph(
                       title: (titleKey).tr(),
                       body: (bodyKey).tr(),
@@ -51,8 +58,8 @@ class TermsOfUseSheet extends StatelessWidget {
             ],
           ),
           Positioned(
-            right: context.locale.languageCode == 'ar' ? null : 0,
-            left: context.locale.languageCode == 'ar' ? 0 : null,
+            right: context.isArabic ? null : 0,
+            left: context.isArabic ? 0 : null,
             top: 0,
             child: SafeArea(
               child: IconButton(

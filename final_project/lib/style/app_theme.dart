@@ -39,7 +39,6 @@ class AppTheme {
         ),
       ),
       textTheme: TextTheme(bodyMedium: TextStyle(color: AppColors.black)),
-
       appBarTheme: AppBarTheme(backgroundColor: AppColors.white),
     );
   }
@@ -75,6 +74,7 @@ class AppTheme {
           ),
         ),
       ),
+
       appBarTheme: AppBarTheme(backgroundColor: AppColors.black),
     );
   }

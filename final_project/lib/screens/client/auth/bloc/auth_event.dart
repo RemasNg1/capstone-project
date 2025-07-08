@@ -47,11 +47,3 @@ class PasswordChangedEvent extends AuthEvent {
 class EnableResendOtpEvent extends AuthEvent {}
 
 class DisableResendOtpEvent extends AuthEvent {}
-
-// class ToggleConfirmPasswordVisibility extends AuthEvent {}
-// class StartOtpCountdownEvent extends AuthEvent {}
-
-// class TickEvent extends AuthEvent {
-//   final int seconds;
-//   TickEvent(this.seconds);
-// }

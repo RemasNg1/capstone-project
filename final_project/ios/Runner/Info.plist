@@ -9,7 +9,7 @@
 <key>NSPhotoLibraryUsageDescription</key>
 <string>We need access to your gallery to upload service images.</string>
 	<key>CFBundleDisplayName</key>
-	<string>Final Project</string>
+	<string>final_project</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

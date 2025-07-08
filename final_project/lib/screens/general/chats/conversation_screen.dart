@@ -1,10 +1,4 @@
-import 'package:final_project/core/enum/types.dart';
 import 'package:final_project/models/chat/model_message.dart';
-import 'package:final_project/models/temp_bookin/message_temp_model.dart';
-import 'package:final_project/models/temp_bookin/provider_temp_model.dart';
-import 'package:final_project/models/temp_bookin/user_temp_model.dart';
-import 'package:final_project/repo/chat.dart';
-import 'package:final_project/repo/supabase.dart';
 import 'package:final_project/screens/general/chats/bloc/chats_bloc.dart';
 import 'package:final_project/screens/general/chats/chats_screen.dart';
 import 'package:final_project/utils/extensions/screen/screen_size.dart';
@@ -48,9 +42,8 @@ class ConversationScreen extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => ChattingScreen(
-                                      sender: messages[index]!,
-                                    ),
+                                    builder: (context) =>
+                                        ChattingScreen(sender: messages[index]),
                                   ),
                                 );
                               },

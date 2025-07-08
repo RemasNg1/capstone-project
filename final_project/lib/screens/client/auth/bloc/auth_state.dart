@@ -31,26 +31,6 @@ class EnableResendOtpState extends AuthState {}
 
 class DisableResendOtpState extends AuthState {}
 
-// class SuccessStatePass extends AuthState {
-//   final String password;
-//   final bool hasMinLength;
-//   final bool hasNumber;
-//   final bool hasSpecialChar;
-//   final bool hasUppercase;
-
-//   SuccessStatePass({
-//     this.password = '',
-//     this.hasMinLength = false,
-//     this.hasNumber = false,
-//     this.hasSpecialChar = false,
-//     this.hasUppercase = false,
-//   });
-// }
-
-// class ResetPasswordSentState extends AuthState {}
-
-// class ResetPasswordOTPSentState extends AuthState {}
-
 class ResetPasswordOTPVerifiedState extends AuthState {}
 
 class ResetPasswordOTPFailureState extends AuthState {

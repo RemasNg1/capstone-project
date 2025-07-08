@@ -63,8 +63,6 @@ class AppValidation {
     return null;
   }
 
-  ////////
-
   static String? validateNameAr(String? value) {
     if (value == null || value.trim().isEmpty) {
       return 'auth.name_ar_required'.tr();
@@ -72,8 +70,8 @@ class AppValidation {
     if (value.length < 3) {
       return 'auth.name_min'.tr();
     }
+    final regex = RegExp(r'^[\u0600-\u06FF0-9\s\W_]+$');
 
-    final regex = RegExp(r'^[\u0600-\u06FF\s\W_]+$');
     if (!regex.hasMatch(value)) {
       return 'auth.name_ar_invalid'.tr();
     }
@@ -88,8 +86,7 @@ class AppValidation {
     if (value.length < 3) {
       return 'auth.name_min'.tr();
     }
-
-    final regex = RegExp(r'^[a-zA-Z\s\W_]+$');
+    final regex = RegExp(r'^[a-zA-Z0-9\s\W_]+$');
     if (!regex.hasMatch(value)) {
       return 'auth.name_en_invalid'.tr();
     }
@@ -137,7 +134,7 @@ class AppValidation {
     if (value == null || value.trim().isEmpty) {
       return 'auth.iban_required'.tr();
     }
-    if (!RegExp(r'^SA\d{2}[0-9A-Z]{18}$').hasMatch(value)) {
+    if (!RegExp(r'^SA\d{22}$').hasMatch(value)) {
       return 'auth.iban_invalid'.tr();
     }
     return null;

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/widgets/star_rating_widget.dart';
 import 'package:flutter/material.dart';
@@ -121,7 +122,7 @@ class CategoryCard extends StatelessWidget {
                       StarRatingWidget(rating: rating),
                       const SizedBox(width: 4),
                       Text(
-                        '($ratingCount ratings)',
+                        '($ratingCount ${'home.ratings'.tr()})',
                         style: const TextStyle(
                           fontSize: 11,
                           color: AppColors.mediumGray,

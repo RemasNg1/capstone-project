@@ -1,18 +1,19 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/data/dummy_data.dart';
+import 'package:final_project/models/chat/model_message.dart';
 import 'package:final_project/models/services_models/services_provided/services_provided_model.dart';
-import 'package:final_project/models/service_provided/service_provided_model.dart';
-// import 'package:final_project/screens/client/booking_details/booking_details_screen.dart';
 import 'package:final_project/screens/client/booking_flow/bloc/booking_bloc.dart';
 import 'package:final_project/screens/client/booking_flow/booking_details_screen.dart';
-import 'package:final_project/screens/general/chats/conversation_screen.dart';
+import 'package:final_project/screens/general/chats/chats_screen.dart';
+import 'package:final_project/style/app_buttons.dart';
 import 'package:final_project/style/app_colors.dart';
-import 'package:final_project/style/app_text_styles.dart';
+import 'package:final_project/style/app_spacing.dart';
+import 'package:final_project/utils/extensions/localization_helper.dart';
+import 'package:final_project/utils/extensions/screen/screen_size.dart';
 import 'package:final_project/widgets/booking_bottom_bar.dart';
 import 'package:final_project/widgets/calendar_widget.dart';
 import 'package:final_project/widgets/google_map.dart';
 import 'package:final_project/widgets/image_gallery.dart';
-import 'package:final_project/widgets/package_list.dart';
 import 'package:final_project/widgets/review_card.dart';
 import 'package:final_project/widgets/service_card.dart';
 import 'package:final_project/widgets/service_description.dart';
@@ -58,9 +59,7 @@ class ServiceDetailsScreen extends StatelessWidget {
         builder: (context) {
           final bloc = context.read<BookingBloc>();
           return Scaffold(
-            backgroundColor: AppColors.white,
             appBar: AppBar(
-              backgroundColor: AppColors.white,
               elevation: 0,
               centerTitle: true,
               leading: IconButton(
@@ -68,10 +67,14 @@ class ServiceDetailsScreen extends StatelessWidget {
                   Icons.arrow_back_ios_new,
                   color: AppColors.dimGray,
                 ),
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
               ),
               title: Text(
-                service.titleAr!,
+                context.isArabic
+                    ? service.titleAr ?? ''
+                    : service.titleEn ?? '',
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: AppColors.dimGray,
@@ -80,23 +83,35 @@ class ServiceDetailsScreen extends StatelessWidget {
               ),
               actions: [
                 Padding(
-                  padding: const EdgeInsets.only(right: 16),
-                  child: GestureDetector(
-                    onTap: () {
-                      // TODO: toggle favorite status
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: BlocBuilder<BookingBloc, BookingState>(
+                    builder: (context, state) {
+                      bool isFav = service.isFavorite ?? false;
+
+                      if (state is FavoriteToggledState) {
+                        isFav = state.isFavorite;
+                      }
+
+                      return GestureDetector(
+                        onTap: () {
+                          context.read<BookingBloc>().add(
+                            ToggleFavoriteEvent(serviceId: service.id!),
+                          );
+                        },
+                        child: Container(
+                          width: 32,
+                          height: 32,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(color: AppColors.gray),
+                          ),
+                          child: Icon(
+                            isFav ? Icons.favorite : Icons.favorite_border,
+                            color: isFav ? Colors.red : AppColors.gray,
+                          ),
+                        ),
+                      );
                     },
-                    child: Container(
-                      width: 32,
-                      height: 32,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(color: AppColors.gray),
-                      ),
-                      child: const Icon(
-                        Icons.favorite_border,
-                        color: AppColors.gray,
-                      ),
-                    ),
                   ),
                 ),
               ],
@@ -106,7 +121,7 @@ class ServiceDetailsScreen extends StatelessWidget {
             bottomNavigationBar: BookingBottomBar(
               price: service.price!.toStringAsFixed(2),
               buttonText: 'serviceDetails.book'.tr(),
-              buttonWidth: 120,
+              buttonStyle: AppButtons.small,
               onPressed: () {
                 Navigator.push(
                   context,
@@ -118,17 +133,6 @@ class ServiceDetailsScreen extends StatelessWidget {
                   ),
                 );
               },
-              // onPressed: () {
-              //   Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //       builder: (context) => BookingDetailsScreen(
-              //         service: service,
-
-              //       ),
-              //     ),
-              //   );
-              // },
             ),
 
             body: Center(
@@ -141,51 +145,59 @@ class ServiceDetailsScreen extends StatelessWidget {
                     children: [
                       // Top service card
                       ServiceCard(
-                        title: service.titleAr ?? '',
-                        location: service.locations?.first.city?.nameAr ?? '',
+                        title: context.isArabic
+                            ? service.titleAr ?? ''
+                            : service.titleEn ?? '',
+                        location: context.isArabic
+                            ? service.locations?.first.city?.nameAr ?? ''
+                            : service.locations?.first.city?.nameEn ?? '',
                         imagePath: service.servicImage?.first.imageUrl ?? '',
-                        rating: service.ratings?.first.rating ?? 0,
+                        rating:
+                            (service.ratings != null &&
+                                service.ratings!.isNotEmpty)
+                            ? service.ratings!.first.rating ?? 0.0
+                            : 0.0,
+
                         reviewCount: service.ratings?.length ?? 0,
-                        width: 343,
-                        height: 224,
+                        width: context.getWidth(factor: 0.9),
+                        height: context.getHeight(factor: 0.23),
+
                         showReviewCount: true,
                         onTap: () {},
                         icon: Icons.chat_bubble_outline,
+
                         onIconPressed: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  ConversationScreen(messages: []),
+                              builder: (context) => ChattingScreen(
+                                sender: ModelMessage(
+                                  content: "سيبشسيب",
+                                  date: "sdgsdfg",
+                                  id: 2567895,
+                                  owner: "Sdfsdgf",
+                                  providerAuthId: "sdfasdf",
+                                  status: "send",
+                                  user: User(name: "Zdf", avatar: "dddd"),
+                                  userAuthId: "Sdfsdfg",
+                                ),
+                              ),
                             ),
                           );
                         },
                       ),
 
                       ImageGallery(imageUrls: service.servicImage!),
-
-                      const SizedBox(height: 20),
+                      AppSpacing.h32,
                       // Description section
                       ServiceDescriptionSection(
                         title: 'serviceDetails.about'.tr(),
-                        description: service.descriptionAr ?? '',
+                        description: context.isArabic
+                            ? service.descriptionAr ?? ''
+                            : service.descriptionEn ?? '',
                       ),
 
-                      // Packages section
-                      // Text(
-                      //   'Packages',
-                      //   style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      //     fontWeight: FontWeight.bold,
-                      //     color: AppColors.blue,
-                      //   ),
-                      // ),
-                      // const SizedBox(height: 8),
-                      // PackagesList(
-                      //   packages: dummyService.packages,
-                      //   selectedIds: const [],
-                      //   onToggle: (_) {},
-                      // ),
-                      const SizedBox(height: 20),
+                      AppSpacing.h24,
 
                       // Map section
                       Text(
@@ -196,14 +208,14 @@ class ServiceDetailsScreen extends StatelessWidget {
                               color: AppColors.blue,
                             ),
                       ),
-                      const SizedBox(height: 8),
+                      AppSpacing.h8,
                       GoogleMapWidget(
-                        latitude: dummyService.latitude,
-                        longitude: dummyService.longitude,
-                        label: dummyService.name,
+                        latitude: service.locations?.first.latitude ?? 44,
+                        longitude: service.locations?.first.longitude ?? 22,
+                        label: context.isArabic ? '' : service.titleAr ?? '',
                       ),
 
-                      const SizedBox(height: 20),
+                      AppSpacing.h24,
 
                       // Calendar section
                       Text(
@@ -214,7 +226,7 @@ class ServiceDetailsScreen extends StatelessWidget {
                               color: AppColors.blue,
                             ),
                       ),
-                      const SizedBox(height: 8),
+                      AppSpacing.h8,
 
                       BlocBuilder<BookingBloc, BookingState>(
                         builder: (context, state) {
@@ -234,14 +246,14 @@ class ServiceDetailsScreen extends StatelessWidget {
                         },
                       ),
 
-                      const SizedBox(height: 20),
+                      AppSpacing.h24,
 
                       // Reviews section
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            '${'serviceDetails.reviews'.tr()} (${dummyService.reviews.length})',
+                            '${'serviceDetails.reviews'.tr()} (${service.ratings?.length ?? 0})',
                             style: Theme.of(context).textTheme.titleMedium!
                                 .copyWith(
                                   fontWeight: FontWeight.bold,
@@ -255,7 +267,7 @@ class ServiceDetailsScreen extends StatelessWidget {
                                 color: AppColors.blue,
                                 size: 20,
                               ),
-                              const SizedBox(width: 4),
+                              AppSpacing.w4,
                               Text(
                                 dummyService.rating.toStringAsFixed(1),
                                 style: const TextStyle(
@@ -267,22 +279,24 @@ class ServiceDetailsScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-
-                      const SizedBox(height: 8),
-                      Column(
-                        children: service.ratings!.map((review) {
-                          return ReviewCard(
-                            name: review.client?.name ?? "no name",
-                            imageUrl:
-                                'https://cdn2.iconfinder.com/data/icons/circle-avatars-1/128/050_girl_avatar_profile_woman_suit_student_officer-512.png',
-                            rating: review.rating?.toInt() ?? 0,
-                            comment: review.content ?? '',
-                            date: DateFormat(
-                              'yyyy-MM-dd',
-                            ).format(review.date ?? DateTime.now()),
-                          );
-                        }).toList(),
-                      ),
+                      if (service.ratings != null &&
+                          service.ratings!.isNotEmpty) ...[
+                        AppSpacing.h8,
+                        Column(
+                          children: service.ratings!.map((review) {
+                            return ReviewCard(
+                              name: review.client?.name ?? "no name",
+                              imageUrl:
+                                  'https://cdn2.iconfinder.com/data/icons/circle-avatars-1/128/050_girl_avatar_profile_woman_suit_student_officer-512.png',
+                              rating: review.rating?.toInt() ?? 0,
+                              comment: review.content ?? '',
+                              date: DateFormat(
+                                'yyyy-MM-dd',
+                              ).format(review.date ?? DateTime.now()),
+                            );
+                          }).toList(),
+                        ),
+                      ],
                     ],
                   ),
                 ),

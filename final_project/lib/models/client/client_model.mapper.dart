@@ -27,7 +27,10 @@ class ClientModelMapper extends ClassMapperBase<ClientModel> {
   static String? _$avatar(ClientModel v) => v.avatar;
   static const Field<ClientModel, String> _f$avatar =
       Field('avatar', _$avatar, opt: true);
-  static EnumUserStatus _$status(ClientModel v) => v.status;
+  static String? _$email(ClientModel v) => v.email;
+  static const Field<ClientModel, String> _f$email =
+      Field('email', _$email, opt: true);
+  static EnumUserStatus? _$status(ClientModel v) => v.status;
   static const Field<ClientModel, EnumUserStatus> _f$status =
       Field('status', _$status);
   static String _$phoneNumber(ClientModel v) => v.phoneNumber;
@@ -41,8 +44,9 @@ class ClientModelMapper extends ClassMapperBase<ClientModel> {
       'isDeleted', _$isDeleted,
       key: r'is_deleted', opt: true, def: false);
   static bool _$isVerified(ClientModel v) => v.isVerified;
-  static const Field<ClientModel, bool> _f$isVerified =
-      Field('isVerified', _$isVerified, key: r'is_verified');
+  static const Field<ClientModel, bool> _f$isVerified = Field(
+      'isVerified', _$isVerified,
+      key: r'is_verified', opt: true, def: false);
   static DateTime? _$createdAt(ClientModel v) => v.createdAt;
   static const Field<ClientModel, DateTime> _f$createdAt =
       Field('createdAt', _$createdAt, key: r'created_at', opt: true);
@@ -59,6 +63,7 @@ class ClientModelMapper extends ClassMapperBase<ClientModel> {
     #id: _f$id,
     #name: _f$name,
     #avatar: _f$avatar,
+    #email: _f$email,
     #status: _f$status,
     #phoneNumber: _f$phoneNumber,
     #authId: _f$authId,
@@ -74,6 +79,7 @@ class ClientModelMapper extends ClassMapperBase<ClientModel> {
         id: data.dec(_f$id),
         name: data.dec(_f$name),
         avatar: data.dec(_f$avatar),
+        email: data.dec(_f$email),
         status: data.dec(_f$status),
         phoneNumber: data.dec(_f$phoneNumber),
         authId: data.dec(_f$authId),
@@ -140,6 +146,7 @@ abstract class ClientModelCopyWith<$R, $In extends ClientModel, $Out>
       {String? id,
       String? name,
       String? avatar,
+      String? email,
       EnumUserStatus? status,
       String? phoneNumber,
       String? authId,
@@ -164,7 +171,8 @@ class _ClientModelCopyWithImpl<$R, $Out>
           {Object? id = $none,
           String? name,
           Object? avatar = $none,
-          EnumUserStatus? status,
+          Object? email = $none,
+          Object? status = $none,
           String? phoneNumber,
           Object? authId = $none,
           bool? isDeleted,
@@ -176,7 +184,8 @@ class _ClientModelCopyWithImpl<$R, $Out>
         if (id != $none) #id: id,
         if (name != null) #name: name,
         if (avatar != $none) #avatar: avatar,
-        if (status != null) #status: status,
+        if (email != $none) #email: email,
+        if (status != $none) #status: status,
         if (phoneNumber != null) #phoneNumber: phoneNumber,
         if (authId != $none) #authId: authId,
         if (isDeleted != null) #isDeleted: isDeleted,
@@ -190,6 +199,7 @@ class _ClientModelCopyWithImpl<$R, $Out>
       id: data.get(#id, or: $value.id),
       name: data.get(#name, or: $value.name),
       avatar: data.get(#avatar, or: $value.avatar),
+      email: data.get(#email, or: $value.email),
       status: data.get(#status, or: $value.status),
       phoneNumber: data.get(#phoneNumber, or: $value.phoneNumber),
       authId: data.get(#authId, or: $value.authId),

@@ -29,11 +29,11 @@ class AuthLayer {
   Future<void> providerSignUpMethod({
     required String email,
     required String password,
-    // required String nameAr,
+    required String nameAr,
     required String nameEn,
     // required String descriptionAr,
     // required String descriptionEn,
-    // required String iban,
+    required String iban,
     required String phoneNumber,
     String? commercialRegistrationNumber,
   }) async {
@@ -41,11 +41,11 @@ class AuthLayer {
       final user = await Auth.signUp(email: email, password: password);
       idUser = user.id;
       await insertUserToProvidersTable(
-        // nameAr: nameAr,
+        nameAr: nameAr,
         nameEn: nameEn,
         // descriptionAr: descriptionAr,
         // descriptionEn: descriptionEn,
-        // iban: iban,
+        iban: iban,
         phoneNumber: phoneNumber,
         commercialRegistrationNumber: commercialRegistrationNumber,
       );
@@ -142,11 +142,11 @@ class AuthLayer {
   }
 
   Future<void> insertUserToProvidersTable({
-    // required String nameAr,
+    required String nameAr,
     required String nameEn,
     // required String descriptionAr,
     // required String descriptionEn,
-    // required String iban,
+    required String iban,
     required String phoneNumber,
     String? commercialRegistrationNumber,
   }) async {

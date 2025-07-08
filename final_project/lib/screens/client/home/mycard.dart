@@ -3,6 +3,7 @@ import 'package:final_project/models/services_models/services_provided/services_
 import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_spacing.dart';
 import 'package:final_project/style/app_text_styles.dart';
+import 'package:final_project/utils/extensions/localization_helper.dart';
 import 'package:final_project/widgets/star_rating_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -25,14 +26,14 @@ class Mycard extends StatelessWidget {
         ? service.servicImage![0].imageUrl!
         : 'https://assets.hyatt.com/content/dam/hyatt/hyattdam/images/2019/12/09/1201/Hyatt-Regency-London-The-Churchill-P948-Wedding-Dancefloor-View.jpg/Hyatt-Regency-London-The-Churchill-P948-Wedding-Dancefloor-View.4x3.jpg?imwidth=1920';
 
-    final title = service.titleAr ?? 'EMPTY';
+    // final title = service.titleAr ?? 'EMPTY';
 
-    final serviceName = service.services?.nameAr ?? 'EMPTY';
+    // final serviceName = service.services?.nameAr ?? 'EMPTY';
 
-    final locationText =
-        (service.locations != null && service.locations!.isNotEmpty)
-        ? '${service.locations!.first.city?.nameAr ?? 'EMPTY'}'
-        : 'EMPTY';
+    // final locationText =
+    //     (service.locations != null && service.locations!.isNotEmpty)
+    //     ? service.locations!.first.city?.nameAr ?? 'EMPTY'
+    //     : 'EMPTY';
 
     final ratings = service.ratings ?? [];
     final double averageRating = ratings.isNotEmpty
@@ -40,7 +41,7 @@ class Mycard extends StatelessWidget {
               ratings.length
         : 0.0;
 
-    final ratingsCount = service.ratings?.length ?? 0;
+    // final ratingsCount = service.ratings?.length ?? 0;
 
     return InkWell(
       onTap: onTap,
@@ -64,7 +65,7 @@ class Mycard extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: Image.network(
-                imageUrl,
+                'https://assets.hyatt.com/content/dam/hyatt/hyattdam/images/2019/12/09/1201/Hyatt-Regency-London-The-Churchill-P948-Wedding-Dancefloor-View.jpg/Hyatt-Regency-London-The-Churchill-P948-Wedding-Dancefloor-View.4x3.jpg?imwidth=1920',
                 height: 80,
                 width: 100,
                 fit: BoxFit.cover,
@@ -76,21 +77,40 @@ class Mycard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    title,
-                    style: AppTextStyles.interSize16(context).copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.black,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        context.isArabic
+                            ? service.titleAr ?? ''
+                            : service.titleEn ?? '',
+                        style: AppTextStyles.interSize16(context).copyWith(),
+                      ),
+
+                      InkWell(
+                        onTap: onFavoriteTap,
+                        child: Icon(
+                          service.isFavorite!
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                          color: service.isFavorite!
+                              ? Colors.red
+                              : AppColors.mediumGray,
+                        ),
+                      ),
+                    ],
                   ),
                   AppSpacing.h4,
                   Text(
-                    serviceName,
+                    context.isArabic
+                        ? service.services!.nameAr ?? ''
+                        : service.services!.nameEn ?? '',
+
                     style: AppTextStyles.interSize14(
                       context,
                     ).copyWith(color: AppColors.mediumGray),
                   ),
-                  const SizedBox(height: 4),
+                  AppSpacing.h4,
                   Row(
                     children: [
                       const Icon(
@@ -99,7 +119,10 @@ class Mycard extends StatelessWidget {
                         color: AppColors.mediumGray,
                       ),
                       Text(
-                        '  $locationText',
+                        context.isArabic
+                            ? service.locations?.first.city?.nameAr ?? ''
+                            : service.locations?.first.city?.nameEn ?? '',
+
                         style: AppTextStyles.interSize12(
                           context,
                         ).copyWith(color: AppColors.mediumGray),
@@ -110,9 +133,10 @@ class Mycard extends StatelessWidget {
                   Row(
                     children: [
                       StarRatingWidget(rating: averageRating),
-                      const SizedBox(width: 6),
+                      AppSpacing.w4,
+
                       Text(
-                        '($ratingsCount ${'home.ratings'.tr()})',
+                        '(${service.ratings?.length} ${'home.ratings'.tr()})',
                         style: AppTextStyles.interSize12(
                           context,
                         ).copyWith(color: AppColors.lightGray),
@@ -121,24 +145,6 @@ class Mycard extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
-            // Icons (Heart + Arrow)
-            Column(
-              children: [
-                InkWell(
-                  onTap: onFavoriteTap,
-                  child: const Icon(
-                    Icons.favorite_border,
-                    color: AppColors.mediumGray,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                const Icon(
-                  Icons.arrow_forward_ios,
-                  size: 16,
-                  color: AppColors.mediumGray,
-                ),
-              ],
             ),
           ],
         ),

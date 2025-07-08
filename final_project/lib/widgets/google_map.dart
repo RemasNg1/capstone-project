@@ -1,3 +1,4 @@
+import 'package:final_project/utils/extensions/screen/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -22,8 +23,8 @@ class GoogleMapWidget extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(22),
       child: SizedBox(
-        width: 343,
-        height: 197,
+        width: context.getWidth(factor: 0.9),
+        height: context.getHeight(factor: 0.30),
         child: GoogleMap(
           initialCameraPosition: CameraPosition(target: position, zoom: 16),
           markers: {
@@ -41,10 +42,9 @@ class GoogleMapWidget extends StatelessWidget {
               );
             }
           },
-
-          zoomControlsEnabled: false,
+          zoomControlsEnabled: true,
           myLocationButtonEnabled: false,
-          compassEnabled: false,
+          // compassEnabled: false,
           mapType: MapType.normal,
         ),
       ),

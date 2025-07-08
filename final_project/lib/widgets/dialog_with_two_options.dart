@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class DialogWithTwoOptions extends StatelessWidget {
   final String title;
+  final String? message;
   final String cancelText;
   final String confirmText;
   final Color confirmButtonColor;
@@ -11,6 +12,7 @@ class DialogWithTwoOptions extends StatelessWidget {
   const DialogWithTwoOptions({
     super.key,
     required this.title,
+    this.message,
     this.cancelText = "Cancel",
     this.confirmText = "Confirm",
     this.confirmButtonColor = Colors.red,
@@ -26,11 +28,21 @@ class DialogWithTwoOptions extends StatelessWidget {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          Icon(Icons.error_outline, color: Colors.amber, size: 80),
+          AppSpacing.h16,
           Text(
             title,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
+          // if (message != null) ...[
+          AppSpacing.h8,
+          Text(
+            message!,
+            style: TextStyle(fontSize: 16, color: Colors.black54),
+            textAlign: TextAlign.center,
+          ),
+          // ],
           AppSpacing.h24,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -39,7 +51,7 @@ class DialogWithTwoOptions extends StatelessWidget {
                 onPressed: () => Navigator.pop(context),
                 child: Text(
                   cancelText,
-                  style: const TextStyle(color: Colors.grey, fontSize: 16),
+                  style: TextStyle(color: Colors.grey, fontSize: 16),
                 ),
               ),
               ElevatedButton(
@@ -59,7 +71,7 @@ class DialogWithTwoOptions extends StatelessWidget {
                 },
                 child: Text(
                   confirmText,
-                  style: const TextStyle(fontSize: 16, color: Colors.white),
+                  style: TextStyle(fontSize: 16, color: Colors.white),
                 ),
               ),
             ],

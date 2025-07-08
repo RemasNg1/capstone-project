@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/style/app_spacing.dart';
+import 'package:final_project/utils/extensions/localization_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -35,8 +36,8 @@ class InfoDialog extends StatelessWidget {
             ),
             Positioned(
               top: 0,
-              right: context.locale.languageCode == 'ar' ? null : 0,
-              left: context.locale.languageCode == 'ar' ? 0 : null,
+              right: context.isArabic ? null : 0,
+              left: context.isArabic ? 0 : null,
               child: IconButton(
                 icon: Icon(Icons.close, color: Colors.grey),
                 onPressed: () => Navigator.of(context).pop(),

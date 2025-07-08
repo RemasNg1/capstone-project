@@ -1,6 +1,4 @@
 import 'package:final_project/models/chat/model_message.dart' hide User;
-import 'package:final_project/models/temp_bookin/provider_temp_model.dart';
-import 'package:final_project/models/temp_bookin/user_temp_model.dart';
 import 'package:final_project/screens/general/chats/bloc/chats_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,8 +11,10 @@ class ChattingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String avatar = sender.providers!.avatar!;
-    String name = sender.providers!.nameEn!;
+    String avatar =
+        sender.providers?.avatar ??
+        "https://www.arabiaweddings.com/sites/default/files/styles/max980/public/listing/2020/01/14/jwan_hall.jpg?itok=svPe8vrk";
+    String name = sender.providers?.nameEn ?? "Sdfgsdfg";
     //  String authId=sender.providers!.nameEn!;
 
     return BlocProvider(
@@ -32,7 +32,7 @@ class ChattingScreen extends StatelessWidget {
                   BackButton(
                     onPressed: () {
                       bloc.chatController.dispose();
-                      bloc.chatController =  InMemoryChatController();
+                      bloc.chatController = InMemoryChatController();
                       Navigator.pop(context);
                     },
                   ),
@@ -40,10 +40,7 @@ class ChattingScreen extends StatelessWidget {
                   SizedBox(width: 16.0 * 0.75),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(name, style: TextStyle(fontSize: 16)),
-                      // Text("Active 3m ago", style: TextStyle(fontSize: 12)),
-                    ],
+                    children: [Text(name, style: TextStyle(fontSize: 16))],
                   ),
                 ],
               ),

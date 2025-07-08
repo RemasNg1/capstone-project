@@ -1,4 +1,6 @@
 import 'package:final_project/screens/service_provider/provider_bottom_navbar/bloc/provider_bottom_navbar_bloc.dart';
+import 'package:final_project/utils/extensions/localization_helper.dart';
+import 'package:final_project/utils/extensions/screen/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -18,7 +20,7 @@ class ProviderBottomNavbarScreen extends StatelessWidget {
             ProviderBottomNavbarState
           >(
             builder: (context, state) {
-              // double itemWidth = context.getWidth() / 4;
+              double itemWidth = context.getWidth() / 5;
               return Stack(
                 children: [
                   Scaffold(
@@ -116,6 +118,38 @@ class ProviderBottomNavbarScreen extends StatelessWidget {
                     ),
                     body: bloc.screens[bloc.selectIndex],
                   ),
+
+                  // Positioned(
+                  //   bottom: 110,
+                  //   left: context.isArabic
+                  //       ? null
+                  //       : itemWidth * bloc.selectIndex,
+                  //   right: context.isArabic
+                  //       ? itemWidth * bloc.selectIndex
+                  //       : null,
+                  //   child: Container(
+                  //     width: itemWidth,
+                  //     height: 3,
+                  //     color: Theme.of(context).colorScheme.primary,
+                  //   ),
+                  // ),
+                  AnimatedPositioned(
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                    bottom: 110,
+                    left: context.isArabic
+                        ? null
+                        : itemWidth * bloc.selectIndex,
+                    right: context.isArabic
+                        ? itemWidth * bloc.selectIndex
+                        : null,
+                    child: Container(
+                      width: itemWidth,
+                      height: 3,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+
                   // Positioned(
                   //   bottom: 110,
                   //   left: itemWidth * bloc.selectIndex,
