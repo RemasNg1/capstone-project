@@ -1,4 +1,5 @@
 {
+    
     "onboarding1": {
         "title": "Book the best event venue",
         "subtitle": "Find the best event venues to book and read reviews from other customers."
@@ -98,16 +99,26 @@
         "title_9": "9. Contact",
         "body_9": "To reach us, please use the \"Support\" section within the app."
     },
-    "home": {
-        "hello": "Hello",
-        "question": "What do you\n want to book today?",
-        "search": "Search",
-        "chooseCategory": "Choose Category",
-        "recommended": "Recommended",
-        "ratings": "Ratings",
-        "allServices": "All Services",
-        "change_language": "Change Language to Arabic"
-    },
+   "home": {
+  "hello": "Hello",
+  "question": "What do you\n want to book today?",
+  "search": "Search",
+  "chooseCategory": "Choose Category",
+  "recommended": "Recommended",
+  "ratings": "Ratings",
+  "allServices": "All Services",
+  "change_language": "Change Language to Arabic",
+  "home_page": "Home Page",
+  "rejected_order": "Rejected Orders",
+  "accepted_order": "Accepted Orders",
+  "total_incoming": "Total Incoming",
+  "incoming": "Incoming",
+  "booking_schedule": "Booking Schedule",
+  "week": "Week",
+  "month": "Month",
+  "year": "Year"
+}
+,
     "serviceDetails": {
         "about": "About the Service",
         "packages": "Packages",
@@ -179,7 +190,7 @@
     },
     "services": {
         "myServices": "My Services",
-        "addMore": "Add More",
+        "addMore": "Add Services",
         "newService": "New Service",
         "generalInfo": "General Information",
         "category": "Service Category",
@@ -200,13 +211,16 @@
         "descriptionEn": "Service Description (English)",
         "descriptionAr": "Service Description (Arabic)",
         "selectRegion": "Select Region",
-"selectCity": "Select City",
-"yourLocation": "Your Location",
-"saved_successfully": "Saved successfully",
-"error": "Error: {}",
-"images_uploaded": "Images uploaded successfully",
-"saving": "Saving..."
-
+        "selectCity": "Select City",
+        "yourLocation": "Your Location",
+        "saved_successfully": "Saved successfully",
+        "error": "Error: {}",
+        "images_uploaded": "Images uploaded successfully",
+        "saving": "Saving...",
+        "confirmDeleteTitle": "Confirm Deletion",
+        "confirmDeleteBody": "Are you sure you want to delete this service?",
+        "cancel": "Cancel",
+        "delete": "Delete"
         
     },
     "calendar": {
@@ -225,8 +239,8 @@
   "buffet": "Buffet",
   "cars": "Transportation",
   "kitchens": "Kitchens"
-}
 
+}
 
 
 

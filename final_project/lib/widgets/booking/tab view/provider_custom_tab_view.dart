@@ -1,15 +1,17 @@
+import 'package:final_project/style/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class CustomTabView extends StatelessWidget {
-  const CustomTabView({
+class ProviderCustomTabView extends StatelessWidget {
+  const ProviderCustomTabView({
     super.key,
     required this.titlePage,
     required this.tabTitles,
     required this.setOfTabView,
   });
   final String titlePage;
-  final Set<String> tabTitles;
-  final Set<Widget> setOfTabView;
+  final List<String> tabTitles;
+  final List<Widget> setOfTabView;
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -20,10 +22,12 @@ class CustomTabView extends StatelessWidget {
           automaticallyImplyLeading: false,
           title: Text(titlePage),
           bottom: TabBar(
+            unselectedLabelColor: Colors.grey,
+            indicatorColor: AppColors.blue,
             tabs: tabTitles.map((title) => Tab(text: title)).toList(),
           ),
         ),
-        body: TabBarView(children: setOfTabView.toList()),
+        body: TabBarView(children: setOfTabView),
       ),
     );
   }

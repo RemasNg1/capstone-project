@@ -80,7 +80,7 @@ class ServiceProviderCard extends StatelessWidget {
           Column(
             children: [
               GestureDetector(
-                onTap: onEdit,
+                onTap: onDelete,
                 child: SvgPicture.asset(
                   'assets/icons/cancel_outlined.svg',
                   width: 24,
@@ -88,6 +88,7 @@ class ServiceProviderCard extends StatelessWidget {
                   color: AppColors.redAccent,
                 ),
               ),
+
               AppSpacing.h8,
               GestureDetector(
                 onTap: onEdit,

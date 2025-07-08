@@ -98,16 +98,27 @@
         "title_9": "9. الاتصال",
         "body_9": "للوصول إلينا، يرجى استخدام قسم \"الدعم\" داخل التطبيق."
     },
-    "home": {
-        "hello": "مرحبًا",
-        "question": "ماذا تريد\n أن تحجز اليوم؟",
-        "search": "بحث",
-        "chooseCategory": "اختر الفئة",
-        "recommended": "موصى به",
-        "ratings": "تقييمات",
-        "allServices": "كل الخدمات",
-        "change_language": "تغيير اللغة إلى الإنجليزية"
-    },
+   "home": {
+  "hello": "مرحبًا",
+  "question": "ماذا تريد\n أن تحجز اليوم؟",
+  "search": "بحث",
+  "chooseCategory": "اختر الفئة",
+  "recommended": "موصى به",
+  "ratings": "التقييمات",
+  "allServices": "كل الخدمات",
+  "change_language": "تغيير اللغة إلى الإنجليزية",
+  "home_page": "الصفحة الرئيسية",
+  "rejected_order": "الطلبات المرفوضة",
+  "accepted_order": "الطلبات المقبولة",
+  "total_incoming": "إجمالي الدخل",
+  "incoming": "الدخل",
+  "booking_schedule": "جدول الحجوزات",
+  "week": "أسبوع",
+  "month": "شهر",
+  "year": "سنة"
+}
+
+,
     "serviceDetails": {
         "about": "عن الخدمة",
         "packages": "الباقات",
@@ -178,30 +189,9 @@
         "placeholder": "اكتب هنا ..."
     },
     "services": {
-        "myServices": "خدماتي",
-        "addMore": "إضافة المزيد",
-        "newService": "خدمة جديدة",
-        "generalInfo": "معلومات عامة",
-        "category": "تصنيف الخدمة",
-        "categoryPlaceholder": "اختر التصنيف",
-        "about": "عن الخدمة",
-        "guests": "عدد الضيوف",
-        "inputPlaceholder": "اكتب هنا ...",
-        "dates": "التواريخ المتاحة",
-        "datePlaceholder": "اختر التاريخ",
-        "addPackages": "أضف باقات",
-        "price": "السعر",
-        "locationAndPhotos": "الموقع والصور",
-        "attach": "أرفق الصور والملفات",
-        "servicePrice": "سعر الخدمة",
-        "save": "حفظ",
-        "serviceNameEn": "اسم الخدمة (بالإنجليزية)",
-        "serviceNameAr": "اسم الخدمة (بالعربية)",
-        "descriptionEn": "وصف الخدمة (بالإنجليزية)",
-        "descriptionAr": "وصف الخدمة (بالعربية)" ,
-        "services": {
+       
   "myServices": "خدماتي",
-  "addMore": "إضافة المزيد",
+  "addMore": "إضافة خدمه",
   "newService": "إضافة خدمة جديدة",
   "generalInfo": "معلومات عامة",
   "category": "نوع الخدمة",
@@ -227,10 +217,13 @@
   "saved_successfully": "تم الحفظ بنجاح",
   "error": "خطأ: {}",
   "images_uploaded": "تم رفع الصور بنجاح",
-  "saving": "جاري الحفظ..."
+  "saving": "جاري الحفظ...",
+  "confirmDeleteTitle": "تأكيد الحذف",
+  "confirmDeleteBody": "هل تريد حذف هذه الخدمة؟",
+  "cancel": "إلغاء",
+  "delete": "حذف"
 }
-
-    },
+,
     "calendar": {
   "change_availability": "تغيير التوفر لـ:",
   "unavailable": "غير متاح",
@@ -241,13 +234,14 @@
   "not_saved": "لم يتم الحفظ، حاول مرة أخرى"
 },
 "categories": {
-  "venues": "القاعات",
-  "photographers": "التصوير",
-  "event_planner": "تنسيق",
-  "buffet": "الضيافة",
-  "cars": "النقل",
-  "kitchens": "المطابخ"
-}
+    "venues": "القاعات",
+    "photographers": "المصورين",
+    "event_planner": "تنسيق المناسبات",
+    "buffet": "بوفيه",
+    "cars": "النقل",
+    "kitchens": "المطابخ"
+  }
+
 
 
 }

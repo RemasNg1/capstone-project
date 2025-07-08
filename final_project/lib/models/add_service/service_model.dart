@@ -7,7 +7,7 @@ class ServiceModel with ServiceModelMappable {
   final String name;
   final String description;
   final int guests;
-  final List<String> dates;
+  final List<DateTimeRangeModel> dates;
   final double price;
   final String category;
   final String categoryAr;
@@ -17,7 +17,6 @@ class ServiceModel with ServiceModelMappable {
   final double latitude;
   final double longitude;
   final List<String> imageUrls;
-  // final List<ServicePackage> packages;
 
   const ServiceModel({
     required this.name,
@@ -33,6 +32,18 @@ class ServiceModel with ServiceModelMappable {
     required this.latitude,
     required this.longitude,
     required this.imageUrls,
-    // required this.packages,
   });
+}
+
+class DateTimeRangeModel {
+  final DateTime start;
+  final DateTime end;
+
+  DateTimeRangeModel({required this.start, required this.end});
+
+  Map<String, dynamic> toMap(int serviceLocationId) => {
+    'service_location_id': serviceLocationId,
+    'start_date': start.toIso8601String(),
+    'end_date': end.toIso8601String(),
+  };
 }

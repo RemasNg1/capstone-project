@@ -1,67 +1,86 @@
-import 'dart:async';
+// import 'dart:async';
 
-import 'package:bloc/bloc.dart';
-import 'package:final_project/data_layer/auth_layer.dart';
-import 'package:final_project/data_layer/booking_layer.dart';
-import 'package:final_project/models/booking/model_booking.dart';
-import 'package:final_project/repo/booking.dart';
-import 'package:hive/hive.dart';
-import 'package:meta/meta.dart';
+// import 'package:bloc/bloc.dart';
+// import 'package:final_project/data_layer/auth_layer.dart';
+// import 'package:final_project/data_layer/booking_layer.dart';
+// import 'package:final_project/models/booking/model_booking.dart';
+// import 'package:final_project/repo/booking.dart';
+// import 'package:hive/hive.dart';
+// import 'package:meta/meta.dart';
 
-part 'bookings_event.dart';
-part 'bookings_state.dart';
+// part 'bookings_event.dart';
+// part 'bookings_state.dart';
 
-class BookingsBloc extends Bloc<BookingsEvent, BookingsState> {
-  List<ModelBooking>? allProviderBooking = [];
-  List<ModelBooking>? currentBookingNotAccepted = [];
-  List<ModelBooking>? currentBookingAccepted = [];
-  List<ModelBooking>? pastBooking = [];
-  List<ModelBooking>? canceledBooking = [];
-  BookingsBloc() : super(BookingsInitial()) {
-    on<BookingsEvent>((event, emit) {});
-    on<BookingsLoadingData>(loadingData);
-  }
+// class BookingsBloc extends Bloc<BookingsEvent, BookingsState> {
+//   List<ModelBooking>? allProviderBooking = [];
+//   List<ModelBooking>? currentBookingNotAccepted = [];
+//   List<ModelBooking>? currentBookingAccepted = [];
+//   List<ModelBooking>? pastBooking = [];
+//   List<ModelBooking>? canceledBooking = [];
 
-  FutureOr<void> loadingData(
-    BookingsLoadingData event,
-    Emitter<BookingsState> emit,
-  ) async {
+//   BookingsBloc() : super(BookingsInitial()) {
+//     // ✅ تحميل البيانات
+//     on<BookingsLoadingData>(loadingData);
 
-    // box.add('userType',);
-    // print(AuthLayer.box.get('userType')); // Dave: 22
-    // print(AuthLayer.box.get('authId')); // Dave: 22
-    emit(BookingLoading());
-    allProviderBooking = await BookingLayer.getAllProviderBooking();
+//     // ✅ قبول الحجز
+//     on<AcceptBooking>((event, emit) async {
+//       emit(BookingLoading());
+//       final success = await BookingLayer.updateBookingStatus(
+//         bookingId: event.bookingId,
+//         status: 'accepted',
+//       );
+//       if (success) {
+//         add(BookingsLoadingData());
+//       } else {
+//         emit(BookingError());
+//       }
+//     });
 
-    // take all provider id to download his images
-    Set<int?> serviceProvidedIdsSet = allProviderBooking!
-        .map((booking) => booking.serviceProvidedId)
-        .toSet();
+//     // ✅ رفض الحجز
+//     on<RejectBooking>((event, emit) async {
+//       emit(BookingLoading());
+//       final success = await BookingLayer.updateBookingStatus(
+//         bookingId: event.bookingId,
+//         status: 'rejected',
+//       );
+//       if (success) {
+//         add(BookingsLoadingData());
+//       } else {
+//         emit(BookingError());
+//       }
+//     });
+//   }
 
-    print("providerd id = : ${serviceProvidedIdsSet.length}");
-    Map<String, List<ModelBooking>?>? bookingList =
-        BookingLayer.getBookingByStatus(allBooking: allProviderBooking);
+//   FutureOr<void> loadingData(
+//     BookingsLoadingData event,
+//     Emitter<BookingsState> emit,
+//   ) async {
+//     emit(BookingLoading());
 
-    if (bookingList != null) {
-      currentBookingNotAccepted = bookingList['currentBookingNotAccepted'];
-      currentBookingAccepted = bookingList['currentBookingAccepted'];
-      pastBooking = bookingList['pastBooking'];
-      canceledBooking = bookingList['canceledBooking'];
-      emit(BookingLoadingSuccessfully());
-      // print(bookingList['pastBooking']![0].serviceProvidedId);
-    }
+//     try {
+//       allProviderBooking = await BookingLayer.getAllProviderBooking();
 
-    // print(
-    //   "currentBookingNotAccepted:  ${bookingList['currentBookingNotAccepted']?[0].servicesProvided!.titleEn} ${bookingList['currentBookingNotAccepted']?[0].status} | ${bookingList['currentBookingNotAccepted']?[0].date}",
-    // );
-    // print(
-    //   "currentBookingAccepted:  ${bookingList['currentBookingAccepted']?[0].servicesProvided!.titleEn} ${bookingList['currentBookingAccepted']?[0].status} | ${bookingList['currentBookingAccepted']?[0].date}",
-    // );
-    // print(
-    //   "pastBooking:  ${bookingList['pastBooking']?[0].servicesProvided!.titleEn} ${bookingList['pastBooking']?[0].status} | ${bookingList['pastBooking']?[0].date}",
-    // );
-    // print(
-    //   "canceledBooking:  ${bookingList['canceledBooking']?[0].servicesProvided!.titleEn} ${bookingList['canceledBooking']?[0].status} | ${bookingList['canceledBooking']?[0].date}",
-    // );
-  }
-}
+//       if (allProviderBooking == null) {
+//         emit(BookingError());
+//         return;
+//       }
+
+//       Map<String, List<ModelBooking>?>? bookingList =
+//           BookingLayer.getBookingByStatus(allBooking: allProviderBooking);
+
+//       if (bookingList != null) {
+//         currentBookingNotAccepted = bookingList['currentBookingNotAccepted'];
+//         currentBookingAccepted = bookingList['currentBookingAccepted'];
+//         pastBooking = bookingList['pastBooking'];
+//         canceledBooking = bookingList['canceledBooking'];
+
+//         emit(BookingLoadingSuccessfully());
+//       } else {
+//         emit(BookingError());
+//       }
+//     } catch (e) {
+//       print("Error loading data: $e");
+//       emit(BookingError());
+//     }
+//   }
+// }

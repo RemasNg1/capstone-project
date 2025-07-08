@@ -5,6 +5,7 @@ import 'package:final_project/core/helper/functions.dart';
 import 'package:final_project/screens/general/chats/conversation_screen.dart';
 import 'package:final_project/screens/service_provider/home/provider_home_screen.dart';
 import 'package:final_project/screens/service_provider/provider_profile/provider_profile_screen.dart';
+import 'package:final_project/screens/service_provider/service_booking2/booking2_screen.dart';
 import 'package:final_project/screens/service_provider/services/services_screen.dart';
 import 'package:final_project/screens/service_provider/services_bookings/bookings_screen.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,8 @@ class ProviderBottomNavbarBloc
     ProviderHomeScreen(),
     ServicesBookingsScreen(),
     ServicesScreen(),
-    ConversationScreen(messages: []),
+    // toDo change message with own user message
+    ConversationScreen(messages: getUnique()),
     ProviderProfileScreen(),
   ];
   ProviderBottomNavbarBloc() : super(ProviderBottomNavbarInitial()) {
