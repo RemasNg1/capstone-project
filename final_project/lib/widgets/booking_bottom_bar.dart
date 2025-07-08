@@ -8,16 +8,18 @@ import 'package:flutter/material.dart';
 class BookingBottomBar extends StatelessWidget {
   final String? price;
   final String buttonText;
-  final double buttonWidth;
+  // final double buttonWidth;
   final VoidCallback? onPressed;
   final bool showPrice;
+  final ButtonStyle? buttonStyle;
 
   const BookingBottomBar({
     super.key,
     this.price,
     required this.buttonText,
-    required this.buttonWidth,
+    // required this.buttonWidth,
     this.onPressed,
+    this.buttonStyle,
     this.showPrice = true,
   });
 
@@ -25,12 +27,15 @@ class BookingBottomBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 12, 20, 28),
-      decoration: const BoxDecoration(
-        color: AppColors.white,
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.primaryContainer,
+
         boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 10)],
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: showPrice && price != null
+            ? MainAxisAlignment.spaceBetween
+            : MainAxisAlignment.center,
         children: [
           if (showPrice && price != null)
             Expanded(
@@ -42,20 +47,12 @@ class BookingBottomBar extends StatelessWidget {
                 ),
                 textAlign: TextAlign.center,
               ),
-            )
-          else
-            const Spacer(),
+            ),
           ElevatedButton(
             onPressed: onPressed ?? () {},
-            style: AppButtons.small,
+            style: buttonStyle ?? AppButtons.small,
             child: Text(buttonText, style: AppTextStyles.interSize16(context)),
           ),
-          // CustomButton(
-          //   title: buttonText,
-          //   width: buttonWidth,
-          //   height: 48,
-          //   onPressed: onPressed ?? () {},
-          // ),
         ],
       ),
     );

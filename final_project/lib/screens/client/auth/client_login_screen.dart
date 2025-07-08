@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/core/constant/app_validation.dart';
 import 'package:final_project/screens/client/auth/bloc/auth_bloc.dart';
@@ -52,9 +53,20 @@ class ClientLoginScreen extends StatelessWidget {
           }
 
           if (state is OTPFailureState) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text(state.error)));
+            Flushbar(
+              messageText: Text(
+                state.error,
+                style: AppTextStyles.interSize16(
+                  context,
+                ).copyWith(color: Colors.white),
+              ),
+              backgroundColor: Colors.red,
+              icon: Icon(Icons.error, color: Colors.white),
+              duration: Duration(seconds: 3),
+              flushbarPosition: FlushbarPosition.BOTTOM,
+              borderRadius: BorderRadius.circular(8),
+              margin: EdgeInsets.all(16),
+            ).show(context);
           }
           if (state is SuccessState) {
             Navigator.pushReplacement(
@@ -66,9 +78,20 @@ class ClientLoginScreen extends StatelessWidget {
           }
 
           if (state is FailureState) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text(state.error!)));
+            Flushbar(
+              messageText: Text(
+                state.error!,
+                style: AppTextStyles.interSize16(
+                  context,
+                ).copyWith(color: Colors.white),
+              ),
+              backgroundColor: Colors.red,
+              icon: Icon(Icons.error, color: Colors.white),
+              duration: Duration(seconds: 3),
+              flushbarPosition: FlushbarPosition.BOTTOM,
+              borderRadius: BorderRadius.circular(8),
+              margin: EdgeInsets.all(16),
+            ).show(context);
           }
         },
         builder: (context, state) {
@@ -115,13 +138,6 @@ class ClientLoginScreen extends StatelessWidget {
                                     icon: Icon(CupertinoIcons.mail),
                                     controller: bloc.emailController,
                                     validator: AppValidation.requiredField,
-
-                                    //  (value) {
-                                    //   if (value == null || value.isEmpty) {
-                                    //     return "Please enter your email";
-                                    //   }
-                                    //   return null;
-                                    // }, 
                                   ),
                                   AppSpacing.h16,
 
@@ -142,13 +158,6 @@ class ClientLoginScreen extends StatelessWidget {
                                     ),
                                     controller: bloc.passwordController,
                                     validator: AppValidation.requiredField,
-
-                                    // validator: (value) {
-                                    //   if (value == null || value.isEmpty) {
-                                    //     return "Please enter your password";
-                                    //   }
-                                    //   return null;
-                                    // },
                                   ),
                                 ],
                               ),
@@ -209,20 +218,20 @@ class ClientLoginScreen extends StatelessWidget {
                               },
                             ),
 
-                            TextButton(
-                              onPressed: () {
-                                bloc.add(SignInAnonymouslyEvent());
-                              },
-                              child: Text(
-                                "auth.guest".tr(),
-                                style: AppTextStyles.interSize14(context)
-                                    .copyWith(
-                                      color: Theme.of(
-                                        context,
-                                      ).colorScheme.onSurface,
-                                    ),
-                              ),
-                            ),
+                            // TextButton(
+                            //   onPressed: () {
+                            //     bloc.add(SignInAnonymouslyEvent());
+                            //   },
+                            //   child: Text(
+                            //     "auth.guest".tr(),
+                            //     style: AppTextStyles.interSize14(context)
+                            //         .copyWith(
+                            //           color: Theme.of(
+                            //             context,
+                            //           ).colorScheme.onSurface,
+                            //         ),
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),
@@ -237,34 +246,3 @@ class ClientLoginScreen extends StatelessWidget {
     );
   }
 }
-
-
-    // Text.rich(
-                            //   TextSpan(
-                            //     text: "${'auth.no_account'.tr()} ",
-
-                            //     style: AppTextStyles.interSize14(context)
-                            //         .copyWith(
-                            //           color: Theme.of(
-                            //             context,
-                            //           ).colorScheme.onSurface,
-                            //         ),
-                            //     children: [
-                            //       TextSpan(
-                            //         text: 'auth.signup_now'.tr(),
-                            //         style: AppTextStyles.interSize14(context),
-
-                            //         recognizer: TapGestureRecognizer()
-                            //           ..onTap = () {
-                            //             Navigator.push(
-                            //               context,
-                            //               MaterialPageRoute(
-                            //                 builder: (context) =>
-                            //                     ClientSignupScreen(),
-                            //               ),
-                            //             );
-                            //           },
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),

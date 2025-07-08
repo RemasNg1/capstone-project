@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:final_project/core/helper/functions.dart';
 import 'package:final_project/screens/client/bookings/bookings_screen.dart';
 import 'package:final_project/screens/client/home/home_screen.dart';
-import 'package:final_project/screens/client/home/homeee_screen.dart';
 import 'package:final_project/screens/client/profile/client_profile_screen.dart';
 import 'package:final_project/screens/general/chats/conversation_screen.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +16,6 @@ class ClientBottomNavbarBloc
 
   List<Widget> screens = [
     HomeScreen(),
-    // TestingHomeScreen(),
     BookingsScreen(),
     ConversationScreen(messages: []),
     ClientProfileScreen(),

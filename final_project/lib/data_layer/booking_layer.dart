@@ -11,7 +11,8 @@ class BookingLayer {
     ).map((item) => ModelBooking.fromJson(item)).toList();
 
     return allCustomerBooking;
-  }  
+  }
+
   static getAllProviderBooking() async {
     var data = await Booking.loadProviderBooking();
     List<ModelBooking> allCustomerBooking = List.from(
@@ -20,7 +21,6 @@ class BookingLayer {
 
     return allCustomerBooking;
   }
-  
 
   static Map<String, List<ModelBooking>>? getBookingByStatus({
     required List<ModelBooking>? allBooking,
@@ -45,6 +45,19 @@ class BookingLayer {
           )
           .toList();
       // currentBookingAccepted is the booking have status accepted and the date is >= date now
+      // List<ModelBooking> currentBookingAccepted = allBooking
+      //     .where(
+      //       (booking) =>
+      //           booking!.status == EnumBookingStatus.accepted.name &&
+      //           (DateTime.parse(
+      //                 booking.date!,
+      //               ).isAtSameMomentAs(DateTime.parse(formattedDate)) ||
+      //               DateTime.parse(
+      //                 booking.date!,
+      //               ).isAfter(DateTime.parse(formattedDate))),
+      //     )
+      //     .toList();
+
       List<ModelBooking> currentBookingAccepted = allBooking
           .where(
             (booking) =>

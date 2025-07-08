@@ -23,26 +23,14 @@ class CityModelMapper extends ClassMapperBase<CityModel> {
   static int? _$id(CityModel v) => v.id;
   static const Field<CityModel, int> _f$id = Field('id', _$id, opt: true);
   static String? _$nameAr(CityModel v) => v.nameAr;
-  static const Field<CityModel, String> _f$nameAr = Field(
-    'nameAr',
-    _$nameAr,
-    key: r'name_ar',
-    opt: true,
-  );
+  static const Field<CityModel, String> _f$nameAr =
+      Field('nameAr', _$nameAr, key: r'name_ar', opt: true);
   static String? _$nameEn(CityModel v) => v.nameEn;
-  static const Field<CityModel, String> _f$nameEn = Field(
-    'nameEn',
-    _$nameEn,
-    key: r'name_en',
-    opt: true,
-  );
+  static const Field<CityModel, String> _f$nameEn =
+      Field('nameEn', _$nameEn, key: r'name_en', opt: true);
   static int? _$regionId(CityModel v) => v.regionId;
-  static const Field<CityModel, int> _f$regionId = Field(
-    'regionId',
-    _$regionId,
-    key: r'region_id',
-    opt: true,
-  );
+  static const Field<CityModel, int> _f$regionId =
+      Field('regionId', _$regionId, key: r'region_id', opt: true);
 
   @override
   final MappableFields<CityModel> fields = const {
@@ -54,11 +42,10 @@ class CityModelMapper extends ClassMapperBase<CityModel> {
 
   static CityModel _instantiate(DecodingData data) {
     return CityModel(
-      id: data.dec(_f$id),
-      nameAr: data.dec(_f$nameAr),
-      nameEn: data.dec(_f$nameEn),
-      regionId: data.dec(_f$regionId),
-    );
+        id: data.dec(_f$id),
+        nameAr: data.dec(_f$nameAr),
+        nameEn: data.dec(_f$nameEn),
+        regionId: data.dec(_f$regionId));
   }
 
   @override
@@ -75,36 +62,28 @@ class CityModelMapper extends ClassMapperBase<CityModel> {
 
 mixin CityModelMappable {
   String toJson() {
-    return CityModelMapper.ensureInitialized().encodeJson<CityModel>(
-      this as CityModel,
-    );
+    return CityModelMapper.ensureInitialized()
+        .encodeJson<CityModel>(this as CityModel);
   }
 
   Map<String, dynamic> toMap() {
-    return CityModelMapper.ensureInitialized().encodeMap<CityModel>(
-      this as CityModel,
-    );
+    return CityModelMapper.ensureInitialized()
+        .encodeMap<CityModel>(this as CityModel);
   }
 
   CityModelCopyWith<CityModel, CityModel, CityModel> get copyWith =>
       _CityModelCopyWithImpl<CityModel, CityModel>(
-        this as CityModel,
-        $identity,
-        $identity,
-      );
+          this as CityModel, $identity, $identity);
   @override
   String toString() {
-    return CityModelMapper.ensureInitialized().stringifyValue(
-      this as CityModel,
-    );
+    return CityModelMapper.ensureInitialized()
+        .stringifyValue(this as CityModel);
   }
 
   @override
   bool operator ==(Object other) {
-    return CityModelMapper.ensureInitialized().equalsValue(
-      this as CityModel,
-      other,
-    );
+    return CityModelMapper.ensureInitialized()
+        .equalsValue(this as CityModel, other);
   }
 
   @override
@@ -133,29 +112,26 @@ class _CityModelCopyWithImpl<$R, $Out>
   late final ClassMapperBase<CityModel> $mapper =
       CityModelMapper.ensureInitialized();
   @override
-  $R call({
-    Object? id = $none,
-    Object? nameAr = $none,
-    Object? nameEn = $none,
-    Object? regionId = $none,
-  }) => $apply(
-    FieldCopyWithData({
-      if (id != $none) #id: id,
-      if (nameAr != $none) #nameAr: nameAr,
-      if (nameEn != $none) #nameEn: nameEn,
-      if (regionId != $none) #regionId: regionId,
-    }),
-  );
+  $R call(
+          {Object? id = $none,
+          Object? nameAr = $none,
+          Object? nameEn = $none,
+          Object? regionId = $none}) =>
+      $apply(FieldCopyWithData({
+        if (id != $none) #id: id,
+        if (nameAr != $none) #nameAr: nameAr,
+        if (nameEn != $none) #nameEn: nameEn,
+        if (regionId != $none) #regionId: regionId
+      }));
   @override
   CityModel $make(CopyWithData data) => CityModel(
-    id: data.get(#id, or: $value.id),
-    nameAr: data.get(#nameAr, or: $value.nameAr),
-    nameEn: data.get(#nameEn, or: $value.nameEn),
-    regionId: data.get(#regionId, or: $value.regionId),
-  );
+      id: data.get(#id, or: $value.id),
+      nameAr: data.get(#nameAr, or: $value.nameAr),
+      nameEn: data.get(#nameEn, or: $value.nameEn),
+      regionId: data.get(#regionId, or: $value.regionId));
 
   @override
   CityModelCopyWith<$R2, CityModel, $Out2> $chain<$R2, $Out2>(
-    Then<$Out2, $R2> t,
-  ) => _CityModelCopyWithImpl<$R2, $Out2>($value, $cast, t);
+          Then<$Out2, $R2> t) =>
+      _CityModelCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

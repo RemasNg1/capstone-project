@@ -33,15 +33,20 @@ class ServiceModelMapper extends ClassMapperBase<ServiceModel> {
       'descriptionAr', _$descriptionAr,
       key: r'description_ar', opt: true);
   static String? _$descriptionEn(ServiceModel v) => v.descriptionEn;
-  static const Field<ServiceModel, String> _f$descriptionEn = Field(
-      'descriptionEn', _$descriptionEn,
-      key: r'description_en', opt: true);
+  static const Field<ServiceModel, String> _f$descriptionEn =
+      Field('descriptionEn', _$descriptionEn, opt: true);
   static String? _$type(ServiceModel v) => v.type;
   static const Field<ServiceModel, String> _f$type =
       Field('type', _$type, opt: true);
+  static String? _$typeAr(ServiceModel v) => v.typeAr;
+  static const Field<ServiceModel, String> _f$typeAr =
+      Field('typeAr', _$typeAr, key: r'type_ar', opt: true);
+  static String? _$typeEn(ServiceModel v) => v.typeEn;
+  static const Field<ServiceModel, String> _f$typeEn =
+      Field('typeEn', _$typeEn, key: r'type_en', opt: true);
   static bool? _$isDeleted(ServiceModel v) => v.isDeleted;
   static const Field<ServiceModel, bool> _f$isDeleted =
-      Field('isDeleted', _$isDeleted, key: r'is_deleted', opt: true);
+      Field('isDeleted', _$isDeleted, key: r'description_en', opt: true);
 
   @override
   final MappableFields<ServiceModel> fields = const {
@@ -51,6 +56,8 @@ class ServiceModelMapper extends ClassMapperBase<ServiceModel> {
     #descriptionAr: _f$descriptionAr,
     #descriptionEn: _f$descriptionEn,
     #type: _f$type,
+    #typeAr: _f$typeAr,
+    #typeEn: _f$typeEn,
     #isDeleted: _f$isDeleted,
   };
 
@@ -62,6 +69,8 @@ class ServiceModelMapper extends ClassMapperBase<ServiceModel> {
         descriptionAr: data.dec(_f$descriptionAr),
         descriptionEn: data.dec(_f$descriptionEn),
         type: data.dec(_f$type),
+        typeAr: data.dec(_f$typeAr),
+        typeEn: data.dec(_f$typeEn),
         isDeleted: data.dec(_f$isDeleted));
   }
 
@@ -125,6 +134,8 @@ abstract class ServiceModelCopyWith<$R, $In extends ServiceModel, $Out>
       String? descriptionAr,
       String? descriptionEn,
       String? type,
+      String? typeAr,
+      String? typeEn,
       bool? isDeleted});
   ServiceModelCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
@@ -145,6 +156,8 @@ class _ServiceModelCopyWithImpl<$R, $Out>
           Object? descriptionAr = $none,
           Object? descriptionEn = $none,
           Object? type = $none,
+          Object? typeAr = $none,
+          Object? typeEn = $none,
           Object? isDeleted = $none}) =>
       $apply(FieldCopyWithData({
         if (id != $none) #id: id,
@@ -153,6 +166,8 @@ class _ServiceModelCopyWithImpl<$R, $Out>
         if (descriptionAr != $none) #descriptionAr: descriptionAr,
         if (descriptionEn != $none) #descriptionEn: descriptionEn,
         if (type != $none) #type: type,
+        if (typeAr != $none) #typeAr: typeAr,
+        if (typeEn != $none) #typeEn: typeEn,
         if (isDeleted != $none) #isDeleted: isDeleted
       }));
   @override
@@ -163,6 +178,8 @@ class _ServiceModelCopyWithImpl<$R, $Out>
       descriptionAr: data.get(#descriptionAr, or: $value.descriptionAr),
       descriptionEn: data.get(#descriptionEn, or: $value.descriptionEn),
       type: data.get(#type, or: $value.type),
+      typeAr: data.get(#typeAr, or: $value.typeAr),
+      typeEn: data.get(#typeEn, or: $value.typeEn),
       isDeleted: data.get(#isDeleted, or: $value.isDeleted));
 
   @override

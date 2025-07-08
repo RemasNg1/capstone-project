@@ -23,19 +23,11 @@ class RegionModelMapper extends ClassMapperBase<RegionModel> {
   static int? _$id(RegionModel v) => v.id;
   static const Field<RegionModel, int> _f$id = Field('id', _$id, opt: true);
   static String? _$nameAr(RegionModel v) => v.nameAr;
-  static const Field<RegionModel, String> _f$nameAr = Field(
-    'nameAr',
-    _$nameAr,
-    key: r'name_ar',
-    opt: true,
-  );
+  static const Field<RegionModel, String> _f$nameAr =
+      Field('nameAr', _$nameAr, key: r'name_ar', opt: true);
   static String? _$nameEn(RegionModel v) => v.nameEn;
-  static const Field<RegionModel, String> _f$nameEn = Field(
-    'nameEn',
-    _$nameEn,
-    key: r'name_en',
-    opt: true,
-  );
+  static const Field<RegionModel, String> _f$nameEn =
+      Field('nameEn', _$nameEn, key: r'name_en', opt: true);
 
   @override
   final MappableFields<RegionModel> fields = const {
@@ -46,10 +38,9 @@ class RegionModelMapper extends ClassMapperBase<RegionModel> {
 
   static RegionModel _instantiate(DecodingData data) {
     return RegionModel(
-      id: data.dec(_f$id),
-      nameAr: data.dec(_f$nameAr),
-      nameEn: data.dec(_f$nameEn),
-    );
+        id: data.dec(_f$id),
+        nameAr: data.dec(_f$nameAr),
+        nameEn: data.dec(_f$nameEn));
   }
 
   @override
@@ -66,36 +57,28 @@ class RegionModelMapper extends ClassMapperBase<RegionModel> {
 
 mixin RegionModelMappable {
   String toJson() {
-    return RegionModelMapper.ensureInitialized().encodeJson<RegionModel>(
-      this as RegionModel,
-    );
+    return RegionModelMapper.ensureInitialized()
+        .encodeJson<RegionModel>(this as RegionModel);
   }
 
   Map<String, dynamic> toMap() {
-    return RegionModelMapper.ensureInitialized().encodeMap<RegionModel>(
-      this as RegionModel,
-    );
+    return RegionModelMapper.ensureInitialized()
+        .encodeMap<RegionModel>(this as RegionModel);
   }
 
   RegionModelCopyWith<RegionModel, RegionModel, RegionModel> get copyWith =>
       _RegionModelCopyWithImpl<RegionModel, RegionModel>(
-        this as RegionModel,
-        $identity,
-        $identity,
-      );
+          this as RegionModel, $identity, $identity);
   @override
   String toString() {
-    return RegionModelMapper.ensureInitialized().stringifyValue(
-      this as RegionModel,
-    );
+    return RegionModelMapper.ensureInitialized()
+        .stringifyValue(this as RegionModel);
   }
 
   @override
   bool operator ==(Object other) {
-    return RegionModelMapper.ensureInitialized().equalsValue(
-      this as RegionModel,
-      other,
-    );
+    return RegionModelMapper.ensureInitialized()
+        .equalsValue(this as RegionModel, other);
   }
 
   @override
@@ -125,26 +108,23 @@ class _RegionModelCopyWithImpl<$R, $Out>
   late final ClassMapperBase<RegionModel> $mapper =
       RegionModelMapper.ensureInitialized();
   @override
-  $R call({
-    Object? id = $none,
-    Object? nameAr = $none,
-    Object? nameEn = $none,
-  }) => $apply(
-    FieldCopyWithData({
-      if (id != $none) #id: id,
-      if (nameAr != $none) #nameAr: nameAr,
-      if (nameEn != $none) #nameEn: nameEn,
-    }),
-  );
+  $R call(
+          {Object? id = $none,
+          Object? nameAr = $none,
+          Object? nameEn = $none}) =>
+      $apply(FieldCopyWithData({
+        if (id != $none) #id: id,
+        if (nameAr != $none) #nameAr: nameAr,
+        if (nameEn != $none) #nameEn: nameEn
+      }));
   @override
   RegionModel $make(CopyWithData data) => RegionModel(
-    id: data.get(#id, or: $value.id),
-    nameAr: data.get(#nameAr, or: $value.nameAr),
-    nameEn: data.get(#nameEn, or: $value.nameEn),
-  );
+      id: data.get(#id, or: $value.id),
+      nameAr: data.get(#nameAr, or: $value.nameAr),
+      nameEn: data.get(#nameEn, or: $value.nameEn));
 
   @override
   RegionModelCopyWith<$R2, RegionModel, $Out2> $chain<$R2, $Out2>(
-    Then<$Out2, $R2> t,
-  ) => _RegionModelCopyWithImpl<$R2, $Out2>($value, $cast, t);
+          Then<$Out2, $R2> t) =>
+      _RegionModelCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

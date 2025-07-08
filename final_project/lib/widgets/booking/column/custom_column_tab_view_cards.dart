@@ -11,14 +11,13 @@ class CustomColumnTabViewCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       children: [
         SizedBox(
           height: context.getHeight(factor: 0.6),
           width: context.getWidth(),
           child: ListView.builder(
-            itemCount: bookingList?.length??0,
+            itemCount: bookingList?.length ?? 0,
             itemBuilder: (BuildContext context, int index) {
               return ContainerBookingCard(
                 item: bookingList![index],

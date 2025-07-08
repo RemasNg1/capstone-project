@@ -8,15 +8,16 @@ class ModelBooking {
   ServicesProvided? servicesProvided;
   ServiceLocations? serviceLocations;
 
-  ModelBooking(
-      {this.id,
-      this.date,
-      this.serviceProvidedId,
-      this.serviceLocationId,
-      this.status,
-      this.userAuthId,
-      this.servicesProvided,
-      this.serviceLocations});
+  ModelBooking({
+    this.id,
+    this.date,
+    this.serviceProvidedId,
+    this.serviceLocationId,
+    this.status,
+    this.userAuthId,
+    this.servicesProvided,
+    this.serviceLocations,
+  });
 
   ModelBooking.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -52,7 +53,7 @@ class ModelBooking {
 
 class ServicesProvided {
   int? id;
-  int? price;
+  double? price;
   String? titleAr;
   String? titleEn;
   int? packageId;
@@ -61,16 +62,17 @@ class ServicesProvided {
   String? descriptionAr;
   String? descriptionEn;
 
-  ServicesProvided(
-      {this.id,
-      this.price,
-      this.titleAr,
-      this.titleEn,
-      this.packageId,
-      this.serviceId,
-      this.providerId,
-      this.descriptionAr,
-      this.descriptionEn});
+  ServicesProvided({
+    this.id,
+    this.price,
+    this.titleAr,
+    this.titleEn,
+    this.packageId,
+    this.serviceId,
+    this.providerId,
+    this.descriptionAr,
+    this.descriptionEn,
+  });
 
   ServicesProvided.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -106,13 +108,14 @@ class ServiceLocations {
   int? regionId;
   int? serviceProvidedId;
 
-  ServiceLocations(
-      {this.id,
-      this.cityId,
-      this.latitude,
-      this.longitude,
-      this.regionId,
-      this.serviceProvidedId});
+  ServiceLocations({
+    this.id,
+    this.cityId,
+    this.latitude,
+    this.longitude,
+    this.regionId,
+    this.serviceProvidedId,
+  });
 
   ServiceLocations.fromJson(Map<String, dynamic> json) {
     id = json['id'];

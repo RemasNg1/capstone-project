@@ -33,10 +33,17 @@ class ServicesProvidedModelMapper
   static String? _$titleAr(ServicesProvidedModel v) => v.titleAr;
   static const Field<ServicesProvidedModel, String> _f$titleAr =
       Field('titleAr', _$titleAr, key: r'title_ar', opt: true);
+  static String? _$titleEn(ServicesProvidedModel v) => v.titleEn;
+  static const Field<ServicesProvidedModel, String> _f$titleEn =
+      Field('titleEn', _$titleEn, key: r'title_en', opt: true);
   static String? _$descriptionAr(ServicesProvidedModel v) => v.descriptionAr;
   static const Field<ServicesProvidedModel, String> _f$descriptionAr = Field(
       'descriptionAr', _$descriptionAr,
       key: r'description_ar', opt: true);
+  static String? _$descriptionEn(ServicesProvidedModel v) => v.descriptionEn;
+  static const Field<ServicesProvidedModel, String> _f$descriptionEn = Field(
+      'descriptionEn', _$descriptionEn,
+      key: r'description_en', opt: true);
   static double? _$price(ServicesProvidedModel v) => v.price;
   static const Field<ServicesProvidedModel, double> _f$price =
       Field('price', _$price, opt: true);
@@ -67,12 +74,17 @@ class ServicesProvidedModelMapper
   static const Field<ServicesProvidedModel, List<ServiceLocationModel>>
       _f$locations =
       Field('locations', _$locations, key: r'service_locations', opt: true);
+  static bool? _$isFavorite(ServicesProvidedModel v) => v.isFavorite;
+  static const Field<ServicesProvidedModel, bool> _f$isFavorite =
+      Field('isFavorite', _$isFavorite, opt: true);
 
   @override
   final MappableFields<ServicesProvidedModel> fields = const {
     #id: _f$id,
     #titleAr: _f$titleAr,
+    #titleEn: _f$titleEn,
     #descriptionAr: _f$descriptionAr,
+    #descriptionEn: _f$descriptionEn,
     #price: _f$price,
     #services: _f$services,
     #provider: _f$provider,
@@ -80,20 +92,24 @@ class ServicesProvidedModelMapper
     #ratings: _f$ratings,
     #serviceRequests: _f$serviceRequests,
     #locations: _f$locations,
+    #isFavorite: _f$isFavorite,
   };
 
   static ServicesProvidedModel _instantiate(DecodingData data) {
     return ServicesProvidedModel(
         id: data.dec(_f$id),
         titleAr: data.dec(_f$titleAr),
+        titleEn: data.dec(_f$titleEn),
         descriptionAr: data.dec(_f$descriptionAr),
+        descriptionEn: data.dec(_f$descriptionEn),
         price: data.dec(_f$price),
         services: data.dec(_f$services),
         provider: data.dec(_f$provider),
         servicImage: data.dec(_f$servicImage),
         ratings: data.dec(_f$ratings),
         serviceRequests: data.dec(_f$serviceRequests),
-        locations: data.dec(_f$locations));
+        locations: data.dec(_f$locations),
+        isFavorite: data.dec(_f$isFavorite));
   }
 
   @override
@@ -176,14 +192,17 @@ abstract class ServicesProvidedModelCopyWith<
   $R call(
       {int? id,
       String? titleAr,
+      String? titleEn,
       String? descriptionAr,
+      String? descriptionEn,
       double? price,
       ServiceModel? services,
       ProviderModel? provider,
       List<ServiceImageModel>? servicImage,
       List<ServiceRatingModel>? ratings,
       List<ServiceRequestModel>? serviceRequests,
-      List<ServiceLocationModel>? locations});
+      List<ServiceLocationModel>? locations,
+      bool? isFavorite});
   ServicesProvidedModelCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
@@ -241,38 +260,47 @@ class _ServicesProvidedModelCopyWithImpl<$R, $Out>
   $R call(
           {Object? id = $none,
           Object? titleAr = $none,
+          Object? titleEn = $none,
           Object? descriptionAr = $none,
+          Object? descriptionEn = $none,
           Object? price = $none,
           Object? services = $none,
           Object? provider = $none,
           Object? servicImage = $none,
           Object? ratings = $none,
           Object? serviceRequests = $none,
-          Object? locations = $none}) =>
+          Object? locations = $none,
+          Object? isFavorite = $none}) =>
       $apply(FieldCopyWithData({
         if (id != $none) #id: id,
         if (titleAr != $none) #titleAr: titleAr,
+        if (titleEn != $none) #titleEn: titleEn,
         if (descriptionAr != $none) #descriptionAr: descriptionAr,
+        if (descriptionEn != $none) #descriptionEn: descriptionEn,
         if (price != $none) #price: price,
         if (services != $none) #services: services,
         if (provider != $none) #provider: provider,
         if (servicImage != $none) #servicImage: servicImage,
         if (ratings != $none) #ratings: ratings,
         if (serviceRequests != $none) #serviceRequests: serviceRequests,
-        if (locations != $none) #locations: locations
+        if (locations != $none) #locations: locations,
+        if (isFavorite != $none) #isFavorite: isFavorite
       }));
   @override
   ServicesProvidedModel $make(CopyWithData data) => ServicesProvidedModel(
       id: data.get(#id, or: $value.id),
       titleAr: data.get(#titleAr, or: $value.titleAr),
+      titleEn: data.get(#titleEn, or: $value.titleEn),
       descriptionAr: data.get(#descriptionAr, or: $value.descriptionAr),
+      descriptionEn: data.get(#descriptionEn, or: $value.descriptionEn),
       price: data.get(#price, or: $value.price),
       services: data.get(#services, or: $value.services),
       provider: data.get(#provider, or: $value.provider),
       servicImage: data.get(#servicImage, or: $value.servicImage),
       ratings: data.get(#ratings, or: $value.ratings),
       serviceRequests: data.get(#serviceRequests, or: $value.serviceRequests),
-      locations: data.get(#locations, or: $value.locations));
+      locations: data.get(#locations, or: $value.locations),
+      isFavorite: data.get(#isFavorite, or: $value.isFavorite));
 
   @override
   ServicesProvidedModelCopyWith<$R2, ServicesProvidedModel, $Out2>

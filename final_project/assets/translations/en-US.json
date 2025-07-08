@@ -78,7 +78,7 @@
         "commercial_registration_number": "Commercial Registration Number",
         "iban": "IBAN Number"
     },
-    "terms": {
+    "client_terms": {
         "title_1": "1. Definitions",
         "body_1": "\"We\" refers to the application that connects clients with event service providers. \"You\" refers to the user, whether a client or a service provider.",
         "title_2": "2. Service Description",
@@ -97,6 +97,44 @@
         "body_8": "We reserve the right to update the terms at any time. You will be notified of significant changes through the app.",
         "title_9": "9. Contact",
         "body_9": "To reach us, please use the \"Support\" section within the app."
+    },
+    "provider_terms": {
+        "title_1": "1. Definitions",
+        "body_1": "The term \"we\" refers to the application that connects event service providers with clients. The term \"you\" refers to the service provider registered on the platform.",
+        "title_2": "2. Service Description",
+        "body_2": "The app provides a platform to showcase your services and receive booking requests from clients in areas such as venues, hospitality, decoration, photography, transportation, and more.",
+        "title_3": "3. Service Provider Account",
+        "body_3": "You must provide accurate and up-to-date information about your business. You are fully responsible for the content you publish and the bookings you accept.",
+        "title_4": "4. Service Provider Responsibilities",
+        "body_4": "You are required to deliver the listed services with quality and professionalism. Publishing misleading or false information is prohibited, and cancellations without valid reasons are not allowed.",
+        "title_5": "5. Booking and Payment",
+        "body_5": "Clients make bookings through the app, and you are responsible for fulfilling the service as agreed. The app is not a party to payments or any financial disputes.",
+        "title_6": "6. Service Quality and Accountability",
+        "body_6": "You are responsible for the quality of services provided. Any complaints or disputes with clients must be handled directly and transparently.",
+        "title_7": "7. Cancellations and Refunds",
+        "body_7": "You must clearly state your cancellation and refund policies in your profile. Adhering to these policies is essential to maintain trust with clients and the platform.",
+        "title_8": "8. Terms Updates",
+        "body_8": "We may update these terms from time to time. You will be notified of any significant changes via the app or email.",
+        "title_9": "9. Support and Contact",
+        "body_9": "For any inquiries or issues regarding the use of the platform, please contact us through the \"Support\" section in the app."
+    },
+    "privacy_policy": {
+        "title_1": "1. Information Collection",
+        "body_1": "We collect information you voluntarily provide, such as your name, phone number, email address, and location when you register or use our services.",
+        "title_2": "2. Use of Information",
+        "body_2": "We use your information to provide and improve our services, personalize your experience, communicate with you, and send notifications related to bookings or important updates.",
+        "title_3": "3. Information Sharing",
+        "body_3": "We do not sell or share your personal information with third parties without your consent, except when required by law or to enhance the service through trusted service providers.",
+        "title_4": "4. Data Protection",
+        "body_4": "We are committed to protecting your data using appropriate technical and organizational measures to prevent unauthorized access, alteration, disclosure, or destruction.",
+        "title_5": "5. Device Data & Usage Tracking",
+        "body_5": "We may collect technical data such as device type, operating system, and usage statistics to improve app performance and user experience. We do not use unnecessary or intrusive tracking tools.",
+        "title_6": "6. Your Control Over Information",
+        "body_6": "You can edit or delete your personal information through the account settings. You may also request permanent account deletion via the support section in the app.",
+        "title_7": "7. Updates to the Privacy Policy",
+        "body_7": "We may update this policy from time to time. You will be notified of any significant changes via the app or your registered email.",
+        "title_8": "8. Contact Us",
+        "body_8": "For any questions or requests related to this privacy policy, please contact us through the 'Support' section within the app."
     },
     "home": {
         "hello": "Hello",
@@ -137,18 +175,25 @@
         "date": "Date"
     },
     "bookings": {
-        "myBookings": "My Bookings",
+        "my_bookings": "My Bookings",
         "current": "Currently",
         "past": "In the past",
         "canceled": "Canceled",
-        "orderStatus": "Order Status",
+        "order_status": "Order Status",
         "giveRating": "Give Rating",
         "chatWithProvider": "Chat with the Service Provider",
         "awaitingResponse": "Bookings Awaiting Your Response",
         "chatWithCustomer": "Chat with the Customer",
         "cancel": "Cancel",
         "accept": "Accept",
-        "acceptedOrders": "Accepted Orders"
+        "acceptedOrders": "Accepted Orders",
+        "send": "Pending Approval",
+        "accepted": "Accepted",
+        "rejected": "Rejected",
+        "rate_service": "Rate the Service",
+        "paid_amount": "Paid Amount",
+        "write_note": "Write your notes here...",
+        "submit_rating": "Submit Rating"
     },
     "profile": {
         "title": "Profile",
@@ -171,7 +216,11 @@
         "addMore": "Add More",
         "preferences": "Preferences",
         "account_settings": "Account Settings",
-        "contact_us": "For help and more information contact with us via email"
+        "contact_us": "For help and more information contact with us via email",
+        "logout_title": "Are you sure?",
+        "logout_message": "You will be logged out of the app when you confirm this action.",
+        "cancel": "Cancel",
+        "edit_information": "Edit Information"
     },
     "chat": {
         "title": "Chat",
@@ -200,34 +249,28 @@
         "descriptionEn": "Service Description (English)",
         "descriptionAr": "Service Description (Arabic)",
         "selectRegion": "Select Region",
-"selectCity": "Select City",
-"yourLocation": "Your Location",
-"saved_successfully": "Saved successfully",
-"error": "Error: {}",
-"images_uploaded": "Images uploaded successfully",
-"saving": "Saving..."
-
-        
+        "selectCity": "Select City",
+        "yourLocation": "Your Location",
+        "saved_successfully": "Saved successfully",
+        "error": "Error: {}",
+        "images_uploaded": "Images uploaded successfully",
+        "saving": "Saving..."
     },
     "calendar": {
-  "change_availability": "Change availability for:",
-  "unavailable": "Unavailable",
-  "available": "Available",
-  "confirm": "Confirm",
-  "cancel": "Cancel",
-  "saved_successfully": "Saved successfully",
-  "not_saved": "Not saved, try again"
-},
-  "categories": {
-  "venues": "Venues",
-  "photographers": "Photographers",
-  "event_planner": "Event Planning",
-  "buffet": "Buffet",
-  "cars": "Transportation",
-  "kitchens": "Kitchens"
-}
-
-
-
-
+        "change_availability": "Change availability for:",
+        "unavailable": "Unavailable",
+        "available": "Available",
+        "confirm": "Confirm",
+        "cancel": "Cancel",
+        "saved_successfully": "Saved successfully",
+        "not_saved": "Not saved, try again"
+    },
+    "categories": {
+        "venues": "Venues",
+        "photographers": "Photographers",
+        "event_planner": "Event Planning",
+        "buffet": "Buffet",
+        "cars": "Transportation",
+        "kitchens": "Kitchens"
+    }
 }

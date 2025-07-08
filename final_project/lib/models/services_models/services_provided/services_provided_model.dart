@@ -108,8 +108,14 @@ class ServicesProvidedModel with ServicesProvidedModelMappable {
   @MappableField(key: 'title_ar')
   final String? titleAr;
 
+  @MappableField(key: 'title_en')
+  final String? titleEn;
+
   @MappableField(key: 'description_ar')
   final String? descriptionAr;
+
+  @MappableField(key: 'description_en')
+  final String? descriptionEn;
 
   final double? price;
   final ServiceModel? services;
@@ -126,11 +132,14 @@ class ServicesProvidedModel with ServicesProvidedModelMappable {
 
   @MappableField(key: 'service_locations')
   final List<ServiceLocationModel>? locations;
+  final bool? isFavorite;
 
   const ServicesProvidedModel({
     this.id,
     this.titleAr,
+    this.titleEn,
     this.descriptionAr,
+    this.descriptionEn,
     this.price,
     this.services,
     this.provider,
@@ -138,5 +147,6 @@ class ServicesProvidedModel with ServicesProvidedModelMappable {
     this.ratings,
     this.serviceRequests,
     this.locations,
+    this.isFavorite,
   });
 }

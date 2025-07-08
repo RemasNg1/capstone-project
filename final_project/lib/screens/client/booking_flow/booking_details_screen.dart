@@ -3,9 +3,10 @@ import 'package:final_project/models/services_models/services_provided/services_
 import 'package:final_project/screens/client/booking_flow/bloc/booking_bloc.dart';
 import 'package:final_project/screens/client/booking_flow/checkout_screen.dart';
 import 'package:final_project/screens/client/booking_flow/service_details_screen.dart';
-// import 'package:final_project/screens/client/checkout/checkout_screen.dart';
+import 'package:final_project/style/app_buttons.dart';
 import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_spacing.dart';
+import 'package:final_project/utils/extensions/localization_helper.dart';
 import 'package:final_project/widgets/booking_bottom_bar.dart';
 import 'package:final_project/widgets/google_map.dart';
 import 'package:final_project/widgets/service_description.dart';
@@ -15,33 +16,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class BookingDetailsScreen extends StatelessWidget {
   final ServicesProvidedModel service;
 
-  // final String serviceName;
-  // final String serviceDescription;
-  // final String city;
-  // final double latitude;
-  // final double longitude;
-  // final String bookingDate;
-  // final String bookingTime;
-
-  const BookingDetailsScreen({
-    super.key,
-    required this.service,
-    // required this.serviceDescription,
-    // required this.city,
-    // required this.latitude,
-    // required this.longitude,
-    // required this.bookingDate,
-    // required this.bookingTime,
-  });
+  const BookingDetailsScreen({super.key, required this.service});
 
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<BookingBloc>();
 
     return Scaffold(
-      backgroundColor: AppColors.white,
       appBar: AppBar(
-        backgroundColor: AppColors.white,
         elevation: 0,
         centerTitle: true,
         title: Text(
@@ -60,7 +42,7 @@ class BookingDetailsScreen extends StatelessWidget {
       ),
       bottomNavigationBar: BookingBottomBar(
         buttonText: 'bookingReview.next'.tr(),
-        buttonWidth: 360,
+        buttonStyle: AppButtons.large,
         showPrice: false,
         onPressed: () {
           Navigator.push(
@@ -73,14 +55,6 @@ class BookingDetailsScreen extends StatelessWidget {
             ),
           );
         },
-        // onPressed: () {
-        //   Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //       builder: (context) => CheckoutScreen(service: service),
-        //     ),
-        //   );
-        // },
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
@@ -89,7 +63,9 @@ class BookingDetailsScreen extends StatelessWidget {
             // About the venue
             ServiceDescriptionSection(
               title: 'serviceDetails.about'.tr(),
-              description: service.descriptionAr ?? '',
+              description: context.isArabic
+                  ? service.descriptionAr ?? ''
+                  : service.descriptionEn ?? '',
             ),
 
             AppSpacing.h8,
@@ -109,7 +85,9 @@ class BookingDetailsScreen extends StatelessWidget {
                 Icon(Icons.location_pin, size: 16, color: AppColors.gray),
                 AppSpacing.h8,
                 Text(
-                  service.locations?.first.city?.nameAr ?? '',
+                  context.isArabic
+                      ? service.locations?.first.city?.nameAr ?? ''
+                      : service.locations?.first.city?.nameEn ?? '',
                   style: TextStyle(fontSize: 13, color: AppColors.gray),
                 ),
               ],
@@ -117,7 +95,7 @@ class BookingDetailsScreen extends StatelessWidget {
 
             AppSpacing.h24,
 
-            // Time & Date
+            // & Date
             Text(
               'bookingReview.date'.tr(),
               style: TextStyle(
@@ -132,10 +110,7 @@ class BookingDetailsScreen extends StatelessWidget {
               DateFormat('yyyy-MM-dd').format(bloc.selectedDay),
               style: const TextStyle(fontSize: 14, color: AppColors.gray),
             ),
-            // Text(
-            //   bookingTime,
-            //   style: const TextStyle(fontSize: 13, color: AppColors.gray),
-            // ),
+
             AppSpacing.h24,
 
             // Location map
@@ -151,7 +126,9 @@ class BookingDetailsScreen extends StatelessWidget {
             GoogleMapWidget(
               latitude: service.locations?.first.latitude ?? 0,
               longitude: service.locations?.first.longitude ?? 0,
-              label: service.titleAr ?? '',
+              label: context.isArabic
+                  ? service.titleAr ?? ''
+                  : service.titleEn ?? '',
             ),
             AppSpacing.h32,
           ],

@@ -4,6 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:final_project/data_layer/auth_layer.dart';
 import 'package:final_project/data_layer/booking_layer.dart';
 import 'package:final_project/models/booking/model_booking.dart';
+import 'package:final_project/repo/booking.dart';
+import 'package:flutter/material.dart';
 
 import 'package:meta/meta.dart';
 
@@ -12,13 +14,38 @@ part 'bookings_state.dart';
 
 class BookingsBloc extends Bloc<BookingsEvent, BookingsState> {
   List<ModelBooking>? allCustomerBooking = [];
-  List<ModelBooking>? currentBookingNotAccepted = [];
+  int selectedRating = 0;
+
+  int rate = 0;
+  final ratingsFormKey = GlobalKey<FormState>();
+  TextEditingController notesController = TextEditingController();
+  // List<ModelBooking>? currentBookingNotAccepted = [];
   List<ModelBooking>? currentBookingAccepted = [];
   List<ModelBooking>? pastBooking = [];
   List<ModelBooking>? canceledBooking = [];
   BookingsBloc() : super(BookingsInitial()) {
     on<BookingsEvent>((event, emit) {});
     on<BookingsLoadingData>(loadingData);
+    on<RatingChangedEvent>((event, emit) {
+      selectedRating = event.rating;
+      emit(RatingUpdatedState(selectedRating));
+    });
+
+    on<SubmitServiceRating>((event, emit) async {
+      emit(BookingLoading());
+
+      try {
+        await Booking.rateService(
+          serviceProvidedId: event.serviceProvidedId,
+          rating: event.rating,
+          note: event.note,
+        );
+
+        emit(BookingLoadingSuccessfully());
+      } catch (e) {
+        throw Exception("فشل إرسال التقييم: $e");
+      }
+    });
   }
 
   FutureOr<void> loadingData(
@@ -41,7 +68,7 @@ class BookingsBloc extends Bloc<BookingsEvent, BookingsState> {
         BookingLayer.getBookingByStatus(allBooking: allCustomerBooking);
 
     if (bookingList != null) {
-      currentBookingNotAccepted = bookingList['currentBookingNotAccepted'];
+      // currentBookingNotAccepted = bookingList['currentBookingNotAccepted'];
       currentBookingAccepted = bookingList['currentBookingAccepted'];
       pastBooking = bookingList['pastBooking'];
       canceledBooking = bookingList['canceledBooking'];

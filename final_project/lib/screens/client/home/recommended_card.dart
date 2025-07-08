@@ -14,7 +14,7 @@ class RecommendedCard extends StatelessWidget {
   final double height;
   final VoidCallback? onTap;
   final VoidCallback? onIconPressed;
-  final IconData icon;
+  final Icon? icon;
   final bool showReviewCount;
 
   const RecommendedCard({
@@ -28,7 +28,7 @@ class RecommendedCard extends StatelessWidget {
     required this.height,
     this.onTap,
     this.onIconPressed,
-    this.icon = Icons.favorite_border,
+    this.icon = const Icon(Icons.favorite_border),
     this.showReviewCount = false,
   });
 
@@ -134,7 +134,7 @@ class RecommendedCard extends StatelessWidget {
                     shape: BoxShape.circle,
                     color: Colors.white24,
                   ),
-                  child: Icon(icon, color: Colors.white),
+                  child: icon,
                 ),
               ),
             ),

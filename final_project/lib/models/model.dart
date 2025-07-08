@@ -120,8 +120,7 @@ class MyService {
 }
 
 class CategoryModel {
-  final String name;
   final String iconPath;
 
-  CategoryModel({required this.name, required this.iconPath});
+  CategoryModel({required this.iconPath});
 }

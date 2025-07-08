@@ -1,3 +1,4 @@
+import 'package:final_project/style/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomTabView extends StatelessWidget {
@@ -20,6 +21,8 @@ class CustomTabView extends StatelessWidget {
           automaticallyImplyLeading: false,
           title: Text(titlePage),
           bottom: TabBar(
+            unselectedLabelColor: Colors.grey,
+            indicatorColor: AppColors.blue,
             tabs: tabTitles.map((title) => Tab(text: title)).toList(),
           ),
         ),

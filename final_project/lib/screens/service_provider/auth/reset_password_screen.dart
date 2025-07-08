@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/core/constant/app_validation.dart';
 import 'package:final_project/screens/service_provider/auth/bloc/auth_bloc.dart';
@@ -26,9 +27,20 @@ class ResetPasswordScreen extends StatelessWidget {
             MaterialPageRoute(builder: (context) => ProviderLoginScreen()),
           );
         } else if (state is FailureState) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(state.error!)));
+          Flushbar(
+            messageText: Text(
+              state.error!,
+              style: AppTextStyles.interSize16(
+                context,
+              ).copyWith(color: Colors.white),
+            ),
+            backgroundColor: Colors.red,
+            icon: Icon(Icons.error, color: Colors.white),
+            duration: Duration(seconds: 3),
+            flushbarPosition: FlushbarPosition.BOTTOM,
+            borderRadius: BorderRadius.circular(8),
+            margin: EdgeInsets.all(16),
+          ).show(context);
         }
       },
       child: Scaffold(

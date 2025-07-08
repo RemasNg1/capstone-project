@@ -1,6 +1,6 @@
-part of 'private_chat_bloc.dart';
+// part of 'private_chat_bloc.dart';
 
-@immutable
-sealed class PrivateChatState {}
+// @immutable
+// sealed class PrivateChatState {}
 
-final class PrivateChatInitial extends PrivateChatState {}
+// final class PrivateChatInitial extends PrivateChatState {}

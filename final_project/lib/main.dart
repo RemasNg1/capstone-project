@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/repo/supabase.dart';
-import 'package:final_project/screens/client/checkout/checkout_screen.dart';
 import 'package:final_project/screens/general/splash/splash_screen.dart';
 import 'package:final_project/style/app_theme.dart';
 import 'package:final_project/utils/setup.dart';
@@ -9,8 +8,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-// remasnugaithan+47@gmail.com
-// main
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
@@ -51,4 +48,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-// test
