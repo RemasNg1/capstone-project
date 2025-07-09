@@ -10,7 +10,7 @@ import GoogleMaps
   ) -> Bool {
 
   
-GMSServices.provideAPIKey("AIzaSyA7yVJuIw-yeogIlD2qTkyFFjNIchS4L3M")
+// GMSServices.provideAPIKey("")
 
     // GMSServices.provideAPIKey("GOOGLE_MAPS_IOS_KEY")
     //GMSServices.provideAPIKey("")
