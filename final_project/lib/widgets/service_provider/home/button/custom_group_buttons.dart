@@ -104,13 +104,18 @@ class CustomTabSwitcher extends StatelessWidget {
     required this.selected,
   });
 
+  // Callback to handle when the tab is changed
   final Function(EnumTypeOfShowChart newSelection) onChanged;
+
+  // Currently selected tab (week, month, or year)
   final EnumTypeOfShowChart selected;
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
+      // Number of tabs
       length: 3,
+      // Set initial tab index based on selected value
       initialIndex: selected.index,
       child: Builder(
         builder: (context) {
@@ -118,19 +123,23 @@ class CustomTabSwitcher extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TabBar(
+                // When a tab is tapped, trigger onChanged callback
                 onTap: (index) {
                   onChanged(EnumTypeOfShowChart.values[index]);
                 },
+
                 labelStyle: const TextStyle(fontWeight: FontWeight.bold),
                 labelColor: Colors.black,
                 unselectedLabelColor: Colors.grey,
                 indicatorWeight: 4.0,
+                // Custom underline indicator for selected tab
                 indicator: const UnderlineTabIndicator(
                   borderSide: BorderSide(
                     width: 4.0,
                     color: AppColors.mediumBlue,
                   ),
                 ),
+                // Define the three tabs: Week, Month, Year
                 tabs: [
                   Tab(text: 'home.week'.tr()),
                   Tab(text: 'home.month'.tr()),

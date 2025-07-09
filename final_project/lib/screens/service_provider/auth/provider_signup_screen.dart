@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/core/constant/app_validation.dart';
 import 'package:final_project/screens/service_provider/auth/bloc/auth_bloc.dart';
@@ -10,7 +11,7 @@ import 'package:final_project/style/app_spacing.dart';
 import 'package:final_project/style/app_text_styles.dart';
 import 'package:final_project/widgets/custom_text_form_field.dart';
 import 'package:final_project/widgets/localized_aligned_text.dart';
-import 'package:final_project/widgets/terms_of_use_sheet.dart';
+import 'package:final_project/widgets/legal_content_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -62,9 +63,20 @@ class ProviderSignupScreen extends StatelessWidget {
                         }
 
                         if (state is OTPFailureState) {
-                          ScaffoldMessenger.of(
-                            context,
-                          ).showSnackBar(SnackBar(content: Text(state.error)));
+                          Flushbar(
+                            messageText: Text(
+                              state.error,
+                              style: AppTextStyles.interSize16(
+                                context,
+                              ).copyWith(color: Colors.white),
+                            ),
+                            backgroundColor: Colors.red,
+                            icon: Icon(Icons.error, color: Colors.white),
+                            duration: Duration(seconds: 3),
+                            flushbarPosition: FlushbarPosition.BOTTOM,
+                            borderRadius: BorderRadius.circular(8),
+                            margin: EdgeInsets.all(16),
+                          ).show(context);
                         }
                         if (state is SuccessState) {
                           Navigator.pushReplacement(
@@ -77,16 +89,27 @@ class ProviderSignupScreen extends StatelessWidget {
                         }
 
                         if (state is FailureState) {
-                          ScaffoldMessenger.of(
-                            context,
-                          ).showSnackBar(SnackBar(content: Text(state.error!)));
+                          Flushbar(
+                            messageText: Text(
+                              state.error!,
+                              style: AppTextStyles.interSize16(
+                                context,
+                              ).copyWith(color: Colors.white),
+                            ),
+                            backgroundColor: Colors.red,
+                            icon: Icon(Icons.error, color: Colors.white),
+                            duration: Duration(seconds: 3),
+                            flushbarPosition: FlushbarPosition.BOTTOM,
+                            borderRadius: BorderRadius.circular(8),
+                            margin: EdgeInsets.all(16),
+                          ).show(context);
                         }
                       },
                       builder: (context, state) {
                         return Column(
                           children: [
-                            AppSpacing.h72,
-                            AppSpacing.h24,
+                            AppSpacing.h32,
+                            // AppSpacing.h24,
                             LocalizedAlignedText(
                               text: "auth.signup".tr(),
                               style: AppTextStyles.interSize26(context)
@@ -113,6 +136,13 @@ class ProviderSignupScreen extends StatelessWidget {
                               child: Column(
                                 children: [
                                   CustomTextFormField(
+                                    labelText: "auth.name_ar".tr(),
+                                    icon: Icon(CupertinoIcons.person),
+                                    controller: bloc.nameArController,
+                                    validator: AppValidation.validateNameAr,
+                                  ),
+                                  AppSpacing.h16,
+                                  CustomTextFormField(
                                     labelText: "auth.name_en".tr(),
                                     icon: Icon(CupertinoIcons.person),
                                     controller: bloc.nameEnController,
@@ -128,7 +158,15 @@ class ProviderSignupScreen extends StatelessWidget {
                                     controller: bloc.crNumber,
                                     validator: AppValidation.validateCrNumber,
                                   ),
+                                  AppSpacing.h16,
 
+                                  CustomTextFormField(
+                                    labelText: "auth.iban".tr(),
+                                    icon: Icon(CupertinoIcons.creditcard),
+                                    controller: bloc.ibanController,
+                                    keyboardType: TextInputType.number,
+                                    validator: AppValidation.validateIban,
+                                  ),
                                   AppSpacing.h16,
                                   CustomTextFormField(
                                     labelText: "auth.email".tr(),
@@ -233,7 +271,16 @@ class ProviderSignupScreen extends StatelessWidget {
                                                                     ),
                                                               ),
                                                               builder: (context) =>
-                                                                  TermsOfUseSheet(),
+                                                                  LegalContentSheet(
+                                                                    title:
+                                                                        'auth.terms'
+                                                                            .tr(),
+                                                                    content: bloc
+                                                                        .providerTermsKeys,
+                                                                  ),
+                                                              //   terms: bloc
+                                                              //       .providerTermsKeys,
+                                                              // ),
                                                             );
                                                           },
                                                       ),
@@ -263,7 +310,7 @@ class ProviderSignupScreen extends StatelessWidget {
                                     },
                                   ),
 
-                                  AppSpacing.h24,
+                                  AppSpacing.h16,
                                   ElevatedButton(
                                     style: AppButtons.large,
                                     onPressed: () {

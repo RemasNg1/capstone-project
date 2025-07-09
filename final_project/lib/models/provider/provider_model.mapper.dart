@@ -45,9 +45,9 @@ class ProviderModelMapper extends ClassMapperBase<ProviderModel> {
   static const Field<ProviderModel, String> _f$commercialRegistrationNumber =
       Field('commercialRegistrationNumber', _$commercialRegistrationNumber,
           key: r'commercial_registration_number', opt: true);
-  static EnumUserStatus _$status(ProviderModel v) => v.status;
+  static EnumUserStatus? _$status(ProviderModel v) => v.status;
   static const Field<ProviderModel, EnumUserStatus> _f$status =
-      Field('status', _$status);
+      Field('status', _$status, opt: true);
   static String? _$phoneNumber(ProviderModel v) => v.phoneNumber;
   static const Field<ProviderModel, String> _f$phoneNumber =
       Field('phoneNumber', _$phoneNumber, key: r'phone_number');
@@ -59,8 +59,9 @@ class ProviderModelMapper extends ClassMapperBase<ProviderModel> {
       'isDeleted', _$isDeleted,
       key: r'is_deleted', opt: true, def: false);
   static bool? _$isVerified(ProviderModel v) => v.isVerified;
-  static const Field<ProviderModel, bool> _f$isVerified =
-      Field('isVerified', _$isVerified, key: r'is_verified');
+  static const Field<ProviderModel, bool> _f$isVerified = Field(
+      'isVerified', _$isVerified,
+      key: r'is_verified', opt: true, def: false);
   static DateTime? _$createdAt(ProviderModel v) => v.createdAt;
   static const Field<ProviderModel, DateTime> _f$createdAt =
       Field('createdAt', _$createdAt, key: r'created_at', opt: true);
@@ -203,7 +204,7 @@ class _ProviderModelCopyWithImpl<$R, $Out>
           Object? avatar = $none,
           Object? iban = $none,
           Object? commercialRegistrationNumber = $none,
-          EnumUserStatus? status,
+          Object? status = $none,
           Object? phoneNumber = $none,
           Object? authId = $none,
           Object? isDeleted = $none,
@@ -221,7 +222,7 @@ class _ProviderModelCopyWithImpl<$R, $Out>
         if (iban != $none) #iban: iban,
         if (commercialRegistrationNumber != $none)
           #commercialRegistrationNumber: commercialRegistrationNumber,
-        if (status != null) #status: status,
+        if (status != $none) #status: status,
         if (phoneNumber != $none) #phoneNumber: phoneNumber,
         if (authId != $none) #authId: authId,
         if (isDeleted != $none) #isDeleted: isDeleted,

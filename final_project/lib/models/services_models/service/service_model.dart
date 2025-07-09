@@ -30,9 +30,14 @@ class ServiceModel with ServiceModelMappable {
   final String? nameEn;
   @MappableField(key: 'description_ar')
   final String? descriptionAr;
-  @MappableField(key: 'description_en')
   final String? descriptionEn;
   final String? type;
+  @MappableField(key: 'type_ar')
+  final String? typeAr;
+  @MappableField(key: 'type_en')
+  final String? typeEn;
+  @MappableField(key: 'description_en')
+  @MappableField(key: 'description_en')
   @MappableField(key: 'is_deleted')
   final bool? isDeleted;
 
@@ -43,6 +48,8 @@ class ServiceModel with ServiceModelMappable {
     this.descriptionAr,
     this.descriptionEn,
     this.type,
+    this.typeAr,
+    this.typeEn,
     this.isDeleted,
   });
   mapForAddSupabase() {

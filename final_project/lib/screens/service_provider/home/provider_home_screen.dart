@@ -136,6 +136,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+/// Displays summary statistics and a chart based on selected data view.
 class ProviderHomeScreen extends StatelessWidget {
   const ProviderHomeScreen({super.key});
 
@@ -143,7 +144,9 @@ class ProviderHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // Remove back button
         automaticallyImplyLeading: false,
+
         title: Text("home.home_page".tr()),
       ),
       body: SafeArea(
@@ -151,10 +154,13 @@ class ProviderHomeScreen extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(16),
             child: BlocProvider(
+              // Create the ProviderHomeBloc instance
               create: (context) => ProviderHomeBloc(),
               child: BlocBuilder<ProviderHomeBloc, ProviderHomeState>(
                 builder: (context, state) {
                   final bloc = context.read<ProviderHomeBloc>();
+
+                  // Calculate total income from the list of values
                   final int totalIncoming = bloc.listOfValue
                       .fold(0, (a, b) => a + b)
                       .toInt();
@@ -165,18 +171,19 @@ class ProviderHomeScreen extends StatelessWidget {
                         child: ListView(
                           children: <Widget>[
                             AppSpacing.h32,
-
-                            // الكروت
+                            // Order summary cards (accepted, rejected, total incoming)
                             Column(
                               children: [
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
+                                    // Rejected orders card
                                     CardTitleValue(
                                       title: "home.rejected_order".tr(),
                                       value: "${bloc.rejectedOrder}",
                                     ),
+                                    // Accepted orders card
                                     CardTitleValue(
                                       title: "home.accepted_order".tr(),
                                       value: "${bloc.acceptedOrder}",
@@ -184,6 +191,8 @@ class ProviderHomeScreen extends StatelessWidget {
                                   ],
                                 ),
                                 AppSpacing.h16,
+
+                                // Total income card
                                 CardTitleValue(
                                   title: "home.total_incoming".tr(),
                                   value: "$totalIncoming SAR",
@@ -193,8 +202,7 @@ class ProviderHomeScreen extends StatelessWidget {
                             ),
 
                             AppSpacing.h24,
-
-                            // التاب بار
+                            // Tab bar to switch chart data view (e.g., weekly/monthly)
                             CustomTabSwitcher(
                               selected: bloc.selectedDataView,
                               onChanged: (newType) {
@@ -202,7 +210,7 @@ class ProviderHomeScreen extends StatelessWidget {
                               },
                             ),
 
-                            // الرسم البياني
+                            // Income chart visualization
                             IncomingChart(
                               title: "home.incoming".tr(),
                               valuesToDisplay: bloc.listOfValue,

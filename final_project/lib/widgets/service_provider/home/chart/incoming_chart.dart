@@ -2,6 +2,7 @@ import 'package:final_project/core/enum/types.dart';
 import 'package:final_project/core/helper/functions.dart';
 import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_spacing.dart';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -14,13 +15,15 @@ class IncomingChart extends StatelessWidget {
   });
 
   final String title;
-  final EnumTypeOfShowChart typeOfShowChart;
+  final EnumTypeOfShowChart
+  typeOfShowChart; // Determines if view is weekly, monthly, yearly
   final Color leftBarColor = AppColors.lightBlue;
   final double width = 16;
-  final List<int> valuesToDisplay;
+  final List<int> valuesToDisplay; // List of data values
 
   @override
   Widget build(BuildContext context) {
+    // Generate bar chart data
     final List<BarChartGroupData> rawBar = makeGroupDataStatic(
       valuesToDisplay: valuesToDisplay,
       width: 10,
@@ -35,11 +38,9 @@ class IncomingChart extends StatelessWidget {
           children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(
                   title,
-                  textAlign: TextAlign.center,
                   style: const TextStyle(
                     color: AppColors.mainGridLineColor,
                     fontSize: 16,
@@ -47,7 +48,7 @@ class IncomingChart extends StatelessWidget {
                 ),
               ],
             ),
-            // AppSpacing.h16,
+            // Chart content
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
@@ -66,7 +67,7 @@ class IncomingChart extends StatelessWidget {
                   padding: const EdgeInsets.all(16),
                   child: BarChart(
                     BarChartData(
-                      maxY: 20,
+                      maxY: 20, // Max value on Y axis
                       titlesData: FlTitlesData(
                         show: true,
                         rightTitles: const AxisTitles(
@@ -78,45 +79,44 @@ class IncomingChart extends StatelessWidget {
                         bottomTitles: AxisTitles(
                           sideTitles: SideTitles(
                             showTitles: true,
-                            getTitlesWidget: bottomTitles,
+                            getTitlesWidget: bottomTitles, // Bottom label
                             reservedSize: 42,
                           ),
                         ),
                         leftTitles: AxisTitles(
                           sideTitles: SideTitles(
                             showTitles: true,
-                            reservedSize: 34,
                             interval: 1,
-                            getTitlesWidget: leftTitles,
+                            reservedSize: 34,
+                            getTitlesWidget: leftTitles, // Left label
                           ),
                         ),
                       ),
-                      borderData: FlBorderData(show: false),
-                      barGroups: rawBar,
-                      gridData: const FlGridData(show: true),
+                      borderData: FlBorderData(show: false), // No border
+                      barGroups: rawBar, // Bars data
+                      gridData: const FlGridData(show: true), // Show grid
                     ),
                   ),
                 ),
               ),
             ),
 
-            const SizedBox(height: 12),
+            AppSpacing.h16,
           ],
         ),
       ),
     );
   }
 
+  // Build Y axis labels (left side)
   Widget leftTitles(double value, TitleMeta meta) {
     const style = TextStyle(
       color: Color(0xff7589a2),
       fontWeight: FontWeight.bold,
       fontSize: 13,
     );
-    String text = leftSideIncomingTitle(value);
-    if (text.isEmpty) {
-      return Container();
-    }
+    String text = leftSideIncomingTitle(value); // Format label
+    if (text.isEmpty) return Container();
     return SideTitleWidget(
       meta: meta,
       space: 0,
@@ -124,6 +124,7 @@ class IncomingChart extends StatelessWidget {
     );
   }
 
+  // Build X axis labels (bottom side)
   Widget bottomTitles(double value, TitleMeta meta) {
     final List<String> dayTitles = ['Mn', 'Te', 'Wd', 'Tu', 'Fr', 'St', 'Su'];
     final List<String> yearTitles = [
@@ -144,7 +145,9 @@ class IncomingChart extends StatelessWidget {
       'Jun',
       'Jul',
     ];
+
     List<String> listTitle = [];
+    // Pick label list depending on selected view type
     switch (typeOfShowChart) {
       case EnumTypeOfShowChart.week:
         listTitle = dayTitles;
@@ -156,6 +159,7 @@ class IncomingChart extends StatelessWidget {
         listTitle = yearTitles;
         break;
     }
+
     final Widget text = Text(
       listTitle[value.toInt()],
       style: const TextStyle(
@@ -164,6 +168,7 @@ class IncomingChart extends StatelessWidget {
         fontSize: 14,
       ),
     );
+
     return SideTitleWidget(meta: meta, space: 14, child: text);
   }
 }

@@ -9,10 +9,12 @@ class ClientModel with ClientModelMappable {
   final String name;
   final String? avatar;
 
-  final EnumUserStatus status;
+  final EnumUserStatus? status;
 
   @MappableField(key: 'phone_number')
   final String phoneNumber;
+
+  final String? email;
 
   @MappableField(key: 'auth_id')
   final String? authId;
@@ -36,11 +38,12 @@ class ClientModel with ClientModelMappable {
     this.id,
     required this.name,
     this.avatar,
+    this.email,
     required this.status,
     required this.phoneNumber,
     this.authId,
     this.isDeleted = false,
-    required this.isVerified,
+    this.isVerified = false,
     this.createdAt,
     this.updatedAt,
     this.notificationId = '2',
@@ -50,7 +53,7 @@ class ClientModel with ClientModelMappable {
     return {
       'name': name,
       'avatar': avatar,
-      'status': status.name,
+      'status': status!.name,
       'phone_number': phoneNumber,
       'auth_id': authId,
       'is_deleted': isDeleted,

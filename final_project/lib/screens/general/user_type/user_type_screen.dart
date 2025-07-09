@@ -1,5 +1,4 @@
 import 'package:easy_localization/easy_localization.dart';
-// import 'package:final_project/screens/client/client_bottom_navbar/client_bottom_navbar_screen.dart';
 import 'package:final_project/screens/client/auth/client_login_screen.dart';
 import 'package:final_project/screens/service_provider/auth/provider_login_screen.dart';
 import 'package:final_project/style/app_buttons.dart';
@@ -24,14 +23,14 @@ class UserTypeScreen extends StatelessWidget {
                   AppSpacing.h48,
                   Text(
                     'userType.welcome'.tr(),
-                    style: AppTextStyles.interSize16(context),
+                    style: AppTextStyles.interSize20(context),
                   ),
-                  AppSpacing.h4,
+                  AppSpacing.h8,
                   Text(
                     'userType.question'.tr(),
-                    style: AppTextStyles.interSize16(context),
+                    style: AppTextStyles.interSize18(context),
                   ),
-                  AppSpacing.h24,
+                  AppSpacing.h32,
                   ElevatedButton(
                     style: AppButtons.large,
                     onPressed: () {
@@ -42,7 +41,10 @@ class UserTypeScreen extends StatelessWidget {
                         ),
                       );
                     },
-                    child: Text("userType.customer".tr()),
+                    child: Text(
+                      "userType.customer".tr(),
+                      style: AppTextStyles.interSize16(context),
+                    ),
                   ),
                   AppSpacing.h16,
                   ElevatedButton(
@@ -55,7 +57,10 @@ class UserTypeScreen extends StatelessWidget {
                         ),
                       );
                     },
-                    child: Text("userType.provider".tr()),
+                    child: Text(
+                      "userType.provider".tr(),
+                      style: AppTextStyles.interSize16(context),
+                    ),
                   ),
                 ],
               ),

@@ -1,4 +1,5 @@
 import 'package:final_project/core/enum/types.dart';
+
 class BookingTempModel {
   final int id;
   final String title;

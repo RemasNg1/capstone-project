@@ -1,5 +1,5 @@
+import 'package:final_project/utils/extensions/localization_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class LocalizedAlignedText extends StatelessWidget {
   final String text;
@@ -9,14 +9,14 @@ class LocalizedAlignedText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isArabic = context.locale.languageCode == 'ar';
-
     return Align(
-      alignment: isArabic ? Alignment.centerRight : Alignment.centerLeft,
+      alignment: context.isArabic
+          ? Alignment.centerRight
+          : Alignment.centerLeft,
       child: Text(
         text,
         style: style,
-        textAlign: (isArabic ? TextAlign.right : TextAlign.left),
+        textAlign: (context.isArabic ? TextAlign.right : TextAlign.left),
       ),
     );
   }

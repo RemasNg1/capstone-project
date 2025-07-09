@@ -12,3 +12,21 @@ class LogoutFailureState extends ProviderProfileState {
 
   LogoutFailureState(this.error);
 }
+
+class ProviderProfileLoadedState extends ProviderProfileState {
+  final ProviderModel user;
+
+  ProviderProfileLoadedState(this.user);
+}
+
+class ClientProfileUpdatingState extends ProviderProfileState {}
+
+class ClientProfileUpdatedState extends ProviderProfileState {
+  ClientProfileUpdatedState();
+}
+
+class ClientProfileUpdateFailedState extends ProviderProfileState {
+  final String error;
+
+  ClientProfileUpdateFailedState(this.error);
+}

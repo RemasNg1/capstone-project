@@ -1,4 +1,5 @@
 import 'package:final_project/style/app_colors.dart';
+import 'package:final_project/utils/extensions/screen/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -25,7 +26,7 @@ class CalendarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 342,
+      width: context.getWidth(factor: 0.9),
       height: 400,
       decoration: BoxDecoration(
         color: AppColors.white,

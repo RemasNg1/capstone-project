@@ -6,8 +6,6 @@ class PaymentSummaryCard extends StatelessWidget {
   final double servicePrice;
   final String serviceTitle;
 
-  // final double buffetPrice;
-  // final double plannerPrice;
   final double tax;
   final double total;
 
@@ -16,8 +14,6 @@ class PaymentSummaryCard extends StatelessWidget {
     required this.servicePrice,
     required this.serviceTitle,
 
-    // required this.buffetPrice,
-    // required this.plannerPrice,
     required this.tax,
     required this.total,
   });
@@ -52,8 +48,6 @@ class PaymentSummaryCard extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           _rowItem(serviceTitle, '$servicePrice SR', labelStyle),
-          // _rowItem('Buffet for 350 guest', '$buffetPrice SR', labelStyle),
-          // _rowItem('Wedding planner', '$plannerPrice SR', labelStyle),
           _rowItem(
             'bookingReview.tax'.tr(),
             '${tax.toStringAsFixed(2)} SR',

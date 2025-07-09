@@ -14,6 +14,7 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
     on<BookingEvent>((event, emit) {});
     on<DaySelected>(calenderMethod);
     on<SubmitBooking>(bookingMethod);
+    on<ToggleFavoriteEvent>(favoriteMethod);
   }
 
   FutureOr<void> calenderMethod(DaySelected event, Emitter<BookingState> emit) {
@@ -25,13 +26,31 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
     SubmitBooking event,
     Emitter<BookingState> emit,
   ) {
-    print(event.serviceId);
-    print(event.serviceLocationId);
-    print(event.date);
+    // print(event.serviceId);
+    // print(event.serviceLocationId);
+    // print(event.date);
     Service.insertBooking(
       serviceId: event.serviceId,
       serviceLocationId: event.serviceLocationId,
       date: event.date,
     );
+  }
+
+  FutureOr<void> favoriteMethod(
+    ToggleFavoriteEvent event,
+    Emitter<BookingState> emit,
+  ) async {
+    try {
+      await Service.toggleFavorite(serviceId: event.serviceId);
+
+      final favorites = await Service.fetchFavoriteServices();
+      final isFavorite = favorites.any(
+        (fav) => fav.serviceProvidedId == event.serviceId,
+      );
+
+      emit(FavoriteToggledState(isFavorite: isFavorite));
+    } catch (e) {
+      emit(FavoriteErrorState(message: 'Favorite error: $e'));
+    }
   }
 }

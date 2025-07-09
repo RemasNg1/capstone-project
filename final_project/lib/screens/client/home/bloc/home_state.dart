@@ -10,7 +10,13 @@ class HomeLoading extends HomeState {}
 class HomeLoaded extends HomeState {
   final List<ServicesProvidedModel> servicesProvided;
   final List<ServiceModel> services;
-  HomeLoaded({required this.servicesProvided, required this.services});
+  final ClientModel currentUser;
+
+  HomeLoaded({
+    required this.currentUser,
+    required this.servicesProvided,
+    required this.services,
+  });
 }
 
 class TestingHomeError extends HomeState {

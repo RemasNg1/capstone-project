@@ -6,6 +6,12 @@ import 'package:final_project/models/booking_model/service_request.dart';
 
 import 'package:easy_localization/easy_localization.dart';
 
+/// This widget displays booking cards for service providers inside a tab view.
+/// It supports three main types of bookings:
+/// 1. Waiting for response
+/// 2. Accepted
+/// 3. Past or canceled (via bookingList)
+
 class ProviderCustomColumnTabViewCards extends StatelessWidget {
   final List<ServiceRequest> waitingList;
   final List<ServiceRequest> acceptedList;
@@ -25,7 +31,7 @@ class ProviderCustomColumnTabViewCards extends StatelessWidget {
     final height = context.getHeight(factor: 0.6);
     final width = context.getWidth();
 
-    // General case for "past" and "canceled" bookings
+    // Case: show generic booking list (past or canceled)
     if (bookingList != null) {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -47,12 +53,13 @@ class ProviderCustomColumnTabViewCards extends StatelessWidget {
       );
     }
 
-    // Case for "waiting" and "accepted" bookings
+    // Case: display waiting and accepted bookings
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Waiting bookings section
           if (waitingList.isNotEmpty) ...[
             Text(
               "bookings.awaitingResponse".tr(),
@@ -79,6 +86,8 @@ class ProviderCustomColumnTabViewCards extends StatelessWidget {
               ),
             ),
           ],
+
+          // Accepted bookings section
           if (acceptedList.isNotEmpty) ...[
             AppSpacing.h24,
             Text(

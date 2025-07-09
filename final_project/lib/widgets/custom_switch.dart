@@ -22,7 +22,7 @@ class CustomSwitch extends StatelessWidget {
     this.inactiveText,
     this.activeIcon,
     this.inactiveIcon,
-    this.width = 90,
+    this.width = 68,
     this.height = 28,
     this.toggleSize = 25,
   });
@@ -35,14 +35,13 @@ class CustomSwitch extends StatelessWidget {
       child: FlutterSwitch(
         width: 68,
         toggleSize: toggleSize,
+
         value: value,
         borderRadius: 25,
         duration: Duration(milliseconds: 300),
         showOnOff: activeText != null && inactiveText != null,
         activeText: activeText,
         inactiveText: inactiveText,
-        // activeTextFontWeight: FontWeight.w600,
-        // inactiveTextFontWeight: FontWeight.w600,
         activeIcon: activeIcon,
         inactiveIcon: inactiveIcon,
         activeColor: Theme.of(context).colorScheme.primary,

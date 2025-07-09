@@ -11,6 +11,18 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
+  final Map<String, String> clientTermsKeys = {
+    "client_terms.title_1": "client_terms.body_1",
+    "client_terms.title_2": "client_terms.body_2",
+    "client_terms.title_3": "client_terms.body_3",
+    "client_terms.title_4": "client_terms.body_4",
+    "client_terms.title_5": "client_terms.body_5",
+    "client_terms.title_6": "client_terms.body_6",
+    "client_terms.title_7": "client_terms.body_7",
+    "client_terms.title_8": "client_terms.body_8",
+    "client_terms.title_9": "client_terms.body_9",
+  };
+
   // final formKey = GlobalKey<FormState>();
   final loginFormKey = GlobalKey<FormState>();
   final signUpFormKey = GlobalKey<FormState>();

@@ -70,12 +70,12 @@ final List<PaymentMethod> dummyPaymentMethods = [
 ];
 
 final List<CategoryModel> dummyCategories = [
-  CategoryModel(name: 'Venues', iconPath: 'assets/icons/CityHall.svg'),
-  CategoryModel(name: 'Photographers', iconPath: 'assets/icons/CityHall.svg'),
-  CategoryModel(name: 'Planners', iconPath: 'assets/icons/CityHall.svg'),
-  CategoryModel(name: 'Buffet', iconPath: 'assets/icons/CityHall.svg'),
-  CategoryModel(name: 'Hospitality', iconPath: 'assets/icons/CityHall.svg'),
-  CategoryModel(name: 'Cars', iconPath: 'assets/icons/CityHall.svg'),
+  CategoryModel(iconPath: 'assets/icons/CityHall.svg'),
+  CategoryModel(iconPath: 'assets/icons/CityHall.svg'),
+  CategoryModel(iconPath: 'assets/icons/CityHall.svg'),
+  CategoryModel(iconPath: 'assets/icons/CityHall.svg'),
+  CategoryModel(iconPath: 'assets/icons/CityHall.svg'),
+  CategoryModel(iconPath: 'assets/icons/CityHall.svg'),
 ];
 
 final List<MyService> recommendedServices = [

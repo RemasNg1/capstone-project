@@ -1,4 +1,4 @@
-part of 'private_chat_bloc.dart';
+// part of 'private_chat_bloc.dart';
 
-@immutable
-sealed class PrivateChatEvent {}
+// @immutable
+// sealed class PrivateChatEvent {}

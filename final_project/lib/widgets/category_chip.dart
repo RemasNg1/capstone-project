@@ -1,15 +1,20 @@
 // widgets/category_chip.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:final_project/models/model.dart';
 import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_text_styles.dart';
 
 class CategoryChip extends StatelessWidget {
-  final CategoryModel category;
+  final String categoryName;
+  final String category;
   final VoidCallback onTap;
 
-  const CategoryChip({super.key, required this.category, required this.onTap});
+  const CategoryChip({
+    super.key,
+    required this.categoryName,
+    required this.category,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +36,15 @@ class CategoryChip extends StatelessWidget {
                 color: Colors.grey.shade100,
                 shape: BoxShape.circle,
               ),
-              child: SvgPicture.asset(category.iconPath, width: 20, height: 20),
+              child: SvgPicture.asset(
+                "assets/icons/$category.svg",
+                width: 20,
+                height: 20,
+              ),
             ),
             const SizedBox(width: 10),
             Text(
-              category.name,
+              categoryName,
               style: AppTextStyles.interSize14(
                 context,
               ).copyWith(fontWeight: FontWeight.w600),

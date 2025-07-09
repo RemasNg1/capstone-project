@@ -3,23 +3,45 @@ import 'package:flutter/material.dart';
 
 class Avatar extends StatelessWidget {
   final String imagePath;
+  final VoidCallback? onEditTap;
 
-  const Avatar({super.key, required this.imagePath});
-
-  // A widget that displays a rounded rectangular avatar image with responsive width and height based on screen size.
+  const Avatar({super.key, required this.imagePath, this.onEditTap});
 
   @override
   Widget build(BuildContext context) {
+    final double avatarWidth = context.getWidth(factor: 0.3);
+    final double avatarHeight = context.getHeight(factor: 0.13);
+
     return Align(
       alignment: Alignment.center,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
-        child: Image.asset(
-          imagePath,
-          width: context.getWidth(factor: 0.3),
-          height: context.getHeight(factor: 0.13),
-          fit: BoxFit.cover,
-        ),
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Image.network(
+              imagePath,
+              width: avatarWidth,
+              height: avatarHeight,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Positioned(
+            bottom: -8,
+            right: -8,
+            child: GestureDetector(
+              onTap: onEditTap,
+              child: Container(
+                padding: const EdgeInsets.all(6),
+                decoration: const BoxDecoration(
+                  color: Colors.black54,
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(Icons.edit, color: Colors.white, size: 16),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

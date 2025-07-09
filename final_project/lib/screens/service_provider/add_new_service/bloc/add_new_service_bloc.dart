@@ -91,9 +91,9 @@ class AddServiceBloc extends Bloc<AddServiceEvent, AddServiceState> {
               }
               return {'en': en, 'ar': ar};
             })
-            .whereType<Map<String, String>>()
-            .toSet()
-            .toList();
+            .whereType<Map<String, String>>() // remove null
+            .toSet() //remove dubliecte
+            .toList(); // return as list
 
         emit(state.copyWith(serviceTypes: types, loadingServiceTypes: false));
       } catch (e) {
@@ -432,6 +432,7 @@ class AddServiceBloc extends Bloc<AddServiceEvent, AddServiceState> {
             'title_en': state.name,
             'description_ar': state.arabicDescription,
             'description_en': state.description,
+            'provider_auth_id': currentUser.id,
           })
           .select()
           .single();

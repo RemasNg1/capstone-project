@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/core/constant/app_validation.dart';
 import 'package:final_project/screens/client/auth/bloc/auth_bloc.dart';
@@ -10,7 +11,7 @@ import 'package:final_project/style/app_spacing.dart';
 import 'package:final_project/style/app_text_styles.dart';
 import 'package:final_project/widgets/custom_text_form_field.dart';
 import 'package:final_project/widgets/localized_aligned_text.dart';
-import 'package:final_project/widgets/terms_of_use_sheet.dart';
+import 'package:final_project/widgets/legal_content_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -61,9 +62,20 @@ class ClientSignupScreen extends StatelessWidget {
                         }
 
                         if (state is OTPFailureState) {
-                          ScaffoldMessenger.of(
-                            context,
-                          ).showSnackBar(SnackBar(content: Text(state.error)));
+                          Flushbar(
+                            messageText: Text(
+                              state.error,
+                              style: AppTextStyles.interSize16(
+                                context,
+                              ).copyWith(color: Colors.white),
+                            ),
+                            backgroundColor: Colors.red,
+                            icon: Icon(Icons.error, color: Colors.white),
+                            duration: Duration(seconds: 3),
+                            flushbarPosition: FlushbarPosition.BOTTOM,
+                            borderRadius: BorderRadius.circular(8),
+                            margin: EdgeInsets.all(16),
+                          ).show(context);
                         }
                         if (state is SuccessState) {
                           Navigator.pushReplacement(
@@ -75,9 +87,20 @@ class ClientSignupScreen extends StatelessWidget {
                         }
 
                         if (state is FailureState) {
-                          ScaffoldMessenger.of(
-                            context,
-                          ).showSnackBar(SnackBar(content: Text(state.error!)));
+                          Flushbar(
+                            messageText: Text(
+                              state.error!,
+                              style: AppTextStyles.interSize16(
+                                context,
+                              ).copyWith(color: Colors.white),
+                            ),
+                            backgroundColor: Colors.red,
+                            icon: Icon(Icons.error, color: Colors.white),
+                            duration: Duration(seconds: 3),
+                            flushbarPosition: FlushbarPosition.BOTTOM,
+                            borderRadius: BorderRadius.circular(8),
+                            margin: EdgeInsets.all(16),
+                          ).show(context);
                         }
                       },
                       builder: (context, state) {
@@ -220,7 +243,13 @@ class ClientSignupScreen extends StatelessWidget {
                                                                     ),
                                                               ),
                                                               builder: (context) =>
-                                                                  TermsOfUseSheet(),
+                                                                  LegalContentSheet(
+                                                                    title:
+                                                                        'auth.terms'
+                                                                            .tr(),
+                                                                    content: bloc
+                                                                        .clientTermsKeys,
+                                                                  ),
                                                             );
                                                           },
                                                       ),
@@ -307,87 +336,3 @@ class ClientSignupScreen extends StatelessWidget {
     );
   }
 }
-
-
-                                  // Text.rich(
-                                  //   TextSpan(
-                                  //     text: "${'auth.have_account'.tr()} ",
-                                  //     style: AppTextStyles.interSize14(context)
-                                  //         .copyWith(
-                                  //           color: Theme.of(
-                                  //             context,
-                                  //           ).colorScheme.onSurface,
-                                  //         ),
-                                  //     children: [
-                                  //       TextSpan(
-                                  //         text: 'auth.login'.tr(),
-                                  //         style: AppTextStyles.interSize14(
-                                  //           context,
-                                  //         ),
-                                  //         recognizer: TapGestureRecognizer()
-                                  //           ..onTap = () {
-                                  //             Navigator.push(
-                                  //               context,
-                                  //               MaterialPageRoute(
-                                  //                 builder: (context) =>
-                                  //                     ClientLoginScreen(),
-                                  //               ),
-                                  //             );
-                                  //           },
-                                  //       ),
-                                  //     ],
-                                  //   ),
-                                  // ),
-
-                                  // Row(
-                                  //   mainAxisAlignment: MainAxisAlignment.start,
-                                  //   children: [
-                                  //     Checkbox(
-                                  //       value: bloc.isAgreedToTerms,
-                                  //       onChanged: (value) {
-                                  //         bloc.add(ToggleAgreeToTermsEvent());
-                                  //       },
-                                  //     ),
-                                  //     Text.rich(
-                                  //       TextSpan(
-                                  //         text: "${'auth.agree'.tr()} ",
-
-                                  //         style:
-                                  //             AppTextStyles.interSize14(
-                                  //               context,
-                                  //             ).copyWith(
-                                  //               color: Theme.of(
-                                  //                 context,
-                                  //               ).colorScheme.onSurface,
-                                  //             ),
-                                  //         children: [
-                                  //           TextSpan(
-                                  //             text: 'auth.terms'.tr(),
-                                  //             style: AppTextStyles.interSize14(
-                                  //               context,
-                                  //             ),
-
-                                  //             recognizer: TapGestureRecognizer()
-                                  //               ..onTap = () {
-                                  //                 showModalBottomSheet(
-                                  //                   context: context,
-                                  //                   isScrollControlled: true,
-                                  //                   shape: RoundedRectangleBorder(
-                                  //                     borderRadius:
-                                  //                         BorderRadius.vertical(
-                                  //                           top:
-                                  //                               Radius.circular(
-                                  //                                 24,
-                                  //                               ),
-                                  //                         ),
-                                  //                   ),
-                                  //                   builder: (context) =>
-                                  //                       TermsOfUseSheet(),
-                                  //                 );
-                                  //               },
-                                  //           ),
-                                  //         ],
-                                  //       ),
-                                  //     ),
-                                  //   ],
-                                  // ),

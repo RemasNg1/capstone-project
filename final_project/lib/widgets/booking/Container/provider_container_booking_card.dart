@@ -7,9 +7,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:final_project/screens/service_provider/service_booking2/bloc/service_booking_bloc.dart';
 import 'package:final_project/models/booking_model/service_request.dart';
 
+/// A card widget used by the service provider to display booking information.
 class ProviderContainerBookingCard extends StatelessWidget {
   final ServiceRequest item;
-  final bool showActionButtons;
+  final bool showActionButtons; //عرض أزرار الإجراءات (قبول / رفض)
   final VoidCallback? onTapChat;
 
   const ProviderContainerBookingCard({
@@ -71,7 +72,7 @@ class ProviderContainerBookingCard extends StatelessWidget {
                   ),
                   AppSpacing.h4,
 
-                  // Show booking status (translated)
+                  // Show booking status
                   Text(
                     '${'bookings.orderStatus'.tr()}: ${item.status.tr()}',
                     style: AppTextStyles.interSize12(
@@ -89,25 +90,25 @@ class ProviderContainerBookingCard extends StatelessWidget {
                   AppSpacing.h8,
 
                   // Chat button
-                  GestureDetector(
-                    onTap: onTapChat,
-                    child: Row(
-                      children: [
-                        const Icon(
-                          Icons.chat_bubble_outline,
-                          size: 18,
-                          color: AppColors.softGray,
-                        ),
-                        AppSpacing.w4,
-                        Text(
-                          'bookings.chatWithCustomer'.tr(),
-                          style: AppTextStyles.interSize12(
-                            context,
-                          ).copyWith(color: AppColors.softGray),
-                        ),
-                      ],
-                    ),
-                  ),
+                  // GestureDetector(
+                  //   onTap: onTapChat,
+                  //   child: Row(
+                  //     children: [
+                  //       const Icon(
+                  //         Icons.chat_bubble_outline,
+                  //         size: 18,
+                  //         color: AppColors.softGray,
+                  //       ),
+                  //       AppSpacing.w4,
+                  //       Text(
+                  //         'bookings.chatWithCustomer'.tr(),
+                  //         style: AppTextStyles.interSize12(
+                  //           context,
+                  //         ).copyWith(color: AppColors.softGray),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
 
                   // Show accept and cancel buttons if booking is waiting
                   if (showActionButtons && item.status == 'send') ...[
