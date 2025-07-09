@@ -39,7 +39,7 @@ class ProviderCustomColumnTabViewCards extends StatelessWidget {
               return ProviderContainerBookingCard(
                 item: booking,
                 showActionButtons: false,
-                onTapChat: () => print("Chat with booking ID: ${booking.id}"),
+                // onTapChat: () => print("Chat with booking ID: ${booking.id}"),
               );
             },
           ),
@@ -72,8 +72,8 @@ class ProviderCustomColumnTabViewCards extends StatelessWidget {
                   return ProviderContainerBookingCard(
                     item: booking,
                     showActionButtons: true,
-                    onTapChat: () =>
-                        print("Chat with waiting booking ID: ${booking.id}"),
+                    // onTapChat: () =>
+                    //     print("Chat with waiting booking ID: ${booking.id}"),
                   );
                 },
               ),
@@ -99,8 +99,8 @@ class ProviderCustomColumnTabViewCards extends StatelessWidget {
                   return ProviderContainerBookingCard(
                     item: booking,
                     showActionButtons: false,
-                    onTapChat: () =>
-                        print("Chat with accepted booking ID: ${booking.id}"),
+                    // onTapChat: () =>
+                    //     print("Chat with accepted booking ID: ${booking.id}"),
                   );
                 },
               ),

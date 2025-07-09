@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:final_project/models/services_models/services_provided/services_provided_model.dart';
+import 'package:final_project/repo/service.dart';
 import 'package:meta/meta.dart';
 
 part 'category_services_event.dart';
@@ -17,6 +18,8 @@ class CategoryServicesBloc
       emit(SuccessSearch(servicesProvided: allServices));
     });
     on<SearchServicesEvent>(searchMethod);
+
+    // on<ToggleFavoriteEvent>(favoriteMethod);
   }
 
   FutureOr<void> searchMethod(

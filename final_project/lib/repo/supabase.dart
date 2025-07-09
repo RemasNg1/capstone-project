@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-//remasnugaithan+18@gmail.com
 class SupabaseConnect {
   static Supabase? supabase;
   static Future<void> init() async {
@@ -21,5 +20,4 @@ class SupabaseConnect {
       throw FormatException("*** There is error with connect DB ***");
     }
   }
-
 }

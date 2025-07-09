@@ -1,4 +1,3 @@
-import 'package:final_project/core/enum/types.dart';
 import 'package:final_project/data_layer/auth_layer.dart';
 import 'package:final_project/repo/supabase.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';

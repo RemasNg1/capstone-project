@@ -22,21 +22,6 @@ class DataLayer {
     currentProvider = await Auth.fetchCurrentProvider();
   }
 
-  // loadFavoritesAndMerge() async {
-  //   if (currentUser == null) return;
-
-  //   favorites = await Service.fetchFavoriteServices();
-
-  //   final favoriteServiceIds = favorites
-  //       .map((f) => f.serviceProvidedId)
-  //       .toSet();
-  //   favoriteServices = await Service.fetchAllServicesProvided();
-  //   favoriteServices = favoriteServices.map((serviceProvided) {
-  //     final isFav = favoriteServiceIds.contains(serviceProvided.id);
-  //     return serviceProvided.copyWith(isFavorite: isFav);
-  //   }).toList();
-  // }
-
   loadOnlyFavoriteServices() async {
     if (currentUser == null) return;
 

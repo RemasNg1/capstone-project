@@ -23,7 +23,7 @@ class AddServiceState extends Equatable {
   final String name;
 
   // Guests and price info
-  final String guestCount;
+  // final String guestCount;
   final String price;
 
   // Selected location on the map
@@ -65,7 +65,7 @@ class AddServiceState extends Equatable {
     this.arabicDescription = '',
     this.category = '',
     this.name = '',
-    this.guestCount = '',
+    // this.guestCount = '',
     this.price = '',
     this.location,
     this.images = const [],
@@ -118,7 +118,7 @@ class AddServiceState extends Equatable {
       arabicDescription: arabicDescription ?? this.arabicDescription,
       category: category ?? this.category,
       name: name ?? this.name,
-      guestCount: guestCount ?? this.guestCount,
+      // guestCount: guestCount ?? this.guestCount,
       price: price ?? this.price,
       location: location ?? this.location,
       images: images ?? this.images,
@@ -148,7 +148,7 @@ class AddServiceState extends Equatable {
     arabicDescription,
     category,
     name,
-    guestCount,
+    // guestCount,
     price,
     location,
     images,

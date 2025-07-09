@@ -65,7 +65,8 @@ class Mycard extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: Image.network(
-                'https://assets.hyatt.com/content/dam/hyatt/hyattdam/images/2019/12/09/1201/Hyatt-Regency-London-The-Churchill-P948-Wedding-Dancefloor-View.jpg/Hyatt-Regency-London-The-Churchill-P948-Wedding-Dancefloor-View.4x3.jpg?imwidth=1920',
+                service.servicImage?.first.imageUrl ?? '',
+                // 'https://assets.hyatt.com/content/dam/hyatt/hyattdam/images/2019/12/09/1201/Hyatt-Regency-London-The-Churchill-P948-Wedding-Dancefloor-View.jpg/Hyatt-Regency-London-The-Churchill-P948-Wedding-Dancefloor-View.4x3.jpg?imwidth=1920',
                 height: 80,
                 width: 100,
                 fit: BoxFit.cover,

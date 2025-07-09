@@ -5,16 +5,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat_core/flutter_chat_core.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 
-class ChattingScreen extends StatelessWidget {
-  const ChattingScreen({super.key, required this.sender});
+class ProviderChatsScreen extends StatelessWidget {
+  const ProviderChatsScreen({super.key, required this.sender});
   final ModelMessage sender;
 
   @override
   Widget build(BuildContext context) {
     String avatar =
-        sender.providers?.avatar ??
+        sender.user?.avatar ??
         "https://www.arabiaweddings.com/sites/default/files/styles/max980/public/listing/2020/01/14/jwan_hall.jpg?itok=svPe8vrk";
-    String name = sender.providers?.nameEn ?? "Sdfgsdfg";
+    String name = sender.user?.name ?? "User";
     //  String authId=sender.providers!.nameEn!;
 
     return BlocProvider(

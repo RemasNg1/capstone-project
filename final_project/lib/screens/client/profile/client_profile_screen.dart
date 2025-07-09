@@ -338,36 +338,6 @@ class ClientProfileScreen extends StatelessWidget {
                               },
                             ),
                           );
-                          // showDialog(
-                          //   context: context,
-                          //   builder: (context) => DialogWithTwoOptions(
-                          //     title: "Are you sure you want to log out?",
-                          //     message:
-                          //         "This action will log you out from the application.",
-                          //     cancelText: "Cancel",
-                          //     confirmText: "Logout",
-                          //     confirmButtonColor: Colors.red,
-                          //     onConfirm: () {
-                          //       bloc.add(LogoutEvent());
-                          //     },
-                          //   ),
-                          // );
-
-                          // showDialog(
-                          //   context: context,
-                          //   builder: (context) => BlocProvider.value(
-                          //     value: bloc,
-                          //     child: DialogWithTwoOptions(
-                          //       title: "Are you sure you want to\n log out?",
-                          //       cancelText: "Cancel",
-                          //       confirmText: "Logout",
-                          //       confirmButtonColor: Colors.red,
-                          //       onConfirm: () {
-                          //         bloc.add(LogoutEvent());
-                          //       },
-                          //     ),
-                          //   ),
-                          // );
                         },
                       ),
                     ],

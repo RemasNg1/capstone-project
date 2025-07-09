@@ -232,6 +232,7 @@
         "edit_information": "Edit Information"
     },
     "chat": {
+        "chats": "Chats",
         "title": "Chat",
         "placeholder": "Type here ..."
     },

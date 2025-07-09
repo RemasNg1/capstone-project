@@ -77,6 +77,10 @@ class ServicesProvidedModelMapper
   static bool? _$isFavorite(ServicesProvidedModel v) => v.isFavorite;
   static const Field<ServicesProvidedModel, bool> _f$isFavorite =
       Field('isFavorite', _$isFavorite, opt: true);
+  static String? _$providerAuthId(ServicesProvidedModel v) => v.providerAuthId;
+  static const Field<ServicesProvidedModel, String> _f$providerAuthId = Field(
+      'providerAuthId', _$providerAuthId,
+      key: r'provider_auth_id', opt: true);
 
   @override
   final MappableFields<ServicesProvidedModel> fields = const {
@@ -93,6 +97,7 @@ class ServicesProvidedModelMapper
     #serviceRequests: _f$serviceRequests,
     #locations: _f$locations,
     #isFavorite: _f$isFavorite,
+    #providerAuthId: _f$providerAuthId,
   };
 
   static ServicesProvidedModel _instantiate(DecodingData data) {
@@ -109,7 +114,8 @@ class ServicesProvidedModelMapper
         ratings: data.dec(_f$ratings),
         serviceRequests: data.dec(_f$serviceRequests),
         locations: data.dec(_f$locations),
-        isFavorite: data.dec(_f$isFavorite));
+        isFavorite: data.dec(_f$isFavorite),
+        providerAuthId: data.dec(_f$providerAuthId));
   }
 
   @override
@@ -202,7 +208,8 @@ abstract class ServicesProvidedModelCopyWith<
       List<ServiceRatingModel>? ratings,
       List<ServiceRequestModel>? serviceRequests,
       List<ServiceLocationModel>? locations,
-      bool? isFavorite});
+      bool? isFavorite,
+      String? providerAuthId});
   ServicesProvidedModelCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
@@ -270,7 +277,8 @@ class _ServicesProvidedModelCopyWithImpl<$R, $Out>
           Object? ratings = $none,
           Object? serviceRequests = $none,
           Object? locations = $none,
-          Object? isFavorite = $none}) =>
+          Object? isFavorite = $none,
+          Object? providerAuthId = $none}) =>
       $apply(FieldCopyWithData({
         if (id != $none) #id: id,
         if (titleAr != $none) #titleAr: titleAr,
@@ -284,7 +292,8 @@ class _ServicesProvidedModelCopyWithImpl<$R, $Out>
         if (ratings != $none) #ratings: ratings,
         if (serviceRequests != $none) #serviceRequests: serviceRequests,
         if (locations != $none) #locations: locations,
-        if (isFavorite != $none) #isFavorite: isFavorite
+        if (isFavorite != $none) #isFavorite: isFavorite,
+        if (providerAuthId != $none) #providerAuthId: providerAuthId
       }));
   @override
   ServicesProvidedModel $make(CopyWithData data) => ServicesProvidedModel(
@@ -300,7 +309,8 @@ class _ServicesProvidedModelCopyWithImpl<$R, $Out>
       ratings: data.get(#ratings, or: $value.ratings),
       serviceRequests: data.get(#serviceRequests, or: $value.serviceRequests),
       locations: data.get(#locations, or: $value.locations),
-      isFavorite: data.get(#isFavorite, or: $value.isFavorite));
+      isFavorite: data.get(#isFavorite, or: $value.isFavorite),
+      providerAuthId: data.get(#providerAuthId, or: $value.providerAuthId));
 
   @override
   ServicesProvidedModelCopyWith<$R2, ServicesProvidedModel, $Out2>

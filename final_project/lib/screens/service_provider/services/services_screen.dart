@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class ServicesScreen extends StatelessWidget {
   const ServicesScreen({super.key});
@@ -47,7 +48,12 @@ class ServicesScreen extends StatelessWidget {
           builder: (context, state) {
             if (state.isLoading) {
               // Show loading indicator while services are being fetched
-              return const Center(child: CircularProgressIndicator());
+              return Center(
+                child: LoadingAnimationWidget.staggeredDotsWave(
+                  color: AppColors.blue,
+                  size: 100,
+                ),
+              );
             }
 
             if (state.error != null) {

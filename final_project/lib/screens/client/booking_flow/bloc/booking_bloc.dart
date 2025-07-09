@@ -1,6 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:final_project/core/enum/types.dart';
+import 'package:final_project/data_layer/chat_layer.dart';
+import 'package:final_project/models/chat/model_message.dart';
 import 'package:final_project/repo/service.dart';
 import 'package:meta/meta.dart';
 
@@ -8,6 +11,8 @@ part 'booking_event.dart';
 part 'booking_state.dart';
 
 class BookingBloc extends Bloc<BookingEvent, BookingState> {
+  List<ModelMessage> conversionMessages = [];
+  ChatLayer chatLayer = ChatLayer();
   DateTime selectedDay = DateTime.now();
 
   BookingBloc() : super(BookingInitial()) {
@@ -15,6 +20,17 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
     on<DaySelected>(calenderMethod);
     on<SubmitBooking>(bookingMethod);
     on<ToggleFavoriteEvent>(favoriteMethod);
+    on<LoadConversion>(loadConversion);
+  }
+
+  FutureOr<void> loadConversion(
+    LoadConversion event,
+    Emitter<BookingState> emit,
+  ) async {
+    conversionMessages = await chatLayer.getUserConversions(
+      userType: EnumUserType.customer,
+    );
+    emit(LoadingConversationSuccessfully());
   }
 
   FutureOr<void> calenderMethod(DaySelected event, Emitter<BookingState> emit) {

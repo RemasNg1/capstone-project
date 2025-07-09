@@ -36,9 +36,9 @@ class AddServiceBloc extends Bloc<AddServiceEvent, AddServiceState> {
       emit(state.copyWith(arabicDescription: event.arabicDescription));
     });
 
-    on<GuestCountChanged>((event, emit) {
-      emit(state.copyWith(guestCount: event.guestCount));
-    });
+    // on<GuestCountChanged>((event, emit) {
+    //   emit(state.copyWith(guestCount: event.guestCount));
+    // });
 
     on<PriceChanged>((event, emit) {
       emit(state.copyWith(price: event.price));
@@ -215,7 +215,7 @@ class AddServiceBloc extends Bloc<AddServiceEvent, AddServiceState> {
           arabicName: service['title_ar'] ?? '',
           description: service['description_en'] ?? '',
           arabicDescription: service['description_ar'] ?? '',
-          guestCount: service['guest_count']?.toString() ?? '',
+          // guestCount: service['guest_count']?.toString() ?? '',
           price: service['price']?.toString() ?? '',
           category: service['title_en'] ?? '',
           selectedTypeEn: selectedTypeEn,
@@ -342,7 +342,7 @@ class AddServiceBloc extends Bloc<AddServiceEvent, AddServiceState> {
         state.arabicDescription.trim().isEmpty ||
         state.category.trim().isEmpty ||
         state.price.trim().isEmpty ||
-        state.guestCount.trim().isEmpty ||
+        // state.guestCount.trim().isEmpty ||
         state.location == null ||
         state.images.isEmpty) {
       emit(
@@ -432,6 +432,7 @@ class AddServiceBloc extends Bloc<AddServiceEvent, AddServiceState> {
             'title_en': state.name,
             'description_ar': state.arabicDescription,
             'description_en': state.description,
+            'provider_auth_id': currentUser.id,
           })
           .select()
           .single();

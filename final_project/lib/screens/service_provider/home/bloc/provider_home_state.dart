@@ -4,4 +4,5 @@ part of 'provider_home_bloc.dart';
 sealed class ProviderHomeState {}
 
 final class ProviderHomeInitial extends ProviderHomeState {}
-final class ChangeDataViewSuccessful extends ProviderHomeState{}
+
+final class ChangeDataViewSuccessful extends ProviderHomeState {}

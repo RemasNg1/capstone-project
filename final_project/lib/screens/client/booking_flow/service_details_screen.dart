@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:final_project/data/dummy_data.dart';
+import 'package:final_project/core/helper/functions.dart';
 import 'package:final_project/models/chat/model_message.dart';
 import 'package:final_project/models/services_models/services_provided/services_provided_model.dart';
 import 'package:final_project/screens/client/booking_flow/bloc/booking_bloc.dart';
 import 'package:final_project/screens/client/booking_flow/booking_details_screen.dart';
-import 'package:final_project/screens/general/chats/chats_screen.dart';
+import 'package:final_project/screens/general/chats/client/chats_screen.dart';
 import 'package:final_project/style/app_buttons.dart';
 import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_spacing.dart';
@@ -19,6 +19,7 @@ import 'package:final_project/widgets/service_card.dart';
 import 'package:final_project/widgets/service_description.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ServiceDetailsScreen extends StatelessWidget {
   final ServicesProvidedModel service;
@@ -27,32 +28,6 @@ class ServiceDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final requestDates = service.serviceRequests != null
-        ? service.serviceRequests!
-              .where(
-                (r) =>
-                    r.date != null &&
-                    (r.status == 'accepted' || r.status == 'send'),
-              )
-              .map((r) => DateTime(r.date!.year, r.date!.month, r.date!.day))
-              .toSet()
-        : <DateTime>{};
-
-    final disabledRangeDates = <DateTime>{};
-    for (var loc in service.locations ?? []) {
-      for (var dis in loc.disabledDates ?? []) {
-        DateTime current = dis.startDate;
-        while (!current.isAfter(dis.endDate)) {
-          disabledRangeDates.add(
-            DateTime(current.year, current.month, current.day),
-          );
-          current = current.add(Duration(days: 1));
-        }
-      }
-    }
-
-    final unavailableDays = requestDates.union(disabledRangeDates);
-
     return BlocProvider(
       create: (context) => BookingBloc(),
       child: Builder(
@@ -152,38 +127,62 @@ class ServiceDetailsScreen extends StatelessWidget {
                             ? service.locations?.first.city?.nameAr ?? ''
                             : service.locations?.first.city?.nameEn ?? '',
                         imagePath: service.servicImage?.first.imageUrl ?? '',
-                        rating:
-                            (service.ratings != null &&
-                                service.ratings!.isNotEmpty)
-                            ? service.ratings!.first.rating ?? 0.0
-                            : 0.0,
-
+                        rating: calculateAverageRating(service.ratings!),
                         reviewCount: service.ratings?.length ?? 0,
                         width: context.getWidth(factor: 0.9),
                         height: context.getHeight(factor: 0.23),
-
                         showReviewCount: true,
                         onTap: () {},
                         icon: Icons.chat_bubble_outline,
+                        onIconPressed: () async {
+                          bloc.add(LoadConversion());
+                          await Future.delayed(Duration(milliseconds: 300));
+                          final currentUserId =
+                              Supabase.instance.client.auth.currentUser?.id;
+                          final providerId = service.providerAuthId;
+                          if (currentUserId == null || providerId == null) {
+                            print(currentUserId);
+                            print(providerId);
 
-                        onIconPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ChattingScreen(
-                                sender: ModelMessage(
-                                  content: "سيبشسيب",
-                                  date: "sdgsdfg",
-                                  id: 2567895,
-                                  owner: "Sdfsdgf",
-                                  providerAuthId: "sdfasdf",
-                                  status: "send",
-                                  user: User(name: "Zdf", avatar: "dddd"),
-                                  userAuthId: "Sdfsdfg",
+                            return;
+                          }
+
+                          ModelMessage? existingConversation;
+
+                          for (var msg in bloc.conversionMessages) {
+                            if (msg.userAuthId == currentUserId &&
+                                msg.providerAuthId == providerId) {
+                              existingConversation = msg;
+                              break;
+                            }
+                          }
+
+                          if (existingConversation != null) {
+                            // exsist chat
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ChattingScreen(
+                                  sender: existingConversation!,
                                 ),
                               ),
-                            ),
-                          );
+                            );
+                          } else {
+                            // new chat
+
+                            final newMessage = ModelMessage(
+                              userAuthId: currentUserId,
+                              providerAuthId: providerId,
+                            );
+
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ChattingScreen(sender: newMessage),
+                              ),
+                            );
+                          }
                         },
                       ),
 
@@ -212,7 +211,9 @@ class ServiceDetailsScreen extends StatelessWidget {
                       GoogleMapWidget(
                         latitude: service.locations?.first.latitude ?? 44,
                         longitude: service.locations?.first.longitude ?? 22,
-                        label: context.isArabic ? '' : service.titleAr ?? '',
+                        label: context.isArabic
+                            ? service.titleAr ?? ''
+                            : service.titleEn ?? '',
                       ),
 
                       AppSpacing.h24,
@@ -234,9 +235,13 @@ class ServiceDetailsScreen extends StatelessWidget {
                             children: [
                               CalendarWidget(
                                 selectedDay: bloc.selectedDay,
-                                unavailableDays: unavailableDays.isNotEmpty
-                                    ? unavailableDays
+                                unavailableDays:
+                                    getUnavailableDays(service).isNotEmpty
+                                    ? getUnavailableDays(service)
                                     : {DateTime(2025, 7, 1)},
+                                //  unavailableDays.isNotEmpty
+                                //     ? unavailableDays
+                                //     : {DateTime(2025, 7, 1)},
                                 onDaySelected: (day) {
                                   bloc.add(DaySelected(day));
                                 },
@@ -269,7 +274,9 @@ class ServiceDetailsScreen extends StatelessWidget {
                               ),
                               AppSpacing.w4,
                               Text(
-                                dummyService.rating.toStringAsFixed(1),
+                                calculateAverageRating(
+                                  service.ratings!,
+                                ).toStringAsFixed(1),
                                 style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -285,7 +292,7 @@ class ServiceDetailsScreen extends StatelessWidget {
                         Column(
                           children: service.ratings!.map((review) {
                             return ReviewCard(
-                              name: review.client?.name ?? "no name",
+                              name: review.client?.name ?? " ",
                               imageUrl:
                                   'https://cdn2.iconfinder.com/data/icons/circle-avatars-1/128/050_girl_avatar_profile_woman_suit_student_officer-512.png',
                               rating: review.rating?.toInt() ?? 0,

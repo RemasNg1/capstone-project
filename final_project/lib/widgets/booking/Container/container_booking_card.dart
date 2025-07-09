@@ -1,12 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:final_project/data_layer/booking_layer.dart';
 import 'package:final_project/models/booking/model_booking.dart';
-import 'package:final_project/models/temp_bookin/booking_temp_model.dart';
 import 'package:final_project/core/enum/types.dart';
 import 'package:final_project/screens/client/bookings/bloc/bookings_bloc.dart';
 import 'package:final_project/screens/client/bookings/blocBookingImage/bloc/booking_image_bloc.dart';
 import 'package:final_project/screens/client/bookings/rating_dialog.dart';
-import 'package:final_project/style/app_buttons.dart';
 import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_spacing.dart';
 import 'package:final_project/style/app_text_styles.dart';
@@ -131,7 +128,8 @@ class ContainerBookingCard extends StatelessWidget {
                     ).copyWith(color: AppColors.mediumGray),
                     children: [
                       TextSpan(
-                        text: item.servicesProvided!.price!.toString(),
+                        text: (item.servicesProvided!.price! * 1.15)
+                            .toStringAsFixed(2),
                         style: AppTextStyles.interSize14(context).copyWith(),
                       ),
                     ],

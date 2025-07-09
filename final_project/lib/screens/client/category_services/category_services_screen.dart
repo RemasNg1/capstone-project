@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:final_project/core/helper/functions.dart';
 import 'package:final_project/models/services_models/services_provided/services_provided_model.dart';
 import 'package:final_project/screens/client/booking_flow/service_details_screen.dart';
 import 'package:final_project/screens/client/category_services/bloc/category_services_bloc.dart';
@@ -6,6 +8,7 @@ import 'package:final_project/utils/extensions/localization_helper.dart';
 import 'package:final_project/widgets/category_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 /// CategoryScreen displays a list of services based on selected category.
 
@@ -57,7 +60,7 @@ class CategoryServiceScreen extends StatelessWidget {
                         ),
                         child: TextField(
                           decoration: InputDecoration(
-                            hintText: 'Search...',
+                            hintText: 'home.search'.tr(),
                             hintStyle: const TextStyle(
                               color: AppColors.mediumGray,
                             ),
@@ -119,11 +122,14 @@ class CategoryServiceScreen extends StatelessWidget {
                                                 .first
                                                 .city!
                                                 .nameEn!,
-                                      rating:
-                                          (service.ratings != null &&
-                                              service.ratings!.isNotEmpty)
-                                          ? service.ratings!.first.rating ?? 0.0
-                                          : 0.0,
+                                      rating: calculateAverageRating(
+                                        service.ratings!,
+                                      ),
+                                      // rating:
+                                      //     (service.ratings != null &&
+                                      //         service.ratings!.isNotEmpty)
+                                      //     ? service.ratings!.first.rating ?? 0.0
+                                      //     : 0.0,
                                       ratingCount: service.ratings?.length ?? 0,
                                       onTap: () {
                                         Navigator.push(
@@ -139,7 +145,13 @@ class CategoryServiceScreen extends StatelessWidget {
                                     );
                                   },
                                 )
-                              : Center(child: CircularProgressIndicator()),
+                              : Center(
+                                  child:
+                                      LoadingAnimationWidget.staggeredDotsWave(
+                                        color: AppColors.blue,
+                                        size: 100,
+                                      ),
+                                ),
                         ),
                       ),
                     ),

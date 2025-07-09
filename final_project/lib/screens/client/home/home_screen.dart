@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:final_project/core/helper/functions.dart';
 import 'package:final_project/screens/client/booking_flow/service_details_screen.dart';
 import 'package:final_project/screens/client/category_services/category_services_screen.dart';
-import 'package:final_project/screens/client/favorites/favorite_screen.dart';
 import 'package:final_project/screens/client/home/recommended_card.dart';
 import 'package:final_project/screens/client/home/mycard.dart';
 import 'package:final_project/style/app_colors.dart';
@@ -237,12 +237,15 @@ class HomeScreen extends StatelessWidget {
                                     imagePath:
                                         service.servicImage?.first.imageUrl ??
                                         '',
-                                    rating:
-                                        (service.ratings != null &&
-                                            service.ratings!.isNotEmpty)
-                                        ? service.ratings!.first.rating ?? 0.0
-                                        : 0.0,
+                                    rating: calculateAverageRating(
+                                      service.ratings!,
+                                    ),
 
+                                    // rating:
+                                    //     (service.ratings != null &&
+                                    //         service.ratings!.isNotEmpty)
+                                    //     ? service.ratings!.first.rating ?? 0.0
+                                    //     : 0.0,
                                     reviewCount: service.ratings?.length ?? 0,
                                     width: 188,
                                     height: 250,
@@ -268,11 +271,9 @@ class HomeScreen extends StatelessWidget {
                                       );
                                     },
                                     onIconPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              FavoriteScreen(),
+                                      bloc.add(
+                                        ToggleFavoriteEvent(
+                                          serviceId: service.id!,
                                         ),
                                       );
                                     },

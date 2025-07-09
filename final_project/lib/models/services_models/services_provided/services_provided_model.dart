@@ -134,6 +134,9 @@ class ServicesProvidedModel with ServicesProvidedModelMappable {
   final List<ServiceLocationModel>? locations;
   final bool? isFavorite;
 
+  @MappableField(key: 'provider_auth_id')
+  final String? providerAuthId;
+
   const ServicesProvidedModel({
     this.id,
     this.titleAr,
@@ -148,5 +151,6 @@ class ServicesProvidedModel with ServicesProvidedModelMappable {
     this.serviceRequests,
     this.locations,
     this.isFavorite,
+    this.providerAuthId,
   });
 }

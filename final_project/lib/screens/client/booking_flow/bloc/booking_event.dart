@@ -25,3 +25,5 @@ class ToggleFavoriteEvent extends BookingEvent {
 
   ToggleFavoriteEvent({required this.serviceId});
 }
+
+class LoadConversion extends BookingEvent {}

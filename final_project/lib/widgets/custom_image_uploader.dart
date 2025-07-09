@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_spacing.dart';
+import 'package:final_project/utils/extensions/screen/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
@@ -23,8 +24,8 @@ class CustomImageUploader extends StatelessWidget {
         }
       },
       child: Container(
-        width: 340,
-        height: 85,
+        width: context.getWidth(factor: 0.9),
+        height: context.getHeight(factor: 0.15),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: AppColors.white,

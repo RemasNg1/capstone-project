@@ -54,13 +54,13 @@ class NameChanged extends AddServiceEvent {
 }
 
 // Called when guest count input changes
-class GuestCountChanged extends AddServiceEvent {
-  final String guestCount;
-  GuestCountChanged(this.guestCount);
+// class GuestCountChanged extends AddServiceEvent {
+//   final String guestCount;
+//   GuestCountChanged(this.guestCount);
 
-  @override
-  List<Object> get props => [guestCount];
-}
+//   @override
+//   List<Object> get props => [guestCount];
+// }
 
 // Called when price input changes
 class PriceChanged extends AddServiceEvent {

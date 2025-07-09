@@ -90,7 +90,7 @@ class AddNewServiceScreen extends StatelessWidget {
 
           // Form controllers
           final nameController = TextEditingController();
-          final guestCountController = TextEditingController();
+          // final guestCountController = TextEditingController();
           final dateController = TextEditingController();
           final priceController = TextEditingController();
           final arabicNameController = TextEditingController();
@@ -103,7 +103,7 @@ class AddNewServiceScreen extends StatelessWidget {
             arabicNameController.text = bloc.state.arabicName;
             descriptionController.text = bloc.state.description;
             arabicDescriptionController.text = bloc.state.arabicDescription;
-            guestCountController.text = bloc.state.guestCount;
+            // guestCountController.text = bloc.state.guestCount;
             priceController.text = bloc.state.price;
             dateController.text = bloc.state.unavailableDateRanges.isNotEmpty
                 ? bloc.state.unavailableDateRanges
@@ -224,15 +224,14 @@ class AddNewServiceScreen extends StatelessWidget {
                         bloc.add(ArabicDescriptionChanged(value)),
                   ),
 
-                  AppSpacing.h16,
-                  CustomTextFormFieldService(
-                    labelText: 'services.guests'.tr(),
-                    hintText: 'services.inputPlaceholder'.tr(),
-                    controller: guestCountController,
-                    keyboardType: TextInputType.number,
-                    onChanged: (value) => bloc.add(GuestCountChanged(value)),
-                  ),
-
+                  // AppSpacing.h16,
+                  // CustomTextFormFieldService(
+                  //   labelText: 'services.guests'.tr(),
+                  //   hintText: 'services.inputPlaceholder'.tr(),
+                  //   controller: guestCountController,
+                  //   keyboardType: TextInputType.number,
+                  //   onChanged: (value) => bloc.add(GuestCountChanged(value)),
+                  // ),
                   AppSpacing.h16,
 
                   // Show calendar bottom sheet
@@ -464,9 +463,9 @@ class AddNewServiceScreen extends StatelessWidget {
                                   arabicDescriptionController.text,
                                 ),
                               )
-                              ..add(
-                                GuestCountChanged(guestCountController.text),
-                              )
+                              // ..add(
+                              //   GuestCountChanged(guestCountController.text),
+                              // )
                               ..add(PriceChanged(priceController.text));
 
                             // Call appropriate submit or update event

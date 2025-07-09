@@ -6,6 +6,7 @@ import 'package:final_project/screens/client/client_bottom_navbar/client_bottom_
 import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_spacing.dart';
 import 'package:final_project/style/app_text_styles.dart';
+import 'package:final_project/utils/extensions/localization_helper.dart';
 import 'package:final_project/widgets/custom_result_dialog.dart';
 import 'package:final_project/widgets/payment_summary_card.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +43,9 @@ class CheckoutScreen extends StatelessWidget {
 
             PaymentSummaryCard(
               servicePrice: service.price!,
-              serviceTitle: service.titleAr!,
+              serviceTitle: context.isArabic
+                  ? service.titleAr ?? ''
+                  : service.titleEn ?? '',
               tax: service.price! * 0.15,
               total: service.price! * 1.15,
             ),
@@ -105,9 +108,8 @@ class CheckoutScreen extends StatelessWidget {
 
 PaymentConfig configMethod({required double amount}) {
   return PaymentConfig(
-    publishableApiKey: "",
+    publishableApiKey: "pk_test_Aw3KeUqXpRpRjvi1k7WKPeK436JpG73EuYs6RyJr",
     amount: amount.toInt(),
     description: "Service Reservation",
-    metadata: {"capture": false},
   );
 }

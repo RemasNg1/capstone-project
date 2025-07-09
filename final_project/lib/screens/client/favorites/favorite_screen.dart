@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:final_project/core/helper/functions.dart';
 import 'package:final_project/screens/client/booking_flow/service_details_screen.dart';
 import 'package:final_project/screens/client/favorites/bloc/favorites_bloc.dart';
 import 'package:final_project/style/app_colors.dart';
@@ -6,6 +7,7 @@ import 'package:final_project/utils/extensions/localization_helper.dart';
 import 'package:final_project/widgets/category_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class FavoriteScreen extends StatelessWidget {
   const FavoriteScreen({super.key});
@@ -32,7 +34,12 @@ class FavoriteScreen extends StatelessWidget {
               child: BlocBuilder<FavoritesBloc, FavoritesState>(
                 builder: (context, state) {
                   if (state is ServiceLoading) {
-                    return const Center(child: CircularProgressIndicator());
+                    return Center(
+                      child: LoadingAnimationWidget.staggeredDotsWave(
+                        color: AppColors.blue,
+                        size: 100,
+                      ),
+                    );
                   } else if (state is ServicesLoaded) {
                     return GridView.builder(
                       itemCount: state.servicesProvided.length,
@@ -54,7 +61,7 @@ class FavoriteScreen extends StatelessWidget {
                           location: context.isArabic
                               ? service.locations?.first.city?.nameAr ?? ''
                               : service.locations?.first.city?.nameEn ?? '',
-                          rating: service.ratings?.first.rating ?? 0,
+                          rating: calculateAverageRating(service.ratings!),
                           ratingCount: service.ratings?.length ?? 0,
                           onTap: () {
                             Navigator.push(

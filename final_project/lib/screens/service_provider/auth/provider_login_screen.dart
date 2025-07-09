@@ -55,7 +55,7 @@ class ProviderLoginScreen extends StatelessWidget {
           if (state is OTPFailureState) {
             Flushbar(
               messageText: Text(
-                state.error!,
+                state.error,
                 style: AppTextStyles.interSize16(
                   context,
                 ).copyWith(color: Colors.white),
@@ -233,20 +233,20 @@ class ProviderLoginScreen extends StatelessWidget {
                               },
                             ),
 
-                            TextButton(
-                              onPressed: () {
-                                bloc.add(SignInAnonymouslyEvent());
-                              },
-                              child: Text(
-                                "auth.guest".tr(),
-                                style: AppTextStyles.interSize14(context)
-                                    .copyWith(
-                                      color: Theme.of(
-                                        context,
-                                      ).colorScheme.onSurface,
-                                    ),
-                              ),
-                            ),
+                            // TextButton(
+                            //   onPressed: () {
+                            //     bloc.add(SignInAnonymouslyEvent());
+                            //   },
+                            //   child: Text(
+                            //     "auth.guest".tr(),
+                            //     style: AppTextStyles.interSize14(context)
+                            //         .copyWith(
+                            //           color: Theme.of(
+                            //             context,
+                            //           ).colorScheme.onSurface,
+                            //         ),
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),

@@ -42,6 +42,56 @@
 // //         // });
 // //       },
 
+// import 'package:final_project/core/enum/types.dart';
+// import 'package:final_project/style/app_colors.dart';
+// import 'package:flutter/material.dart';
+// import 'package:easy_localization/easy_localization.dart';
+
+// class CustomTabSwitcher extends StatelessWidget {
+//   const CustomTabSwitcher({
+//     super.key,
+//     required Null Function(dynamic newSelection) onChanged,
+//     required EnumTypeOfShowChart selected,
+//   });
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return DefaultTabController(
+//       length: 3,
+//       initialIndex: 0,
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           TabBar(
+//             labelStyle: const TextStyle(fontWeight: FontWeight.bold),
+//             labelColor: Colors.black,
+//             indicatorWeight: 4.0,
+//             unselectedLabelColor: Colors.grey,
+//             indicator: const UnderlineTabIndicator(
+//               borderSide: BorderSide(width: 4.0, color: AppColors.mediumBlue),
+//             ),
+//             tabs: [
+//               Tab(text: 'home.week'.tr()),
+//               Tab(text: 'home.month'.tr()),
+//               Tab(text: 'home.year'.tr()),
+//             ],
+//           ),
+
+//           // Expanded(
+//           //   child: TabBarView(
+//           //     children: [
+//           //       WeeklyWidget(),
+//           //       MonthlyWidget(),
+//           //       YearlyWidget(),
+//           //     ],
+//           //   ),
+//           // )
+//         ],
+//       ),
+//     );
+//   }
+// }
+
 import 'package:final_project/core/enum/types.dart';
 import 'package:final_project/style/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -50,43 +100,55 @@ import 'package:easy_localization/easy_localization.dart';
 class CustomTabSwitcher extends StatelessWidget {
   const CustomTabSwitcher({
     super.key,
-    required Null Function(dynamic newSelection) onChanged,
-    required EnumTypeOfShowChart selected,
+    required this.onChanged,
+    required this.selected,
   });
+
+  // Callback to handle when the tab is changed
+  final Function(EnumTypeOfShowChart newSelection) onChanged;
+
+  // Currently selected tab (week, month, or year)
+  final EnumTypeOfShowChart selected;
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
+      // Number of tabs
       length: 3,
-      initialIndex: 0,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          TabBar(
-            labelStyle: const TextStyle(fontWeight: FontWeight.bold),
-            labelColor: Colors.black,
-            indicatorWeight: 4.0,
-            unselectedLabelColor: Colors.grey,
-            indicator: const UnderlineTabIndicator(
-              borderSide: BorderSide(width: 4.0, color: AppColors.mediumBlue),
-            ),
-            tabs: [
-              Tab(text: 'home.week'.tr()),
-              Tab(text: 'home.month'.tr()),
-              Tab(text: 'home.year'.tr()),
-            ],
-          ),
+      // Set initial tab index based on selected value
+      initialIndex: selected.index,
+      child: Builder(
+        builder: (context) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TabBar(
+                // When a tab is tapped, trigger onChanged callback
+                onTap: (index) {
+                  onChanged(EnumTypeOfShowChart.values[index]);
+                },
 
-          // Expanded(
-          //   child: TabBarView(
-          //     children: [
-          //       WeeklyWidget(),
-          //       MonthlyWidget(),
-          //       YearlyWidget(),
-          //     ],
-          //   ),
-          // )
-        ],
+                labelStyle: const TextStyle(fontWeight: FontWeight.bold),
+                labelColor: Colors.black,
+                unselectedLabelColor: Colors.grey,
+                indicatorWeight: 4.0,
+                // Custom underline indicator for selected tab
+                indicator: const UnderlineTabIndicator(
+                  borderSide: BorderSide(
+                    width: 4.0,
+                    color: AppColors.mediumBlue,
+                  ),
+                ),
+                // Define the three tabs: Week, Month, Year
+                tabs: [
+                  Tab(text: 'home.week'.tr()),
+                  Tab(text: 'home.month'.tr()),
+                  Tab(text: 'home.year'.tr()),
+                ],
+              ),
+            ],
+          );
+        },
       ),
     );
   }

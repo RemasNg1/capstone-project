@@ -22,7 +22,8 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     on<ChatsEvent>((event, emit) {});
     on<SendMessage>(sendMessage);
     on<LoadMessage>(loadMessage);
-    on<LoadConversion>(loadConversion);
+    on<ClientLoadConversion>(clientLoadConversion);
+    on<ProviderLoadConversion>(providerLoadConversion);
   }
 
   FutureOr<void> sendMessage(
@@ -55,12 +56,22 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     emit(LoadingMessagesSuccessfully());
   }
 
-  FutureOr<void> loadConversion(
-    LoadConversion event,
+  FutureOr<void> clientLoadConversion(
+    ClientLoadConversion event,
     Emitter<ChatsState> emit,
   ) async {
     conversionMessages = await chatLayer.getUserConversions(
       userType: EnumUserType.customer,
+    );
+    emit(LoadingConversationSuccessfully());
+  }
+
+  FutureOr<void> providerLoadConversion(
+    ProviderLoadConversion event,
+    Emitter<ChatsState> emit,
+  ) async {
+    conversionMessages = await chatLayer.getUserConversions(
+      userType: EnumUserType.provider,
     );
     emit(LoadingConversationSuccessfully());
   }

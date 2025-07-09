@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/style/app_colors.dart';
+import 'package:final_project/style/app_spacing.dart';
 import 'package:final_project/widgets/star_rating_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -58,6 +59,7 @@ class CategoryCard extends StatelessWidget {
                 ),
               ),
             ),
+            AppSpacing.h8,
 
             // Content
             Padding(
@@ -79,23 +81,23 @@ class CategoryCard extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      if (showFavorite)
-                        Container(
-                          width: 24,
-                          height: 24,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: AppColors.white,
-                            border: Border.all(color: AppColors.lightGray),
-                          ),
-                          child: Center(
-                            child: Icon(
-                              Icons.favorite_border,
-                              size: 16,
-                              color: AppColors.mediumGray,
-                            ),
-                          ),
-                        ),
+                      // if (showFavorite)
+                      //   Container(
+                      //     width: 24,
+                      //     height: 24,
+                      //     decoration: BoxDecoration(
+                      //       shape: BoxShape.circle,
+                      //       color: AppColors.white,
+                      //       border: Border.all(color: AppColors.lightGray),
+                      //     ),
+                      //     child: Center(
+                      //       child: Icon(
+                      //         Icons.favorite_border,
+                      //         size: 16,
+                      //         color: AppColors.mediumGray,
+                      //       ),
+                      //     ),
+                      //   ),
                     ],
                   ),
                   const SizedBox(height: 4),

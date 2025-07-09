@@ -1,6 +1,8 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:final_project/models/services_models/service_rating/service_rating_model.dart';
+import 'package:final_project/models/services_models/services_provided/services_provided_model.dart';
 import 'package:final_project/models/temp_bookin/message_temp_model.dart';
 import 'package:final_project/style/app_colors.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -14,6 +16,48 @@ import 'package:flutter/material.dart';
 // ) {
 //   return bookingList.where((booking) => booking.status == status).toList();
 // }
+
+//-------------------- UnavailableDays --------------------
+
+Set<DateTime> getUnavailableDays(ServicesProvidedModel service) {
+  final requestDates = service.serviceRequests == null
+      ? <DateTime>{}
+      : service.serviceRequests!
+            .where(
+              (r) =>
+                  r.date != null &&
+                  (r.status == 'accepted' || r.status == 'send'),
+            )
+            .map((r) => DateTime(r.date!.year, r.date!.month, r.date!.day))
+            .toSet();
+
+  final disabledRangeDates = <DateTime>{};
+  for (var loc in service.locations ?? []) {
+    for (var dis in loc.disabledDates ?? []) {
+      DateTime current = dis.startDate;
+      while (!current.isAfter(dis.endDate)) {
+        disabledRangeDates.add(
+          DateTime(current.year, current.month, current.day),
+        );
+        current = current.add(Duration(days: 1));
+      }
+    }
+  }
+
+  return requestDates.union(disabledRangeDates);
+}
+
+//-------------------- rating part --------------------
+
+double calculateAverageRating(List<ServiceRatingModel> ratings) {
+  if (ratings.isEmpty) return 0.0;
+
+  var validRatings = ratings.where((r) => r.rating != null).toList();
+  if (validRatings.isEmpty) return 0.0;
+
+  double sum = validRatings.map((r) => r.rating!).reduce((a, b) => a + b);
+  return sum / validRatings.length;
+}
 
 //-------------------- chat part --------------------
 

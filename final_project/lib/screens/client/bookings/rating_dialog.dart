@@ -33,7 +33,7 @@ class RatingDialog extends StatelessWidget {
             Align(
               alignment: Alignment.center,
               child: Text(
-                'bookings.ratings'.tr(),
+                'bookings.rate_service'.tr(),
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),

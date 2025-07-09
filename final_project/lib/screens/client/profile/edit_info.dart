@@ -47,7 +47,7 @@ class EditInfoDialog extends StatelessWidget {
       ),
       content: SingleChildScrollView(
         child: SizedBox(
-          height: context.getHeight(factor: 0.25),
+          height: context.getHeight(factor: 0.20),
           child: Form(
             key: bloc.profileFormKey,
             child: Column(

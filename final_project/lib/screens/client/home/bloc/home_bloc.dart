@@ -49,10 +49,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
       servicesProvided = dataLayer.servicesProvidedModelData;
       services = dataLayer.services;
-      log(favorites.toString());
+      // log(favorites.toString());
 
       await dataLayer.loadOnlyFavoriteServices();
-      log("✅ favoriteServices: ${dataLayer.favoriteServices}");
+      // log("✅ favoriteServices: ${dataLayer.favoriteServices}");
 
       final favoriteServiceIds = favorites
           .map((f) => f.serviceProvidedId)
@@ -66,14 +66,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       }).toList();
       currentUser = dataLayer.currentUser!;
 
-      log("services.toString(): $services.toString()");
+      // log("services.toString(): $services.toString()");
       // log(favoriteServiceIds.toString());
       // log(
       //   "uuuuuuuuuuuu :${Auth.fetchCurrentUser().toString() ?? "hhhhh"}nooo user",
       // );
       // log("uuuuserrrrr  ${dataLayer.currentUser.toString()}");
 
-      log("uuuuserrrrr  ${currentUser}");
+      // log("uuuuserrrrr  ${currentUser}");
 
       emit(
         HomeLoaded(

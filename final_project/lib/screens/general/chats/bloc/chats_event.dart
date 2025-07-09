@@ -6,7 +6,7 @@ sealed class ChatsEvent {}
 
 class SendMessage extends ChatsEvent {
   final String userInput;
-  
+
   SendMessage({required this.userInput});
 }
 
@@ -16,4 +16,6 @@ class LoadMessage extends ChatsEvent {
   LoadMessage({required this.authId});
 }
 
-class LoadConversion extends ChatsEvent {}
+class ClientLoadConversion extends ChatsEvent {}
+
+class ProviderLoadConversion extends ChatsEvent {}

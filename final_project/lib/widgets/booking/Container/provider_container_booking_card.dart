@@ -10,13 +10,13 @@ import 'package:final_project/models/booking_model/service_request.dart';
 class ProviderContainerBookingCard extends StatelessWidget {
   final ServiceRequest item;
   final bool showActionButtons;
-  final VoidCallback? onTapChat;
+  // final VoidCallback? onTapChat;
 
   const ProviderContainerBookingCard({
     super.key,
     required this.item,
     this.showActionButtons = false,
-    this.onTapChat,
+    // this.onTapChat,
   });
 
   @override
@@ -87,27 +87,28 @@ class ProviderContainerBookingCard extends StatelessWidget {
                     ).copyWith(color: Theme.of(context).colorScheme.onSurface),
                   ),
                   AppSpacing.h8,
+                  AppSpacing.h16,
 
                   // Chat button
-                  GestureDetector(
-                    onTap: onTapChat,
-                    child: Row(
-                      children: [
-                        const Icon(
-                          Icons.chat_bubble_outline,
-                          size: 18,
-                          color: AppColors.softGray,
-                        ),
-                        AppSpacing.w4,
-                        Text(
-                          'bookings.chatWithCustomer'.tr(),
-                          style: AppTextStyles.interSize12(
-                            context,
-                          ).copyWith(color: AppColors.softGray),
-                        ),
-                      ],
-                    ),
-                  ),
+                  // GestureDetector(
+                  //   // onTap: onTapChat,
+                  //   child: Row(
+                  //     children: [
+                  //       const Icon(
+                  //         Icons.chat_bubble_outline,
+                  //         size: 18,
+                  //         color: AppColors.softGray,
+                  //       ),
+                  //       AppSpacing.w4,
+                  //       Text(
+                  //         'bookings.chatWithCustomer'.tr(),
+                  //         style: AppTextStyles.interSize12(
+                  //           context,
+                  //         ).copyWith(color: AppColors.softGray),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
 
                   // Show accept and cancel buttons if booking is waiting
                   if (showActionButtons && item.status == 'send') ...[

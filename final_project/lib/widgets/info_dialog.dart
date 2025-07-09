@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/style/app_spacing.dart';
 import 'package:final_project/utils/extensions/localization_helper.dart';
 import 'package:flutter/material.dart';

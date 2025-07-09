@@ -151,16 +151,16 @@ class AuthLayer {
     String? commercialRegistrationNumber,
   }) async {
     final user = ProviderModel(
-      nameAr: null,
+      nameAr: nameAr,
       nameEn: nameEn,
       descriptionAr: null,
       descriptionEn: null,
       phoneNumber: phoneNumber,
-      iban: null,
+      iban: iban,
       commercialRegistrationNumber: commercialRegistrationNumber,
       status: EnumUserStatus.online,
       authId: idUser,
-      avatar: null,
+      avatar: 'https://i.imgur.com/ZDM3MLB.png',
       isVerified: false,
     );
 

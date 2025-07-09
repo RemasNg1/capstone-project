@@ -75,7 +75,7 @@ class ProviderModel with ProviderModelMappable {
       'description_en': descriptionEn,
       'avatar': avatar,
       'iban': iban,
-      'commercial_registration_certificate': commercialRegistrationNumber,
+      'commercial_registration_number': commercialRegistrationNumber,
       'status': status?.name,
       'phone_number': phoneNumber,
       'auth_id': authId,

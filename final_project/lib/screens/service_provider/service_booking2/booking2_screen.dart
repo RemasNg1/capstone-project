@@ -1,10 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/widgets/booking/column/provider_custom_column_tab_view_cards.dart';
 import 'package:flutter/material.dart';
 import 'package:final_project/repo/booking_repo.dart';
 import 'package:final_project/screens/service_provider/service_booking2/bloc/service_booking_bloc.dart';
 import 'package:final_project/screens/service_provider/service_booking2/bloc/service_booking_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ServicesBookingsScreen extends StatelessWidget {
@@ -31,7 +33,7 @@ class _BookingsContent extends StatelessWidget {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("bookings.myBookings".tr()), // Localized screen title
+          title: Text("bookings.my_bookings".tr()), // Localized screen title
           bottom: TabBar(
             labelColor: Colors.black,
             unselectedLabelColor: Colors.grey,
@@ -46,7 +48,12 @@ class _BookingsContent extends StatelessWidget {
         body: BlocBuilder<BookingsBloc, BookingsState>(
           builder: (context, state) {
             if (state is BookingsLoading) {
-              return const Center(child: CircularProgressIndicator());
+              return Center(
+                child: LoadingAnimationWidget.staggeredDotsWave(
+                  color: AppColors.blue,
+                  size: 100,
+                ),
+              );
             } else if (state is BookingsLoaded) {
               return TabBarView(
                 children: [

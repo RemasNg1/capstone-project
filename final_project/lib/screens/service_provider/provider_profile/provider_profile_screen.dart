@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/screens/general/user_type/user_type_screen.dart';
 import 'package:final_project/screens/service_provider/provider_profile/bloc/provider_profile_bloc.dart';
 import 'package:final_project/screens/service_provider/provider_profile/edit_info.dart';
+import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_spacing.dart';
 import 'package:final_project/style/app_text_styles.dart';
 import 'package:final_project/widgets/avatar.dart';
@@ -15,6 +16,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class ProviderProfileScreen extends StatelessWidget {
   const ProviderProfileScreen({super.key});
@@ -130,7 +132,7 @@ class ProviderProfileScreen extends StatelessWidget {
                             BlendMode.srcIn,
                           ),
                         ),
-                        title: "profile.personal_info".tr(),
+                        title: "profile.edit_information".tr(),
                         trailing: Icon(
                           Icons.arrow_forward_ios,
                           color: Theme.of(context).colorScheme.onSurface,
@@ -284,7 +286,12 @@ class ProviderProfileScreen extends StatelessWidget {
             );
           }
 
-          return Center(child: CircularProgressIndicator());
+          return Center(
+            child: LoadingAnimationWidget.staggeredDotsWave(
+              color: AppColors.blue,
+              size: 100,
+            ),
+          );
         },
       ),
     );

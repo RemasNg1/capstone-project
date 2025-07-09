@@ -1,8 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/style/app_buttons.dart';
-import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_text_styles.dart';
-import 'package:final_project/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
 class BookingBottomBar extends StatelessWidget {

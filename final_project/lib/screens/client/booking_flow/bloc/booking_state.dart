@@ -20,3 +20,5 @@ class FavoriteErrorState extends BookingState {
 
   FavoriteErrorState({required this.message});
 }
+
+class LoadingConversationSuccessfully extends BookingState {}

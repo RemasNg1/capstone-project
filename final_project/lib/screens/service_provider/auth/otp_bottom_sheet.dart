@@ -1,3 +1,4 @@
+import 'dart:ui' as ui;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/screens/service_provider/auth/bloc/auth_bloc.dart';
 import 'package:final_project/screens/service_provider/auth/custom_rich_text.dart';
@@ -54,21 +55,23 @@ class OtpBottomSheet extends StatelessWidget {
             builder: (context, state) {
               return Column(
                 children: [
-                  SlideCountdownSeparated(
-                    key: ValueKey(bloc.resendOtpCounter),
-                    decoration: BoxDecoration(),
-                    duration: Duration(seconds: 60),
-                    separatorType: SeparatorType.symbol,
-                    separator: ":",
-                    slideDirection: SlideDirection.none,
-                    style: AppTextStyles.interSize16(
-                      context,
-                    ).copyWith(color: Theme.of(context).colorScheme.onSurface),
-                    onDone: () {
-                      bloc.add(EnableResendOtpEvent());
-                    },
+                  Directionality(
+                    textDirection: ui.TextDirection.ltr,
+                    child: SlideCountdownSeparated(
+                      key: ValueKey(bloc.resendOtpCounter),
+                      decoration: BoxDecoration(),
+                      duration: Duration(seconds: 60),
+                      separatorType: SeparatorType.symbol,
+                      separator: ":",
+                      slideDirection: SlideDirection.none,
+                      style: AppTextStyles.interSize16(context).copyWith(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                      onDone: () {
+                        bloc.add(EnableResendOtpEvent());
+                      },
+                    ),
                   ),
-
                   AppSpacing.h8,
 
                   CustomRichText(
