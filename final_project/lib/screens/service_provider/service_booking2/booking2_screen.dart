@@ -33,7 +33,7 @@ class _BookingsContent extends StatelessWidget {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("bookings.my_bookings".tr()), // Localized screen title
+          title: Text("bookings.my_bookings".tr()),
           bottom: TabBar(
             labelColor: Colors.black,
             unselectedLabelColor: Colors.grey,

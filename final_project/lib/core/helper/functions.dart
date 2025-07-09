@@ -77,48 +77,44 @@ List<MessageTempModel> getUnique() {
 }
 
 //-------------------- chart part --------------------
-
+// Creates chart bars from values
 List<BarChartGroupData> makeGroupDataStatic({
   required List<int> valuesToDisplay,
   required double width,
 }) {
   Color barColor = AppColors.mediumBlue;
   int count = 0;
+
   return valuesToDisplay.map((value) {
-    BarChartGroupData bar = BarChartGroupData(
+    return BarChartGroupData(
       barsSpace: 4,
-      x: count,
+      x: count++,
       barRods: [
-        BarChartRodData(toY: scaleValue(value), color: barColor, width: width),
+        BarChartRodData(
+          toY: scaleValue(value), // Scaled height
+          color: barColor,
+          width: width,
+        ),
       ],
     );
-    count++;
-
-    return bar;
   }).toList();
 }
 
+// Scales a value (logarithmic) to fit chart height
 double scaleValue(num x) {
   if (x <= 0) return 0;
   double logValue = log(x) / ln10;
   double scaled = (logValue - 3) * (19 / 3) + 1;
-  return scaled.clamp(0, 20);
+  return scaled.clamp(0, 20); // Keep between 0 and 20
 }
 
-// this set title of incoming chart
+// Converts scaled Y value to readable label
 String leftSideIncomingTitle(num scaledValue) {
   int rounded = scaledValue.round();
-  if (rounded == 1) {
-    return '1K';
-  } else if (rounded == 11) {
-    return '10K';
-  } else if (rounded == 15) {
-    return '100K';
-  } else if (rounded == 18) {
-    return '500K';
-  } else if (rounded == 20) {
-    return '1M>';
-  } else {
-    return '';
-  }
+  if (rounded == 1) return '1K';
+  if (rounded == 11) return '10K';
+  if (rounded == 15) return '100K';
+  if (rounded == 18) return '500K';
+  if (rounded == 20) return '1M>';
+  return '';
 }

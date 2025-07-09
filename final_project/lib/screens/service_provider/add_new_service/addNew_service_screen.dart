@@ -109,7 +109,7 @@ class AddNewServiceScreen extends StatelessWidget {
                 ? bloc.state.unavailableDateRanges
                       .map(
                         (range) =>
-                            '${range.start.toIso8601String().substring(0, 10)} → ${range.end.toIso8601String().substring(0, 10)}',
+                            '${range.start.toIso8601String().substring(0, 10)} → ${range.end.toIso8601String().substring(0, 10)}', //change to text
                       )
                       .join(', ')
                 : '';

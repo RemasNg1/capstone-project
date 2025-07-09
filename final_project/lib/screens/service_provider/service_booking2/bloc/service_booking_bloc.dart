@@ -23,9 +23,7 @@ class BookingsBloc extends Bloc<BookingsEvent, BookingsState> {
 
       final current = all
           .where(
-            (e) =>
-                e.status == "accepted" &&
-                !e.date.isBefore(today), // today or future
+            (e) => e.status == "accepted" && !e.date.isBefore(today), // today
           )
           .toList();
 
@@ -48,9 +46,9 @@ class BookingsBloc extends Bloc<BookingsEvent, BookingsState> {
     }
   }
 
-  bool _isSameDay(DateTime d1, DateTime d2) {
-    return d1.year == d2.year && d1.month == d2.month && d1.day == d2.day;
-  }
+  // bool _isSameDay(DateTime d1, DateTime d2) {
+  //   return d1.year == d2.year && d1.month == d2.month && d1.day == d2.day;
+  // }
 
   Future<void> _onUpdateStatus(UpdateBookingStatus event, Emitter emit) async {
     try {
