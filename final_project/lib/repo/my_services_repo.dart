@@ -115,7 +115,7 @@ class MyServicesRepository {
     if (serviceIdInt == null) throw Exception('Invalid service ID');
 
     try {
-      // 1. Get location IDs for this service
+      // 1. Get all location IDs for this service
       final locationResult = await client
           .from('service_locations')
           .select('id')
@@ -125,7 +125,15 @@ class MyServicesRepository {
           .map((row) => row['id'] as int)
           .toList();
 
-      // 2. Delete disabled (unavailable) dates
+      //  2. Delete service_requests linked to those locations
+      for (final locationId in locationIds) {
+        await client
+            .from('service_requests')
+            .delete()
+            .eq('service_location_id', locationId);
+      }
+
+      //  3. Delete disabled_dates for each location
       for (final locationId in locationIds) {
         await client
             .from('disabled_dates')
@@ -133,22 +141,22 @@ class MyServicesRepository {
             .eq('service_location_id', locationId);
       }
 
-      // 3. Delete service locations
+      //  4. Delete service_locations
       await client
           .from('service_locations')
           .delete()
           .eq('service_provided_id', serviceIdInt);
 
-      // 4. Delete service images
+      //  5. Delete servic_image
       await client
           .from('servic_image')
           .delete()
           .eq('servic_provided_id', serviceIdInt);
 
-      // 5. Finally, delete the service itself
+      //  6. Delete service itself
       await client.from('services_provided').delete().eq('id', serviceIdInt);
     } catch (e) {
-      throw Exception('Error  $e');
+      throw Exception('فشل حذف الخدمة: $e');
     }
   }
 }

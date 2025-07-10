@@ -5,9 +5,7 @@ import 'package:final_project/screens/service_provider/add_new_service/bloc/add_
 import 'package:final_project/screens/service_provider/services/bloc/services_bloc.dart';
 import 'package:final_project/screens/service_provider/add_new_service/bloc/add_new_service_event.dart'
     as add_service;
-
 import 'package:final_project/screens/service_provider/services/bloc/services_event.dart';
-
 import 'package:final_project/screens/service_provider/services/bloc/services_state.dart';
 import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_spacing.dart';

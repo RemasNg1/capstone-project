@@ -298,13 +298,13 @@ class IncomingChart extends StatelessWidget {
   Widget bottomTitles(double value, TitleMeta meta) {
     final List<String> dayTitles = ['Mn', 'Te', 'Wd', 'Tu', 'Fr', 'St', 'Su'];
     final List<String> yearTitles = [
-      '2020',
-      '2021',
-      '2022',
-      '2023',
-      '2024',
       '2025',
       '2026',
+      '2027',
+      '2028',
+      '2029',
+      '2030',
+      '2031',
     ];
     final List<String> monthTitles = [
       'Jan',

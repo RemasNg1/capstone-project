@@ -1,4 +1,3 @@
-import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_spacing.dart';
 import 'package:final_project/style/app_text_styles.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +9,7 @@ import 'package:final_project/models/booking_model/service_request.dart';
 /// A card widget used by the service provider to display booking information.
 class ProviderContainerBookingCard extends StatelessWidget {
   final ServiceRequest item;
-  final bool showActionButtons; //عرض أزرار الإجراءات (قبول / رفض)
+  final bool showActionButtons; // عرض أزرار الإجراءات (قبول / رفض)
   final VoidCallback? onTapChat;
 
   const ProviderContainerBookingCard({
@@ -72,12 +71,26 @@ class ProviderContainerBookingCard extends StatelessWidget {
                   ),
                   AppSpacing.h4,
 
-                  // Show booking status
-                  Text(
-                    '${'bookings.orderStatus'.tr()}: ${item.status.tr()}',
-                    style: AppTextStyles.interSize12(
-                      context,
-                    ).copyWith(color: Theme.of(context).colorScheme.onSurface),
+                  // Show booking status with color and localization
+                  Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: '${'bookings.order_status'.tr()}: ',
+                          style: AppTextStyles.interSize12(context).copyWith(
+                            color: Theme.of(context).colorScheme.onSurface,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        TextSpan(
+                          text: ' ${'bookings.${item.status}'.tr()}',
+                          style: AppTextStyles.interSize12(context).copyWith(
+                            color: _statusColor(context, item.status),
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
 
                   // Show booking date
@@ -88,27 +101,6 @@ class ProviderContainerBookingCard extends StatelessWidget {
                     ).copyWith(color: Theme.of(context).colorScheme.onSurface),
                   ),
                   AppSpacing.h8,
-
-                  // Chat button
-                  // GestureDetector(
-                  //   onTap: onTapChat,
-                  //   child: Row(
-                  //     children: [
-                  //       const Icon(
-                  //         Icons.chat_bubble_outline,
-                  //         size: 18,
-                  //         color: AppColors.softGray,
-                  //       ),
-                  //       AppSpacing.w4,
-                  //       Text(
-                  //         'bookings.chatWithCustomer'.tr(),
-                  //         style: AppTextStyles.interSize12(
-                  //           context,
-                  //         ).copyWith(color: AppColors.softGray),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
 
                   // Show accept and cancel buttons if booking is waiting
                   if (showActionButtons && item.status == 'send') ...[
@@ -173,5 +165,19 @@ class ProviderContainerBookingCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  // Return status color depending on booking status
+  Color _statusColor(BuildContext context, String status) {
+    switch (status) {
+      case 'accepted':
+        return Colors.green;
+      case 'rejected':
+        return Colors.red;
+      case 'send':
+        return Colors.orange;
+      default:
+        return Theme.of(context).colorScheme.onSurface;
+    }
   }
 }

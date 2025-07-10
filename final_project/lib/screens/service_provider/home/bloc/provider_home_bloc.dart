@@ -165,7 +165,7 @@ class ProviderHomeBloc extends Bloc<ProviderHomeEvent, ProviderHomeState> {
   // Mock income data for each chart type
   final List<int> _weekData = [100, 2000, 300, 400, 5000, 600, 700];
   final List<int> _monthData = [1500, 1200, 1800, 13000, 17000, 1600, 2000];
-  final List<int> _yearData = [10000, 15000, 12000, 18000, 2000, 17000, 1900];
+  final List<int> _yearData = [55000, 0, 0, 0, 0, 0, 0];
 
   // Getter that returns the correct data set based on the selected view
   List<int> get listOfValue {

@@ -420,9 +420,16 @@ class AddNewServiceScreen extends StatelessWidget {
                   AppSpacing.h16,
 
                   // Upload images
-                  CustomImageUploader(
-                    onImagesPicked: (List<XFile> images) {
-                      bloc.add(ImagesPicked(images));
+                  BlocBuilder<AddServiceBloc, AddServiceState>(
+                    builder: (context, state) {
+                      return CustomImageUploader(
+                        onImagesPicked: (List<XFile> images) {
+                          context.read<AddServiceBloc>().add(
+                            ImagesPicked(images),
+                          );
+                        },
+                        currentImages: state.images,
+                      );
                     },
                   ),
 

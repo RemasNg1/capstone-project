@@ -13,7 +13,7 @@ import GoogleMaps
 // GMSServices.provideAPIKey("")
  //GMSServices.provideAPIKey("")
     // GMSServices.provideAPIKey("GOOGLE_MAPS_IOS_KEY")
-    //GMSServices.provideAPIKey("")
+GMSServices.provideAPIKey("AIzaSyA7yVJuIw-yeogIlD2qTkyFFjNIchS4L3M")
 
 
     GeneratedPluginRegistrant.register(with: self)

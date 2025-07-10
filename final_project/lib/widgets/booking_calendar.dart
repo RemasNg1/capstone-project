@@ -121,30 +121,43 @@ class _BookingCalendarState extends State<BookingCalendar> {
                     index + 1,
                   );
 
-                  final isUnavailable = unavailableDates.contains(day);
-                  final isInRange =
-                      startDate != null &&
-                      endDate != null &&
-                      !day.isBefore(startDate!) &&
-                      !day.isAfter(endDate!);
-                  final isStartOnly =
-                      startDate != null && endDate == null && day == startDate;
+                  final isPastDay = day.isBefore(
+                    DateTime.now().subtract(
+                      Duration(
+                        hours: DateTime.now().hour,
+                        minutes: DateTime.now().minute,
+                        seconds: DateTime.now().second,
+                      ),
+                    ),
+                  );
 
-                  final bgColor = isUnavailable
-                      ? Theme.of(context).colorScheme.error.withOpacity(0.5)
-                      : isInRange || isStartOnly
-                      ? Theme.of(context).colorScheme.primary.withOpacity(0.4)
-                      : Theme.of(context).colorScheme.surfaceVariant;
+                  final isUnavailable = unavailableDates.contains(day);
+
+                  final textColor = isPastDay
+                      ? Colors.grey.shade400
+                      : isUnavailable
+                      ? Colors.red.shade700
+                      : Theme.of(context).colorScheme.onSurface;
 
                   return GestureDetector(
-                    onTap: () => _handleDayTap(day),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: bgColor,
-                        borderRadius: BorderRadius.circular(10),
+                    onTap: isPastDay ? null : () => _handleDayTap(day),
+                    child: Center(
+                      child: Container(
+                        padding: const EdgeInsets.all(6),
+                        decoration: BoxDecoration(
+                          color: isUnavailable
+                              ? Colors.red.withOpacity(0.2)
+                              : null,
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Text(
+                          '${index + 1}',
+                          style: TextStyle(
+                            color: textColor,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ),
-                      alignment: Alignment.center,
-                      child: Text('${index + 1}'),
                     ),
                   );
                 },
