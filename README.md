@@ -129,9 +129,9 @@ To preview the full UI/UX design on Figma:
 
 | Name | Role |
 |------|------|
-| **Remas Alnugaithan** | Interface Implementation, Authentication (Supabase), Client Flow |
+| **Remas Alnugaithan** | Team Leader, Interface Implementation, Authentication (Supabase), Client Flow |
 | **Manal Almarri** | Interface Implementation , Provider Flow |
-| **Omer Alsulami** | Interface Implementation, Database Design, , Chat System |
+| **Omer Alsulami** | Interface Implementation, Database Design, Chat System |
 
 ---
 
