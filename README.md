@@ -8,9 +8,9 @@ Tajammal is a mobile application that connects clients with service providers in
 
 ## 🧠 Problem Solving
 
-Planning an event often involves coordinating with multiple vendors, comparing prices, availability, and quality — a process that is time-consuming and stressful. There is no single reliable platform that offers clear reviews, booking, and direct communication.
+Planning an event often involves coordinating with multiple vendors, comparing prices, availability, and quality — a process that is time-consuming and stressful. There is no single reliable platform that offers clear reviews, booking, and direct communication. Tajammal solves this by providing an easy-to-use app that connects clients with trusted event service providers, simplifying the booking and planning process.
 
-Tajammal solves this by providing an easy-to-use app that connects clients with trusted event service providers, simplifying the booking and planning process.
+
 ---
 
 ## 🔧 Project Properties
@@ -30,7 +30,8 @@ Tajammal solves this by providing an easy-to-use app that connects clients with 
 ## 🖼️ UI Screenshots
 ![image](https://github.com/user-attachments/assets/10e7b3c0-91bf-4e39-a9df-a76f0724e455)
 
-
+## 🎬 Tajammal Demo  
+🔗 [Watch Full App Demo](https://drive.google.com/file/d/1wFifZn86ZZOKNZZbq1iQH9edLBK3Yhc3/view?usp=sharing)
 
 ## 🎨 Figma Design Link
 
@@ -127,28 +128,33 @@ To preview the full UI/UX design on Figma:
 
 | Name | Role |
 |------|------|
-| **Remas Alnugaithan** | Authentication (Supabase), Client Flow |
-| **Manal Almarri** | UI Design, Provider Flow |
-| **Omer Alsulami** | Supabase Integration, UI, Chat System |
+| **Remas Alnugaithan** | Interface Implementation, Authentication (Supabase), Client Flow |
+| **Manal Almarri** | Interface Implementation , Provider Flow |
+| **Omer Alsulami** | Interface Implementation, Database Design, , Chat System |
 
 ---
 
 ## 🔗 GitHub Accounts
 
-| Member | GitHub |
-|--------|--------|
-| Remas Alnugaithan | [GitHub Profile](https://github.com/RemasNg1) |
-| Manal Almarri | [GitHub Profile](https://github.com/manaalq) |
-| Omer Alsulami | [GitHub Profile](https://github.com/DvOmar76) |
+
+🔗 [Remas Alnugaithan](https://github.com/RemasNg1)
+
+🔗 [Manal Almarri](https://github.com/manaalq)
+
+🔗 [Omer Alsulami](https://github.com/DvOmar76)
+
 
 ---
 
+## 🌐 Connect With Us
 
-## 📌 Minimum Requirements
 
-*[Include the minimum requirements for the project, as mentioned in the earlier section]*
+🔗 [Remas Alnugaithan](https://bind.link/@remassaleh)
 
----
+🔗 [Manal Almarri](https://bind.link/@manal-almarri)
+
+🔗 [Omer Alsulami](https://omaralsulami.com))
+
 
 
 > 💡 Big things often have small beginnings. Every great journey starts with a simple step.
