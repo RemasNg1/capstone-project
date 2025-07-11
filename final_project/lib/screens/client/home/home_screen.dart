@@ -241,11 +241,6 @@ class HomeScreen extends StatelessWidget {
                                       service.ratings!,
                                     ),
 
-                                    // rating:
-                                    //     (service.ratings != null &&
-                                    //         service.ratings!.isNotEmpty)
-                                    //     ? service.ratings!.first.rating ?? 0.0
-                                    //     : 0.0,
                                     reviewCount: service.ratings?.length ?? 0,
                                     width: 188,
                                     height: 250,

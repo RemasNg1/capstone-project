@@ -1,5 +1,4 @@
 import 'package:final_project/models/booking/model_booking.dart';
-import 'package:final_project/models/temp_bookin/booking_temp_model.dart';
 import 'package:final_project/utils/extensions/screen/screen_size.dart';
 import 'package:final_project/widgets/booking/Container/container_booking_card.dart';
 
@@ -14,7 +13,7 @@ class CustomColumnTabViewCards extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: context.getHeight(factor: 0.6),
+          height: context.getHeight(factor: 0.7),
           width: context.getWidth(),
           child: ListView.builder(
             itemCount: bookingList?.length ?? 0,

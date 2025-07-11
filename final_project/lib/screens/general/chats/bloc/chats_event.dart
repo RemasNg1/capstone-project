@@ -16,6 +16,18 @@ class LoadMessage extends ChatsEvent {
   LoadMessage({required this.authId});
 }
 
+class ProviderLoadMessage extends ChatsEvent {
+  final String authId;
+
+  ProviderLoadMessage({required this.authId});
+}
+
 class ClientLoadConversion extends ChatsEvent {}
 
 class ProviderLoadConversion extends ChatsEvent {}
+
+class ProviderSendMessage extends ChatsEvent {
+  final String userInput;
+
+  ProviderSendMessage({required this.userInput});
+}

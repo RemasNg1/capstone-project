@@ -14,6 +14,8 @@ class DataLayer {
   late ProviderModel? currentProvider;
   List<ServicesProvidedModel> favoriteServices = [];
 
+  // Loads all main data from Supabase: services, favorites, and user info
+
   loadDataFromSupabase() async {
     servicesProvidedModelData = await Service.fetchAllServicesProvided();
     services = await Service.fetchServices();
@@ -21,6 +23,7 @@ class DataLayer {
     currentUser = await Auth.fetchCurrentUser();
     currentProvider = await Auth.fetchCurrentProvider();
   }
+  // Loads only the user's favorite services, with full service details
 
   loadOnlyFavoriteServices() async {
     if (currentUser == null) return;

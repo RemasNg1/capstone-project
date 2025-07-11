@@ -169,20 +169,7 @@ class ClientProfileScreen extends StatelessWidget {
                           );
                         },
                       ),
-                      // CustomListTile(
-                      //   leadingIcon: SvgPicture.asset(
-                      //     "assets/icons/card.svg",
-                      //     colorFilter: ColorFilter.mode(
-                      //       Theme.of(context).colorScheme.onPrimaryContainer,
-                      //       BlendMode.srcIn,
-                      //     ),
-                      //   ),
-                      //   title: "profile.payment_method".tr(),
-                      //   trailing: Icon(
-                      //     Icons.arrow_forward_ios,
-                      //     color: Theme.of(context).colorScheme.onSurface,
-                      //   ),
-                      // ),
+
                       AppSpacing.h8,
                       Row(
                         children: [

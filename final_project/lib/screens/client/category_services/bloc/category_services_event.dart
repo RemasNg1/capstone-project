@@ -15,8 +15,3 @@ class SearchServicesEvent extends CategoryServicesEvent {
 
   SearchServicesEvent({required this.query, required this.isArabic});
 }
-// class ToggleFavoriteEvent extends CategoryServicesEvent {
-//   final int serviceId;
-
-//   ToggleFavoriteEvent({required this.serviceId});
-// }

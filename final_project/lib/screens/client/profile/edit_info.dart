@@ -67,13 +67,6 @@ class EditInfoDialog extends StatelessWidget {
                   validator: AppValidation.validatePhone,
                 ),
                 AppSpacing.h16,
-
-                // CustomTextFormField(
-                //   labelText: "auth.email".tr(),
-                //   icon: Icon(CupertinoIcons.mail),
-                //   controller: bloc.emailController,
-                //   validator: AppValidation.validateEmail,
-                // ),
               ],
             ),
           ),

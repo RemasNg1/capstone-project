@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 
 class AppValidation {
+  // Validates name: must not be empty and at least 3 characters long
   static String? validateName(String? value) {
     if (value == null || value.trim().isEmpty) {
       return 'auth.name_required'.tr();
@@ -10,6 +11,8 @@ class AppValidation {
     }
     return null;
   }
+
+  // Validates email: must not be empty and match email format
 
   static String? validateEmail(String? value) {
     if (value == null || value.trim().isEmpty) {
@@ -21,6 +24,7 @@ class AppValidation {
     }
     return null;
   }
+  // Validates phone number: must not be empty and match Saudi format (starts with 05 + 8 digits)
 
   static String? validatePhone(String? value) {
     if (value == null || value.trim().isEmpty) {
@@ -32,6 +36,7 @@ class AppValidation {
     }
     return null;
   }
+  // Validates password: must not be empty, at least 6 characters, with one uppercase and one special character
 
   static String? validatePassword(String? value) {
     if (value == null || value.trim().isEmpty) {
@@ -48,6 +53,7 @@ class AppValidation {
     }
     return null;
   }
+  // Validates if the user agreed to the terms (must be true)
 
   static String? validateTermsAgreement(bool? value) {
     if (value != true) {
@@ -55,6 +61,7 @@ class AppValidation {
     }
     return null;
   }
+  // Validates required field: must not be empty
 
   static String? requiredField(String? value) {
     if (value == null || value.trim().isEmpty) {
@@ -63,6 +70,7 @@ class AppValidation {
     return null;
   }
 
+  // Validates Arabic name: not empty, at least 3 characters, only Arabic letters/symbols
   static String? validateNameAr(String? value) {
     if (value == null || value.trim().isEmpty) {
       return 'auth.name_ar_required'.tr();
@@ -79,6 +87,7 @@ class AppValidation {
     return null;
   }
 
+  // Validates English name: not empty, at least 3 characters, only English letters/symbols
   static String? validateNameEn(String? value) {
     if (value == null || value.trim().isEmpty) {
       return 'auth.name_en_required'.tr();
@@ -94,6 +103,7 @@ class AppValidation {
     return null;
   }
 
+  // Validates Arabic description: not empty and must match Arabic characters/symbols
   static String? validateDescriptionAr(String? value) {
     if (value == null || value.trim().isEmpty) {
       return 'auth.description_ar_required'.tr();
@@ -106,6 +116,8 @@ class AppValidation {
 
     return null;
   }
+
+  // Validates English description: not empty and must match English characters/symbols
 
   static String? validateDescriptionEn(String? value) {
     if (value == null || value.trim().isEmpty) {
@@ -120,6 +132,7 @@ class AppValidation {
     return null;
   }
 
+  // Validates CR (Commercial Registration) number: must be 10 digits
   static String? validateCrNumber(String? value) {
     if (value == null || value.trim().isEmpty) {
       return 'auth.cr_number_required'.tr();
@@ -129,6 +142,7 @@ class AppValidation {
     }
     return null;
   }
+  // Validates IBAN: must follow Saudi IBAN format (starts with SA and 22 digits)
 
   static String? validateIban(String? value) {
     if (value == null || value.trim().isEmpty) {

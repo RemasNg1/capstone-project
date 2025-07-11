@@ -6,6 +6,7 @@ import 'package:final_project/data_layer/chat_layer.dart';
 import 'package:final_project/models/chat/model_message.dart';
 import 'package:final_project/repo/service.dart';
 import 'package:meta/meta.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'booking_event.dart';
 part 'booking_state.dart';
@@ -29,6 +30,7 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
   ) async {
     conversionMessages = await chatLayer.getUserConversions(
       userType: EnumUserType.customer,
+      authId: Supabase.instance.client.auth.currentUser!.id,
     );
     emit(LoadingConversationSuccessfully());
   }
@@ -42,9 +44,6 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
     SubmitBooking event,
     Emitter<BookingState> emit,
   ) {
-    // print(event.serviceId);
-    // print(event.serviceLocationId);
-    // print(event.date);
     Service.insertBooking(
       serviceId: event.serviceId,
       serviceLocationId: event.serviceLocationId,

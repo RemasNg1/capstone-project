@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:final_project/core/helper/functions.dart';
 import 'package:final_project/models/services_models/services_provided/services_provided_model.dart';
 import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_spacing.dart';
@@ -21,28 +22,6 @@ class Mycard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final imageUrl =
-        (service.servicImage != null && service.servicImage!.isNotEmpty)
-        ? service.servicImage![0].imageUrl!
-        : 'https://assets.hyatt.com/content/dam/hyatt/hyattdam/images/2019/12/09/1201/Hyatt-Regency-London-The-Churchill-P948-Wedding-Dancefloor-View.jpg/Hyatt-Regency-London-The-Churchill-P948-Wedding-Dancefloor-View.4x3.jpg?imwidth=1920';
-
-    // final title = service.titleAr ?? 'EMPTY';
-
-    // final serviceName = service.services?.nameAr ?? 'EMPTY';
-
-    // final locationText =
-    //     (service.locations != null && service.locations!.isNotEmpty)
-    //     ? service.locations!.first.city?.nameAr ?? 'EMPTY'
-    //     : 'EMPTY';
-
-    final ratings = service.ratings ?? [];
-    final double averageRating = ratings.isNotEmpty
-        ? ratings.map((e) => e?.rating ?? 0.0).reduce((a, b) => a + b) /
-              ratings.length
-        : 0.0;
-
-    // final ratingsCount = service.ratings?.length ?? 0;
-
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(16),
@@ -66,7 +45,6 @@ class Mycard extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               child: Image.network(
                 service.servicImage?.first.imageUrl ?? '',
-                // 'https://assets.hyatt.com/content/dam/hyatt/hyattdam/images/2019/12/09/1201/Hyatt-Regency-London-The-Churchill-P948-Wedding-Dancefloor-View.jpg/Hyatt-Regency-London-The-Churchill-P948-Wedding-Dancefloor-View.4x3.jpg?imwidth=1920',
                 height: 80,
                 width: 100,
                 fit: BoxFit.cover,
@@ -133,7 +111,9 @@ class Mycard extends StatelessWidget {
                   AppSpacing.h8,
                   Row(
                     children: [
-                      StarRatingWidget(rating: averageRating),
+                      StarRatingWidget(
+                        rating: calculateAverageRating(service.ratings!),
+                      ),
                       AppSpacing.w4,
 
                       Text(

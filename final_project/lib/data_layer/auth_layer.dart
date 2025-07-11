@@ -10,6 +10,7 @@ class AuthLayer {
   String? idUser;
   static final box = Hive.box('userInfo');
 
+  // Sign up method for client users
   Future<void> clientSignUpMethod({
     required String email,
     required String password,
@@ -25,14 +26,13 @@ class AuthLayer {
       rethrow;
     }
   }
+  // Sign up method for provider users
 
   Future<void> providerSignUpMethod({
     required String email,
     required String password,
     required String nameAr,
     required String nameEn,
-    // required String descriptionAr,
-    // required String descriptionEn,
     required String iban,
     required String phoneNumber,
     String? commercialRegistrationNumber,
@@ -43,8 +43,6 @@ class AuthLayer {
       await insertUserToProvidersTable(
         nameAr: nameAr,
         nameEn: nameEn,
-        // descriptionAr: descriptionAr,
-        // descriptionEn: descriptionEn,
         iban: iban,
         phoneNumber: phoneNumber,
         commercialRegistrationNumber: commercialRegistrationNumber,
@@ -54,6 +52,7 @@ class AuthLayer {
     }
   }
 
+  // Sign in method using email and password
   Future<void> loginMethod({
     required String email,
     required String password,
@@ -62,6 +61,7 @@ class AuthLayer {
     idUser = user.id;
     box.put('authId', "${user.id}");
   }
+  // OTP verification for client after sign-up
 
   Future<void> clientVerifyOtpMethod({
     required String email,
@@ -81,6 +81,7 @@ class AuthLayer {
       rethrow;
     }
   }
+  // OTP verification for provider after sign-up
 
   Future<void> providerVerifyOtpMethod({
     required String email,
@@ -100,6 +101,7 @@ class AuthLayer {
       rethrow;
     }
   }
+  // OTP verification for password recovery
 
   Future<void> verifyOtpPasswordMethod({
     required String email,
@@ -114,6 +116,7 @@ class AuthLayer {
       rethrow;
     }
   }
+  // Reset user's password
 
   Future<void> resetPassword(String newPassword) async {
     try {
@@ -122,6 +125,7 @@ class AuthLayer {
       rethrow;
     }
   }
+  // Insert client user data into the database
 
   Future<void> insertUserToUsersTable({
     required String name,
@@ -140,12 +144,11 @@ class AuthLayer {
         .from('user')
         .insert(user.mapForAddSupabase());
   }
+  // Insert provider user data into the database
 
   Future<void> insertUserToProvidersTable({
     required String nameAr,
     required String nameEn,
-    // required String descriptionAr,
-    // required String descriptionEn,
     required String iban,
     required String phoneNumber,
     String? commercialRegistrationNumber,
@@ -169,6 +172,7 @@ class AuthLayer {
         .insert(user.mapForAddSupabase());
   }
 
+  // Sign in anonymously (for guests)
   Future<void> signInAnonymouslyMethod() async {
     try {
       final user = await Auth.signInAnonymously();
@@ -177,6 +181,7 @@ class AuthLayer {
       rethrow;
     }
   }
+  // Logout the currently signed-in user
 
   Future<void> logoutMethod() async {
     try {
@@ -186,6 +191,7 @@ class AuthLayer {
       rethrow;
     }
   }
+  // Send OTP for password reset
 
   Future<void> forgotPasswordOtpMethod(String email) async {
     try {
@@ -194,6 +200,7 @@ class AuthLayer {
       rethrow;
     }
   }
+  // Resend OTP for password reset
 
   Future<void> resendForgotPasswordOtpMethod(String email) async {
     try {
@@ -203,9 +210,12 @@ class AuthLayer {
     }
   }
 
+  // Check if the current user is a client
+
   Future<bool> isClient() async {
     return await Auth.isClient();
   }
+  // Check if the current user is a provider
 
   Future<bool> isProvider() async {
     return await Auth.isProvider();

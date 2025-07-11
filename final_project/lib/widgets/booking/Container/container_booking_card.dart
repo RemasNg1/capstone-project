@@ -20,9 +20,11 @@ class ContainerBookingCard extends StatelessWidget {
     this.onTapRating,
     required this.item,
   });
+
   final ModelBooking item;
   final Function()? onTapChat;
   final Function()? onTapRating;
+
   @override
   Widget build(BuildContext context) {
     var bloc = context.read<BookingsBloc>();
@@ -46,37 +48,38 @@ class ContainerBookingCard extends StatelessWidget {
       child: Row(
         spacing: 16,
         children: [
-          Builder(
-            builder: (context) {
-              var bloc = context.read<BookingImageBloc>();
-
-              return BlocBuilder<BookingImageBloc, BookingImageState>(
-                builder: (context, state) {
-                  if (state is BookingImageInitial) {
-                    bloc.add(
-                      LoadImage(serviceProviderId: item.serviceProvidedId!),
-                    );
-                  }
-                  return Container(
-                    width: 110,
-                    height: 116,
-                    decoration: BoxDecoration(
-                      color: bloc.imageUrl.isEmpty
-                          ? AppColors.gray
-                          : AppColors.white,
-                      borderRadius: BorderRadius.circular(8),
-                      image: DecorationImage(
-                        image: NetworkImage(
-                          bloc.imageUrl.isEmpty ? '' : bloc.imageUrl,
-                        ),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  );
-                },
-              );
-            },
+          BlocProvider(
+            create: (_) =>
+                BookingImageBloc()
+                  ..add(LoadImage(serviceProviderId: item.serviceProvidedId!)),
+            child: BlocBuilder<BookingImageBloc, BookingImageState>(
+              builder: (context, state) {
+                final bloc = context.read<BookingImageBloc>();
+                return Container(
+                  width: 110,
+                  height: 116,
+                  decoration: BoxDecoration(
+                    color: bloc.imageUrl.isEmpty
+                        ? Colors.grey[300]
+                        : Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                    image: bloc.imageUrl.isNotEmpty
+                        ? DecorationImage(
+                            image: NetworkImage(bloc.imageUrl),
+                            fit: BoxFit.cover,
+                          )
+                        : null,
+                  ),
+                  child: bloc.imageUrl.isEmpty
+                      ? const Center(
+                          child: Icon(Icons.image, color: Colors.white70),
+                        )
+                      : null,
+                );
+              },
+            ),
           ),
+
           SizedBox(
             width: context.getWidth(factor: 0.6),
             child: Column(
@@ -89,12 +92,12 @@ class ContainerBookingCard extends StatelessWidget {
                       context.isArabic
                           ? item.servicesProvided?.titleAr ?? "."
                           : item.servicesProvided?.titleEn ?? "",
-
                       style: AppTextStyles.interSize16(context).copyWith(),
                     ),
                   ],
                 ),
                 AppSpacing.h8,
+
                 Text.rich(
                   TextSpan(
                     text: "${'bookings.order_status'.tr()}: ",
@@ -119,7 +122,6 @@ class ContainerBookingCard extends StatelessWidget {
                 ),
                 AppSpacing.h4,
 
-                // paid_amount
                 Text.rich(
                   TextSpan(
                     text: "${'bookings.paid_amount'.tr()}: ",
@@ -143,14 +145,17 @@ class ContainerBookingCard extends StatelessWidget {
                     context,
                   ).copyWith(color: AppColors.mediumGray),
                 ),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    if (item.status == EnumBookingStatus.accepted.name)
+                    if (item.status == EnumBookingStatus.accepted.name &&
+                        DateTime.now().isAfter(
+                          DateTime.parse(item.date!).add(Duration(days: 1)),
+                        ))
                       CustomRowIconTitle(
                         icon: Icon(Icons.star_outline, color: AppColors.blue),
                         title: "bookings.rate_service".tr(),
-                        // onTap: onTapRating,
                         onTap: () {
                           showDialog(
                             context: context,
@@ -161,62 +166,6 @@ class ContainerBookingCard extends StatelessWidget {
                               ),
                             ),
                           );
-
-                          // showDialog(
-                          //   context: context,
-                          //   builder: (context) {
-                          //     return RatingDialog();
-                          // AlertDialog(
-                          //   title: Text('Rating'),
-                          //   content: Column(
-                          //     mainAxisSize: MainAxisSize.min,
-                          //     children: [
-                          //       Row(
-                          //         mainAxisAlignment:
-                          //             MainAxisAlignment.center,
-                          //         children: List.generate(5, (index) {
-                          //           return const Icon(
-                          //             Icons.star,
-                          //             color: Colors.grey,
-                          //             size: 32,
-                          //           );
-                          //         }),
-                          //       ),
-                          //       const SizedBox(height: 16),
-                          //       const TextField(
-                          //         maxLines: 3,
-                          //         decoration: InputDecoration(
-                          //           hintText: 'اكتب ملاحظاتك هنا...',
-                          //           border: OutlineInputBorder(),
-                          //         ),
-                          //       ),
-                          //     ],
-                          //   ),
-                          //   actions: [
-                          //     ElevatedButton(
-                          //       onPressed: () {},
-                          //       style: AppButtons.small,
-                          //       child: Text(
-                          //         'home.send'.tr(),
-                          //         style: AppTextStyles.interSize16(context),
-                          //       ),
-                          //     ),
-                          //     // TextButton(
-                          //     //   onPressed: () {
-                          //     //     Navigator.pop(context);
-                          //     //   },
-                          //     //   child: const Text('Cancel'),
-                          //     // ),
-                          //     // ElevatedButton(
-                          //     //   onPressed: () {
-                          //     //     Navigator.pop(context);
-                          //     //   },
-                          //     //   child: const Text('Send'),
-                          //     // ),
-                          //   ],
-                          // );
-                          // },
-                          // );
                         },
                       ),
                   ],
@@ -229,3 +178,165 @@ class ContainerBookingCard extends StatelessWidget {
     );
   }
 }
+
+// class ContainerBookingCard extends StatelessWidget {
+//   const ContainerBookingCard({
+//     super.key,
+//     this.onTapChat,
+//     this.onTapRating,
+//     required this.item,
+//   });
+//   final ModelBooking item;
+//   final Function()? onTapChat;
+//   final Function()? onTapRating;
+//   @override
+//   Widget build(BuildContext context) {
+//     var bloc = context.read<BookingsBloc>();
+
+//     return Container(
+//       margin: EdgeInsets.all(8),
+//       decoration: BoxDecoration(
+//         color: Colors.white,
+//         borderRadius: BorderRadius.circular(8),
+//         boxShadow: [
+//           BoxShadow(
+//             color: Colors.grey.shade200,
+//             spreadRadius: 2,
+//             blurRadius: 5,
+//           ),
+//         ],
+//       ),
+//       padding: EdgeInsets.all(12),
+//       height: context.getHeight(factor: 0.155),
+//       width: context.getWidth(),
+//       child: Row(
+//         spacing: 16,
+//         children: [
+//           Builder(
+//             builder: (context) {
+//               var bloc = context.read<BookingImageBloc>();
+
+//               return BlocBuilder<BookingImageBloc, BookingImageState>(
+//                 builder: (context, state) {
+//                   if (state is BookingImageInitial) {
+//                     bloc.add(
+//                       LoadImage(serviceProviderId: item.serviceProvidedId!),
+//                     );
+//                   }
+//                   return Container(
+//                     width: 110,
+//                     height: 116,
+//                     decoration: BoxDecoration(
+//                       color: bloc.imageUrl.isEmpty
+//                           ? AppColors.gray
+//                           : AppColors.white,
+//                       borderRadius: BorderRadius.circular(8),
+//                       image: DecorationImage(
+//                         image: NetworkImage(
+//                           bloc.imageUrl.isEmpty ? '' : bloc.imageUrl,
+//                         ),
+//                         fit: BoxFit.cover,
+//                       ),
+//                     ),
+//                   );
+//                 },
+//               );
+//             },
+//           ),
+//           SizedBox(
+//             width: context.getWidth(factor: 0.6),
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Row(
+//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                   children: [
+//                     Text(
+//                       context.isArabic
+//                           ? item.servicesProvided?.titleAr ?? "."
+//                           : item.servicesProvided?.titleEn ?? "",
+
+//                       style: AppTextStyles.interSize16(context).copyWith(),
+//                     ),
+//                   ],
+//                 ),
+//                 AppSpacing.h8,
+//                 Text.rich(
+//                   TextSpan(
+//                     text: "${'bookings.order_status'.tr()}: ",
+//                     style: AppTextStyles.interSize14(
+//                       context,
+//                     ).copyWith(color: AppColors.mediumGray),
+//                     children: [
+//                       TextSpan(
+//                         text: 'bookings.${item.status}'.tr(),
+//                         style: AppTextStyles.interSize14(context).copyWith(
+//                           color: item.status == 'send'
+//                               ? Colors.orange
+//                               : item.status == 'rejected'
+//                               ? Colors.red
+//                               : item.status == 'accepted'
+//                               ? Colors.green
+//                               : Colors.black,
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//                 AppSpacing.h4,
+
+//                 // paid_amount
+//                 Text.rich(
+//                   TextSpan(
+//                     text: "${'bookings.paid_amount'.tr()}: ",
+//                     style: AppTextStyles.interSize14(
+//                       context,
+//                     ).copyWith(color: AppColors.mediumGray),
+//                     children: [
+//                       TextSpan(
+//                         text: (item.servicesProvided!.price! * 1.15)
+//                             .toStringAsFixed(2),
+//                         style: AppTextStyles.interSize14(context).copyWith(),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//                 AppSpacing.h4,
+
+//                 Text(
+//                   item.date!,
+//                   style: AppTextStyles.interSize14(
+//                     context,
+//                   ).copyWith(color: AppColors.mediumGray),
+//                 ),
+//                 Row(
+//                   mainAxisAlignment: MainAxisAlignment.end,
+//                   children: [
+//                     if (item.status == EnumBookingStatus.accepted.name &&
+//                         DateTime.parse(item.date!).isBefore(DateTime.now()))
+//                       CustomRowIconTitle(
+//                         icon: Icon(Icons.star_outline, color: AppColors.blue),
+//                         title: "bookings.rate_service".tr(),
+//                         // onTap: onTapRating,
+//                         onTap: () {
+//                           showDialog(
+//                             context: context,
+//                             builder: (context) => BlocProvider.value(
+//                               value: bloc,
+//                               child: RatingDialog(
+//                                 serviceId: item.serviceProvidedId!,
+//                               ),
+//                             ),
+//                           );
+//                         },
+//                       ),
+//                   ],
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }

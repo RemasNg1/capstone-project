@@ -29,7 +29,6 @@ class ProviderConversationScreen extends StatelessWidget {
                   }
 
                   final List<ModelMessage> messages = bloc.conversionMessages;
-
                   print(" LoadConversion ");
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.start,

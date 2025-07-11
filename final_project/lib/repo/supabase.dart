@@ -4,7 +4,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseConnect {
+  // A static instance of Supabase to be accessed globally in the app
   static Supabase? supabase;
+
+  // Initializes Supabase by loading the URL and anon key from the .env file
   static Future<void> init() async {
     try {
       log("*** connect supabase start ***");
