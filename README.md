@@ -154,7 +154,7 @@ To preview the full UI/UX design on Figma:
 
 🔗 [Manal Almarri](https://bind.link/@manal-almarri)
 
-🔗 [Omer Alsulami](https://omaralsulami.com))
+🔗 [Omer Alsulami](https://omaralsulami.com)
 
 
 
