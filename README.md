@@ -29,10 +29,11 @@ Planning an event often involves coordinating with multiple vendors, comparing p
 
 ## 🖼️ UI Screenshots
 ![image](https://github.com/user-attachments/assets/10e7b3c0-91bf-4e39-a9df-a76f0724e455)
-
+---
 ## 🎬 Tajammal Demo  
-🔗 [Watch Full App Demo](https://drive.google.com/file/d/1wFifZn86ZZOKNZZbq1iQH9edLBK3Yhc3/view?usp=sharing)
+📹 [Watch Full App Demo](https://drive.google.com/file/d/1wFifZn86ZZOKNZZbq1iQH9edLBK3Yhc3/view?usp=sharing)
 
+---
 ## 🎨 Figma Design Link
 
 To preview the full UI/UX design on Figma:
