@@ -5,6 +5,8 @@ import 'package:final_project/models/services_models/service/service_model.dart'
 import 'package:final_project/repo/supabase.dart';
 
 class Service {
+  // Fetches all provided services along with related data: service info, provider, images, ratings, requests, and locations
+
   static fetchAllServicesProvided() async {
     final supabase = SupabaseConnect.supabase!.client;
 
@@ -53,6 +55,7 @@ class Service {
     print(servicesProvided);
     return servicesProvided;
   }
+  // Inserts a new booking request for a service
 
   static insertBooking({
     required int serviceId,
@@ -75,6 +78,7 @@ class Service {
       'status': 'send',
     });
   }
+  // Adds or removes a service from the user's favorites
 
   static toggleFavorite({required int serviceId}) async {
     final user = SupabaseConnect.supabase!.client.auth.currentUser;
@@ -102,6 +106,7 @@ class Service {
       });
     }
   }
+  // Fetches all base service types (from 'services' table)
 
   static fetchServices() async {
     final supabase = SupabaseConnect.supabase!.client;
@@ -109,6 +114,7 @@ class Service {
     final data = await supabase.from('services').select();
     return (data as List).map((e) => ServiceModelMapper.fromMap(e)).toList();
   }
+  // Fetches only the favorite services saved by the current user
 
   static fetchFavoriteServices() async {
     final user = SupabaseConnect.supabase!.client.auth.currentUser;

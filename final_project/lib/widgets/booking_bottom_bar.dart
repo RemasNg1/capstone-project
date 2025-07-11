@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 class BookingBottomBar extends StatelessWidget {
   final String? price;
   final String buttonText;
-  // final double buttonWidth;
   final VoidCallback? onPressed;
   final bool showPrice;
   final ButtonStyle? buttonStyle;
@@ -15,7 +14,6 @@ class BookingBottomBar extends StatelessWidget {
     super.key,
     this.price,
     required this.buttonText,
-    // required this.buttonWidth,
     this.onPressed,
     this.buttonStyle,
     this.showPrice = true,

@@ -8,15 +8,6 @@ import 'package:final_project/style/app_colors.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-// //-------------------- Booking part --------------------
-
-// List<BookingTempModel> getBookingWithSameStatus(
-//   List<BookingTempModel> bookingList,
-//   EnumBookingStatus status,
-// ) {
-//   return bookingList.where((booking) => booking.status == status).toList();
-// }
-
 //-------------------- UnavailableDays --------------------
 
 Set<DateTime> getUnavailableDays(ServicesProvidedModel service) {
@@ -32,6 +23,7 @@ Set<DateTime> getUnavailableDays(ServicesProvidedModel service) {
             .toSet();
 
   final disabledRangeDates = <DateTime>{};
+
   for (var loc in service.locations ?? []) {
     for (var dis in loc.disabledDates ?? []) {
       DateTime current = dis.startDate;
@@ -42,6 +34,14 @@ Set<DateTime> getUnavailableDays(ServicesProvidedModel service) {
         current = current.add(Duration(days: 1));
       }
     }
+  }
+
+  final today = DateTime.now();
+  DateTime current = DateTime(2025, 1, 1);
+
+  while (current.isBefore(DateTime(today.year, today.month, today.day))) {
+    disabledRangeDates.add(DateTime(current.year, current.month, current.day));
+    current = current.add(Duration(days: 1));
   }
 
   return requestDates.union(disabledRangeDates);

@@ -1,22 +1,3 @@
-// class ServiceModel {
-//   final int? id;
-//   final String? nameAr;
-//   final String? nameEn;
-//   final String? descriptionAr;
-//   final String? descriptionEn;
-//   final String? type;
-//   final bool? isDeleted;
-
-//   ServiceModel({
-//     this.id,
-//     this.nameAr,
-//     this.nameEn,
-//     this.descriptionAr,
-//     this.descriptionEn,
-//     this.type,
-//     this.isDeleted,
-//   });
-// }
 import 'package:dart_mappable/dart_mappable.dart';
 
 part 'service_model.mapper.dart';

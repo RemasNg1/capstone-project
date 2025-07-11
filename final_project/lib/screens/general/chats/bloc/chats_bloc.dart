@@ -21,7 +21,9 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
   ChatsBloc() : super(ChatsInitial()) {
     on<ChatsEvent>((event, emit) {});
     on<SendMessage>(sendMessage);
+    on<ProviderSendMessage>(providerSendMessage);
     on<LoadMessage>(loadMessage);
+    on<ProviderLoadMessage>(providerLoadMessage);
     on<ClientLoadConversion>(clientLoadConversion);
     on<ProviderLoadConversion>(providerLoadConversion);
   }
@@ -44,10 +46,43 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     emit(SendMessageSuccessfully());
   }
 
+  FutureOr<void> providerSendMessage(
+    ProviderSendMessage event,
+    Emitter<ChatsState> emit,
+  ) async {
+    String userInput = event.userInput;
+    emit(LoadingMessages());
+    TextMessage? myMessage = await chatLayer.sendMessage(
+      reserverAuthId: reserverAuthId,
+      senderAuthId: currentUserAuthId,
+      content: userInput,
+      ownerType: EnumUserType.provider,
+    );
+    if (myMessage != null) {
+      chatController.insertMessage(myMessage);
+    }
+    emit(SendMessageSuccessfully());
+  }
+
   loadMessage(LoadMessage event, Emitter<ChatsState> emit) async {
     reserverAuthId = event.authId;
     userMessages = chatLayer.getMessageWithSameAuthId(
       userType: EnumUserType.customer,
+      reserverAuthId: reserverAuthId,
+    );
+    print(userMessages.length);
+    chatController.insertAllMessages(userMessages);
+    print(userMessages.length);
+    emit(LoadingMessagesSuccessfully());
+  }
+
+  providerLoadMessage(
+    ProviderLoadMessage event,
+    Emitter<ChatsState> emit,
+  ) async {
+    reserverAuthId = event.authId;
+    userMessages = chatLayer.getMessageWithSameAuthId(
+      userType: EnumUserType.provider,
       reserverAuthId: reserverAuthId,
     );
     print(userMessages.length);
@@ -62,6 +97,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
   ) async {
     conversionMessages = await chatLayer.getUserConversions(
       userType: EnumUserType.customer,
+      authId: Supabase.instance.client.auth.currentUser!.id,
     );
     emit(LoadingConversationSuccessfully());
   }
@@ -71,6 +107,8 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     Emitter<ChatsState> emit,
   ) async {
     conversionMessages = await chatLayer.getUserConversions(
+      authId: Supabase.instance.client.auth.currentUser!.id,
+
       userType: EnumUserType.provider,
     );
     emit(LoadingConversationSuccessfully());

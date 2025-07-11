@@ -19,8 +19,6 @@ class RatingDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     var bloc = context.read<BookingsBloc>();
 
-    // final bloc = context.read<ProviderProfileBloc>();
-
     return AlertDialog(
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),

@@ -108,8 +108,6 @@ class ProviderCustomColumnTabViewCards extends StatelessWidget {
                   return ProviderContainerBookingCard(
                     item: booking,
                     showActionButtons: false,
-                    // onTapChat: () =>
-                    //     print("Chat with accepted booking ID: ${booking.id}"),
                   );
                 },
               ),

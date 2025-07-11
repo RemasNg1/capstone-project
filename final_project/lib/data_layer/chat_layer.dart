@@ -4,29 +4,38 @@ import 'package:final_project/core/enum/types.dart';
 import 'package:final_project/models/chat/model_message.dart';
 import 'package:final_project/repo/chat.dart';
 import 'package:flutter_chat_core/flutter_chat_core.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ChatLayer {
   static List<ModelMessage> allUserConversions = [];
   static List<ModelMessage> conversionMessages = [];
   static List<TextMessage> userMessages = [];
 
-  getUserConversions({required EnumUserType userType}) async {
-    // get all user message list of TextMessage
+  getUserConversions({
+    required EnumUserType userType,
+    required String authId,
+  }) async {
     var data = await Chat.loadChats(userType: userType);
-    // save all user conversions
-    allUserConversions = List.from(
-      data ?? [],
-    ).map((item) => ModelMessage.fromJson(item)).toList();
+
+    allUserConversions = List.from(data ?? [])
+        .map((item) => ModelMessage.fromJson(item))
+        .where((message) {
+          if (userType == EnumUserType.customer) {
+            return message.userAuthId == authId;
+          } else {
+            return message.providerAuthId == authId;
+          }
+        })
+        .toList();
+
     print("getUserConversions ${allUserConversions.length}");
 
-    // make convertion list to take only one message from each conversion
     if (allUserConversions.isNotEmpty) {
       conversionMessages = getAllAuthIds(
         messages: allUserConversions,
         userType: userType,
       );
     }
+
     return conversionMessages;
   }
 

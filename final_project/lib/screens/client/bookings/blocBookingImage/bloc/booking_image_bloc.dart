@@ -9,8 +9,7 @@ part 'booking_image_event.dart';
 part 'booking_image_state.dart';
 
 class BookingImageBloc extends Bloc<BookingImageEvent, BookingImageState> {
-  String imageUrl =
-      'https://static.hiamag.com/styles/autox754/public/article/22/09/2021/%D9%85%D9%86%20%D8%A7%D9%86%D8%B3%D8%AA%D8%BA%D8%B1%D8%A7%D9%85%20riyadh_palace.jpg';
+  String imageUrl = '';
   BookingImageBloc() : super(BookingImageInitial()) {
     on<BookingImageEvent>((event, emit) {});
     on<LoadImage>(loadImage);

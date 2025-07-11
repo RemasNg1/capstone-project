@@ -88,11 +88,6 @@ class ProviderProfileBloc
         iban: ibanController.text,
       );
 
-      // currentUser = currentUser?.copyWith(
-      //   name: nameController.text,
-      //   phoneNumber: phoneController.text,
-      // );
-
       emit(ClientProfileUpdatedState());
     } catch (e) {
       emit(ClientProfileUpdateFailedState("Error: $e"));

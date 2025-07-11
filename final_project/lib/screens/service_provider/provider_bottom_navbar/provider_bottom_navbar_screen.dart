@@ -119,20 +119,6 @@ class ProviderBottomNavbarScreen extends StatelessWidget {
                     body: bloc.screens[bloc.selectIndex],
                   ),
 
-                  // Positioned(
-                  //   bottom: 110,
-                  //   left: context.isArabic
-                  //       ? null
-                  //       : itemWidth * bloc.selectIndex,
-                  //   right: context.isArabic
-                  //       ? itemWidth * bloc.selectIndex
-                  //       : null,
-                  //   child: Container(
-                  //     width: itemWidth,
-                  //     height: 3,
-                  //     color: Theme.of(context).colorScheme.primary,
-                  //   ),
-                  // ),
                   AnimatedPositioned(
                     duration: const Duration(milliseconds: 300),
                     curve: Curves.easeInOut,
@@ -149,16 +135,6 @@ class ProviderBottomNavbarScreen extends StatelessWidget {
                       color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
-
-                  // Positioned(
-                  //   bottom: 110,
-                  //   left: itemWidth * bloc.selectIndex,
-                  //   child: Container(
-                  //     width: itemWidth,
-                  //     height: 3,
-                  //     color: Theme.of(context).colorScheme.primary,
-                  //   ),
-                  // ),
                 ],
               );
             },

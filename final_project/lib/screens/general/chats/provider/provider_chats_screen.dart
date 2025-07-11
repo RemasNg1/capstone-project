@@ -50,7 +50,10 @@ class ProviderChatsScreen extends StatelessWidget {
                 if (state is ChatsInitial) {
                   print("ChatsInitial");
                   // handel this
-                  bloc.add(LoadMessage(authId: sender.providerAuthId!));
+                  bloc.add(
+                    ProviderLoadMessage(authId: sender.userAuthId ?? "hgf"),
+                  );
+                  print(sender.userAuthId ?? "hgf");
                 }
 
                 return Column(
@@ -62,7 +65,7 @@ class ProviderChatsScreen extends StatelessWidget {
                         currentUserId: bloc.currentUserAuthId,
                         onMessageSend: (text) {
                           print(sender.owner);
-                          bloc.add(SendMessage(userInput: text));
+                          bloc.add(ProviderSendMessage(userInput: text));
                         },
                         resolveUser: (UserID id) async {
                           return User(id: id);
@@ -79,3 +82,5 @@ class ProviderChatsScreen extends StatelessWidget {
     );
   }
 }
+
+// bloc.add(LoadMessage(authId: sender.userAuthId!));

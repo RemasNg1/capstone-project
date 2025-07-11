@@ -13,8 +13,4 @@ class CityModel with CityModelMappable {
   final int? regionId;
 
   const CityModel({this.id, this.nameAr, this.nameEn, this.regionId});
-
-  // mapForAddSupabase() {
-  //   return {'name': name, 'region_id': regionId};
-  // }
 }

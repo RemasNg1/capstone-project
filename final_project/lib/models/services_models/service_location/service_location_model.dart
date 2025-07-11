@@ -27,14 +27,4 @@ class ServiceLocationModel with ServiceLocationModelMappable {
     this.longitude,
     this.serviceProvidedId,
   });
-
-  // mapForAddSupabase() {
-  //   return {
-  //     'region_id': regionId,
-  //     'city_id': cityId,
-  //     'latitude': latitude,
-  //     'longitude': longitude,
-  //     'service_provided_id': serviceProvidedId,
-  //   };
-  // }
 }

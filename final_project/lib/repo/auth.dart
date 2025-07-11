@@ -7,6 +7,8 @@ import 'package:final_project/repo/supabase.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Auth {
+  // Registers a new user using email and password
+
   static Future<User> signUp({
     required String email,
     required String password,
@@ -26,6 +28,7 @@ class Auth {
       throw FormatException("Unknown error during signup");
     }
   }
+  // Verifies OTP code sent to the user
 
   static Future<void> verifyOtp({
     required String email,
@@ -48,6 +51,7 @@ class Auth {
       throw FormatException("Unknown error during OTP verification");
     }
   }
+  // Resends OTP for signup verification
 
   Future<void> resendVerificationEmail(String email) async {
     try {
@@ -56,6 +60,7 @@ class Auth {
       throw FormatException("Failed to resend verification email");
     }
   }
+  // Logs in a user with email and password
 
   static Future<User> signIn({
     required String email,
@@ -83,6 +88,7 @@ class Auth {
       throw FormatException("wrong");
     }
   }
+  // Resends OTP for signup verification
 
   static Future<void> resendOtp({required String email}) async {
     try {
@@ -94,6 +100,7 @@ class Auth {
       throw FormatException(e.message);
     }
   }
+  // Signs in a user anonymously
 
   static Future<User> signInAnonymously() async {
     try {
@@ -109,6 +116,7 @@ class Auth {
       throw FormatException("Unknown error during anonymous sign-in");
     }
   }
+  // Signs out the currently authenticated user
 
   static Future<void> signOut() async {
     try {
@@ -119,6 +127,7 @@ class Auth {
       throw FormatException("Unknown error during sign out");
     }
   }
+  // Updates password of the currently signed-in user
 
   static Future<void> updatePassword(String newPassword) async {
     await SupabaseConnect.supabase!.client.auth.updateUser(
@@ -126,7 +135,7 @@ class Auth {
     );
   }
 
-  //remasnugaithan+15@gmail.com
+  // Sends password reset email
   static Future<void> sendResetEmail(String email) async {
     try {
       await SupabaseConnect.supabase!.client.auth.resetPasswordForEmail(email);
@@ -136,6 +145,7 @@ class Auth {
       throw FormatException("Failed to send reset OTP");
     }
   }
+  // Checks if the current user is a client (from 'user' table)
 
   static Future<bool> isClient() async {
     final client = SupabaseConnect.supabase!.client;
@@ -151,6 +161,7 @@ class Auth {
 
     return response != null;
   }
+  // Checks if the current user is a provider (from 'providers' table)
 
   static Future<bool> isProvider() async {
     final client = SupabaseConnect.supabase!.client;
@@ -166,54 +177,8 @@ class Auth {
 
     return response != null;
   }
+  // Fetches the current client's full info (name, avatar, etc.)
 
-  // static fetchCurrentUser() async {
-  //   try {
-  //     final authId = Supabase.instance.client.auth.currentUser?.id;
-
-  //     if (authId == null) {
-  //       return null;
-  //     }
-
-  //     // final userInfo = await Supabase.instance.client
-  //     //     .from('user')
-  //     //     .select()
-  //     //     .eq('auth_id', authId)
-  //     //     .single();
-
-  //     final userInfo = await Supabase.instance.client
-  //         .from('user')
-  //         .select('name, phone_number')
-  //         .eq('auth_id', authId)
-  //         .single();
-
-  //     return ClientModelMapper.fromMap(userInfo);
-  //   } catch (e) {
-  //     print('Error fetching user info: $e');
-  //     return null;
-  //   }
-  // }
-
-  // static Future<ClientModel?> fetchCurrentUser() async {
-  //   try {
-  //     final authId = Supabase.instance.client.auth.currentUser?.id;
-
-  //     if (authId == null) return null;
-
-  //     final userInfo = await Supabase.instance.client
-  //         .from('user')
-  //         .select('name, phone_number')
-  //         .eq('auth_id', authId)
-  //         .single();
-
-  //     userInfo['auth_id'] = authId;
-
-  //     return ClientModelMapper.fromMap(userInfo);
-  //   } catch (e) {
-  //     print('Error fetching user info: $e');
-  //     return null;
-  //   }
-  // }
   static Future<ClientModel?> fetchCurrentUser() async {
     try {
       final user = Supabase.instance.client.auth.currentUser;
@@ -238,6 +203,7 @@ class Auth {
       return null;
     }
   }
+  // Fetches the current provider's full info
 
   static Future<ProviderModel?> fetchCurrentProvider() async {
     try {
@@ -267,6 +233,7 @@ class Auth {
       return null;
     }
   }
+  // Updates client (user table) name and phone number
 
   static updateClientInfo({String? name, String? phoneNumber}) async {
     try {
@@ -290,6 +257,7 @@ class Auth {
       throw FormatException("Failed to update client information");
     }
   }
+  // Updates provider info such as names, phone, CR number, IBAN
 
   static updateProviderInfo({
     String? nameAr,
@@ -325,6 +293,7 @@ class Auth {
       throw FormatException("Failed to update client information");
     }
   }
+  // Gets current user raw map data from 'user' table
 
   static getUser() async {
     try {
@@ -351,60 +320,30 @@ class Auth {
     }
   }
 
-  // static updateUserAvatar(File file) async {
+  // static Future<ClientModel> updateUserAvatar(File file) async {
+  //   final supabase = Supabase.instance.client;
+  //   final userId = supabase.auth.currentUser!.id;
+  //   final fileName = 'avatar_$userId.jpg';
+  //   final filePath = 'avatars/$fileName';
+
   //   try {
-  //     final supabase = Supabase.instance.client;
-  //     final userId = Supabase.instance.client.auth.currentUser!.id;
-
-  //     final fileName = 'avatar_$userId.jpg';
-  //     final filePath = 'avatars/$fileName';
-
-  //     final response = await supabase.storage
+  //     await supabase.storage
   //         .from('avatars')
-  //         .upload(filePath, file);
+  //         .upload(filePath, file, fileOptions: const FileOptions(upsert: true));
 
   //     final publicUrl = supabase.storage.from('avatars').getPublicUrl(filePath);
 
   //     final updateResponse = await supabase
   //         .from('user')
   //         .update({'avatar': publicUrl})
-  //         .eq('auth_id', userId);
+  //         .eq('auth_id', userId)
+  //         .select('name, phone_number, avatar')
+  //         .single();
 
-  //     if (updateResponse.error != null) {
-  //       print('Update DB error: ${updateResponse.error!.message}');
-  //       return;
-  //     }
-
-  //     print('Avatar updated successfully!');
+  //     return ClientModelMapper.fromMap(updateResponse);
   //   } catch (e) {
-  //     print('Exception: $e');
+  //     log('Error updating avatar: $e');
+  //     throw Exception('Error updating avatar: $e');
   //   }
   // }
-
-  static Future<ClientModel> updateUserAvatar(File file) async {
-    final supabase = Supabase.instance.client;
-    final userId = supabase.auth.currentUser!.id;
-    final fileName = 'avatar_$userId.jpg';
-    final filePath = 'avatars/$fileName';
-
-    try {
-      await supabase.storage
-          .from('avatars')
-          .upload(filePath, file, fileOptions: const FileOptions(upsert: true));
-
-      final publicUrl = supabase.storage.from('avatars').getPublicUrl(filePath);
-
-      final updateResponse = await supabase
-          .from('user')
-          .update({'avatar': publicUrl})
-          .eq('auth_id', userId)
-          .select('name, phone_number, avatar')
-          .single();
-
-      return ClientModelMapper.fromMap(updateResponse);
-    } catch (e) {
-      log('Error updating avatar: $e');
-      throw Exception('Error updating avatar: $e');
-    }
-  }
 }
