@@ -292,7 +292,7 @@ class ServiceDetailsScreen extends StatelessWidget {
                         Column(
                           children: service.ratings!.map((review) {
                             return ReviewCard(
-                              name: review.client?.name ?? " ",
+                              name: " ",
                               imageUrl:
                                   'https://cdn2.iconfinder.com/data/icons/circle-avatars-1/128/050_girl_avatar_profile_woman_suit_student_officer-512.png',
                               rating: review.rating?.toInt() ?? 0,

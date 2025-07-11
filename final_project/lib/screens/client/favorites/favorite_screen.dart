@@ -18,7 +18,7 @@ class FavoriteScreen extends StatelessWidget {
       create: (context) => FavoritesBloc()..add(FetchServicesProvidedEvent()),
       child: Builder(
         builder: (context) {
-          final bloc = context.read<FavoritesBloc>();
+          // final bloc = context.read<FavoritesBloc>();
           return Scaffold(
             backgroundColor: AppColors.white,
             appBar: AppBar(

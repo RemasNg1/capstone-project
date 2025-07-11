@@ -1,6 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
-
 import 'package:final_project/models/client/client_model.dart';
 import 'package:final_project/models/provider/provider_model.dart';
 import 'package:final_project/repo/supabase.dart';
