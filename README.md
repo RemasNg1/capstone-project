@@ -1,72 +1,148 @@
+![image](https://github.com/user-attachments/assets/a2c7ba25-12d1-4d48-911b-483401ef6af6)
 
 ## 📱 Project Summary
 
-The capstone project will be a mobile application developed using **Flutter** and **Dart** to address *[briefly describe the problem or value the app provides]*. It aims to offer *[key features or functionalities of the app]*.
+Tajammal is a mobile application that connects clients with service providers in the event planning industry. It offers users an easy way to browse, explore, and book a variety of event-related services such as venues, catering, decoration, photography, transportation, and more — all in one place.
 
 ---
 
 ## 🧠 Problem Solving
 
-*[Explain how your app addresses the identified problem or provides value to its users]*
+Planning an event often involves coordinating with multiple vendors, comparing prices, availability, and quality — a process that is time-consuming and stressful. There is no single reliable platform that offers clear reviews, booking, and direct communication.
 
----
-
-## 📝 Project Description
-
-The capstone project is an exciting opportunity for you to design and develop a real-world mobile application using the **Flutter** framework. You have the freedom to choose any app idea that interests you, be it a:
-
-- Social networking app  
-- Productivity tool  
-- Educational platform  
-- E-commerce solution  
-- Health tracker  
-
-...or anything else that demonstrates your creativity and technical abilities.
-
-Your project should:
-- Address a specific problem
-- Provide value to users
-- Explore innovative ideas
-- Have a polished and user-friendly UI
-
+Tajammal solves this by providing an easy-to-use app that connects clients with trusted event service providers, simplifying the booking and planning process.
 ---
 
 ## 🔧 Project Properties
 
-- **Name**: *[Project Name]*
-- **Platform**: Mobile (Android and iOS)
-- **Language**: Dart
-- **Framework**: Flutter
+
+- **Name**: Tajammal  
+- **Platform**: Mobile (Android & iOS)  
+- **Language**: Dart  
+- **Framework**: Flutter  
+- **Backend**: Supabase  
+- **Authentication**: Supabase (Email-based)  
+- **Payment**: Moyasar  
+
 
 ---
 
-## 🖼️ Pictures to Apply
+## 🖼️ UI Screenshots
+![image](https://github.com/user-attachments/assets/10e7b3c0-91bf-4e39-a9df-a76f0724e455)
 
-*[Include relevant pictures or sketches that demonstrate the app's design and layout]*
+
+
+## 🎨 Figma Design Link
+
+To preview the full UI/UX design on Figma:
+
+🔗 [Figma Link](https://www.figma.com/design/XTHWAXJspD4tzeVwkfRYKg/Tajammal--UI-Capstone?node-id=0-1&t=wTARUl8aS3ClREpy-1)
 
 ---
 
-## ✅ Features That Will Be Added
+## ✅ Current Features
 
-- *[Feature 1]*
-- *[Feature 2]*
-- *[Feature 3]*
+### 📱 Client App Features
+
+#### 🔐 Authentication
+
+* User registration (Sign Up), login (Sign In), and password recovery
+* **Email confirmation via OTP (One-Time Password)** during registration
+
+#### 🔍 Service Browsing
+
+* Access home screen with categorized services
+* Basic search functionality
+* **Explore and view details of available services**
+
+#### 💬 Interaction
+
+* Rate and review service providers
+* Add/remove services to/from favorites
+* In-app chat with service providers
+
+#### 📆 Booking Management
+
+* Book services directly through the app
+* Make secure payments for bookings within the app
+* View upcoming, past, and canceled bookings under **My Bookings**
+
+#### ⚙️ User Preferences
+
+* Edit profile and personal information
+* Switch application language from profile settings
+* Secure logout
 
 ---
 
+### 🧑‍💼 Service Provider App Features
+
+#### 🔐 Authentication
+
+* Provider registration, login, and password recovery
+* **Email confirmation via OTP** as part of the registration process
+
+#### 📊 Dashboard
+
+* Overview of total bookings, income, and other key metrics
+
+#### 💬 Communication
+
+* chat with clients
+
+#### 📆 Booking Control
+
+* View incoming booking requests
+* Accept or reject bookings
+* Access upcoming, past, and canceled booking history and current status
+
+#### 🛠️ Service Management
+
+* Add new services with details and pricing
+* Edit or delete existing services
+
+#### ⚙️ Profile Management
+
+* Update provider profile information
+* Switch application language from profile settings
+* Secure logout
+
+---
 ## 🚀 Features That Will Be Added in the Future
 
-- *[Future Feature 1]*
-- *[Future Feature 2]*
-- *[Future Feature 3]*
+- **Guest Login**  
+  Allow users to explore the app without registration.
+
+- **Integration with Wathiq (or Similar Service)**  
+  Automatic verification of commercial registration.
+
+- **AI-Powered Booking Assistant**  
+  Helps users find and book services smarter and faster.
+
+- **Package Deals and Bundled Offers**  
+  Special offers for occasions and discounts.
+  
+---
+## 👥 Team Members & Responsibilities
+
+| Name | Role |
+|------|------|
+| **Remas Alnugaithan** | Authentication (Supabase), Client Flow |
+| **Manal Almarri** | UI Design, Provider Flow |
+| **Omer Alsulami** | Supabase Integration, UI, Chat System |
 
 ---
 
-## 👥 Tasks or Division of Members in the Project
+## 🔗 GitHub Accounts
 
-*[Outline how the project tasks are divided among team members, including specific responsibilities for each member]*
+| Member | GitHub |
+|--------|--------|
+| Remas Alnugaithan | [GitHub Profile](https://github.com/RemasNg1) |
+| Manal Almarri | [GitHub Profile](https://github.com/manaalq) |
+| Omer Alsulami | [GitHub Profile](https://github.com/DvOmar76) |
 
 ---
+
 
 ## 📌 Minimum Requirements
 
@@ -74,27 +150,5 @@ Your project should:
 
 ---
 
-## 👤 Project Members
 
-- **[Member 1 Name]** - *[Role/Responsibility]*
-- **[Member 2 Name]** - *[Role/Responsibility]*
-- **[Member 3 Name]** - *[Role/Responsibility]*
-- **[Member 4 Name]** - *[Role/Responsibility]*
-- **[Member 5 Name]** - *[Role/Responsibility]*
-
----
-
-## 🔗 Project Member Accounts in GitHub
-
-- **[Member 1 GitHub Username]**: [GitHub Profile URL]  
-- **[Member 2 GitHub Username]**: [GitHub Profile URL]  
-- **[Member 3 GitHub Username]**: [GitHub Profile URL]  
-- **[Member 4 GitHub Username]**: [GitHub Profile URL]  
-- **[Member 5 GitHub Username]**: [GitHub Profile URL]
-
----
-
-> 💡 Remember, this is an opportunity to showcase your skills and creativity, so feel free to explore innovative ideas and push your limits in creating a remarkable Flutter application!
-
-**Good luck with your capstone project!**  
-Don't hesitate to seek guidance from your bootcamp instructors if needed.
+> 💡 Big things often have small beginnings. Every great journey starts with a simple step.
