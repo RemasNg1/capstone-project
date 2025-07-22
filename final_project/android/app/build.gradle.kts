@@ -6,13 +6,12 @@ val envProperties = Properties().apply {
 }
 
 
-val googleMapsApiKey = envProperties["GOOGLE_MAPS_ANDROID_KEY"] as String
+val googleMapsApiKey = "AIzaSyA7yVJuIw-yeogIlD2qTkyFFjNIchS4L3M"
 
 
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
 }
 
@@ -37,9 +36,8 @@ android {
         versionCode = flutter.versionCode
         versionName = flutter.versionName
 
-        
-        resValue("string", "GOOGLE_MAPS_ANDROID_KEY", googleMapsApiKey)
-    }
+        resValue("string", "Maps_ANDROID_KEY", googleMapsApiKey) 
+     }
 
     buildTypes {
         release {
