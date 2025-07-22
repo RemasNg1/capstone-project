@@ -13,3 +13,5 @@ class ChangeDataView extends ProviderHomeEvent {
   final EnumTypeOfShowChart selectedDataView;
   ChangeDataView(this.selectedDataView);
 }
+
+class LoadData extends ProviderHomeEvent{}

@@ -79,7 +79,7 @@ List<MessageTempModel> getUnique() {
 //-------------------- chart part --------------------
 // Creates chart bars from values
 List<BarChartGroupData> makeGroupDataStatic({
-  required List<int> valuesToDisplay,
+  required List<double> valuesToDisplay,
   required double width,
 }) {
   Color barColor = AppColors.mediumBlue;

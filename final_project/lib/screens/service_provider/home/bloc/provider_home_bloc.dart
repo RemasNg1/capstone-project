@@ -138,7 +138,11 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:final_project/core/enum/types.dart';
+import 'package:final_project/data_layer/booking_layer.dart';
+import 'package:final_project/models/booking/model_booking.dart';
+import 'package:final_project/repo/booking_repo.dart';
 import 'package:meta/meta.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'provider_home_event.dart';
 part 'provider_home_state.dart';
@@ -158,17 +162,22 @@ class ProviderHomeBloc extends Bloc<ProviderHomeEvent, ProviderHomeState> {
     DateTime(2025, 6, 15, 6, 6),
   };
 
-  // Mock data: number of accepted and rejected orders
-  final int acceptedOrder = 10;
-  final int rejectedOrder = 3;
+  // number of accepted and rejected orders
+  int acceptedOrder = 10;
+  int rejectedOrder = 3;
 
   // Mock income data for each chart type
-  final List<int> _weekData = [100, 2000, 300, 400, 5000, 600, 700];
-  final List<int> _monthData = [1500, 1200, 1800, 13000, 17000, 1600, 2000];
-  final List<int> _yearData = [55000, 0, 0, 0, 0, 0, 0];
+  List<double> _weekData = [];
+  List<double> _monthData = [];
+  List<double> _yearData = [];
+  List<String> yearTitle = [];
+  List<String> monthTitle = [];
 
+  Map<String, double> weeklySummary = {};
+  Map<String, double> yearlySummary = {};
+  Map<String, double> monthlySummary = {};
   // Getter that returns the correct data set based on the selected view
-  List<int> get listOfValue {
+  List<double> get listOfValue {
     switch (selectedDataView) {
       case EnumTypeOfShowChart.week:
         return _weekData;
@@ -179,12 +188,18 @@ class ProviderHomeBloc extends Bloc<ProviderHomeEvent, ProviderHomeState> {
     }
   }
 
+  final BookingRepository repository = BookingRepository(
+    Supabase.instance.client,
+  );
+
   // Constructor: initializes with initial state and handles events
   ProviderHomeBloc() : super(ProviderHomeInitial()) {
     on<ProviderHomeEvent>((event, emit) {});
 
     // Handle ChangeDataView events with a separate method
     on<ChangeDataView>(changeDataView);
+    // load data from supabase
+    on<LoadData>(loadData);
   }
 
   // Method to update selectedDataView when user changes chart type
@@ -195,5 +210,33 @@ class ProviderHomeBloc extends Bloc<ProviderHomeEvent, ProviderHomeState> {
     selectedDataView = event.selectedDataView;
     print("Selected type: $selectedDataView");
     emit(ChangeDataViewSuccessful()); // Emit new state to update UI
+  }
+
+  FutureOr<void> loadData(
+    LoadData event,
+    Emitter<ProviderHomeState> emit,
+  ) async {
+    print('loadData');
+    List<ModelBooking> allBooking = await BookingLayer.getAllProviderBooking();
+
+    // Get the weekly summary
+    weeklySummary = BookingLayer.getWeeklySummary(allBooking);
+    this._weekData = weeklySummary.values.toList();
+    print(_weekData);
+    // print('Weekly Summary: $weeklySummary');
+    yearlySummary = BookingLayer.getLast7YearsSummary(allBooking);
+    this._yearData = yearlySummary.values.toList();
+    yearTitle = yearlySummary.keys.toList();
+
+    print('Yearly Summary: ${yearlySummary.keys.toList()}');
+    monthlySummary = BookingLayer.getLast7MonthsSummary(allBooking);
+    this._monthData = monthlySummary.values.toList();
+    monthTitle = monthlySummary.keys.toList();
+
+    acceptedOrder = allBooking.where((e) => e.status == "accepted").length;
+
+    rejectedOrder = allBooking.where((e) => e.status == "rejected").length;
+
+    emit(LoadDataSuccessfully());
   }
 }

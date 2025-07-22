@@ -159,11 +159,14 @@ class ProviderHomeScreen extends StatelessWidget {
               child: BlocBuilder<ProviderHomeBloc, ProviderHomeState>(
                 builder: (context, state) {
                   final bloc = context.read<ProviderHomeBloc>();
-
+                  //when the home page is create get date from supabase
+                  if (state is ProviderHomeInitial) {
+                    bloc.add(LoadData());
+                  }
                   // Calculate total income from the list of values
-                  final int totalIncoming = bloc.listOfValue
+                  final double totalIncoming = bloc.listOfValue
                       .fold(0, (a, b) => a + b)
-                      .toInt();
+                     ;
 
                   return Column(
                     children: [
@@ -214,7 +217,7 @@ class ProviderHomeScreen extends StatelessWidget {
                             IncomingChart(
                               title: "home.incoming".tr(),
                               valuesToDisplay: bloc.listOfValue,
-                              typeOfShowChart: bloc.selectedDataView,
+                              typeOfShowChart: bloc.selectedDataView, monthTitles: bloc.monthTitle, yearTitles: bloc.yearTitle,
                             ),
                           ],
                         ),

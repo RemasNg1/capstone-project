@@ -11,15 +11,18 @@ class IncomingChart extends StatelessWidget {
     super.key,
     required this.title,
     required this.valuesToDisplay,
+    required this.monthTitles,
+    required this.yearTitles,
     required this.typeOfShowChart,
   });
 
   final String title;
-  final EnumTypeOfShowChart
-  typeOfShowChart; // Determines if view is weekly, monthly, yearly
+  final List<String> monthTitles;
+  final List<String> yearTitles;
+  final typeOfShowChart; // Determines if view is weekly, monthly, yearly
   final Color leftBarColor = AppColors.lightBlue;
   final double width = 16;
-  final List<int> valuesToDisplay; // List of data values
+  final List<double> valuesToDisplay; // List of data values
 
   @override
   Widget build(BuildContext context) {
@@ -127,24 +130,6 @@ class IncomingChart extends StatelessWidget {
   // Build X axis labels (bottom side)
   Widget bottomTitles(double value, TitleMeta meta) {
     final List<String> dayTitles = ['Mn', 'Te', 'Wd', 'Tu', 'Fr', 'St', 'Su'];
-    final List<String> yearTitles = [
-      '2025',
-      '2026',
-      '2027',
-      '2028',
-      '2029',
-      '2030',
-      '2031',
-    ];
-    final List<String> monthTitles = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-    ];
 
     List<String> listTitle = [];
     // Pick label list depending on selected view type

@@ -22,22 +22,67 @@ class Booking {
 
   static Future loadProviderBooking() async {
     String currentAuthId = AuthLayer.box.get('authId');
+    print("loadProviderBooking");
     try {
       final result = await supabase?.client
           // services_provided(*)
           .from("service_requests")
           .select("*,service_locations(*),services_provided(*)")
-          .eq('service_provided_id', currentAuthId);
+          .eq('services_provided.provider_auth_id', currentAuthId);
       return result;
     } catch (error) {
       throw FormatException("$error");
     }
   }
 
+  static Future loadProviderBookingCurrentWeek() async {
+    String currentAuthId = AuthLayer.box.get('authId');
+    print("loadProviderBooking");
+    final now = DateTime.now();
+    final sevenDaysAgo = now.subtract(Duration(days: 7));
+    try {
+     final result = await supabase?.client
+          .from("service_requests")
+          .select("*,service_locations(*),services_provided(*)")
+          .eq('services_provided.provider_auth_id', currentAuthId)
+          .gte('date', sevenDaysAgo.toIso8601String()) 
+          .lte('date', now.toIso8601String()); 
+      print(currentAuthId);
+      return result;
+    } catch (error) {
+      throw FormatException("$error");
+    }
+  }
+ static Future loadProviderBookingCurrentYear() async {
+    String currentAuthId = AuthLayer.box.get('authId');
+    print("loadProviderBookingCurrentYear");
+    final now = DateTime.now();
+
+    // Calculate the start of the current year (January 1st, 00:00:00)
+    final startOfYear = DateTime(now.year, 1, 1);
+
+    // Calculate the end of the current year (December 31st, 23:59:59)
+    // To ensure all bookings on Dec 31st are included, we go to the start of Jan 1st of next year
+    // and then subtract a millisecond.
+    final endOfYear = DateTime(now.year + 1, 1, 1).subtract(Duration(milliseconds: 1));
+
+    try {
+      final result = await Supabase.instance.client
+          .from("service_requests")
+          .select("*,service_locations(*),services_provided(*)")
+          .eq('services_provided.provider_auth_id', currentAuthId)
+          .gte('date', startOfYear.toIso8601String())
+          .lte('date', endOfYear.toIso8601String());
+      print("Current year bookings for $currentAuthId: ${result?.length ?? 0}");
+      return result;
+    } catch (error) {
+      throw FormatException("$error");
+    }
+  }
   static Future loadImageFromTableServiceImageHasSameProvideServiceId({
     required int provideServiceId,
   }) async {
-    String currentAuthId = AuthLayer.box.get('authId');
+    // String currentAuthId = AuthLayer.box.get('authId');
     try {
       final result = await supabase?.client
           // services_provided(*)
@@ -89,8 +134,65 @@ class Booking {
       throw Exception("Error while rating service: $error");
     }
   }
-}
 
-// [
-//   {id: 2, date: 2025-07-03, service_provided_id: 3, service_location_id: 5, status: send, user_auth_id: 423e5f9a-e7a0-4228-9959-71f429875f64, service_locations: {id: 5, city_id: 3, latitude: 24.713, longitude: 46.6753, region_id: 1, service_provided_id: 3}}
-// ]
+  // Future<List<ServiceRequest>> fetchProviderBookingsForCurrentWeek() async {
+  //   print("fetchProviderBookingsForCurrentWeek");
+  //   final user = client.auth.currentUser;
+  //   if (user == null) throw Exception("User not authenticated");
+  //   String? providerId = AuthLayer.box.get('providerId');
+  //   if (providerId == null) {
+  //     await getProviderIdFromAuthId(user.id);
+  //     providerId = AuthLayer.box.get('providerId');
+  //   }
+  //   if (providerId == null) throw Exception("Provider not found");
+  //   final now = DateTime.now();
+  //   final sevenDaysAgo = now.subtract(Duration(days: 7));
+
+  //   final response = await client
+  //       .from('services_provided')
+  //       .select('''
+  //     id,
+  //     title_en,
+  //     servic_image (
+  //       image_url
+  //     ),
+  //     service_requests (
+  //       id,
+  //       date,
+  //       status
+  //     )
+  //   ''')
+  //       .eq('provider_id', providerId)
+  //       .gte('service_requests.date', sevenDaysAgo.toIso8601String())
+  //       .lte('service_requests.date', now.toIso8601String());
+
+    // final results = response as List;
+
+    // List<ServiceRequest> bookings = [];
+
+    // for (final item in results) {
+    //   final serviceTitle = item['title_en'] ?? '';
+    //   final imageList = item['servic_image'] as List?;
+    //   final imageUrl = (imageList != null && imageList.isNotEmpty)
+    //       ? imageList.first['image_url'] as String
+    //       : '';
+
+    //   final requests = item['service_requests'] as List?;
+    //   if (requests == null) continue;
+
+    //   for (final req in requests) {
+    //     bookings.add(
+    //       ServiceRequest(
+    //         id: req['id'],
+    //         date: DateTime.parse(req['date']),
+    //         status: req['status'],
+    //         serviceTitle: serviceTitle,
+    //         imageUrl: imageUrl,
+    //       ),
+    //     );
+    //   }
+    // }
+
+  //   return bookings;
+  // }
+}
