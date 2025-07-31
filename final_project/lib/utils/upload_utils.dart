@@ -43,3 +43,14 @@ Future<List<String>> uploadImages(List<XFile> images) async {
 
   return downloadUrls;
 }
+
+String extractStoragePath(String url) {
+  if (url.startsWith('https://')) {
+    final parts = Uri.parse(url).pathSegments;
+    final index = parts.indexOf('public');
+    if (index != -1 && index + 1 < parts.length) {
+      return parts.sublist(index + 1).join('/');
+    }
+  }
+  return url;
+}

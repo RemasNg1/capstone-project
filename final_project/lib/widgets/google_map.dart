@@ -6,6 +6,7 @@ class GoogleMapWidget extends StatelessWidget {
   final double latitude;
   final double longitude;
   final String label;
+
   final void Function(double lat, double lng)? onLocationSelected;
 
   const GoogleMapWidget({

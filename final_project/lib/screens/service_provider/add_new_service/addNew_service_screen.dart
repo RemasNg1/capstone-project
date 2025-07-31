@@ -34,12 +34,16 @@ class AddNewServiceScreen extends StatelessWidget {
     // If adding, create new bloc and load data
     return isEditing
         ? BlocProvider.value(
-            value: BlocProvider.of<AddServiceBloc>(context),
+            value: BlocProvider.of<AddServiceBloc>(context)
+              ..add(LoadRegionsAndCities())
+              ..add(LoadServiceTypes())
+              ..add(LoadServiceForEditing(serviceId!)),
             child: _buildWithListeners(),
           )
         : BlocProvider(
             create: (context) {
-              final bloc = AddServiceBloc(GetIt.I<SupabaseClient>());
+              final bloc = AddServiceBloc(GetIt.I<SupabaseClient>(), []);
+
               bloc.add(LoadServiceTypes());
               bloc.add(LoadRegionsAndCities());
               return bloc;
@@ -76,7 +80,7 @@ class AddNewServiceScreen extends StatelessWidget {
               prev.images != curr.images &&
               prev.isEditingLoaded == curr.isEditingLoaded,
           listener: (context, state) {
-            if (state.images.isNotEmpty) {
+            if (!isEditing && state.images.isNotEmpty) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text("services.images_uploaded".tr())),
               );
@@ -98,22 +102,22 @@ class AddNewServiceScreen extends StatelessWidget {
           final arabicDescriptionController = TextEditingController();
 
           // Fill controllers with existing data if editing
-          if (isEditing && bloc.state.isEditingLoaded) {
-            nameController.text = bloc.state.name;
-            arabicNameController.text = bloc.state.arabicName;
-            descriptionController.text = bloc.state.description;
-            arabicDescriptionController.text = bloc.state.arabicDescription;
-            // guestCountController.text = bloc.state.guestCount;
-            priceController.text = bloc.state.price;
-            dateController.text = bloc.state.unavailableDateRanges.isNotEmpty
-                ? bloc.state.unavailableDateRanges
-                      .map(
-                        (range) =>
-                            '${range.start.toIso8601String().substring(0, 10)} → ${range.end.toIso8601String().substring(0, 10)}', //change to text
-                      )
-                      .join(', ')
-                : '';
-          }
+
+          // if (isEditing && bloc.state.isEditingLoaded) {
+          //   nameController.text = bloc.state.name;
+          //   arabicNameController.text = bloc.state.arabicName;
+          //   descriptionController.text = bloc.state.description;
+          //   arabicDescriptionController.text = bloc.state.arabicDescription;
+          //   priceController.text = bloc.state.price;
+          //   dateController.text = bloc.state.unavailableDateRanges.isNotEmpty
+          //       ? bloc.state.unavailableDateRanges
+          //             .map(
+          //               (range) =>
+          //                   '${range.start.toIso8601String().substring(0, 10)} → ${range.end.toIso8601String().substring(0, 10)}',
+          //             )
+          //             .join(', ')
+          //       : '';
+          // }
 
           return Scaffold(
             appBar: AppBar(
@@ -128,6 +132,33 @@ class AddNewServiceScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  BlocBuilder<AddServiceBloc, AddServiceState>(
+                    buildWhen: (previous, current) =>
+                        previous.isEditingLoaded != current.isEditingLoaded,
+                    builder: (context, state) {
+                      if (isEditing && state.isEditingLoaded) {
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          nameController.text = state.name;
+                          arabicNameController.text = state.arabicName;
+                          descriptionController.text = state.description;
+                          arabicDescriptionController.text =
+                              state.arabicDescription;
+                          priceController.text = state.price;
+                          dateController.text =
+                              state.unavailableDateRanges.isNotEmpty
+                              ? state.unavailableDateRanges
+                                    .map(
+                                      (range) =>
+                                          '${range.start.toIso8601String().substring(0, 10)} → ${range.end.toIso8601String().substring(0, 10)}',
+                                    )
+                                    .join(', ')
+                              : '';
+                        });
+                      }
+                      return const SizedBox.shrink();
+                    },
+                  ),
+
                   // Section Title: General Information
                   Text(
                     'services.generalInfo'.tr(),
@@ -148,7 +179,7 @@ class AddNewServiceScreen extends StatelessWidget {
                       }
 
                       final Map<String, int> categoryMap = {
-                        '': -1,
+                        'services.categoryPlaceholder'.tr(): -1,
                         ...{
                           for (int i = 0; i < state.serviceTypes.length; i++)
                             context.locale.languageCode == 'ar'
@@ -158,20 +189,37 @@ class AddNewServiceScreen extends StatelessWidget {
                         },
                       };
 
+                      final selectedCategoryIndex = state.serviceTypes
+                          .indexWhere((type) {
+                            final localized =
+                                context.locale.languageCode == 'ar'
+                                ? type['ar']
+                                : type['en'];
+                            return localized == state.category;
+                          });
+
                       return CustomDropdownField(
                         labelText: 'services.category'.tr(),
                         hintText: 'services.categoryPlaceholder'.tr(),
-                        value: state.category.isNotEmpty
-                            ? state.category
-                            : null,
+                        value: categoryMap.keys.firstWhere((key) {
+                          final expectedCategory =
+                              context.locale.languageCode == 'ar'
+                              ? state.selectedTypeAr
+                              : state.selectedTypeEn;
+
+                          return key.trim().toLowerCase() ==
+                              expectedCategory?.trim().toLowerCase();
+                        }, orElse: () => ''),
+
                         items: categoryMap,
                         onChanged: (selectedIndex) {
-                          if (selectedIndex != null) {
+                          if (selectedIndex != null && selectedIndex != -1) {
                             final selected = state.serviceTypes[selectedIndex];
                             final localizedName =
                                 context.locale.languageCode == 'ar'
                                 ? selected['ar']!
                                 : selected['en']!;
+
                             context.read<AddServiceBloc>().emit(
                               state.copyWith(
                                 category: localizedName,
@@ -426,6 +474,11 @@ class AddNewServiceScreen extends StatelessWidget {
                         onImagesPicked: (List<XFile> images) {
                           context.read<AddServiceBloc>().add(
                             ImagesPicked(images),
+                          );
+                        },
+                        onRemoveImage: (int index) {
+                          context.read<AddServiceBloc>().add(
+                            RemoveImageAtIndex(index),
                           );
                         },
                         currentImages: state.images,

@@ -10,12 +10,14 @@ import 'package:image_picker/image_picker.dart';
 
 class CustomImageUploader extends StatelessWidget {
   final void Function(List<XFile>) onImagesPicked;
+  final void Function(int index)? onRemoveImage;
   final List<XFile> currentImages;
 
   const CustomImageUploader({
     super.key,
     required this.onImagesPicked,
     required this.currentImages,
+    this.onRemoveImage,
   });
 
   @override
@@ -23,7 +25,7 @@ class CustomImageUploader extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        //  عرض الصور المصغرة بعد اختيارها
+        // عرض الصور المصغرة مع زر الحذف
         if (currentImages.isNotEmpty)
           SizedBox(
             height: 100,
@@ -32,20 +34,79 @@ class CustomImageUploader extends StatelessWidget {
               itemCount: currentImages.length,
               separatorBuilder: (_, __) => const SizedBox(width: 8),
               itemBuilder: (context, index) {
-                final file = File(currentImages[index].path);
-                return ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: Image.file(
-                    file,
-                    width: 100,
-                    height: 100,
-                    fit: BoxFit.cover,
-                  ),
+                final path = currentImages[index].path;
+
+                final isNetworkImage =
+                    path.contains('supabase') || path.startsWith('http');
+
+                final imagePath = isNetworkImage
+                    ? (path.startsWith('http') ? path : 'https://$path')
+                    : path;
+
+                return Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: isNetworkImage
+                          ? Image.network(
+                              imagePath,
+                              width: 100,
+                              height: 100,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Container(
+                                  width: 100,
+                                  height: 100,
+                                  color: Colors.grey[300],
+                                  child: const Icon(
+                                    Icons.broken_image,
+                                    color: Colors.grey,
+                                  ),
+                                );
+                              },
+                            )
+                          : isNetworkImage
+                          ? Image.network(
+                              imagePath,
+                              width: 100,
+                              height: 100,
+                              fit: BoxFit.cover,
+                            )
+                          : Image.file(
+                              File(imagePath),
+                              width: 100,
+                              height: 100,
+                              fit: BoxFit.cover,
+                            ),
+                    ),
+                    // زر الحذف
+                    Positioned(
+                      top: 4,
+                      right: 4,
+                      child: GestureDetector(
+                        onTap: () => onRemoveImage?.call(index),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0.6),
+                            shape: BoxShape.circle,
+                          ),
+                          padding: const EdgeInsets.all(4),
+                          child: const Icon(
+                            Icons.close,
+                            color: Colors.white,
+                            size: 18,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 );
               },
             ),
           ),
+
         AppSpacing.h16,
+
         // زر رفع الصور
         GestureDetector(
           onTap: () async {
