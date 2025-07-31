@@ -61,6 +61,8 @@ class ProviderChatsScreen extends StatelessWidget {
                     Expanded(
                       child: Chat(
                         chatController: bloc.chatController,
+                        backgroundColor: Theme.of(context).colorScheme.surface,
+
                         // toDo change it to user id
                         currentUserId: bloc.currentUserAuthId,
                         onMessageSend: (text) {

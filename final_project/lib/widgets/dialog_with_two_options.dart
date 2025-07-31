@@ -1,4 +1,5 @@
 import 'package:final_project/style/app_spacing.dart';
+import 'package:final_project/style/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class DialogWithTwoOptions extends StatelessWidget {
@@ -23,7 +24,7 @@ class DialogWithTwoOptions extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       contentPadding: const EdgeInsets.all(24),
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       content: Column(
         mainAxisSize: MainAxisSize.min,
@@ -32,14 +33,14 @@ class DialogWithTwoOptions extends StatelessWidget {
           AppSpacing.h16,
           Text(
             title,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: AppTextStyles.interSize20(context),
             textAlign: TextAlign.center,
           ),
           // if (message != null) ...[
           AppSpacing.h8,
           Text(
             message!,
-            style: TextStyle(fontSize: 16, color: Colors.black54),
+            style: AppTextStyles.interSize14(context),
             textAlign: TextAlign.center,
           ),
           // ],

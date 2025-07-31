@@ -1,12 +1,18 @@
 import 'dart:async';
+import 'package:another_flushbar/flushbar.dart';
 import 'package:bloc/bloc.dart';
+import 'package:final_project/core/enum/types.dart';
+import 'package:final_project/data_layer/auth_layer.dart';
 import 'package:final_project/data_layer/data_layer.dart';
 import 'package:final_project/models/client/client_model.dart';
 import 'package:final_project/models/services_models/favorite_service/favorite_service_model.dart';
 import 'package:final_project/models/services_models/service/service_model.dart';
 import 'package:final_project/models/services_models/services_provided/services_provided_model.dart';
 import 'package:final_project/repo/service.dart';
+import 'package:final_project/repo/supabase.dart';
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 
 part 'home_event.dart';
@@ -19,6 +25,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     "Photography": "photography",
     "Decoration": "decoration",
     "Transportation": "transportation",
+    "Dinner": "dinner",
   };
   final dataLayer = GetIt.I.get<DataLayer>();
   List<ServicesProvidedModel> servicesProvided = [];
@@ -26,6 +33,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   List<ServicesProvidedModel> filteredServices = [];
   List<FavoriteService> favorites = [];
   ClientModel? currentUser;
+  bool hasLoaded = false;
+  Box get box => Hive.box('userInfo');
+  String? get userTypeString => box.get('userType');
+  final session = SupabaseConnect.supabase!.client.auth.currentSession;
+  final authGetit = GetIt.I.get<AuthLayer>();
+  late EnumUserType? userType;
 
   DateTime selectedDay = DateTime.now();
   HomeBloc() : super(HomeInitial()) {
@@ -40,9 +53,37 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     FetchServicesProvidedEvent event,
     Emitter<HomeState> emit,
   ) async {
+    if (hasLoaded) return;
     emit(HomeLoading());
     try {
       await dataLayer.loadDataFromSupabase();
+
+      // final box = Hive.box('userInfo');
+      // final userTypeString = box.get('userType');
+
+      if (userTypeString == EnumUserType.customer.name) {
+        currentUser = dataLayer.currentUser!;
+      } else {
+        currentUser = ClientModel(
+          name: "Guest",
+          status: EnumUserStatus.online,
+          phoneNumber: "0000",
+        );
+      }
+
+      // final isClient = await authGetit.isClient();
+
+      // final user = SupabaseConnect.supabase!.client.auth.currentUser;
+      // if (isClient) {
+      //   userType = EnumUserType.customer;
+      //   currentUser = dataLayer.currentUser!;
+      // } else {
+      //   currentUser = ClientModel(
+      //     name: "guest",
+      //     status: EnumUserStatus.online,
+      //     phoneNumber: "0000",
+      //   );
+      // }
       favorites = await Service.fetchFavoriteServices();
 
       servicesProvided = dataLayer.servicesProvidedModelData;
@@ -62,8 +103,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         final isFav = favoriteServiceIds.contains(serviceProvided.id);
         return serviceProvided.copyWith(isFavorite: isFav);
       }).toList();
-      currentUser = dataLayer.currentUser!;
-
+      // currentUser = dataLayer.currentUser!;
+      hasLoaded = true;
       // log("services.toString(): $services.toString()");
       // log(favoriteServiceIds.toString());
       // log(
@@ -107,6 +148,21 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) async {
     try {
+      if (currentUser?.name == "Guest") {
+        if (event.context != null) {
+          Flushbar(
+            message: "الرجاء تسجيل الدخول للإضافة للمفضلة",
+            backgroundColor: Colors.red,
+            icon: const Icon(Icons.error, color: Colors.white),
+            duration: const Duration(seconds: 3),
+            flushbarPosition: FlushbarPosition.BOTTOM,
+            borderRadius: BorderRadius.circular(8),
+            margin: const EdgeInsets.all(16),
+          ).show(event.context!);
+        }
+
+        return;
+      }
       await Service.toggleFavorite(serviceId: event.serviceId);
 
       favorites = await Service.fetchFavoriteServices();

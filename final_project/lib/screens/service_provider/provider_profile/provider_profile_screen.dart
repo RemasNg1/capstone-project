@@ -6,6 +6,7 @@ import 'package:final_project/screens/service_provider/provider_profile/edit_inf
 import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_spacing.dart';
 import 'package:final_project/style/app_text_styles.dart';
+import 'package:final_project/style/theme_provider.dart';
 import 'package:final_project/widgets/avatar.dart';
 import 'package:final_project/widgets/custom_list_tile.dart';
 import 'package:final_project/widgets/custom_switch.dart';
@@ -183,6 +184,29 @@ class ProviderProfileScreen extends StatelessWidget {
                           },
                         ),
                       ),
+                      CustomListTile(
+                        leadingIcon: SvgPicture.asset(
+                          "assets/icons/mode.svg",
+                          colorFilter: ColorFilter.mode(
+                            Theme.of(context).colorScheme.onPrimaryContainer,
+                            BlendMode.srcIn,
+                          ),
+                          width: 28,
+                        ),
+                        title: "profile.mode".tr(),
+                        trailing: CustomSwitch(
+                          value: context.watch<ThemeProvider>().isDark,
+                          activeIcon: SvgPicture.asset(
+                            'assets/icons/light_mode.svg',
+                          ),
+                          inactiveIcon: SvgPicture.asset(
+                            'assets/icons/dark_mode.svg',
+                          ),
+                          // onToggle: (val) {},
+                          onToggle: (_) =>
+                              context.read<ThemeProvider>().toggleTheme(),
+                        ),
+                      ),
                       AppSpacing.h8,
                       Row(
                         children: [
@@ -249,6 +273,7 @@ class ProviderProfileScreen extends StatelessWidget {
                           );
                         },
                       ),
+
                       CustomListTile(
                         leadingIcon: SvgPicture.asset(
                           "assets/icons/logout.svg",

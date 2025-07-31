@@ -22,8 +22,9 @@ class SubmitBooking extends BookingEvent {
 
 class ToggleFavoriteEvent extends BookingEvent {
   final int serviceId;
+  final BuildContext? context;
 
-  ToggleFavoriteEvent({required this.serviceId});
+  ToggleFavoriteEvent({this.context, required this.serviceId});
 }
 
 class LoadConversion extends BookingEvent {}

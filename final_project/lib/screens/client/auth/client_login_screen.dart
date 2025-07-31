@@ -218,20 +218,20 @@ class ClientLoginScreen extends StatelessWidget {
                               },
                             ),
 
-                            // TextButton(
-                            //   onPressed: () {
-                            //     bloc.add(SignInAnonymouslyEvent());
-                            //   },
-                            //   child: Text(
-                            //     "auth.guest".tr(),
-                            //     style: AppTextStyles.interSize14(context)
-                            //         .copyWith(
-                            //           color: Theme.of(
-                            //             context,
-                            //           ).colorScheme.onSurface,
-                            //         ),
-                            //   ),
-                            // ),
+                            TextButton(
+                              onPressed: () {
+                                bloc.add(SignInAnonymouslyEvent());
+                              },
+                              child: Text(
+                                "auth.guest".tr(),
+                                style: AppTextStyles.interSize14(context)
+                                    .copyWith(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.onSurface,
+                                    ),
+                              ),
+                            ),
                           ],
                         ),
                       ),

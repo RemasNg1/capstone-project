@@ -4,7 +4,10 @@ import 'package:final_project/models/services_models/services_provided/services_
 import 'package:final_project/screens/client/booking_flow/service_details_screen.dart';
 import 'package:final_project/screens/client/category_services/bloc/category_services_bloc.dart';
 import 'package:final_project/style/app_colors.dart';
+import 'package:final_project/style/app_spacing.dart';
+import 'package:final_project/style/app_text_styles.dart';
 import 'package:final_project/utils/extensions/localization_helper.dart';
+import 'package:final_project/utils/extensions/screen/screen_size.dart';
 import 'package:final_project/widgets/category_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,66 +35,124 @@ class CategoryServiceScreen extends StatelessWidget {
           final bloc = context.read<CategoryServicesBloc>();
           return Scaffold(
             appBar: AppBar(
+              elevation: 0,
+              centerTitle: true,
               title: Text(
                 categoryName,
-                style: TextStyle(color: AppColors.dimGray, fontSize: 18),
+                style: AppTextStyles.interSize20(context),
+                // TextStyle(color: AppColors.dimGray, fontSize: 20),
               ),
-              centerTitle: true,
-              elevation: 0,
+              // backgroundColor: AppColors.white,
+              foregroundColor: Theme.of(context).colorScheme.onSurface,
+              automaticallyImplyLeading: true,
             ),
+
+            // appBar: AppBar(
+            //   title: Text(
+            //     categoryName,
+            //     style: TextStyle(color: AppColors.dimGray, fontSize: 18),
+            //   ),
+            //   centerTitle: true,
+            //   elevation: 0,
+            // ),
             body: BlocBuilder<CategoryServicesBloc, CategoryServicesState>(
               builder: (context, state) {
                 return Column(
                   children: [
-                    // Search Bar
                     Padding(
-                      padding: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        height: 50,
                         decoration: BoxDecoration(
-                          color: AppColors.white,
-                          borderRadius: BorderRadius.circular(12),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black12,
-                              blurRadius: 8,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
+                          borderRadius: BorderRadius.circular(30),
+                          color: AppColors.lightGray.withOpacity(0.2),
                         ),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintText: 'home.search'.tr(),
-                            hintStyle: const TextStyle(
-                              color: AppColors.mediumGray,
-                            ),
-                            prefixIcon: const Icon(
+                        child: Row(
+                          children: [
+                            const Icon(
                               Icons.search,
                               color: AppColors.mediumGray,
                             ),
-                            border: InputBorder.none,
-                            contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 14,
-                            ),
-                          ),
-                          onChanged: (value) {
-                            bloc.add(
-                              SearchServicesEvent(
-                                query: value,
-                                isArabic: context.isArabic,
+                            AppSpacing.w8,
+                            Expanded(
+                              child: TextField(
+                                style: const TextStyle(
+                                  color: AppColors.mediumGray,
+                                ),
+                                decoration: InputDecoration(
+                                  hintText: 'home.search'.tr(),
+                                  hintStyle: const TextStyle(
+                                    color: AppColors.mediumGray,
+                                  ),
+                                  border: InputBorder.none,
+                                  isDense: true,
+                                ),
+                                onChanged: (value) {
+                                  bloc.add(
+                                    SearchServicesEvent(
+                                      query: value,
+                                      isArabic: context.isArabic,
+                                    ),
+                                  );
+                                },
                               ),
-                            );
-                          },
+                            ),
+                          ],
                         ),
                       ),
                     ),
+                    AppSpacing.h32,
+                    // Search Bar
+                    // Padding(
+                    //   padding: const EdgeInsets.all(16),
+                    //   child: Container(
+                    //     decoration: BoxDecoration(
+                    //       color: AppColors.white,
+                    //       borderRadius: BorderRadius.circular(12),
+                    //       boxShadow: [
+                    //         BoxShadow(
+                    //           color: Colors.black12,
+                    //           blurRadius: 8,
+                    //           offset: const Offset(0, 4),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //     child: TextField(
+                    //       decoration: InputDecoration(
+                    //         hintText: 'home.search'.tr(),
+                    //         hintStyle: const TextStyle(
+                    //           color: AppColors.mediumGray,
+                    //         ),
+                    //         prefixIcon: const Icon(
+                    //           Icons.search,
+                    //           color: AppColors.mediumGray,
+                    //         ),
+                    //         border: InputBorder.none,
+                    //         contentPadding: const EdgeInsets.symmetric(
+                    //           horizontal: 16,
+                    //           vertical: 14,
+                    //         ),
+                    //       ),
+                    //       onChanged: (value) {
+                    //         bloc.add(
+                    //           SearchServicesEvent(
+                    //             query: value,
+                    //             isArabic: context.isArabic,
+                    //           ),
+                    //         );
+                    //       },
+                    //     ),
+                    //   ),
+                    // ),
 
                     // Grid
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.6,
+                          height: context.getHeight(factor: 0.6),
+                          //  MediaQuery.of(context).size.height * 0.6,
                           child: state is SuccessSearch
                               ? GridView.builder(
                                   itemCount: state.servicesProvided.length,

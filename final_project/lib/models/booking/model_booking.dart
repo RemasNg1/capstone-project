@@ -7,6 +7,7 @@ class ModelBooking {
   String? userAuthId;
   ServicesProvided? servicesProvided;
   ServiceLocations? serviceLocations;
+  List<ServiceRating>? serviceRatings;
 
   ModelBooking({
     this.id,
@@ -17,6 +18,7 @@ class ModelBooking {
     this.userAuthId,
     this.servicesProvided,
     this.serviceLocations,
+    this.serviceRatings,
   });
 
   ModelBooking.fromJson(Map<String, dynamic> json) {
@@ -32,6 +34,12 @@ class ModelBooking {
     serviceLocations = json['service_locations'] != null
         ? new ServiceLocations.fromJson(json['service_locations'])
         : null;
+
+    serviceRatings = json['service_ratings'] != null
+        ? List<ServiceRating>.from(
+            json['service_ratings'].map((x) => ServiceRating.fromJson(x)),
+          )
+        : [];
   }
 
   Map<String, dynamic> toJson() {
@@ -47,6 +55,10 @@ class ModelBooking {
     if (this.serviceLocations != null) {
       data['service_locations'] = this.serviceLocations!.toJson();
     }
+    if (serviceRatings != null) {
+      data['service_ratings'] = serviceRatings!.map((e) => e.toJson()).toList();
+    }
+
     return data;
   }
 }
@@ -135,4 +147,50 @@ class ServiceLocations {
     data['service_provided_id'] = this.serviceProvidedId;
     return data;
   }
+}
+
+class ServiceRating {
+  int? id;
+  int? serviceProvidedId;
+  int? userId;
+  String? content;
+  double? rating;
+  String? date;
+  String? userAuthId;
+  int? bookingId;
+
+  ServiceRating({
+    this.id,
+    this.serviceProvidedId,
+    this.userId,
+    this.content,
+    this.rating,
+    this.date,
+    this.userAuthId,
+    this.bookingId,
+  });
+
+  factory ServiceRating.fromJson(Map<String, dynamic> json) {
+    return ServiceRating(
+      id: json['id'],
+      serviceProvidedId: json['service_provided_id'],
+      userId: json['user_id'],
+      content: json['content'],
+      rating: (json['rating'] as num?)?.toDouble(),
+      date: json['date'],
+      userAuthId: json['user_auth_id'],
+      bookingId: json['booking_id'],
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'service_provided_id': serviceProvidedId,
+    'user_id': userId,
+    'content': content,
+    'rating': rating,
+    'date': date,
+    'user_auth_id': userAuthId,
+    'booking_id': bookingId,
+  };
 }

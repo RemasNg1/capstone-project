@@ -27,8 +27,21 @@ class ConversationScreen extends StatelessWidget {
                   if (state is ChatsInitial) {
                     bloc.add(ClientLoadConversion());
                   }
-
                   final List<ModelMessage> messages = bloc.conversionMessages;
+
+                  if (state is UserLoggedInAsAnonymousState) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset('assets/images/no_chats.png'),
+                        Text(
+                          "chat.chat_empty_message".tr(),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    );
+                  }
+                  // if (state is LoadingConversationSuccessfully) {
 
                   print(" LoadConversion ");
                   return Column(

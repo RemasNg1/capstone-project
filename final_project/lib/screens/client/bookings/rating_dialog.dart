@@ -13,14 +13,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RatingDialog extends StatelessWidget {
   final int serviceId;
-  const RatingDialog({super.key, required this.serviceId});
+  final int bookingId;
+
+  const RatingDialog({
+    super.key,
+    required this.serviceId,
+    required this.bookingId,
+  });
 
   @override
   Widget build(BuildContext context) {
     var bloc = context.read<BookingsBloc>();
 
     return AlertDialog(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       titlePadding: EdgeInsets.zero,
       title: SizedBox(
@@ -114,6 +120,7 @@ class RatingDialog extends StatelessWidget {
                 bloc.add(
                   SubmitServiceRating(
                     serviceProvidedId: serviceId,
+                    bookingId: bookingId,
                     note: bloc.notesController.text,
                     rating: bloc.selectedRating.toDouble(),
                   ),

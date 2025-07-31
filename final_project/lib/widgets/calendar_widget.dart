@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/utils/extensions/screen/screen_size.dart';
 import 'package:flutter/material.dart';
@@ -29,11 +30,13 @@ class CalendarWidget extends StatelessWidget {
       width: context.getWidth(factor: 0.9),
       height: 400,
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: Theme.of(context).colorScheme.primaryContainer,
+        // color: AppColors.white,
         borderRadius: BorderRadius.circular(17),
         boxShadow: [
           BoxShadow(
-            color: AppColors.lightGray,
+            color: Theme.of(context).colorScheme.outline,
+            // color: AppColors.lightGray,
             blurRadius: 10,
             offset: const Offset(0, 3),
           ),
@@ -63,7 +66,11 @@ class CalendarWidget extends StatelessWidget {
         ),
 
         calendarStyle: CalendarStyle(
-          todayTextStyle: TextStyle(color: Colors.black),
+          todayTextStyle: TextStyle(
+            color: Theme.of(context).colorScheme.onSecondary,
+          ),
+
+          // todayTextStyle: TextStyle(color: Colors.black),
           todayDecoration: BoxDecoration(),
           selectedDecoration: BoxDecoration(
             color: selectedDays != null
@@ -73,8 +80,19 @@ class CalendarWidget extends StatelessWidget {
                 ? BoxShape.rectangle
                 : BoxShape.rectangle,
           ),
-          weekendTextStyle: const TextStyle(color: Colors.black),
-          defaultTextStyle: const TextStyle(color: Colors.black),
+          // weekendTextStyle: TextStyle(
+          //   color: Theme.of(context).colorScheme.primary,
+          // ),
+          defaultTextStyle: TextStyle(
+            color: Theme.of(context).colorScheme.onSecondary,
+          ),
+
+          disabledTextStyle: TextStyle(
+            color: Theme.of(context).colorScheme.outlineVariant,
+          ),
+
+          // weekendTextStyle: const TextStyle(color: Colors.black),
+          // defaultTextStyle: const TextStyle(color: Colors.black),
         ),
 
         // Disable dates that are in the unavailable set
@@ -84,22 +102,22 @@ class CalendarWidget extends StatelessWidget {
         // Custom UI for each day
         calendarBuilders: CalendarBuilders(
           defaultBuilder: (context, day, focusedDay) {
-            final isBooked = unavailableDays.any((d) => isSameDay(d, day));
-            if (isBooked) {
-              return Center(
-                child: Container(
-                  width: 32,
-                  height: 32,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: AppColors.gray,
-                  ),
-                  child: const Center(
-                    child: Icon(Icons.close, size: 16, color: AppColors.black),
-                  ),
-                ),
-              );
-            }
+            // final isBooked = unavailableDays.any((d) => isSameDay(d, day));
+            // if (isBooked) {
+            //   return Center(
+            //     child: Container(
+            //       width: 32,
+            //       height: 32,
+            //       decoration: const BoxDecoration(
+            //         shape: BoxShape.circle,
+            //         color: AppColors.gray,
+            //       ),
+            //       child: const Center(
+            //         child: Icon(Icons.close, size: 16, color: AppColors.black),
+            //       ),
+            //     ),
+            //   );
+            // }
             return null;
           },
 

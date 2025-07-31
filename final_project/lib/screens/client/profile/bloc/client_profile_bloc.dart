@@ -1,13 +1,16 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:final_project/core/enum/types.dart';
 import 'package:final_project/data_layer/auth_layer.dart';
 import 'package:final_project/data_layer/data_layer.dart';
 import 'package:final_project/models/client/client_model.dart';
 import 'package:final_project/repo/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 
 part 'client_profile_event.dart';
@@ -21,7 +24,9 @@ class ClientProfileBloc extends Bloc<ClientProfileEvent, ClientProfileState> {
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-
+  Box get box => Hive.box('userInfo');
+  String? get userTypeString => box.get('userType');
+  bool get isNotGuest => userTypeString != EnumUserType.guest.name;
   ClientModel? currentUser;
   final Map<String, String> clientPrivacyKeys = {
     "privacy_policy.title_1": "privacy_policy.body_1",
@@ -56,6 +61,7 @@ class ClientProfileBloc extends Bloc<ClientProfileEvent, ClientProfileState> {
   ) async {
     try {
       await authGetit.logoutMethod();
+      await Hive.box('userInfo').clear();
       emit(LogoutSuccessState());
     } catch (e) {
       emit(LogoutFailureState(e.toString()));
@@ -67,16 +73,31 @@ class ClientProfileBloc extends Bloc<ClientProfileEvent, ClientProfileState> {
     Emitter<ClientProfileState> emit,
   ) async {
     try {
-      currentUser = await Auth.fetchCurrentUser();
-
-      if (currentUser != null) {
-        nameController.text = currentUser!.name;
-        phoneController.text = currentUser!.phoneNumber;
-        emailController.text = currentUser!.email!;
-
+      if (userTypeString == EnumUserType.guest.name) {
+        log("test");
+        currentUser = ClientModel(
+          name: "Guest",
+          status: EnumUserStatus.offline,
+          phoneNumber: "00000",
+        );
+        // nameController.text = "guest";
+        // phoneController.text = "0000000";
+        // emailController.text = "fff";
         emit(ClientProfileLoadedState(currentUser!));
       } else {
-        emit(LogoutFailureState("No user found."));
+        log("test2");
+
+        currentUser = await Auth.fetchCurrentUser();
+
+        if (currentUser != null) {
+          nameController.text = currentUser!.name;
+          phoneController.text = currentUser!.phoneNumber;
+          emailController.text = currentUser!.email!;
+
+          emit(ClientProfileLoadedState(currentUser!));
+        } else {
+          emit(LogoutFailureState("No user found."));
+        }
       }
     } catch (e) {
       emit(LogoutFailureState("Error loading profile: $e"));

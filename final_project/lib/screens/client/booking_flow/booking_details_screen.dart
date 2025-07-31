@@ -1,14 +1,16 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:final_project/core/enum/types.dart';
 import 'package:final_project/models/services_models/services_provided/services_provided_model.dart';
 import 'package:final_project/screens/client/booking_flow/bloc/booking_bloc.dart';
 import 'package:final_project/screens/client/booking_flow/checkout_screen.dart';
-import 'package:final_project/screens/client/booking_flow/service_details_screen.dart';
 import 'package:final_project/style/app_buttons.dart';
 import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_spacing.dart';
+import 'package:final_project/style/app_text_styles.dart';
 import 'package:final_project/utils/extensions/localization_helper.dart';
 import 'package:final_project/widgets/booking_bottom_bar.dart';
-import 'package:final_project/widgets/google_map.dart';
+import 'package:final_project/screens/client/booking_flow/google_map.dart';
 import 'package:final_project/widgets/service_description.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,23 +30,31 @@ class BookingDetailsScreen extends StatelessWidget {
         centerTitle: true,
         title: Text(
           'bookingReview.details'.tr(),
-          style: TextStyle(color: AppColors.dimGray, fontSize: 20),
+          style: AppTextStyles.interSize20(context),
+          // TextStyle(color: AppColors.dimGray, fontSize: 20),
         ),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new, color: AppColors.dimGray),
-          onPressed: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ServiceDetailsScreen(service: service),
-            ),
-          ),
-        ),
+        // backgroundColor: AppColors.white,
+        foregroundColor: Theme.of(context).colorScheme.onSurface,
+        automaticallyImplyLeading: true,
       ),
       bottomNavigationBar: BookingBottomBar(
         buttonText: 'bookingReview.next'.tr(),
         buttonStyle: AppButtons.large,
         showPrice: false,
         onPressed: () {
+          if (bloc.userTypeString != EnumUserType.customer.name) {
+            Flushbar(
+              message: "الرجاء تسجيل الدخول لإكمال عملية الحجز",
+              backgroundColor: Colors.red,
+              icon: const Icon(Icons.error, color: Colors.white),
+              duration: const Duration(seconds: 3),
+              flushbarPosition: FlushbarPosition.BOTTOM,
+              borderRadius: BorderRadius.circular(8),
+              margin: const EdgeInsets.all(16),
+            ).show(context);
+
+            return;
+          }
           Navigator.push(
             context,
             MaterialPageRoute(

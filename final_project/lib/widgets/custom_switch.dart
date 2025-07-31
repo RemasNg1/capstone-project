@@ -45,7 +45,7 @@ class CustomSwitch extends StatelessWidget {
         activeIcon: activeIcon,
         inactiveIcon: inactiveIcon,
         activeColor: Theme.of(context).colorScheme.primary,
-        inactiveColor: Theme.of(context).colorScheme.onSurface,
+        inactiveColor: Theme.of(context).colorScheme.outlineVariant,
         onToggle: onToggle,
       ),
     );

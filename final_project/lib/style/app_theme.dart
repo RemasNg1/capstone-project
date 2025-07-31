@@ -25,7 +25,7 @@ class AppTheme {
             AppColors.black, // Text and unselected icons on AppBar/BottomNav
         outline: AppColors.lightGray, // Default border color
         outlineVariant:
-            AppColors.mediumGray, // Alternative border/shadow/divider color
+            AppColors.lightGray, // Alternative border/shadow/divider color
       ),
 
       scaffoldBackgroundColor: AppColors.white,
@@ -59,7 +59,7 @@ class AppTheme {
         onSurface: AppColors.lightGray,
         primaryContainer: AppColors.dimGray,
         onPrimaryContainer: AppColors.lightGray,
-        outline: AppColors.lightGray,
+        outline: AppColors.dimGray,
         outlineVariant: AppColors.mediumGray,
       ),
 

@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:final_project/data_layer/chat_layer.dart';
 import 'package:final_project/models/chat/model_message.dart';
 import 'package:final_project/core/enum/types.dart';
 import 'package:flutter_chat_core/flutter_chat_core.dart';
+import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 part 'chats_event.dart';
@@ -16,6 +18,8 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
   ChatLayer chatLayer = ChatLayer();
   final currentUserAuthId = Supabase.instance.client.auth.currentUser!.id;
   String reserverAuthId = '';
+  Box get box => Hive.box('userInfo');
+  String? get userTypeString => box.get('userType');
 
   InMemoryChatController chatController = InMemoryChatController();
   ChatsBloc() : super(ChatsInitial()) {
@@ -95,6 +99,11 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     ClientLoadConversion event,
     Emitter<ChatsState> emit,
   ) async {
+    if (userTypeString == EnumUserType.guest.name) {
+      log("Guest");
+      emit(UserLoggedInAsAnonymousState());
+      return;
+    }
     conversionMessages = await chatLayer.getUserConversions(
       userType: EnumUserType.customer,
       authId: Supabase.instance.client.auth.currentUser!.id,

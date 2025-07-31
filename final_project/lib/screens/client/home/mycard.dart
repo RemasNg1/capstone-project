@@ -29,11 +29,13 @@ class Mycard extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
         decoration: BoxDecoration(
-          color: AppColors.white,
+          // color: AppColors.white,
+          color: Theme.of(context).colorScheme.primaryContainer,
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: AppColors.lightGray.withOpacity(0.3),
+              // color: AppColors.lightGray.withOpacity(0.3),
+              color: Theme.of(context).colorScheme.outline.withOpacity(0.3),
               blurRadius: 10,
               offset: const Offset(0, 4),
             ),

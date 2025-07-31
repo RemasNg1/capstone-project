@@ -202,7 +202,9 @@
         "rate_service": "Rate the Service",
         "paid_amount": "Paid Amount",
         "write_note": "Write your notes here...",
-        "submit_rating": "Submit Rating"
+        "submit_rating": "Submit Rating",
+        "booking_empty_message": "Start your journey and book your first experience now!",
+        "rated": "Rated"
     },
     "profile": {
         "title": "Profile",
@@ -234,7 +236,8 @@
     "chat": {
         "chats": "Chats",
         "title": "Chat",
-        "placeholder": "Type here ..."
+        "placeholder": "Type here ...",
+        "chat_empty_message": "Start a conversation with service providers and ask about anything you're interested in!"
     },
     "services": {
         "myServices": "My Services",

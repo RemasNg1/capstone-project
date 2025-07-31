@@ -8,6 +8,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:final_project/style/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +18,7 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   // init Hive
   await Hive.initFlutter();
+  await Hive.openBox('settings');
 
   await Hive.openBox('userInfo');
   await dotenv.load(fileName: ".env");
@@ -23,13 +26,26 @@ void main() async {
   setup();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
+  // runApp(
+
+  //   EasyLocalization(
+  //     supportedLocales: [Locale('en', 'US'), Locale('ar', 'AR')],
+  //     path: 'assets/translations',
+  //     fallbackLocale: Locale('en', 'US'),
+
+  //     child: MyApp(),
+  //   ),
+  // );
+
   runApp(
     EasyLocalization(
-      supportedLocales: [Locale('en', 'US'), Locale('ar', 'AR')],
+      supportedLocales: const [Locale('en', 'US'), Locale('ar', 'AR')],
       path: 'assets/translations',
-      fallbackLocale: Locale('en', 'US'),
-
-      child: MyApp(),
+      fallbackLocale: const Locale('en', 'US'),
+      child: ChangeNotifierProvider(
+        create: (_) => ThemeProvider(),
+        child: const MyApp(),
+      ),
     ),
   );
 }
@@ -39,13 +55,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return MaterialApp(
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       debugShowCheckedModeBanner: false,
-
       theme: AppTheme.lightTheme(context),
+      darkTheme: AppTheme.darkTheme(context),
+      themeMode: themeProvider.themeMode,
+
+      // theme: AppTheme.lightTheme(context),
       home: SplashScreen(),
     );
   }

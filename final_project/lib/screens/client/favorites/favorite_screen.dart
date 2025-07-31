@@ -3,6 +3,7 @@ import 'package:final_project/core/helper/functions.dart';
 import 'package:final_project/screens/client/booking_flow/service_details_screen.dart';
 import 'package:final_project/screens/client/favorites/bloc/favorites_bloc.dart';
 import 'package:final_project/style/app_colors.dart';
+import 'package:final_project/style/app_text_styles.dart';
 import 'package:final_project/utils/extensions/localization_helper.dart';
 import 'package:final_project/widgets/category_card.dart';
 import 'package:flutter/material.dart';
@@ -20,15 +21,17 @@ class FavoriteScreen extends StatelessWidget {
         builder: (context) {
           // final bloc = context.read<FavoritesBloc>();
           return Scaffold(
-            backgroundColor: AppColors.white,
             appBar: AppBar(
+              elevation: 0,
+              centerTitle: true,
               title: Text(
                 'profile.favorite'.tr(),
-                style: TextStyle(color: AppColors.dimGray, fontSize: 18),
+                style: AppTextStyles.interSize20(context),
               ),
-              centerTitle: true,
-              backgroundColor: AppColors.white,
+              foregroundColor: Theme.of(context).colorScheme.onSurface,
+              automaticallyImplyLeading: true,
             ),
+
             body: Padding(
               padding: const EdgeInsets.all(16),
               child: BlocBuilder<FavoritesBloc, FavoritesState>(

@@ -1,6 +1,4 @@
 import 'package:final_project/data_layer/auth_layer.dart';
-import 'package:final_project/models/client/client_model.dart';
-import 'package:final_project/models/provider/provider_model.dart';
 import 'package:final_project/repo/supabase.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -22,7 +20,8 @@ class ProviderHomePage {
       throw FormatException("$error");
     }
   }
-// this function to  sign provider id to local storage   
+
+  // this function to  sign provider id to local storage
   static getProviderId() async {
     String currentAuthId = AuthLayer.box.get('authId');
     String? providerId = AuthLayer.box.get('providerId');

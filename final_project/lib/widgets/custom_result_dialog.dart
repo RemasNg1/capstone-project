@@ -17,21 +17,23 @@ class CustomResultDialog {
     showDialog(
       context: context,
       builder: (context) => Dialog(
-        backgroundColor: AppColors.white,
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+
+        // backgroundColor: AppColors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: Padding(
           padding: const EdgeInsets.all(24),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(icon, size: 72, color: iconColor),
+              Icon(icon, size: 90, color: iconColor),
               AppSpacing.h24,
               Text(
                 title,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: AppColors.black,
+                  color: Theme.of(context).colorScheme.onSecondary,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -40,7 +42,7 @@ class CustomResultDialog {
                 message,
                 style: const TextStyle(
                   fontSize: 14,
-                  color: AppColors.lightGray,
+                  color: AppColors.mediumGray,
                 ),
                 textAlign: TextAlign.center,
               ),

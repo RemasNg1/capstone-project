@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:final_project/core/enum/types.dart';
 import 'package:final_project/data_layer/auth_layer.dart';
 import 'package:final_project/repo/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 
 part 'auth_event.dart';
@@ -28,6 +30,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final signUpFormKey = GlobalKey<FormState>();
   final forgotPasswordFormKey = GlobalKey<FormState>();
   final resetPasswordFormKey = GlobalKey<FormState>();
+  late EnumUserType? userType;
+  final box = Hive.box('userInfo');
 
   TextEditingController usernameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -77,7 +81,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   FutureOr<void> loginMethod(LogInEvent event, Emitter<AuthState> emit) async {
     try {
-      await authGetit.loginMethod(
+      await authGetit.clientLoginMethod(
         email: emailController.text,
         password: passwordController.text,
       );
@@ -199,6 +203,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     try {
       await authGetit.signInAnonymouslyMethod();
+      userType = EnumUserType.guest;
+      box.put('userType', userType!.name);
       emit(SuccessState());
     } catch (e) {
       emit(FailureState(error: e.toString()));

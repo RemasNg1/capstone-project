@@ -1,23 +1,27 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:final_project/core/enum/types.dart';
 import 'package:final_project/core/helper/functions.dart';
 import 'package:final_project/models/chat/model_message.dart';
 import 'package:final_project/models/services_models/services_provided/services_provided_model.dart';
 import 'package:final_project/screens/client/booking_flow/bloc/booking_bloc.dart';
 import 'package:final_project/screens/client/booking_flow/booking_details_screen.dart';
+import 'package:final_project/screens/client/booking_flow/google_map.dart';
 import 'package:final_project/screens/general/chats/client/chats_screen.dart';
 import 'package:final_project/style/app_buttons.dart';
 import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_spacing.dart';
+import 'package:final_project/style/app_text_styles.dart';
 import 'package:final_project/utils/extensions/localization_helper.dart';
 import 'package:final_project/utils/extensions/screen/screen_size.dart';
 import 'package:final_project/widgets/booking_bottom_bar.dart';
 import 'package:final_project/widgets/calendar_widget.dart';
-import 'package:final_project/widgets/google_map.dart';
 import 'package:final_project/widgets/image_gallery.dart';
 import 'package:final_project/widgets/review_card.dart';
 import 'package:final_project/widgets/service_card.dart';
 import 'package:final_project/widgets/service_description.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -37,25 +41,16 @@ class ServiceDetailsScreen extends StatelessWidget {
             appBar: AppBar(
               elevation: 0,
               centerTitle: true,
-              leading: IconButton(
-                icon: const Icon(
-                  Icons.arrow_back_ios_new,
-                  color: AppColors.dimGray,
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
               title: Text(
                 context.isArabic
                     ? service.titleAr ?? ''
                     : service.titleEn ?? '',
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.dimGray,
-                  fontSize: 18,
-                ),
+                style: AppTextStyles.interSize20(context),
+                // TextStyle(color: AppColors.dimGray, fontSize: 20),
               ),
+              // backgroundColor: AppColors.white,
+              foregroundColor: Theme.of(context).colorScheme.onSurface,
+              automaticallyImplyLeading: true,
               actions: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -70,7 +65,10 @@ class ServiceDetailsScreen extends StatelessWidget {
                       return GestureDetector(
                         onTap: () {
                           context.read<BookingBloc>().add(
-                            ToggleFavoriteEvent(serviceId: service.id!),
+                            ToggleFavoriteEvent(
+                              serviceId: service.id!,
+                              context: context,
+                            ),
                           );
                         },
                         child: Container(
@@ -135,6 +133,24 @@ class ServiceDetailsScreen extends StatelessWidget {
                         onTap: () {},
                         icon: Icons.chat_bubble_outline,
                         onIconPressed: () async {
+                          if (bloc.userTypeString !=
+                              EnumUserType.customer.name) {
+                            Flushbar(
+                              message:
+                                  "الرجاء تسجيل الدخول للتمكن من إرسال رسالة إلى مزود الخدمة",
+                              backgroundColor: Colors.red,
+                              icon: const Icon(
+                                Icons.error,
+                                color: Colors.white,
+                              ),
+                              duration: const Duration(seconds: 3),
+                              flushbarPosition: FlushbarPosition.BOTTOM,
+                              borderRadius: BorderRadius.circular(8),
+                              margin: const EdgeInsets.all(16),
+                            ).show(context);
+
+                            return;
+                          }
                           bloc.add(LoadConversion());
                           await Future.delayed(Duration(milliseconds: 300));
                           final currentUserId =

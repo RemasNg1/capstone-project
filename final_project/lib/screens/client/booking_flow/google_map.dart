@@ -1,3 +1,4 @@
+import 'package:final_project/core/helper/map_helper.dart';
 import 'package:final_project/utils/extensions/screen/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,7 +17,7 @@ class GoogleMapWidget extends StatelessWidget {
     required this.label,
     this.onLocationSelected,
   });
-  // need to orgnize
+  //
   Future<void> _setMapStyle(
     BuildContext context,
     GoogleMapController controller,
@@ -54,6 +55,7 @@ class GoogleMapWidget extends StatelessWidget {
           },
           //
           onTap: (LatLng selectedPosition) {
+            openInGoogleMaps(latitude, longitude);
             if (onLocationSelected != null) {
               onLocationSelected!(
                 selectedPosition.latitude,

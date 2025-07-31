@@ -9,6 +9,7 @@ import 'package:final_project/screens/service_provider/services/bloc/services_ev
 import 'package:final_project/screens/service_provider/services/bloc/services_state.dart';
 import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_spacing.dart';
+import 'package:final_project/style/app_text_styles.dart';
 import 'package:final_project/widgets/service_provider_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,19 +28,15 @@ class ServicesScreen extends StatelessWidget {
     return BlocProvider(
       create: (_) => GetIt.I<MyServicesBloc>()..add(LoadMyServices()),
       child: Scaffold(
-        backgroundColor: AppColors.white,
+        // backgroundColor: AppColors.white,
         appBar: AppBar(
           title: Text(
             'services.myServices'.tr(), // Localized title
-            style: const TextStyle(
-              color: AppColors.dimGray,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
+            style: AppTextStyles.interSize18(context),
           ),
           centerTitle: true,
           automaticallyImplyLeading: false,
-          backgroundColor: AppColors.white,
+          // backgroundColor: AppColors.white,
           elevation: 0,
         ),
         body: BlocBuilder<MyServicesBloc, MyServicesState>(

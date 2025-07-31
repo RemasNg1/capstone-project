@@ -45,6 +45,7 @@ class ChattingScreen extends StatelessWidget {
                 ],
               ),
             ),
+
             body: BlocBuilder<ChatsBloc, ChatsState>(
               builder: (context, state) {
                 if (state is ChatsInitial) {
@@ -57,6 +58,7 @@ class ChattingScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Chat(
+                        backgroundColor: Theme.of(context).colorScheme.surface,
                         chatController: bloc.chatController,
                         // toDo change it to user id
                         currentUserId: bloc.currentUserAuthId,

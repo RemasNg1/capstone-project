@@ -5,7 +5,7 @@ class CustomRowIconTitle extends StatelessWidget {
     super.key,
     required this.icon,
     required this.title,
-    required this.onTap,
+    this.onTap,
   });
   final Widget icon;
   final String title;

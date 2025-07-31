@@ -35,15 +35,14 @@ class CustomTabSwitcher extends StatelessWidget {
                 },
 
                 labelStyle: const TextStyle(fontWeight: FontWeight.bold),
-                labelColor: Colors.black,
+                // labelColor: AppColors.blue,
                 unselectedLabelColor: Colors.grey,
+                // indicatorColor: AppColors.blue,
+                // unselectedLabelColor: Colors.grey,
                 indicatorWeight: 4.0,
                 // Custom underline indicator for selected tab
                 indicator: const UnderlineTabIndicator(
-                  borderSide: BorderSide(
-                    width: 4.0,
-                    color: AppColors.mediumBlue,
-                  ),
+                  borderSide: BorderSide(width: 4.0, color: AppColors.blue),
                 ),
                 // Define the three tabs: Week, Month, Year
                 tabs: [

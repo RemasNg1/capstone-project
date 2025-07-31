@@ -104,8 +104,8 @@ class BookingLayer {
     List<ModelBooking> pastBooking = allBooking.where((booking) {
       final bookingDate = DateTime.parse(booking.date!);
       return booking.status == EnumBookingStatus.accepted.name &&
-          bookingDate.isBefore(now);
-      //  bookingDate.isBefore(DateTime(now.year, now.month, now.day));
+          // bookingDate.isBefore(now);
+          bookingDate.isBefore(DateTime(now.year, now.month, now.day));
     }).toList();
 
     List<ModelBooking> canceledBooking = allBooking.where((booking) {

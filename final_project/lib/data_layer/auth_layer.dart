@@ -9,6 +9,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class AuthLayer {
   String? idUser;
   static final box = Hive.box('userInfo');
+  late EnumUserType? userType;
 
   // Sign up method for client users
   Future<void> clientSignUpMethod({
@@ -20,6 +21,8 @@ class AuthLayer {
     try {
       final user = await Auth.signUp(email: email, password: password);
       idUser = user.id;
+      userType = EnumUserType.customer;
+      box.put('userType', userType!.name);
 
       await insertUserToUsersTable(name: name, phoneNumber: phone);
     } catch (e) {
@@ -53,14 +56,27 @@ class AuthLayer {
   }
 
   // Sign in method using email and password
-  Future<void> loginMethod({
+
+  Future<void> clientLoginMethod({
     required String email,
     required String password,
   }) async {
-    final user = await Auth.signIn(email: email, password: password);
+    final user = await Auth.signInClient(email: email, password: password);
+    idUser = user.id;
+    userType = EnumUserType.customer;
+    box.put('userType', userType!.name);
+    box.put('authId', "${user.id}");
+  }
+
+  Future<void> providerLoginMethod({
+    required String email,
+    required String password,
+  }) async {
+    final user = await Auth.signInProvider(email: email, password: password);
     idUser = user.id;
     box.put('authId', "${user.id}");
   }
+
   // OTP verification for client after sign-up
 
   Future<void> clientVerifyOtpMethod({
@@ -81,6 +97,34 @@ class AuthLayer {
       rethrow;
     }
   }
+  // Future<void> loginMethod({
+  //   required String email,
+  //   required String password,
+  // }) async {
+  //   final user = await Auth.signIn(email: email, password: password);
+  //   idUser = user.id;
+  //   box.put('authId', "${user.id}");
+  // }
+  // // OTP verification for client after sign-up
+
+  // Future<void> clientVerifyOtpMethod({
+  //   required String email,
+  //   required String otp,
+  //   OtpType? type,
+  // }) async {
+  //   try {
+  //     await Auth.verifyOtp(email: email, otp: otp, type: OtpType.email);
+  //     final user = SupabaseConnect.supabase!.client.auth.currentUser;
+  //     if (user == null) throw FormatException("User not found");
+
+  //     await SupabaseConnect.supabase!.client
+  //         .from('user')
+  //         .update({'is_verified': true})
+  //         .eq('auth_id', user.id);
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  // }
   // OTP verification for provider after sign-up
 
   Future<void> providerVerifyOtpMethod({

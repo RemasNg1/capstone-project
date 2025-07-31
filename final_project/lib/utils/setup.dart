@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:final_project/data_layer/auth_layer.dart';
 import 'package:final_project/repo/%20service_repo.dart';
 import 'package:final_project/repo/my_services_repo.dart';
+import 'package:final_project/screens/client/home/bloc/home_bloc.dart';
 import 'package:final_project/screens/service_provider/add_new_service/bloc/add_new_service_bloc.dart';
 import 'package:final_project/data_layer/data_layer.dart';
 import 'package:final_project/screens/service_provider/services/bloc/services_bloc.dart';
@@ -32,4 +33,12 @@ void setup() async {
   GetIt.I.registerFactory(
     () => MyServicesBloc(GetIt.I<MyServicesRepository>()),
   );
+
+  /////
+
+  GetIt.I.registerLazySingleton<HomeBloc>(() {
+    final bloc = HomeBloc();
+    bloc.add(FetchServicesProvidedEvent());
+    return bloc;
+  });
 }
