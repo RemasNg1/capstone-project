@@ -52,6 +52,18 @@ class BookingsScreen extends StatelessWidget {
                     ),
                   },
                 );
+              }
+              if (state is UserLoggedInAsAnonymousState) {
+                return Scaffold(
+                  appBar: AppBar(title: Text("bookings.my_bookings".tr())),
+                  body: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset('assets/images/no_bookings.png'),
+                      Text("bookings.booking_empty_message".tr()),
+                    ],
+                  ),
+                );
               } else {
                 return Center(
                   child: LoadingAnimationWidget.staggeredDotsWave(

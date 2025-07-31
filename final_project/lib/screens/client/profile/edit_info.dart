@@ -20,7 +20,7 @@ class EditInfoDialog extends StatelessWidget {
     final bloc = context.read<ClientProfileBloc>();
 
     return AlertDialog(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       titlePadding: EdgeInsets.zero,
       title: SizedBox(

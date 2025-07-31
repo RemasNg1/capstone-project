@@ -4,7 +4,7 @@ enum EnumChatStatus { send, read }
 
 enum EnumUserStatus { online, offline }
 
-enum EnumUserType { customer, provider }
+enum EnumUserType { customer, provider, guest }
 
 enum EnumTypeOfShowChart { week, month, year }
 

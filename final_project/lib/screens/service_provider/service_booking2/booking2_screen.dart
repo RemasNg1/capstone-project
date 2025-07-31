@@ -35,9 +35,11 @@ class _BookingsContent extends StatelessWidget {
         appBar: AppBar(
           title: Text("bookings.my_bookings".tr()),
           bottom: TabBar(
-            labelColor: Colors.black,
             unselectedLabelColor: Colors.grey,
-            indicatorColor: Colors.black,
+            indicatorColor: AppColors.blue,
+            // labelColor: Colors.black,
+            // unselectedLabelColor: Colors.grey,
+            // indicatorColor: Colors.black,
             tabs: [
               Tab(text: "bookings.current".tr()), // "Currently"
               Tab(text: "bookings.past".tr()), // "In the past"

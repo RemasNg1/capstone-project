@@ -12,11 +12,13 @@ class RatingChangedEvent extends BookingsEvent {
 
 class SubmitServiceRating extends BookingsEvent {
   final int serviceProvidedId;
+  final int bookingId;
   final double rating;
   final String note;
 
   SubmitServiceRating({
     required this.serviceProvidedId,
+    required this.bookingId,
     required this.rating,
     required this.note,
   });

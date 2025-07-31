@@ -2,6 +2,7 @@ import 'package:final_project/core/enum/types.dart';
 import 'package:final_project/core/helper/functions.dart';
 import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_spacing.dart';
+import 'package:final_project/style/app_text_styles.dart';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -44,22 +45,30 @@ class IncomingChart extends StatelessWidget {
               children: <Widget>[
                 Text(
                   title,
-                  style: const TextStyle(
-                    color: AppColors.mainGridLineColor,
-                    fontSize: 16,
-                  ),
+                  style: AppTextStyles.interSize18(context),
+                  // style: const TextStyle(
+                  //   color: AppColors.mainGridLineColor,
+                  //   fontSize: 16,
+                  // ),
                 ),
               ],
             ),
+            AppSpacing.h4,
             // Chart content
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.primaryContainer,
+
+                  // color: Colors.white,
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.outline.withOpacity(0.3),
+
+                      // color: Colors.black.withOpacity(0.1),
                       blurRadius: 8,
                       spreadRadius: 1,
                       offset: Offset(0, 4),

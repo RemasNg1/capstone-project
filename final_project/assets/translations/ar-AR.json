@@ -202,7 +202,9 @@
         "rate_service": "قيم الخدمة",
         "paid_amount": "المبلغ المدفوع",
         "write_note": "اكتب ملاحظاتك هنا...",
-        "submit_rating": "إرسال التقييم"
+        "submit_rating": "إرسال التقييم",
+        "booking_empty_message": "ابدأ رحلتك واحجز تجربتك الأولى الآن!",
+        "rated": "تم التقييم"
     },
     "profile": {
         "title": "الملف الشخصي",
@@ -234,7 +236,8 @@
     "chat": {
         "chats": "المحادثات",
         "title": "المحادثة",
-        "placeholder": "اكتب هنا ..."
+        "placeholder": "اكتب هنا ...",
+        "chat_empty_message": "ابدأ محادثتك مع مزودي الخدمات واستفسر عن أي شيء يهمك!"
     },
     "services": {
         "myServices": "خدماتي",

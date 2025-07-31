@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:final_project/core/enum/types.dart';
 import 'package:final_project/data_layer/auth_layer.dart';
 import 'package:final_project/data_layer/booking_layer.dart';
 import 'package:final_project/models/booking/model_booking.dart';
 import 'package:final_project/repo/booking.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 import 'package:meta/meta.dart';
 
@@ -23,6 +25,8 @@ class BookingsBloc extends Bloc<BookingsEvent, BookingsState> {
   List<ModelBooking>? currentBookingAccepted = [];
   List<ModelBooking>? pastBooking = [];
   List<ModelBooking>? canceledBooking = [];
+  Box get box => Hive.box('userInfo');
+  String? get userTypeString => box.get('userType');
   BookingsBloc() : super(BookingsInitial()) {
     on<BookingsEvent>((event, emit) {});
     on<BookingsLoadingData>(loadingData);
@@ -37,6 +41,7 @@ class BookingsBloc extends Bloc<BookingsEvent, BookingsState> {
       try {
         await Booking.rateService(
           serviceProvidedId: event.serviceProvidedId,
+          bookingId: event.bookingId,
           rating: event.rating,
           note: event.note,
         );
@@ -52,6 +57,10 @@ class BookingsBloc extends Bloc<BookingsEvent, BookingsState> {
     BookingsLoadingData event,
     Emitter<BookingsState> emit,
   ) async {
+    if (userTypeString == EnumUserType.guest.name) {
+      emit(UserLoggedInAsAnonymousState());
+      return;
+    }
     // box.add('userType',);
     // print(AuthLayer.box.get('userType')); // Dave: 22
     print(AuthLayer.box.get('authId')); // Dave: 22

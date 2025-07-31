@@ -12,8 +12,9 @@ class DaySelected extends HomeEvent {
 
 class ToggleFavoriteEvent extends HomeEvent {
   final int serviceId;
+  final BuildContext? context;
 
-  ToggleFavoriteEvent({required this.serviceId});
+  ToggleFavoriteEvent({required this.serviceId, this.context});
 }
 
 class SearchServicesEvent extends HomeEvent {

@@ -47,6 +47,9 @@ dependencies:
   
   moyasar: ^2.0.18
 
+  provider: ^6.1.5
+  url_launcher: ^6.3.2
+
 
 dev_dependencies:
   flutter_test:
@@ -69,3 +72,4 @@ flutter:
     - assets/icons/
     - assets/translations/
     - .env
+    - assets/map/map_style.json

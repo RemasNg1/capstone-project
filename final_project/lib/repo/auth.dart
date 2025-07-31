@@ -60,32 +60,212 @@ class Auth {
   }
   // Logs in a user with email and password
 
-  static Future<User> signIn({
+  static Future<User> signInClient({
     required String email,
     required String password,
   }) async {
     try {
       final response = await SupabaseConnect.supabase!.client.auth
           .signInWithPassword(email: email, password: password);
+
       if (response.user == null) {
         throw FormatException("wrong");
       }
+
+      final authId = response.user!.id;
+
+      final result = await SupabaseConnect.supabase!.client
+          .from('user')
+          .select('id')
+          .eq('auth_id', authId)
+          .maybeSingle();
+
+      if (result == null) {
+        await SupabaseConnect.supabase!.client.auth.signOut();
+        throw FormatException("wrong");
+      }
+
       return response.user!;
     } on AuthApiException catch (error) {
       if (error.code == 'email_not_confirmed') {
-        final res = await SupabaseConnect.supabase!.client.auth.resend(
+        await SupabaseConnect.supabase!.client.auth.resend(
           type: OtpType.signup,
           email: email,
         );
         throw FormatException("not_verified");
       }
-      throw FormatException(error.message);
-    } on AuthException catch (error) {
-      throw FormatException(error.message);
-    } catch (error) {
+      throw FormatException("wrong");
+    } on AuthException catch (_) {
+      throw FormatException("wrong");
+    } catch (_) {
       throw FormatException("wrong");
     }
   }
+
+  static Future<User> signInProvider({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final response = await SupabaseConnect.supabase!.client.auth
+          .signInWithPassword(email: email, password: password);
+
+      if (response.user == null) {
+        throw FormatException("wrong");
+      }
+
+      final authId = response.user!.id;
+
+      final result = await SupabaseConnect.supabase!.client
+          .from('providers')
+          .select('id')
+          .eq('auth_id', authId)
+          .maybeSingle();
+
+      if (result == null) {
+        await SupabaseConnect.supabase!.client.auth.signOut();
+        throw FormatException("wrong");
+      }
+
+      return response.user!;
+    } on AuthApiException catch (error) {
+      if (error.code == 'email_not_confirmed') {
+        await SupabaseConnect.supabase!.client.auth.resend(
+          type: OtpType.signup,
+          email: email,
+        );
+        throw FormatException("not_verified");
+      }
+      throw FormatException("wrong");
+    } on AuthException catch (_) {
+      throw FormatException("wrong");
+    } catch (_) {
+      throw FormatException("wrong");
+    }
+  }
+
+  // static Future<User> signIn({
+  //   required String email,
+  //   required String password,
+  // }) async {
+  //   try {
+  //     final response = await SupabaseConnect.supabase!.client.auth
+  //         .signInWithPassword(email: email, password: password);
+  //     if (response.user == null) {
+  //       throw FormatException("wrong");
+  //     }
+  //     return response.user!;
+  //   } on AuthApiException catch (error) {
+  //     if (error.code == 'email_not_confirmed') {
+  //       final res = await SupabaseConnect.supabase!.client.auth.resend(
+  //         type: OtpType.signup,
+  //         email: email,
+  //       );
+  //       throw FormatException("not_verified");
+  //     }
+  //     throw FormatException(error.message);
+  //   } on AuthException catch (error) {
+  //     throw FormatException(error.message);
+  //   } catch (error) {
+  //     throw FormatException("wrong");
+  //   }
+  // }
+
+  // static Future<User> signInClient({
+  //   required String email,
+  //   required String password,
+  // }) async {
+  //   try {
+  //     print('Checking client...');
+  //     testClientCheck();
+  //     final isClient = await isEmailInClients(email);
+  //     print('isClient: $isClient');
+  //     if (!isClient) {
+  //       throw FormatException("wrong");
+  //     }
+  //     final response = await SupabaseConnect.supabase!.client.auth
+  //         .signInWithPassword(email: email, password: password);
+  //     if (response.user == null) {
+  //       throw FormatException("wrong");
+  //     }
+  //     return response.user!;
+  //   } on AuthApiException catch (error) {
+  //     if (error.code == 'email_not_confirmed') {
+  //       final res = await SupabaseConnect.supabase!.client.auth.resend(
+  //         type: OtpType.signup,
+  //         email: email,
+  //       );
+  //       throw FormatException("not_verified");
+  //     }
+  //     throw FormatException(error.message);
+  //   } on AuthException catch (error) {
+  //     throw FormatException(error.message);
+  //   } catch (error) {
+  //     throw FormatException("wrong");
+  //   }
+  // }
+
+  // static void testClientCheck() async {
+  //   final email = 'remasnugaithan+15@gmail.com';
+  //   print('🔍 Checking if $email is a client');
+
+  //   try {
+  //     final client = SupabaseConnect.supabase!.client;
+
+  //     final authUser = await client
+  //         .from('auth.users')
+  //         .select('id')
+  //         .eq('email', email)
+  //         .maybeSingle();
+
+  //     print('📥 authUser: $authUser');
+
+  //     if (authUser == null) {
+  //       print('❌ لا يوجد مستخدم بهذا البريد في auth.users');
+  //       return;
+  //     }
+
+  //     final authId = authUser['id'];
+
+  //     final result = await client
+  //         .from('user')
+  //         .select('id')
+  //         .eq('auth_id', authId)
+  //         .maybeSingle();
+
+  //     print('✅ نتيجة البحث في user: $result');
+
+  //     final isClient = result != null;
+  //     print('🎯 isClient = $isClient');
+  //   } catch (e) {
+  //     print('🔥 Error checking client: $e');
+  //   }
+  // }
+
+  // static Future<bool> isEmailInClients(String email) async {
+  //   final client = SupabaseConnect.supabase!.client;
+
+  //   final authUser = await client
+  //       .from('auth.users')
+  //       .select('id')
+  //       .eq('email', email)
+  //       .maybeSingle();
+  //   log(authUser.toString());
+
+  //   if (authUser == null) return false;
+
+  //   final authId = authUser['id'];
+
+  //   final result = await client
+  //       .from('user')
+  //       .select('id')
+  //       .eq('auth_id', authId)
+  //       .maybeSingle();
+
+  //   log(result.toString());
+
+  //   return result != null;
+  // }
   // Resends OTP for signup verification
 
   static Future<void> resendOtp({required String email}) async {

@@ -7,6 +7,7 @@ import 'package:final_project/models/provider/provider_model.dart';
 import 'package:final_project/repo/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 
 part 'provider_profile_event.dart';
@@ -69,6 +70,7 @@ class ProviderProfileBloc
   ) async {
     try {
       await authGetit.logoutMethod();
+      await Hive.box('userInfo').clear();
       emit(LogoutSuccessState());
     } catch (e) {
       emit(LogoutFailureState(e.toString()));

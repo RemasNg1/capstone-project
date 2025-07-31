@@ -87,7 +87,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   FutureOr<void> loginMethod(LogInEvent event, Emitter<AuthState> emit) async {
     try {
-      await authGetit.loginMethod(
+      await authGetit.providerLoginMethod(
         email: emailController.text,
         password: passwordController.text,
       );

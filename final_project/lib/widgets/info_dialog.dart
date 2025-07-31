@@ -1,4 +1,6 @@
+import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_spacing.dart';
+import 'package:final_project/style/app_text_styles.dart';
 import 'package:final_project/utils/extensions/localization_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,7 +21,7 @@ class InfoDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       titlePadding: EdgeInsets.zero,
       title: SizedBox(
@@ -57,7 +59,8 @@ class InfoDialog extends StatelessWidget {
           (email != null && email!.isNotEmpty)
               ? Container(
                   decoration: BoxDecoration(
-                    color: Colors.grey[100],
+                    color: Theme.of(context).colorScheme.primaryContainer,
+                    // color: Colors.grey[100],
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(color: Colors.grey.shade300),
                   ),
@@ -68,10 +71,13 @@ class InfoDialog extends StatelessWidget {
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             email!,
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.black87,
-                            ),
+                            style: AppTextStyles.interSize14(
+                              context,
+                            ).copyWith(color: AppColors.mediumGray),
+                            // TextStyle(
+                            //   fontSize: 14,
+                            //   color: Colors.black87,
+                            // ),
                           ),
                         ),
                       ),

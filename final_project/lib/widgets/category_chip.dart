@@ -24,7 +24,9 @@ class CategoryChip extends StatelessWidget {
         margin: const EdgeInsets.only(right: 12),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.primaryContainer,
+
+          // color: Colors.white,
           borderRadius: BorderRadius.circular(28),
           border: Border.all(color: AppColors.lightGray),
         ),
@@ -33,6 +35,7 @@ class CategoryChip extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
+                // color: Theme.of(context).colorScheme.outline,
                 color: Colors.grey.shade100,
                 shape: BoxShape.circle,
               ),
@@ -40,6 +43,10 @@ class CategoryChip extends StatelessWidget {
                 "assets/icons/$category.svg",
                 width: 20,
                 height: 20,
+                // colorFilter: ColorFilter.mode(
+                // Theme.of(context).colorScheme.onSecondary,
+                // BlendMode.srcIn,
+                // ),
               ),
             ),
             const SizedBox(width: 10),

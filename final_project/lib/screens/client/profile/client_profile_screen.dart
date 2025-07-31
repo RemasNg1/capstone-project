@@ -7,6 +7,7 @@ import 'package:final_project/screens/general/user_type/user_type_screen.dart';
 import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_spacing.dart';
 import 'package:final_project/style/app_text_styles.dart';
+import 'package:final_project/style/theme_provider.dart';
 import 'package:final_project/widgets/avatar.dart';
 import 'package:final_project/widgets/custom_list_tile.dart';
 import 'package:final_project/widgets/custom_switch.dart';
@@ -35,7 +36,7 @@ class ClientProfileScreen extends StatelessWidget {
           } else if (state is LogoutFailureState) {
             Flushbar(
               messageText: Text(
-                state.error!,
+                state.error,
                 style: AppTextStyles.interSize16(
                   context,
                 ).copyWith(color: Colors.white),
@@ -86,6 +87,7 @@ class ClientProfileScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Avatar(
+                        isNotGuest: bloc.isNotGuest,
                         imagePath:
                             state.user.avatar ??
                             'https://i.pinimg.com/736x/df/16/57/df165790d80fa38530f128f350fb315a.jpg',
@@ -114,61 +116,78 @@ class ClientProfileScreen extends StatelessWidget {
                       AppSpacing.h16,
 
                       AppSpacing.h32,
-                      Row(
-                        children: [
-                          Text(
-                            "profile.account_settings".tr(),
-                            style: AppTextStyles.interSize18(context).copyWith(
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                          ),
-                        ],
-                      ),
-                      CustomListTile(
-                        leadingIcon: SvgPicture.asset(
-                          "assets/icons/edit.svg",
-                          colorFilter: ColorFilter.mode(
-                            Theme.of(context).colorScheme.onPrimaryContainer,
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                        title: "profile.personal_info".tr(),
-                        trailing: Icon(
-                          Icons.arrow_forward_ios,
-                          color: Theme.of(context).colorScheme.onSurface,
-                        ),
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) => BlocProvider.value(
-                              value: bloc,
-                              child: EditInfoDialog(),
-                            ),
-                          );
-                        },
-                      ),
-                      CustomListTile(
-                        leadingIcon: SvgPicture.asset(
-                          "assets/icons/favorite.svg",
-                          colorFilter: ColorFilter.mode(
-                            Theme.of(context).colorScheme.onPrimaryContainer,
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                        title: "profile.favorite".tr(),
-                        trailing: Icon(
-                          Icons.arrow_forward_ios,
-                          color: Theme.of(context).colorScheme.onSurface,
-                        ),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => FavoriteScreen(),
-                            ),
-                          );
-                        },
-                      ),
+                      bloc.isNotGuest
+                          ? Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      "profile.account_settings".tr(),
+                                      style: AppTextStyles.interSize18(context)
+                                          .copyWith(
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.primary,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                                CustomListTile(
+                                  leadingIcon: SvgPicture.asset(
+                                    "assets/icons/edit.svg",
+                                    colorFilter: ColorFilter.mode(
+                                      Theme.of(
+                                        context,
+                                      ).colorScheme.onPrimaryContainer,
+                                      BlendMode.srcIn,
+                                    ),
+                                  ),
+                                  title: "profile.personal_info".tr(),
+                                  trailing: Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.onSurface,
+                                  ),
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => BlocProvider.value(
+                                        value: bloc,
+                                        child: EditInfoDialog(),
+                                      ),
+                                    );
+                                  },
+                                ),
+                                CustomListTile(
+                                  leadingIcon: SvgPicture.asset(
+                                    "assets/icons/favorite.svg",
+                                    colorFilter: ColorFilter.mode(
+                                      Theme.of(
+                                        context,
+                                      ).colorScheme.onPrimaryContainer,
+                                      BlendMode.srcIn,
+                                    ),
+                                  ),
+                                  title: "profile.favorite".tr(),
+                                  trailing: Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.onSurface,
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => FavoriteScreen(),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ],
+                            )
+                          : SizedBox(),
 
                       AppSpacing.h8,
                       Row(
@@ -206,31 +225,29 @@ class ClientProfileScreen extends StatelessWidget {
                         ),
                       ),
 
-                      // CustomListTile(
-                      //   leadingIcon: SvgPicture.asset(
-                      //     "assets/icons/mode.svg",
-                      //     colorFilter: ColorFilter.mode(
-                      //       Theme.of(context).colorScheme.onPrimaryContainer,
-                      //       BlendMode.srcIn,
-                      //     ),
-                      //     width: 28,
-                      //   ),
-                      //   title: "profile.mode".tr(),
-                      //   trailing: CustomSwitch(
-                      //     value: true,
-                      //     activeIcon: SvgPicture.asset(
-                      //       'assets/icons/light_mode.svg',
-                      //     ),
-                      //     inactiveIcon: SvgPicture.asset(
-                      //       'assets/icons/dark_mode.svg',
-                      //     ),
-                      //     onToggle: (val) {
-                      //       // context.setLocale(
-                      //       //   val ? Locale('en', 'US') : Locale('ar', 'AR'),
-                      //       // );
-                      //     },
-                      //   ),
-                      // ),
+                      CustomListTile(
+                        leadingIcon: SvgPicture.asset(
+                          "assets/icons/mode.svg",
+                          colorFilter: ColorFilter.mode(
+                            Theme.of(context).colorScheme.onPrimaryContainer,
+                            BlendMode.srcIn,
+                          ),
+                          width: 28,
+                        ),
+                        title: "profile.mode".tr(),
+                        trailing: CustomSwitch(
+                          value: context.watch<ThemeProvider>().isDark,
+                          activeIcon: SvgPicture.asset(
+                            'assets/icons/light_mode.svg',
+                          ),
+                          inactiveIcon: SvgPicture.asset(
+                            'assets/icons/dark_mode.svg',
+                          ),
+                          // onToggle: (val) {},
+                          onToggle: (_) =>
+                              context.read<ThemeProvider>().toggleTheme(),
+                        ),
+                      ),
                       AppSpacing.h8,
                       Row(
                         children: [
@@ -297,36 +314,56 @@ class ClientProfileScreen extends StatelessWidget {
                           );
                         },
                       ),
-                      CustomListTile(
-                        leadingIcon: SvgPicture.asset(
-                          "assets/icons/logout.svg",
-                          colorFilter: ColorFilter.mode(
-                            Colors.red,
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                        title: "profile.logout".tr(),
-                        titleColor: Colors.red,
-                        trailing: Icon(
-                          Icons.arrow_forward_ios,
-                          color: Theme.of(context).colorScheme.onSurface,
-                        ),
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) => DialogWithTwoOptions(
-                              title: "profile.logout_title".tr(),
-                              message: "profile.logout_message".tr(),
-                              cancelText: "profile.cancel".tr(),
-                              confirmText: "profile.logout".tr(),
-                              confirmButtonColor: Colors.red,
-                              onConfirm: () {
+                      bloc.isNotGuest
+                          ? CustomListTile(
+                              leadingIcon: SvgPicture.asset(
+                                "assets/icons/logout.svg",
+                                colorFilter: ColorFilter.mode(
+                                  Colors.red,
+                                  BlendMode.srcIn,
+                                ),
+                              ),
+                              title: "profile.logout".tr(),
+                              titleColor: Colors.red,
+                              trailing: Icon(
+                                Icons.arrow_forward_ios,
+                                color: Theme.of(context).colorScheme.onSurface,
+                              ),
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => DialogWithTwoOptions(
+                                    title: "profile.logout_title".tr(),
+                                    message: "profile.logout_message".tr(),
+                                    cancelText: "profile.cancel".tr(),
+                                    confirmText: "profile.logout".tr(),
+                                    confirmButtonColor: Colors.red,
+                                    onConfirm: () {
+                                      bloc.add(LogoutEvent());
+                                    },
+                                  ),
+                                );
+                              },
+                            )
+                          : CustomListTile(
+                              leadingIcon: SvgPicture.asset(
+                                "assets/icons/logout.svg",
+                                colorFilter: ColorFilter.mode(
+                                  Theme.of(
+                                    context,
+                                  ).colorScheme.onPrimaryContainer,
+                                  BlendMode.srcIn,
+                                ),
+                              ),
+                              title: "auth.login".tr(),
+                              trailing: Icon(
+                                Icons.arrow_forward_ios,
+                                color: Theme.of(context).colorScheme.onSurface,
+                              ),
+                              onTap: () {
                                 bloc.add(LogoutEvent());
                               },
                             ),
-                          );
-                        },
-                      ),
                     ],
                   ),
                 ),

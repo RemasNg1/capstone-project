@@ -19,7 +19,7 @@ class LegalContentSheet extends StatelessWidget {
       height: context.getHeight(factor: 0.85),
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       decoration: const BoxDecoration(
-        color: Colors.white,
+        // color: Colors.white,
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
       child: Stack(

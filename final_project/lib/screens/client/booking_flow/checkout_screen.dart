@@ -24,17 +24,20 @@ class CheckoutScreen extends StatelessWidget {
     final bloc = context.read<BookingBloc>();
 
     return Scaffold(
-      backgroundColor: AppColors.white,
+      // backgroundColor: AppColors.white,
       appBar: AppBar(
+        elevation: 0,
+        centerTitle: true,
         title: Text(
           'bookingReview.payment'.tr(),
-          style: TextStyle(color: AppColors.dimGray, fontSize: 20),
+          style: AppTextStyles.interSize20(context),
+          // TextStyle(color: AppColors.dimGray, fontSize: 20),
         ),
-        centerTitle: true,
-        backgroundColor: AppColors.white,
-        foregroundColor: AppColors.black,
-        elevation: 0,
+        // backgroundColor: AppColors.white,
+        foregroundColor: Theme.of(context).colorScheme.onSurface,
+        automaticallyImplyLeading: true,
       ),
+
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(
@@ -50,53 +53,84 @@ class CheckoutScreen extends StatelessWidget {
               total: service.price! * 1.15,
             ),
             AppSpacing.h72,
+            ElevatedButton(
+              onPressed: () {
+                CustomResultDialog.show(
+                  context,
+                  icon: Icons.check_circle,
+                  iconColor: AppColors.blue,
+                  title: 'bookingReview.payment_success'.tr(),
+                  message: 'bookingReview.wait_for_acceptance'.tr(),
+                  buttonText: 'bookingReview.back_to_home'.tr(),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ClientBottomNavbarScreen(),
+                      ),
+                    );
+                  },
+                );
+              },
+              child: Text("click"),
+            ),
             Directionality(
               textDirection: ui.TextDirection.ltr,
-              child: CreditCard(
-                config: configMethod(amount: (service.price! * 115)),
+              child: Theme(
+                data: Theme.of(context).copyWith(
+                  inputDecorationTheme: InputDecorationTheme(
+                    filled: true,
+                    fillColor: Theme.of(context).colorScheme.primaryContainer,
 
-                onPaymentResult: (PaymentResponse value) async {
-                  if (value.status == PaymentStatus.paid) {
-                    bloc.add(
-                      SubmitBooking(
-                        serviceId: service.id!,
-                        serviceLocationId: service.locations!.first.id!,
-                        date: bloc.selectedDay,
-                      ),
-                    );
-                    CustomResultDialog.show(
-                      context,
-                      icon: Icons.check_circle,
-                      iconColor: AppColors.blue,
-                      title: 'bookingReview.payment_success'.tr(),
-                      message: 'bookingReview.wait_for_acceptance'.tr(),
-                      buttonText: 'bookingReview.back_to_home'.tr(),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ClientBottomNavbarScreen(),
-                          ),
-                        );
-                      },
-                    );
-                  } else {
-                    Flushbar(
-                      messageText: Text(
-                        "فشلت عملية الدفع، حاول مرة أخرى.",
-                        style: AppTextStyles.interSize16(
-                          context,
-                        ).copyWith(color: Colors.white),
-                      ),
-                      backgroundColor: Colors.red,
-                      icon: Icon(Icons.error, color: Colors.white),
-                      duration: Duration(seconds: 3),
-                      flushbarPosition: FlushbarPosition.BOTTOM,
-                      borderRadius: BorderRadius.circular(8),
-                      margin: EdgeInsets.all(16),
-                    ).show(context);
-                  }
-                },
+                    hintStyle: TextStyle(color: AppColors.mediumGray),
+                  ),
+                ),
+                child: CreditCard(
+                  config: configMethod(amount: (service.price! * 115)),
+
+                  onPaymentResult: (PaymentResponse value) async {
+                    if (value.status == PaymentStatus.paid) {
+                      bloc.add(
+                        SubmitBooking(
+                          serviceId: service.id!,
+                          serviceLocationId: service.locations!.first.id!,
+                          date: bloc.selectedDay,
+                        ),
+                      );
+                      CustomResultDialog.show(
+                        context,
+                        icon: Icons.check_circle,
+                        iconColor: AppColors.blue,
+                        title: 'bookingReview.payment_success'.tr(),
+                        message: 'bookingReview.wait_for_acceptance'.tr(),
+                        buttonText: 'bookingReview.back_to_home'.tr(),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ClientBottomNavbarScreen(),
+                            ),
+                          );
+                        },
+                      );
+                    } else {
+                      Flushbar(
+                        messageText: Text(
+                          "فشلت عملية الدفع، حاول مرة أخرى.",
+                          style: AppTextStyles.interSize16(
+                            context,
+                          ).copyWith(color: Colors.white),
+                        ),
+                        backgroundColor: Colors.red,
+                        icon: Icon(Icons.error, color: Colors.white),
+                        duration: Duration(seconds: 3),
+                        flushbarPosition: FlushbarPosition.BOTTOM,
+                        borderRadius: BorderRadius.circular(8),
+                        margin: EdgeInsets.all(16),
+                      ).show(context);
+                    }
+                  },
+                ),
               ),
             ),
           ],

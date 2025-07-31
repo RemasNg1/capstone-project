@@ -10,8 +10,10 @@ import 'package:final_project/style/app_text_styles.dart';
 import 'package:final_project/utils/extensions/localization_helper.dart';
 import 'package:final_project/widgets/category_chip.dart';
 import 'package:flutter/material.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
+// import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import 'bloc/home_bloc.dart';
 
@@ -19,8 +21,11 @@ class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => HomeBloc()..add(FetchServicesProvidedEvent()),
+    final homeBloc = GetIt.I<HomeBloc>();
+
+    return BlocProvider.value(
+      value: homeBloc,
+
       child: Builder(
         builder: (context) {
           final bloc = context.read<HomeBloc>();
@@ -30,10 +35,118 @@ class HomeScreen extends StatelessWidget {
               child: BlocBuilder<HomeBloc, HomeState>(
                 builder: (context, state) {
                   if (state is HomeLoading) {
-                    return Center(
-                      child: LoadingAnimationWidget.staggeredDotsWave(
-                        color: AppColors.blue,
-                        size: 100,
+                    return Skeletonizer(
+                      enabled: true,
+                      child: SingleChildScrollView(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 12,
+                          horizontal: 16,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            AppSpacing.h8,
+                            Row(
+                              children: [
+                                const CircleAvatar(radius: 20),
+                                AppSpacing.w8,
+                                Text(
+                                  'Hello User',
+                                  style: AppTextStyles.interSize14(context),
+                                ),
+                              ],
+                            ),
+                            AppSpacing.h16,
+                            Text(
+                              'What service do you need?',
+                              style: AppTextStyles.interSize28(context),
+                            ),
+                            AppSpacing.h16,
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                              ),
+                              height: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
+                                color: AppColors.lightGray.withOpacity(0.2),
+                              ),
+                              child: Row(
+                                children: [
+                                  const Icon(
+                                    Icons.search,
+                                    color: AppColors.mediumGray,
+                                  ),
+                                  AppSpacing.w8,
+                                  const Expanded(child: Text('Search here...')),
+                                ],
+                              ),
+                            ),
+                            AppSpacing.h24,
+                            Text(
+                              'Choose Category',
+                              style: AppTextStyles.interSize16(context),
+                            ),
+                            AppSpacing.h16,
+                            SizedBox(
+                              height: 60,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: 5,
+                                itemBuilder: (context, index) => Padding(
+                                  padding: const EdgeInsets.only(right: 8.0),
+                                  child: Chip(label: Text('Category $index')),
+                                ),
+                              ),
+                            ),
+                            AppSpacing.h24,
+                            Text(
+                              'Recommended',
+                              style: AppTextStyles.interSize16(context),
+                            ),
+                            AppSpacing.h8,
+                            SizedBox(
+                              height: 224,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: 3,
+                                itemBuilder: (_, index) => Container(
+                                  width: 188,
+                                  margin: const EdgeInsets.only(right: 12),
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.outline,
+
+                                    // color: Colors.grey[300],
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            AppSpacing.h16,
+                            Text(
+                              'All Services',
+                              style: AppTextStyles.interSize16(context),
+                            ),
+                            AppSpacing.h8,
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: 3,
+                              itemBuilder: (_, index) => Container(
+                                height: 120,
+                                margin: const EdgeInsets.only(bottom: 12),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.outline,
+                                  // color: Colors.grey[300],
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                              ),
+                            ),
+                            AppSpacing.h24,
+                          ],
+                        ),
                       ),
                     );
                   } else if (state is HomeLoaded) {
@@ -269,6 +382,7 @@ class HomeScreen extends StatelessWidget {
                                       bloc.add(
                                         ToggleFavoriteEvent(
                                           serviceId: service.id!,
+                                          context: context,
                                         ),
                                       );
                                     },
@@ -312,7 +426,10 @@ class HomeScreen extends StatelessWidget {
                                 },
                                 onFavoriteTap: () {
                                   bloc.add(
-                                    ToggleFavoriteEvent(serviceId: service.id!),
+                                    ToggleFavoriteEvent(
+                                      serviceId: service.id!,
+                                      context: context,
+                                    ),
                                   );
                                 },
                               );

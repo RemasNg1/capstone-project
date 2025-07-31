@@ -9,7 +9,7 @@ import 'package:final_project/models/booking_model/service_request.dart';
 /// A card widget used by the service provider to display booking information.
 class ProviderContainerBookingCard extends StatelessWidget {
   final ServiceRequest item;
-  final bool showActionButtons; // عرض أزرار الإجراءات (قبول / رفض)
+  final bool showActionButtons;
   final VoidCallback? onTapChat;
 
   const ProviderContainerBookingCard({

@@ -4,8 +4,14 @@ import 'package:flutter/material.dart';
 class Avatar extends StatelessWidget {
   final String imagePath;
   final VoidCallback? onEditTap;
+  final bool? isNotGuest;
 
-  const Avatar({super.key, required this.imagePath, this.onEditTap});
+  const Avatar({
+    super.key,
+    required this.imagePath,
+    this.onEditTap,
+    this.isNotGuest = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,21 +32,27 @@ class Avatar extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          Positioned(
-            bottom: -8,
-            right: -8,
-            child: GestureDetector(
-              onTap: onEditTap,
-              child: Container(
-                padding: const EdgeInsets.all(6),
-                decoration: const BoxDecoration(
-                  color: Colors.black54,
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(Icons.edit, color: Colors.white, size: 16),
-              ),
-            ),
-          ),
+          isNotGuest!
+              ? Positioned(
+                  bottom: -8,
+                  right: -8,
+                  child: GestureDetector(
+                    onTap: onEditTap,
+                    child: Container(
+                      padding: const EdgeInsets.all(6),
+                      decoration: const BoxDecoration(
+                        color: Colors.black54,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.edit,
+                        color: Colors.white,
+                        size: 16,
+                      ),
+                    ),
+                  ),
+                )
+              : SizedBox(),
         ],
       ),
     );

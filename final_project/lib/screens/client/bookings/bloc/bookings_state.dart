@@ -15,3 +15,5 @@ class RatingUpdatedState extends BookingsState {
   final int selectedRating;
   RatingUpdatedState(this.selectedRating);
 }
+
+class UserLoggedInAsAnonymousState extends BookingsState {}

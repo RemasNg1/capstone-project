@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:final_project/data_layer/auth_layer.dart';
 import 'package:final_project/models/booking_model/service_request.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -13,12 +15,16 @@ class BookingRepository {
         .eq('auth_id', authId)
         .maybeSingle();
     // set provider id in local db
-    if (result != null && result.isNotEmpty) {
-      AuthLayer.box.put('providerId', "${result[0]['id']}");
-    }
+    // if (result != null && result.isNotEmpty) {
+    //   AuthLayer.box.put('providerId', "${result[0]['id']}");
+    // }
     if (result != null && result['id'] != null) {
+      log("Result1: $result");
+
+      AuthLayer.box.put('providerId', "${result['id']}");
       return result['id'] as int;
     }
+    log("Result2: $result");
     return null;
   }
 
