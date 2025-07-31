@@ -156,3 +156,20 @@ class LoadServiceForEditing extends AddServiceEvent {
   @override
   List<Object?> get props => [serviceId];
 }
+
+class RemoveImageAtIndex extends AddServiceEvent {
+  final int index;
+  RemoveImageAtIndex(this.index);
+}
+
+class ServiceTypeArChanged extends AddServiceEvent {
+  final String value;
+
+  ServiceTypeArChanged(this.value);
+}
+
+class ServiceTypeEnChanged extends AddServiceEvent {
+  final String value;
+
+  ServiceTypeEnChanged(this.value);
+}

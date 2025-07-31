@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:final_project/data_layer/auth_layer.dart';
 import 'package:final_project/repo/%20service_repo.dart';
 import 'package:final_project/repo/my_services_repo.dart';
@@ -22,7 +20,8 @@ void setup() async {
     () => ServiceRepository(GetIt.I<SupabaseClient>()),
   );
   // // Bloc
-  GetIt.I.registerFactory<AddServiceBloc>(() => AddServiceBloc(GetIt.I()));
+  GetIt.I.registerFactory<AddServiceBloc>(() => AddServiceBloc(GetIt.I(), []));
+
   GetIt.I.registerSingleton<DataLayer>(DataLayer());
   //____________________________
   //My services

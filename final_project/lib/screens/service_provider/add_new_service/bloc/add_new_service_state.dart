@@ -6,57 +6,43 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddServiceState extends Equatable {
-  // Used when editing a service
+  final List<String> deletedNetworkImages;
   final bool isEditingLoaded;
-
-  // Show loading while fetching service types
   final bool loadingServiceTypes;
+  final int? selectedServiceId;
 
-  // List of available service types
   final List<Map<String, String>> serviceTypes;
 
-  // Arabic and English names/descriptions
   final String arabicName;
   final String description;
   final String arabicDescription;
   final String category;
   final String name;
-
-  // Guests and price info
-  // final String guestCount;
   final String price;
 
-  // Selected location on the map
   final LatLng? location;
-
-  // Picked images from gallery
   final List<XFile> images;
 
-  // Form submission state
   final bool isSubmitting;
   final bool success;
   final String? error;
 
-  // Selected region and city
   final int? cityId;
   final int? regionId;
   final List<RegionModel> regions;
   final List<CityModel> cities;
 
-  // Unavailable date ranges for the service
   final List<DateTimeRangeModel> unavailableDateRanges;
-
-  // Service location ID (used for update)
   final int? serviceLocationId;
 
-  // Selected service type values
   final String? selectedTypeEn;
   final String? selectedTypeAr;
 
-  // Current app language
   final String languageCode;
 
-  const AddServiceState({
+  const AddServiceState(
+    this.deletedNetworkImages, {
+    this.selectedServiceId,
     this.isEditingLoaded = false,
     this.loadingServiceTypes = false,
     this.serviceTypes = const [],
@@ -65,7 +51,6 @@ class AddServiceState extends Equatable {
     this.arabicDescription = '',
     this.category = '',
     this.name = '',
-    // this.guestCount = '',
     this.price = '',
     this.location,
     this.images = const [],
@@ -84,6 +69,7 @@ class AddServiceState extends Equatable {
   });
 
   AddServiceState copyWith({
+    List<String>? deletedNetworkImages,
     bool? isEditingLoaded,
     bool? loadingServiceTypes,
     List<Map<String, String>>? serviceTypes,
@@ -92,7 +78,6 @@ class AddServiceState extends Equatable {
     String? arabicDescription,
     String? category,
     String? name,
-    String? guestCount,
     String? price,
     LatLng? location,
     List<XFile>? images,
@@ -110,6 +95,7 @@ class AddServiceState extends Equatable {
     String? languageCode,
   }) {
     return AddServiceState(
+      deletedNetworkImages ?? this.deletedNetworkImages,
       isEditingLoaded: isEditingLoaded ?? this.isEditingLoaded,
       loadingServiceTypes: loadingServiceTypes ?? this.loadingServiceTypes,
       serviceTypes: serviceTypes ?? this.serviceTypes,
@@ -118,7 +104,6 @@ class AddServiceState extends Equatable {
       arabicDescription: arabicDescription ?? this.arabicDescription,
       category: category ?? this.category,
       name: name ?? this.name,
-      // guestCount: guestCount ?? this.guestCount,
       price: price ?? this.price,
       location: location ?? this.location,
       images: images ?? this.images,
@@ -135,11 +120,13 @@ class AddServiceState extends Equatable {
       selectedTypeEn: selectedTypeEn ?? this.selectedTypeEn,
       selectedTypeAr: selectedTypeAr ?? this.selectedTypeAr,
       languageCode: languageCode ?? this.languageCode,
+      selectedServiceId: selectedServiceId ?? this.selectedServiceId,
     );
   }
 
   @override
   List<Object?> get props => [
+    deletedNetworkImages,
     isEditingLoaded,
     loadingServiceTypes,
     serviceTypes,
@@ -148,7 +135,6 @@ class AddServiceState extends Equatable {
     arabicDescription,
     category,
     name,
-    // guestCount,
     price,
     location,
     images,
@@ -164,5 +150,6 @@ class AddServiceState extends Equatable {
     selectedTypeEn,
     selectedTypeAr,
     languageCode,
+    selectedServiceId,
   ];
 }

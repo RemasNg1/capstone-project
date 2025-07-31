@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/models/add_service/%20region_model.dart';
 import 'package:final_project/models/add_service/city_model.dart';
@@ -13,8 +15,10 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AddServiceBloc extends Bloc<AddServiceEvent, AddServiceState> {
   final SupabaseClient supabase;
+  final List<String> deletedNetworkImages;
 
-  AddServiceBloc(this.supabase) : super(const AddServiceState()) {
+  AddServiceBloc(this.supabase, this.deletedNetworkImages)
+    : super(const AddServiceState([])) {
     // Handle input field changes
     on<CategoryChanged>((event, emit) {
       emit(state.copyWith(category: event.category));
@@ -51,7 +55,41 @@ class AddServiceBloc extends Bloc<AddServiceEvent, AddServiceState> {
     on<CityChanged>(_onCityChanged);
 
     on<ImagesPicked>((event, emit) {
-      emit(state.copyWith(images: event.images));
+      emit(state.copyWith(images: [...state.images, ...event.images]));
+    });
+
+    on<RemoveImageAtIndex>((event, emit) {
+      final updatedImages = List<XFile>.from(state.images);
+
+      //  هذا يحدد إذا كانت الصورة من الشبكة (أي محفوظة مسبقًا)
+      final removedImage = updatedImages[event.index];
+      final isNetworkImage =
+          removedImage.path.startsWith('http') ||
+          removedImage.path.contains('supabase');
+
+      // إذا كانت صورة محفوظة مسبقًا، أضفها إلى قائمة المحذوفات
+      final updatedDeletedImages = List<String>.from(
+        state.deletedNetworkImages,
+      );
+      if (isNetworkImage) {
+        updatedDeletedImages.add(removedImage.path);
+      }
+
+      updatedImages.removeAt(event.index);
+
+      emit(
+        state.copyWith(
+          images: updatedImages,
+          deletedNetworkImages: updatedDeletedImages,
+        ),
+      );
+    });
+    on<ServiceTypeArChanged>((event, emit) {
+      emit(state.copyWith(selectedTypeAr: event.value));
+    });
+
+    on<ServiceTypeEnChanged>((event, emit) {
+      emit(state.copyWith(selectedTypeEn: event.value));
     });
 
     on<UpdateService>(_onUpdateService);
@@ -250,13 +288,38 @@ class AddServiceBloc extends Bloc<AddServiceEvent, AddServiceState> {
     );
   }
 
-  // Update an existing service
+  Future<void> _deleteOldImages(int serviceId) async {
+    final client = Supabase.instance.client;
+    final storage = client.storage.from('serviceimages');
+
+    for (final url in state.deletedNetworkImages) {
+      final path = extractStoragePath(url);
+      await storage.remove([path]);
+      await client.from('servic_image').delete().eq('image_url', url);
+    }
+  }
+
   Future<void> _onUpdateService(
     UpdateService event,
     Emitter<AddServiceState> emit,
   ) async {
     emit(state.copyWith(isSubmitting: true, success: false, error: null));
-    print(' updating service...');
+    print('🔄 Updating service...');
+
+    // 👇 حذف الصور المحذوفة من التخزين وقاعدة البيانات
+    final storage = supabase.storage.from('serviceimages');
+    for (final url in state.deletedNetworkImages) {
+      try {
+        final path = extractStoragePath(url);
+        if (path.isNotEmpty) {
+          await storage.remove([path]);
+          await supabase.from('servic_image').delete().eq('image_url', url);
+          print(' Deleted image: $url');
+        }
+      } catch (e) {
+        print(' Error deleting image: $e');
+      }
+    }
 
     try {
       final isArabic = Intl.getCurrentLocale() == 'ar';
@@ -269,22 +332,12 @@ class AddServiceBloc extends Bloc<AddServiceEvent, AddServiceState> {
           .from('services')
           .select('id')
           .eq(column, value)
-          .maybeSingle();
-
-      if (existingService == null || existingService['id'] == null) {
-        emit(
-          state.copyWith(
-            isSubmitting: false,
-            success: false,
-            error: 'Service type not found',
-          ),
-        );
-        return;
-      }
+          .limit(1)
+          .single();
 
       final serviceId = existingService['id'];
 
-      // Update service data
+      //  تحديث بيانات الخدمة
       await supabase
           .from('services_provided')
           .update({
@@ -297,7 +350,7 @@ class AddServiceBloc extends Bloc<AddServiceEvent, AddServiceState> {
           })
           .eq('id', event.serviceId);
 
-      // Update location if available
+      //  تحديث الموقع إذا وُجد
       if (state.location != null &&
           state.cityId != null &&
           state.regionId != null) {
@@ -305,7 +358,8 @@ class AddServiceBloc extends Bloc<AddServiceEvent, AddServiceState> {
             .from('service_locations')
             .select('id')
             .eq('service_provided_id', event.serviceId)
-            .maybeSingle();
+            .limit(1) // ✅ أخذ أول صف فقط لتجنب الخطأ
+            .single(); // ✅ يتأكد أن فيه صف واحد فقط
 
         if (existingLocation != null) {
           await supabase
@@ -320,12 +374,53 @@ class AddServiceBloc extends Bloc<AddServiceEvent, AddServiceState> {
         }
       }
 
+      //  رفع الصور الجديدة فقط
+      final newImages = state.images
+          .where((img) => !img.path.startsWith('http'))
+          .toList();
+      if (newImages.isNotEmpty) {
+        final uploadedUrls = await uploadImages(newImages);
+        for (final url in uploadedUrls) {
+          await supabase.from('servic_image').insert({
+            'servic_provided_id': event.serviceId,
+            'image_url': url,
+          });
+          print(' Uploaded new image: $url');
+        }
+      }
+
       emit(state.copyWith(isSubmitting: false, success: true));
-      print(' service updated successfully');
+      print(' Service updated successfully');
     } catch (e) {
       emit(state.copyWith(isSubmitting: false, error: e.toString()));
       print(' Error updating service: $e');
     }
+  }
+
+  Future<List<String>> uploadImages(List<XFile> images) async {
+    final client = Supabase.instance.client;
+    final List<String> urls = [];
+
+    for (final image in images) {
+      if (image.path.startsWith('http')) {
+        // صورة مرفوعة مسبقًا
+        urls.add(image.path);
+        continue;
+      }
+
+      final fileBytes = await image.readAsBytes();
+      final fileName = '${DateTime.now().millisecondsSinceEpoch}_${image.name}';
+      final response = await client.storage
+          .from('serviceimages')
+          .uploadBinary(fileName, fileBytes);
+
+      if (response.isNotEmpty) {
+        final url = client.storage.from('serviceimages').getPublicUrl(fileName);
+        urls.add(url);
+      }
+    }
+
+    return urls;
   }
 
   // Submit a new service to Supabase
@@ -333,18 +428,18 @@ class AddServiceBloc extends Bloc<AddServiceEvent, AddServiceState> {
     SubmitService event,
     Emitter<AddServiceState> emit,
   ) async {
-    debugPrint('[SubmitService] Triggered');
+    debugPrint('🟢 [SubmitService] Triggered');
 
-    // Check for required fields
+    // التحقق من الحقول المطلوبة
     if (state.name.trim().isEmpty ||
         state.arabicName.trim().isEmpty ||
         state.description.trim().isEmpty ||
         state.arabicDescription.trim().isEmpty ||
         state.category.trim().isEmpty ||
         state.price.trim().isEmpty ||
-        // state.guestCount.trim().isEmpty ||
         state.location == null ||
-        state.images.isEmpty) {
+        state.images.isEmpty ||
+        state.selectedServiceId == null) {
       emit(
         state.copyWith(
           error: 'Please fill out all required fields',
@@ -356,11 +451,9 @@ class AddServiceBloc extends Bloc<AddServiceEvent, AddServiceState> {
     }
 
     emit(state.copyWith(isSubmitting: true, error: null));
+    debugPrint('🔄 Submitting service...');
 
     try {
-      // Upload images to storage
-      final imageUrls = await uploadImages(state.images);
-
       final client = Supabase.instance.client;
       final currentUser = client.auth.currentUser;
 
@@ -369,13 +462,12 @@ class AddServiceBloc extends Bloc<AddServiceEvent, AddServiceState> {
           state.copyWith(
             isSubmitting: false,
             success: false,
-            error: 'User not authenticated',
+            error: 'User is not authenticated',
           ),
         );
         return;
       }
 
-      // Get provider ID
       final providerResult = await client
           .from('providers')
           .select('id')
@@ -394,34 +486,21 @@ class AddServiceBloc extends Bloc<AddServiceEvent, AddServiceState> {
       }
 
       final providerId = providerResult['id'];
+      final imageUrls = await uploadImages(state.images);
 
-      // Get service ID
-      final isArabic = Intl.getCurrentLocale() == 'ar';
-      final column = isArabic ? 'type_ar' : 'type_en';
-      final value = isArabic
-          ? state.selectedTypeAr?.trim() ?? ''
-          : state.selectedTypeEn?.trim() ?? '';
-
-      final existingService = await client
-          .from('services')
-          .select('id')
-          .eq(column, value)
-          .maybeSingle();
-
-      if (existingService == null || existingService['id'] == null) {
+      if (imageUrls.isEmpty) {
         emit(
           state.copyWith(
+            error: 'Image upload failed!',
             isSubmitting: false,
             success: false,
-            error: 'Service type not found',
           ),
         );
         return;
       }
 
-      final serviceId = existingService['id'];
+      final serviceId = state.selectedServiceId;
 
-      // Insert new service
       final serviceProvidedInsert = await client
           .from('services_provided')
           .insert({
@@ -439,7 +518,7 @@ class AddServiceBloc extends Bloc<AddServiceEvent, AddServiceState> {
 
       final serviceProvidedId = serviceProvidedInsert['id'];
 
-      // Insert location
+      // location
       await client.from('service_locations').insert({
         'region_id': state.regionId,
         'city_id': state.cityId,
@@ -456,19 +535,17 @@ class AddServiceBloc extends Bloc<AddServiceEvent, AddServiceState> {
 
       final serviceLocationId = serviceLocationResult?['id'];
 
-      // Insert unavailable date ranges
+      // unavailable dates
       for (final range in state.unavailableDateRanges) {
-        await client
-            .from('disabled_dates')
-            .insert(
-              DateTimeRangeModel(
-                start: range.start,
-                end: range.end,
-              ).toMap(serviceLocationId),
-            );
+        final rangeMap = DateTimeRangeModel(
+          start: range.start,
+          end: range.end,
+        ).toMap(serviceLocationId);
+
+        await client.from('disabled_dates').insert(rangeMap);
       }
 
-      // Insert images
+      // insert images
       for (final url in imageUrls) {
         await client.from('servic_image').insert({
           'servic_provided_id': serviceProvidedId,
@@ -476,8 +553,10 @@ class AddServiceBloc extends Bloc<AddServiceEvent, AddServiceState> {
         });
       }
 
+      debugPrint('✅ All data inserted successfully');
       emit(state.copyWith(isSubmitting: false, success: true));
     } catch (e) {
+      debugPrint('❌ Error while submitting service: $e');
       emit(
         state.copyWith(
           isSubmitting: false,
