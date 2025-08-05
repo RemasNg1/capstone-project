@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 class Avatar extends StatelessWidget {
   final String imagePath;
   final VoidCallback? onEditTap;
-  final bool? isNotGuest;
+  final bool? isGuest;
 
   const Avatar({
     super.key,
     required this.imagePath,
     this.onEditTap,
-    this.isNotGuest = false,
+    this.isGuest = false,
   });
 
   @override
@@ -32,8 +32,9 @@ class Avatar extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          isNotGuest!
-              ? Positioned(
+          isGuest!
+              ? SizedBox()
+              : Positioned(
                   bottom: -8,
                   right: -8,
                   child: GestureDetector(
@@ -51,8 +52,7 @@ class Avatar extends StatelessWidget {
                       ),
                     ),
                   ),
-                )
-              : SizedBox(),
+                ),
         ],
       ),
     );

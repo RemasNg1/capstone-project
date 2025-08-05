@@ -186,9 +186,21 @@ class ServiceDetailsScreen extends StatelessWidget {
                           } else {
                             // new chat
 
+                            // final newMessage = ModelMessage(
+                            //   userAuthId: currentUserId,
+                            //   providerAuthId: providerId,
+                            // );
                             final newMessage = ModelMessage(
                               userAuthId: currentUserId,
                               providerAuthId: providerId,
+                              // user: User(
+                              //   name: currentUserName,
+                              //   avatar: currentUserAvatar,
+                              // ),
+                              // providers: Providers(
+                              //   nameEn: service.provider?.nameEn ?? "Provider",
+                              //   avatar: service.provider?.avatar,
+                              // ),
                             );
 
                             Navigator.push(
@@ -201,7 +213,6 @@ class ServiceDetailsScreen extends StatelessWidget {
                           }
                         },
                       ),
-
                       ImageGallery(imageUrls: service.servicImage!),
                       AppSpacing.h32,
                       // Description section

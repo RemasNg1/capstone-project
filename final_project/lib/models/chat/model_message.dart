@@ -1,7 +1,7 @@
 class ModelMessage {
   int? id;
   String? content;
-  String? date;
+  DateTime? date;
   String? status;
   String? owner;
   String? userAuthId;
@@ -9,21 +9,22 @@ class ModelMessage {
   Providers? providers;
   User? user;
 
-  ModelMessage(
-      {this.id,
-      this.content,
-      this.date,
-      this.status,
-      this.owner,
-      this.userAuthId,
-      this.providerAuthId,
-      this.providers,
-      this.user});
+  ModelMessage({
+    this.id,
+    this.content,
+    this.date,
+    this.status,
+    this.owner,
+    this.userAuthId,
+    this.providerAuthId,
+    this.providers,
+    this.user,
+  });
 
   ModelMessage.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     content = json['content'];
-    date = json['date'];
+    date = DateTime.tryParse(json['created_at'] ?? '');
     status = json['status'];
     owner = json['owner'];
     userAuthId = json['user_auth_id'];
@@ -37,7 +38,7 @@ class ModelMessage {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['content'] = this.content;
-    data['date'] = this.date;
+    data['created_at'] = this.date?.toIso8601String();
     data['status'] = this.status;
     data['owner'] = this.owner;
     data['user_auth_id'] = this.userAuthId;

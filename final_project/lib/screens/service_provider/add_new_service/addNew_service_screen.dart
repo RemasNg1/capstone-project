@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:final_project/screens/service_provider/add_new_service/bloc/add_new_service_bloc.dart';
 import 'package:final_project/screens/service_provider/add_new_service/bloc/add_new_service_event.dart';
 import 'package:final_project/screens/service_provider/add_new_service/bloc/add_new_service_state.dart';
+import 'package:final_project/style/app_text_styles.dart';
 import 'package:final_project/widgets/booking_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -121,12 +122,13 @@ class AddNewServiceScreen extends StatelessWidget {
 
           return Scaffold(
             appBar: AppBar(
-              title: Text('services.newService'.tr()),
-              centerTitle: true,
-              backgroundColor: AppColors.white,
-              foregroundColor: AppColors.black,
               elevation: 0,
+              centerTitle: true,
+              title: Text('services.newService'.tr()),
+              foregroundColor: Theme.of(context).colorScheme.onSurface,
+              automaticallyImplyLeading: true,
             ),
+
             body: SingleChildScrollView(
               padding: const EdgeInsets.all(20),
               child: Column(

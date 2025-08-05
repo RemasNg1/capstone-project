@@ -498,6 +498,21 @@ class Auth {
     }
   }
 
+  static Future<ClientModel> updateUserAvatar(String avatarUrl) async {
+    final userId = Supabase.instance.client.auth.currentUser?.id;
+
+    if (userId == null) throw Exception("User not logged in");
+
+    final response = await Supabase.instance.client
+        .from('user')
+        .update({'avatar': avatarUrl})
+        .eq('auth_id', userId)
+        .select()
+        .single();
+    return ClientModelMapper.fromMap(response);
+  }
+}
+
   // static Future<ClientModel> updateUserAvatar(File file) async {
   //   final supabase = Supabase.instance.client;
   //   final userId = supabase.auth.currentUser!.id;
@@ -524,4 +539,4 @@ class Auth {
   //     throw Exception('Error updating avatar: $e');
   //   }
   // }
-}
+

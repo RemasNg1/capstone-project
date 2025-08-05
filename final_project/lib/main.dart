@@ -26,17 +26,6 @@ void main() async {
   setup();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-  // runApp(
-
-  //   EasyLocalization(
-  //     supportedLocales: [Locale('en', 'US'), Locale('ar', 'AR')],
-  //     path: 'assets/translations',
-  //     fallbackLocale: Locale('en', 'US'),
-
-  //     child: MyApp(),
-  //   ),
-  // );
-
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('en', 'US'), Locale('ar', 'AR')],
@@ -65,8 +54,6 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme(context),
       darkTheme: AppTheme.darkTheme(context),
       themeMode: themeProvider.themeMode,
-
-      // theme: AppTheme.lightTheme(context),
       home: SplashScreen(),
     );
   }

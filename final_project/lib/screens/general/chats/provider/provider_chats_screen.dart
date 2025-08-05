@@ -31,6 +31,7 @@ class ProviderChatsScreen extends StatelessWidget {
                 children: [
                   BackButton(
                     onPressed: () {
+                      FocusScope.of(context).unfocus();
                       bloc.chatController.dispose();
                       bloc.chatController = InMemoryChatController();
                       Navigator.pop(context);

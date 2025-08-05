@@ -30,9 +30,6 @@ class ClientModelMapper extends ClassMapperBase<ClientModel> {
   static String? _$email(ClientModel v) => v.email;
   static const Field<ClientModel, String> _f$email =
       Field('email', _$email, opt: true);
-  static EnumUserStatus? _$status(ClientModel v) => v.status;
-  static const Field<ClientModel, EnumUserStatus> _f$status =
-      Field('status', _$status);
   static String _$phoneNumber(ClientModel v) => v.phoneNumber;
   static const Field<ClientModel, String> _f$phoneNumber =
       Field('phoneNumber', _$phoneNumber, key: r'phone_number');
@@ -64,7 +61,6 @@ class ClientModelMapper extends ClassMapperBase<ClientModel> {
     #name: _f$name,
     #avatar: _f$avatar,
     #email: _f$email,
-    #status: _f$status,
     #phoneNumber: _f$phoneNumber,
     #authId: _f$authId,
     #isDeleted: _f$isDeleted,
@@ -80,7 +76,6 @@ class ClientModelMapper extends ClassMapperBase<ClientModel> {
         name: data.dec(_f$name),
         avatar: data.dec(_f$avatar),
         email: data.dec(_f$email),
-        status: data.dec(_f$status),
         phoneNumber: data.dec(_f$phoneNumber),
         authId: data.dec(_f$authId),
         isDeleted: data.dec(_f$isDeleted),
@@ -147,7 +142,6 @@ abstract class ClientModelCopyWith<$R, $In extends ClientModel, $Out>
       String? name,
       String? avatar,
       String? email,
-      EnumUserStatus? status,
       String? phoneNumber,
       String? authId,
       bool? isDeleted,
@@ -172,7 +166,6 @@ class _ClientModelCopyWithImpl<$R, $Out>
           String? name,
           Object? avatar = $none,
           Object? email = $none,
-          Object? status = $none,
           String? phoneNumber,
           Object? authId = $none,
           bool? isDeleted,
@@ -185,7 +178,6 @@ class _ClientModelCopyWithImpl<$R, $Out>
         if (name != null) #name: name,
         if (avatar != $none) #avatar: avatar,
         if (email != $none) #email: email,
-        if (status != $none) #status: status,
         if (phoneNumber != null) #phoneNumber: phoneNumber,
         if (authId != $none) #authId: authId,
         if (isDeleted != null) #isDeleted: isDeleted,
@@ -200,7 +192,6 @@ class _ClientModelCopyWithImpl<$R, $Out>
       name: data.get(#name, or: $value.name),
       avatar: data.get(#avatar, or: $value.avatar),
       email: data.get(#email, or: $value.email),
-      status: data.get(#status, or: $value.status),
       phoneNumber: data.get(#phoneNumber, or: $value.phoneNumber),
       authId: data.get(#authId, or: $value.authId),
       isDeleted: data.get(#isDeleted, or: $value.isDeleted),

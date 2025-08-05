@@ -56,7 +56,7 @@ class ProviderConversationScreen extends StatelessWidget {
                                   maxRadius: 30,
                                   backgroundImage: NetworkImage(
                                     messages[index].user?.avatar ??
-                                        'https://www.arabiaweddings.com/sites/default/files/styles/max980/public/listing/2020/01/14/jwan_hall.jpg?itok=svPe8vrk',
+                                        'https://owswnklbakigvkswwclu.supabase.co/storage/v1/object/public/avatars/avatar_1754367011867_image_picker_7A205536-125A-4A20-94F5-712AD9A8F1D8-23042-0000007AE261CF21.jpg',
                                   ),
                                 ),
                                 title: Text(

@@ -48,8 +48,8 @@ class CustomTextFormFieldService extends StatelessWidget {
               vertical: 12,
               horizontal: 16,
             ),
-            filled: true,
-            fillColor: AppColors.white,
+            // filled: true,
+            // fillColor: AppColors.white,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),
               borderSide: const BorderSide(color: AppColors.lightGray),

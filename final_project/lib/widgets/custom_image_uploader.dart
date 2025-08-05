@@ -123,7 +123,7 @@ class CustomImageUploader extends StatelessWidget {
             height: 90,
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: AppColors.white,
+              // color: AppColors.white,
               borderRadius: BorderRadius.circular(20),
               border: Border.all(color: AppColors.lightBlue, width: 1.2),
             ),

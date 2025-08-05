@@ -178,7 +178,7 @@ class AuthLayer {
     final user = ClientModel(
       name: name,
       phoneNumber: phoneNumber,
-      status: EnumUserStatus.online,
+      // status: EnumUserStatus.online,
       authId: idUser,
       avatar: null,
       isVerified: false,
