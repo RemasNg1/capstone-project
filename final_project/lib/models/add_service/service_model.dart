@@ -18,6 +18,9 @@ class ServiceModel with ServiceModelMappable {
   final double longitude;
   final List<String> imageUrls;
 
+  final double deposit;
+  final double insurance;
+
   const ServiceModel({
     required this.name,
     required this.description,
@@ -32,6 +35,9 @@ class ServiceModel with ServiceModelMappable {
     required this.latitude,
     required this.longitude,
     required this.imageUrls,
+
+    required this.deposit,
+    required this.insurance,
   });
 }
 

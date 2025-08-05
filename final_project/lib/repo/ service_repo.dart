@@ -55,6 +55,8 @@ class ServiceRepository {
             'price': service.price,
             'category_ar': service.categoryAr,
             'category_en': service.categoryEn,
+            'deposit': service.deposit,
+            'insurance': service.insurance,
           })
           .select()
           .single();

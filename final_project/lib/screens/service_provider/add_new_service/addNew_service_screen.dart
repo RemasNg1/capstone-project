@@ -3,6 +3,7 @@ import 'package:final_project/screens/service_provider/add_new_service/bloc/add_
 import 'package:final_project/screens/service_provider/add_new_service/bloc/add_new_service_event.dart';
 import 'package:final_project/screens/service_provider/add_new_service/bloc/add_new_service_state.dart';
 import 'package:final_project/widgets/booking_calendar.dart';
+import 'package:final_project/widgets/searchable_map_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -100,6 +101,8 @@ class AddNewServiceScreen extends StatelessWidget {
           final arabicNameController = TextEditingController();
           final descriptionController = TextEditingController();
           final arabicDescriptionController = TextEditingController();
+          final depositController = TextEditingController();
+          final insuranceController = TextEditingController();
 
           // Fill controllers with existing data if editing
 
@@ -144,6 +147,9 @@ class AddNewServiceScreen extends StatelessWidget {
                           arabicDescriptionController.text =
                               state.arabicDescription;
                           priceController.text = state.price;
+                          depositController.text = state.deposit;
+                          insuranceController.text = state.insurance;
+
                           dateController.text =
                               state.unavailableDateRanges.isNotEmpty
                               ? state.unavailableDateRanges
@@ -178,53 +184,63 @@ class AddNewServiceScreen extends StatelessWidget {
                         return AppSpacing.h48;
                       }
 
+                      final isArabic = context.locale.languageCode == 'ar';
+
                       final Map<String, int> categoryMap = {
                         'services.categoryPlaceholder'.tr(): -1,
                         ...{
-                          for (int i = 0; i < state.serviceTypes.length; i++)
-                            context.locale.languageCode == 'ar'
-                                    ? state.serviceTypes[i]['ar']!
-                                    : state.serviceTypes[i]['en']!:
-                                i,
+                          for (
+                            int i = 0;
+                            i < (state.serviceTypes?.length ?? 0);
+                            i++
+                          )
+                            if (state.serviceTypes != null &&
+                                state.serviceTypes!.length > i &&
+                                (isArabic
+                                    ? state.serviceTypes![i]['ar'] != null
+                                    : state.serviceTypes![i]['en'] != null))
+                              (isArabic
+                                      ? state.serviceTypes![i]['ar'].toString()
+                                      : state.serviceTypes![i]['en']
+                                            .toString()):
+                                  i,
                         },
                       };
 
                       final selectedCategoryIndex = state.serviceTypes
-                          .indexWhere((type) {
-                            final localized =
-                                context.locale.languageCode == 'ar'
+                          ?.indexWhere((type) {
+                            final localized = isArabic
                                 ? type['ar']
                                 : type['en'];
-                            return localized == state.category;
+                            return localized?.toString().trim() ==
+                                state.category.trim();
                           });
 
                       return CustomDropdownField(
                         labelText: 'services.category'.tr(),
                         hintText: 'services.categoryPlaceholder'.tr(),
                         value: categoryMap.keys.firstWhere((key) {
-                          final expectedCategory =
-                              context.locale.languageCode == 'ar'
+                          final expectedCategory = isArabic
                               ? state.selectedTypeAr
                               : state.selectedTypeEn;
-
                           return key.trim().toLowerCase() ==
                               expectedCategory?.trim().toLowerCase();
                         }, orElse: () => ''),
-
                         items: categoryMap,
                         onChanged: (selectedIndex) {
                           if (selectedIndex != null && selectedIndex != -1) {
-                            final selected = state.serviceTypes[selectedIndex];
-                            final localizedName =
-                                context.locale.languageCode == 'ar'
-                                ? selected['ar']!
-                                : selected['en']!;
+                            final selected = state.serviceTypes![selectedIndex];
+
+                            final localizedName = isArabic
+                                ? selected['ar'].toString()
+                                : selected['en'].toString();
 
                             context.read<AddServiceBloc>().emit(
                               state.copyWith(
                                 category: localizedName,
-                                selectedTypeAr: selected['ar'],
-                                selectedTypeEn: selected['en'],
+                                selectedTypeAr: selected['ar']?.toString(),
+                                selectedTypeEn: selected['en']?.toString(),
+                                selectedServiceId: selected['id'] as int?,
                               ),
                             );
                           }
@@ -329,8 +345,24 @@ class AddNewServiceScreen extends StatelessWidget {
                     onChanged: (value) => bloc.add(PriceChanged(value)),
                   ),
 
-                  AppSpacing.h24,
+                  AppSpacing.h16,
+                  CustomTextFormFieldService(
+                    labelText: 'services.deposit'.tr(),
+                    hintText: 'services.inputPlaceholder'.tr(),
+                    controller: depositController,
+                    keyboardType: TextInputType.number,
+                    onChanged: (value) => bloc.add(DepositChanged(value)),
+                  ),
 
+                  AppSpacing.h16,
+                  CustomTextFormFieldService(
+                    labelText: 'services.insurance'.tr(),
+                    hintText: 'services.inputPlaceholder'.tr(),
+                    controller: insuranceController,
+                    keyboardType: TextInputType.number,
+                    onChanged: (value) => bloc.add(InsuranceChanged(value)),
+                  ),
+                  AppSpacing.h24,
                   // Section: Location and Photos
                   Text(
                     'services.locationAndPhotos'.tr(),
@@ -431,18 +463,18 @@ class AddNewServiceScreen extends StatelessWidget {
                               (city) => city.id == selectedCityId,
                               orElse: () => filteredCities.first,
                             );
+
+                            // نطبع للتأكد
+                            print(
+                              "Selected city: ${selectedCity.nameAr}, lat: ${selectedCity.latitude}, lng: ${selectedCity.longitude}",
+                            );
+
                             final lat = selectedCity.latitude;
                             final lng = selectedCity.longitude;
 
-                            if (lat != null && lng != null) {
-                              context.read<AddServiceBloc>().add(
-                                CityChanged(selectedCityId, lat: lat, lng: lng),
-                              );
-                            } else {
-                              context.read<AddServiceBloc>().add(
-                                CityChanged(selectedCityId),
-                              );
-                            }
+                            context.read<AddServiceBloc>().add(
+                              CityChanged(selectedCityId, lat: lat, lng: lng),
+                            );
                           }
                         },
                       );
@@ -451,15 +483,21 @@ class AddNewServiceScreen extends StatelessWidget {
 
                   AppSpacing.h16,
 
-                  // Google Map to pick location
                   BlocBuilder<AddServiceBloc, AddServiceState>(
                     builder: (context, state) {
-                      return GoogleMapWidget(
-                        latitude: state.location?.latitude ?? 24.7136,
-                        longitude: state.location?.longitude ?? 46.6753,
-                        label: 'services.yourLocation'.tr(),
-                        onLocationSelected: (lat, lng) {
-                          bloc.add(LocationChanged(LatLng(lat, lng)));
+                      print("📍 GoogleMap current center: ${state.location}");
+
+                      return SearchableGoogleMapWidget(
+                        key: ValueKey(
+                          state.location,
+                        ), // ضروري لإجبار الخريطة تتحدث
+                        initialPosition:
+                            state.location ?? LatLng(24.7136, 46.6753),
+                        label: "الموقع المحدد",
+                        onLocationSelected: (LatLng newLocation) {
+                          context.read<AddServiceBloc>().add(
+                            LocationChanged(newLocation),
+                          );
                         },
                       );
                     },
@@ -526,7 +564,9 @@ class AddNewServiceScreen extends StatelessWidget {
                               // ..add(
                               //   GuestCountChanged(guestCountController.text),
                               // )
-                              ..add(PriceChanged(priceController.text));
+                              ..add(PriceChanged(priceController.text))
+                              ..add(DepositChanged(depositController.text))
+                              ..add(InsuranceChanged(insuranceController.text));
 
                             // Call appropriate submit or update event
                             if (isEditing && serviceId != null) {

@@ -55,6 +55,12 @@ class ServiceModelMapper extends ClassMapperBase<ServiceModel> {
   static List<String> _$imageUrls(ServiceModel v) => v.imageUrls;
   static const Field<ServiceModel, List<String>> _f$imageUrls =
       Field('imageUrls', _$imageUrls);
+  static double _$deposit(ServiceModel v) => v.deposit;
+  static const Field<ServiceModel, double> _f$deposit =
+      Field('deposit', _$deposit);
+  static double _$insurance(ServiceModel v) => v.insurance;
+  static const Field<ServiceModel, double> _f$insurance =
+      Field('insurance', _$insurance);
 
   @override
   final MappableFields<ServiceModel> fields = const {
@@ -71,6 +77,8 @@ class ServiceModelMapper extends ClassMapperBase<ServiceModel> {
     #latitude: _f$latitude,
     #longitude: _f$longitude,
     #imageUrls: _f$imageUrls,
+    #deposit: _f$deposit,
+    #insurance: _f$insurance,
   };
 
   static ServiceModel _instantiate(DecodingData data) {
@@ -87,7 +95,9 @@ class ServiceModelMapper extends ClassMapperBase<ServiceModel> {
         cityId: data.dec(_f$cityId),
         latitude: data.dec(_f$latitude),
         longitude: data.dec(_f$longitude),
-        imageUrls: data.dec(_f$imageUrls));
+        imageUrls: data.dec(_f$imageUrls),
+        deposit: data.dec(_f$deposit),
+        insurance: data.dec(_f$insurance));
   }
 
   @override
@@ -159,7 +169,9 @@ abstract class ServiceModelCopyWith<$R, $In extends ServiceModel, $Out>
       int? cityId,
       double? latitude,
       double? longitude,
-      List<String>? imageUrls});
+      List<String>? imageUrls,
+      double? deposit,
+      double? insurance});
   ServiceModelCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -194,7 +206,9 @@ class _ServiceModelCopyWithImpl<$R, $Out>
           int? cityId,
           double? latitude,
           double? longitude,
-          List<String>? imageUrls}) =>
+          List<String>? imageUrls,
+          double? deposit,
+          double? insurance}) =>
       $apply(FieldCopyWithData({
         if (name != null) #name: name,
         if (description != null) #description: description,
@@ -208,7 +222,9 @@ class _ServiceModelCopyWithImpl<$R, $Out>
         if (cityId != null) #cityId: cityId,
         if (latitude != null) #latitude: latitude,
         if (longitude != null) #longitude: longitude,
-        if (imageUrls != null) #imageUrls: imageUrls
+        if (imageUrls != null) #imageUrls: imageUrls,
+        if (deposit != null) #deposit: deposit,
+        if (insurance != null) #insurance: insurance
       }));
   @override
   ServiceModel $make(CopyWithData data) => ServiceModel(
@@ -224,7 +240,9 @@ class _ServiceModelCopyWithImpl<$R, $Out>
       cityId: data.get(#cityId, or: $value.cityId),
       latitude: data.get(#latitude, or: $value.latitude),
       longitude: data.get(#longitude, or: $value.longitude),
-      imageUrls: data.get(#imageUrls, or: $value.imageUrls));
+      imageUrls: data.get(#imageUrls, or: $value.imageUrls),
+      deposit: data.get(#deposit, or: $value.deposit),
+      insurance: data.get(#insurance, or: $value.insurance));
 
   @override
   ServiceModelCopyWith<$R2, ServiceModel, $Out2> $chain<$R2, $Out2>(

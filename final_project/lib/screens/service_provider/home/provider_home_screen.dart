@@ -126,6 +126,7 @@
 // }
 
 import 'package:final_project/screens/service_provider/home/bloc/provider_home_bloc.dart';
+import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_spacing.dart';
 import 'package:final_project/utils/extensions/screen/screen_size.dart';
 
@@ -135,6 +136,7 @@ import 'package:final_project/widgets/service_provider/home/container/card_title
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 /// Displays summary statistics and a chart based on selected data view.
 class ProviderHomeScreen extends StatelessWidget {
@@ -162,11 +164,28 @@ class ProviderHomeScreen extends StatelessWidget {
                   //when the home page is create get date from supabase
                   if (state is ProviderHomeInitial) {
                     bloc.add(LoadData());
+                    return Center(
+                      child: LoadingAnimationWidget.staggeredDotsWave(
+                        color: AppColors.blue,
+                        size: 100,
+                      ),
+                    );
                   }
+                  // أثناء التحميل
+                  if (state is ProviderHomeLoading) {
+                    return Center(
+                      child: LoadingAnimationWidget.staggeredDotsWave(
+                        color: AppColors.blue,
+                        size: 100,
+                      ),
+                    );
+                  }
+
                   // Calculate total income from the list of values
-                  final double totalIncoming = bloc.listOfValue
-                      .fold(0, (a, b) => a + b)
-                     ;
+                  final double totalIncoming = bloc.listOfValue.fold(
+                    0,
+                    (a, b) => a + b,
+                  );
 
                   return Column(
                     children: [
@@ -217,7 +236,9 @@ class ProviderHomeScreen extends StatelessWidget {
                             IncomingChart(
                               title: "home.incoming".tr(),
                               valuesToDisplay: bloc.listOfValue,
-                              typeOfShowChart: bloc.selectedDataView, monthTitles: bloc.monthTitle, yearTitles: bloc.yearTitle,
+                              typeOfShowChart: bloc.selectedDataView,
+                              monthTitles: bloc.monthTitle,
+                              yearTitles: bloc.yearTitle,
                             ),
                           ],
                         ),

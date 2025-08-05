@@ -1,5 +1,6 @@
 import 'package:final_project/style/app_spacing.dart';
 import 'package:final_project/style/app_text_styles.dart';
+import 'package:final_project/utils/extensions/screen/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +23,7 @@ class ProviderContainerBookingCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 340,
+      width: context.getWidth(factor: 0.9),
       height: 175,
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       padding: const EdgeInsets.all(12),
@@ -69,6 +70,7 @@ class ProviderContainerBookingCard extends StatelessWidget {
                       fontWeight: FontWeight.w700,
                     ),
                   ),
+
                   AppSpacing.h4,
 
                   // Show booking status with color and localization

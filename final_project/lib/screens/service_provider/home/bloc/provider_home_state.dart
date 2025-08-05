@@ -7,6 +7,8 @@ final class ProviderHomeInitial extends ProviderHomeState {}
 
 final class ChangeDataViewSuccessful extends ProviderHomeState {}
 
+class LoadDataSuccessfully extends ProviderHomeState {}
 
-class LoadDataSuccessfully extends ProviderHomeState{}
-class Error extends ProviderHomeState{}
+class Error extends ProviderHomeState {}
+
+final class ProviderHomeLoading extends ProviderHomeState {}

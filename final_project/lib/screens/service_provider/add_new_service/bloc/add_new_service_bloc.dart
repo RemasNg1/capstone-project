@@ -47,6 +47,13 @@ class AddServiceBloc extends Bloc<AddServiceEvent, AddServiceState> {
     on<PriceChanged>((event, emit) {
       emit(state.copyWith(price: event.price));
     });
+    on<DepositChanged>((event, emit) {
+      emit(state.copyWith(deposit: event.deposit));
+    });
+
+    on<InsuranceChanged>((event, emit) {
+      emit(state.copyWith(insurance: event.insurance));
+    });
 
     on<LocationChanged>((event, emit) {
       emit(state.copyWith(location: event.location));
@@ -115,23 +122,33 @@ class AddServiceBloc extends Bloc<AddServiceEvent, AddServiceState> {
     // Load available service types from Supabase
     on<LoadServiceTypes>((event, emit) async {
       emit(state.copyWith(loadingServiceTypes: true));
+
       try {
-        final response = await Supabase.instance.client
-            .from('services')
-            .select('type_en, type_ar');
+        final response =
+            await Supabase.instance.client
+                    .from('services')
+                    .select('id, type_en, type_ar')
+                as List;
 
         final types = response
-            .map<Map<String, String>?>((item) {
-              final en = item['type_en']?.toString().trim();
-              final ar = item['type_ar']?.toString().trim();
-              if (en == null || en.isEmpty || ar == null || ar.isEmpty) {
+            .map<Map<String, dynamic>?>((item) {
+              final map = item as Map<String, dynamic>;
+              final id = map['id'];
+              final en = map['type_en']?.toString().trim();
+              final ar = map['type_ar']?.toString().trim();
+
+              if (id == null ||
+                  en == null ||
+                  en.isEmpty ||
+                  ar == null ||
+                  ar.isEmpty) {
                 return null;
               }
-              return {'en': en, 'ar': ar};
+
+              return {'id': id, 'en': en, 'ar': ar};
             })
-            .whereType<Map<String, String>>() // remove null
-            .toSet() //remove dubliecte
-            .toList(); // return as list
+            .whereType<Map<String, dynamic>>()
+            .toList();
 
         emit(state.copyWith(serviceTypes: types, loadingServiceTypes: false));
       } catch (e) {
@@ -255,6 +272,9 @@ class AddServiceBloc extends Bloc<AddServiceEvent, AddServiceState> {
           arabicDescription: service['description_ar'] ?? '',
           // guestCount: service['guest_count']?.toString() ?? '',
           price: service['price']?.toString() ?? '',
+          deposit: service['deposit']?.toString() ?? '',
+          insurance: service['insurance']?.toString() ?? '',
+
           category: service['title_en'] ?? '',
           selectedTypeEn: selectedTypeEn,
           selectedTypeAr: selectedTypeAr,
@@ -304,9 +324,9 @@ class AddServiceBloc extends Bloc<AddServiceEvent, AddServiceState> {
     Emitter<AddServiceState> emit,
   ) async {
     emit(state.copyWith(isSubmitting: true, success: false, error: null));
-    print('🔄 Updating service...');
+    print(' Updating service...');
 
-    // 👇 حذف الصور المحذوفة من التخزين وقاعدة البيانات
+    //  حذف الصور المحذوفة من التخزين وقاعدة البيانات
     final storage = supabase.storage.from('serviceimages');
     for (final url in state.deletedNetworkImages) {
       try {
@@ -358,8 +378,8 @@ class AddServiceBloc extends Bloc<AddServiceEvent, AddServiceState> {
             .from('service_locations')
             .select('id')
             .eq('service_provided_id', event.serviceId)
-            .limit(1) // ✅ أخذ أول صف فقط لتجنب الخطأ
-            .single(); // ✅ يتأكد أن فيه صف واحد فقط
+            .limit(1)
+            .single();
 
         if (existingLocation != null) {
           await supabase
@@ -428,7 +448,18 @@ class AddServiceBloc extends Bloc<AddServiceEvent, AddServiceState> {
     SubmitService event,
     Emitter<AddServiceState> emit,
   ) async {
-    debugPrint('🟢 [SubmitService] Triggered');
+    debugPrint(' [SubmitService] Triggered');
+    print(' AddNewServiceSubmitted triggered');
+    print(' [Validation Check]');
+    print(' الاسم الإنجليزي: ${state.name}');
+    print(' الاسم العربي: ${state.arabicName}');
+    print(' الوصف: ${state.description}');
+    print(' الوصف العربي: ${state.arabicDescription}');
+    print(' التصنيف: ${state.category}');
+    print(' السعر: ${state.price}');
+    print(' الموقع: ${state.location}');
+    print(' عدد الصور: ${state.images.length}');
+    print(' ID الخدمة المحددة: ${state.selectedServiceId}');
 
     // التحقق من الحقول المطلوبة
     if (state.name.trim().isEmpty ||
@@ -512,6 +543,8 @@ class AddServiceBloc extends Bloc<AddServiceEvent, AddServiceState> {
             'description_ar': state.arabicDescription,
             'description_en': state.description,
             'provider_auth_id': currentUser.id,
+            'deposit': double.tryParse(state.deposit) ?? 0,
+            'insurance': double.tryParse(state.insurance) ?? 0,
           })
           .select()
           .single();
@@ -553,10 +586,10 @@ class AddServiceBloc extends Bloc<AddServiceEvent, AddServiceState> {
         });
       }
 
-      debugPrint('✅ All data inserted successfully');
+      debugPrint(' All data inserted successfully');
       emit(state.copyWith(isSubmitting: false, success: true));
     } catch (e) {
-      debugPrint('❌ Error while submitting service: $e');
+      debugPrint(' Error while submitting service: $e');
       emit(
         state.copyWith(
           isSubmitting: false,

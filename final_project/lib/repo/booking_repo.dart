@@ -40,17 +40,18 @@ class BookingRepository {
     final response = await client
         .from('services_provided')
         .select('''
-      id,
-      title_en,
-      servic_image (
-        image_url
-      ),
-      service_requests (
-        id,
-        date,
-        status
-      )
-    ''')
+  id,
+  title_en,
+  title_ar,
+  servic_image (
+    image_url
+  ),
+  service_requests (
+    id,
+    date,
+    status
+  )
+''')
         .eq('provider_id', providerId);
 
     final results = response as List;
@@ -58,7 +59,11 @@ class BookingRepository {
     List<ServiceRequest> bookings = [];
 
     for (final item in results) {
-      final serviceTitle = item['title_en'] ?? '';
+      final isArabic = AuthLayer.box.get('lang') == 'ar';
+      final serviceTitle = isArabic
+          ? (item['title_ar'] ?? '')
+          : (item['title_en'] ?? '');
+
       final imageList = item['servic_image'] as List?;
       final imageUrl = (imageList != null && imageList.isNotEmpty)
           ? imageList.first['image_url'] as String
@@ -106,17 +111,18 @@ class BookingRepository {
     final response = await client
         .from('services_provided')
         .select('''
-      id,
-      title_en,
-      servic_image (
-        image_url
-      ),
-      service_requests (
-        id,
-        date,
-        status
-      )
-    ''')
+  id,
+  title_en,
+  title_ar,
+  servic_image (
+    image_url
+  ),
+  service_requests (
+    id,
+    date,
+    status
+  )
+''')
         .eq('provider_id', providerId)
         .gte('service_requests.date', sevenDaysAgo.toIso8601String())
         .lte('service_requests.date', now.toIso8601String());
@@ -126,7 +132,11 @@ class BookingRepository {
     List<ServiceRequest> bookings = [];
 
     for (final item in results) {
-      final serviceTitle = item['title_en'] ?? '';
+      final isArabic = AuthLayer.box.get('lang') == 'ar';
+      final serviceTitle = isArabic
+          ? (item['title_ar'] ?? '')
+          : (item['title_en'] ?? '');
+
       final imageList = item['servic_image'] as List?;
       final imageUrl = (imageList != null && imageList.isNotEmpty)
           ? imageList.first['image_url'] as String
@@ -171,17 +181,18 @@ class BookingRepository {
     final response = await client
         .from('services_provided')
         .select('''
-          id,
-          title_en,
-          servic_image (
-            image_url
-          ),
-          service_requests (
-            id,
-            date,
-            status
-          )
-      ''')
+  id,
+  title_en,
+  title_ar,
+  servic_image (
+    image_url
+  ),
+  service_requests (
+    id,
+    date,
+    status
+  )
+''')
         .eq('provider_id', providerId)
         .gte('service_requests.date', sevenMonthsAgo.toIso8601String())
         .lte('service_requests.date', now.toIso8601String());
@@ -191,7 +202,11 @@ class BookingRepository {
     List<ServiceRequest> bookings = [];
 
     for (final item in results) {
-      final serviceTitle = item['title_en'] ?? '';
+      final isArabic = AuthLayer.box.get('lang') == 'ar';
+      final serviceTitle = isArabic
+          ? (item['title_ar'] ?? '')
+          : (item['title_en'] ?? '');
+
       final imageList = item['servic_image'] as List?;
       final imageUrl = (imageList != null && imageList.isNotEmpty)
           ? imageList.first['image_url'] as String

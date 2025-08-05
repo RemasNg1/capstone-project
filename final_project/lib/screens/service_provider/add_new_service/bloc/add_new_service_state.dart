@@ -11,7 +11,7 @@ class AddServiceState extends Equatable {
   final bool loadingServiceTypes;
   final int? selectedServiceId;
 
-  final List<Map<String, String>> serviceTypes;
+  final List<Map<String, dynamic>>? serviceTypes;
 
   final String arabicName;
   final String description;
@@ -19,6 +19,8 @@ class AddServiceState extends Equatable {
   final String category;
   final String name;
   final String price;
+  final String deposit;
+  final String insurance;
 
   final LatLng? location;
   final List<XFile> images;
@@ -42,6 +44,8 @@ class AddServiceState extends Equatable {
 
   const AddServiceState(
     this.deletedNetworkImages, {
+    this.deposit = '',
+    this.insurance = '',
     this.selectedServiceId,
     this.isEditingLoaded = false,
     this.loadingServiceTypes = false,
@@ -72,13 +76,15 @@ class AddServiceState extends Equatable {
     List<String>? deletedNetworkImages,
     bool? isEditingLoaded,
     bool? loadingServiceTypes,
-    List<Map<String, String>>? serviceTypes,
+    List<Map<String, dynamic>>? serviceTypes,
     String? arabicName,
     String? description,
     String? arabicDescription,
     String? category,
     String? name,
     String? price,
+    String? deposit,
+    String? insurance,
     LatLng? location,
     List<XFile>? images,
     bool? isSubmitting,
@@ -93,9 +99,13 @@ class AddServiceState extends Equatable {
     String? selectedTypeEn,
     String? selectedTypeAr,
     String? languageCode,
+    int? selectedServiceId,
   }) {
     return AddServiceState(
       deletedNetworkImages ?? this.deletedNetworkImages,
+      deposit: deposit ?? this.deposit,
+      insurance: insurance ?? this.insurance,
+      selectedServiceId: selectedServiceId ?? this.selectedServiceId,
       isEditingLoaded: isEditingLoaded ?? this.isEditingLoaded,
       loadingServiceTypes: loadingServiceTypes ?? this.loadingServiceTypes,
       serviceTypes: serviceTypes ?? this.serviceTypes,
@@ -120,7 +130,6 @@ class AddServiceState extends Equatable {
       selectedTypeEn: selectedTypeEn ?? this.selectedTypeEn,
       selectedTypeAr: selectedTypeAr ?? this.selectedTypeAr,
       languageCode: languageCode ?? this.languageCode,
-      selectedServiceId: selectedServiceId ?? this.selectedServiceId,
     );
   }
 
@@ -136,6 +145,8 @@ class AddServiceState extends Equatable {
     category,
     name,
     price,
+    deposit,
+    insurance,
     location,
     images,
     isSubmitting,

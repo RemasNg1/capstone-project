@@ -271,7 +271,10 @@
         "confirmDeleteTitle": "تأكيد الحذف",
         "confirmDeleteBody": "هل تريد حذف هذه الخدمة؟",
         "cancel": "إلغاء",
-        "delete": "حذف"
+        "delete": "حذف",
+        "deposit": "العربون",
+        "insurance": "التأمين"
+
     },
     "calendar": {
         "change_availability": "تغيير التوفر لـ:",

@@ -69,21 +69,15 @@ class ProviderCustomColumnTabViewCards extends StatelessWidget {
               ),
             ),
             AppSpacing.h8,
-            SizedBox(
-              height: height,
-              width: width,
-              child: ListView.builder(
-                itemCount: waitingList.length,
-                itemBuilder: (context, index) {
-                  final booking = waitingList[index];
-                  return ProviderContainerBookingCard(
-                    item: booking,
-                    showActionButtons: true,
-                    // onTapChat: () =>
-                    //     print("Chat with waiting booking ID: ${booking.id}"),
-                  );
-                },
-              ),
+            Column(
+              children: waitingList
+                  .map(
+                    (booking) => ProviderContainerBookingCard(
+                      item: booking,
+                      showActionButtons: true,
+                    ),
+                  )
+                  .toList(),
             ),
           ],
 
@@ -98,19 +92,15 @@ class ProviderCustomColumnTabViewCards extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            SizedBox(
-              height: height,
-              width: width,
-              child: ListView.builder(
-                itemCount: acceptedList.length,
-                itemBuilder: (context, index) {
-                  final booking = acceptedList[index];
-                  return ProviderContainerBookingCard(
-                    item: booking,
-                    showActionButtons: false,
-                  );
-                },
-              ),
+            Column(
+              children: acceptedList
+                  .map(
+                    (booking) => ProviderContainerBookingCard(
+                      item: booking,
+                      showActionButtons: false,
+                    ),
+                  )
+                  .toList(),
             ),
           ],
         ],

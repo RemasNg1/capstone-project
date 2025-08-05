@@ -271,7 +271,10 @@
         "confirmDeleteTitle": "Confirm Deletion",
         "confirmDeleteBody": "Are you sure you want to delete this service?",
         "cancel": "Cancel",
-        "delete": "Delete"
+        "delete": "Delete",
+        "deposit": "Deposit",
+        "insurance": "Insurance"
+
     },
     "calendar": {
         "change_availability": "Change availability for:",

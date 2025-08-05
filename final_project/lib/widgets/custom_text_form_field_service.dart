@@ -36,6 +36,7 @@ class CustomTextFormFieldService extends StatelessWidget {
           controller: controller,
           keyboardType: keyboardType,
           readOnly: readOnly,
+          onChanged: onChanged,
           validator: validator,
           decoration: InputDecoration(
             labelText: labelText,

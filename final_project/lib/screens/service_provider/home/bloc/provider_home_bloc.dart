@@ -151,20 +151,9 @@ class ProviderHomeBloc extends Bloc<ProviderHomeEvent, ProviderHomeState> {
   // Initial selected chart type (Week)
   EnumTypeOfShowChart selectedDataView = EnumTypeOfShowChart.week;
 
-  // Dates when the service is unavailable
-  final Set<DateTime> unavailableDays = {
-    DateTime(2025, 6, 6, 6, 6),
-    DateTime(2025, 6, 27, 6, 6),
-  };
-
-  final Set<DateTime> selectedDays = {
-    DateTime(2025, 6, 8, 6, 6),
-    DateTime(2025, 6, 15, 6, 6),
-  };
-
   // number of accepted and rejected orders
-  int acceptedOrder = 10;
-  int rejectedOrder = 3;
+  int acceptedOrder = 0;
+  int rejectedOrder = 0;
 
   // Mock income data for each chart type
   List<double> _weekData = [];
@@ -199,6 +188,7 @@ class ProviderHomeBloc extends Bloc<ProviderHomeEvent, ProviderHomeState> {
     // Handle ChangeDataView events with a separate method
     on<ChangeDataView>(changeDataView);
     // load data from supabase
+
     on<LoadData>(loadData);
   }
 
@@ -216,25 +206,23 @@ class ProviderHomeBloc extends Bloc<ProviderHomeEvent, ProviderHomeState> {
     LoadData event,
     Emitter<ProviderHomeState> emit,
   ) async {
+    emit(ProviderHomeLoading()); // ⬅️ هذا الجديد
+
     print('loadData');
     List<ModelBooking> allBooking = await BookingLayer.getAllProviderBooking();
 
-    // Get the weekly summary
     weeklySummary = BookingLayer.getWeeklySummary(allBooking);
-    this._weekData = weeklySummary.values.toList();
-    print(_weekData);
-    // print('Weekly Summary: $weeklySummary');
+    _weekData = weeklySummary.values.toList();
+
     yearlySummary = BookingLayer.getLast7YearsSummary(allBooking);
-    this._yearData = yearlySummary.values.toList();
+    _yearData = yearlySummary.values.toList();
     yearTitle = yearlySummary.keys.toList();
 
-    print('Yearly Summary: ${yearlySummary.keys.toList()}');
     monthlySummary = BookingLayer.getLast7MonthsSummary(allBooking);
-    this._monthData = monthlySummary.values.toList();
+    _monthData = monthlySummary.values.toList();
     monthTitle = monthlySummary.keys.toList();
 
     acceptedOrder = allBooking.where((e) => e.status == "accepted").length;
-
     rejectedOrder = allBooking.where((e) => e.status == "rejected").length;
 
     emit(LoadDataSuccessfully());

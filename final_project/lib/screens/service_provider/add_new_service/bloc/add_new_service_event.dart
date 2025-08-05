@@ -173,3 +173,25 @@ class ServiceTypeEnChanged extends AddServiceEvent {
 
   ServiceTypeEnChanged(this.value);
 }
+
+class DepositChanged extends AddServiceEvent {
+  final String deposit;
+  DepositChanged(this.deposit);
+
+  @override
+  List<Object> get props => [deposit];
+}
+
+class InsuranceChanged extends AddServiceEvent {
+  final String insurance;
+  InsuranceChanged(this.insurance);
+
+  @override
+  List<Object> get props => [insurance];
+}
+
+class SelectedServiceChanged extends AddServiceEvent {
+  final int serviceId;
+
+  SelectedServiceChanged(this.serviceId);
+}
