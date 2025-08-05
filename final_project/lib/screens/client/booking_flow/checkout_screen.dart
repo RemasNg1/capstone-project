@@ -142,7 +142,7 @@ class CheckoutScreen extends StatelessWidget {
 
 PaymentConfig configMethod({required double amount}) {
   return PaymentConfig(
-    publishableApiKey: "pk_test_Aw3KeUqXpRpRjvi1k7WKPeK436JpG73EuYs6RyJr",
+    publishableApiKey: "",
     amount: amount.toInt(),
     description: "Service Reservation",
   );
