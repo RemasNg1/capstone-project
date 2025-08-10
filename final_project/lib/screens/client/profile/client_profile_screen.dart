@@ -107,15 +107,6 @@ class ClientProfileScreen extends StatelessWidget {
                               bloc.add(UpdateAvatarEvent(url));
                             }
                           }
-                          // final picker = ImagePicker();
-                          // final pickedFile = await picker.pickImage(
-                          //   source: ImageSource.gallery,
-                          // );
-
-                          // if (pickedFile != null) {
-                          //   final file = File(pickedFile.path);
-                          //   bloc.add(UpdateAvatarEvent(file));
-                          // }
                         },
                       ),
 

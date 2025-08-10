@@ -53,18 +53,6 @@ class ClientProfileBloc extends Bloc<ClientProfileEvent, ClientProfileState> {
         emit(ClientProfileUpdateFailedState("Error updating avatar: $e"));
       }
     });
-
-    // on<UpdateAvatarEvent>((event, emit) async {
-    // emit(ClientProfileUpdatingState());
-    //     try {
-    //       final updatedUser = await Auth.updateUserAvatar(event.newAvatarFile);
-    //       currentUser = updatedUser;
-
-    //       emit(ClientProfileLoadedState(updatedUser));
-    //     } catch (e) {
-    //       emit(ClientProfileUpdateFailedState(e.toString()));
-    //     }
-    // });
   }
 
   FutureOr<void> logoutMethod(

@@ -25,7 +25,7 @@ class ProviderModel with ProviderModelMappable {
   @MappableField(key: 'commercial_registration_number')
   final String? commercialRegistrationNumber;
 
-  final EnumUserStatus? status;
+  // final EnumUserStatus? status;
 
   @MappableField(key: 'phone_number')
   final String? phoneNumber;
@@ -57,7 +57,7 @@ class ProviderModel with ProviderModelMappable {
     this.avatar,
     required this.iban,
     this.commercialRegistrationNumber,
-    this.status,
+    // this.status,
     required this.phoneNumber,
     this.authId,
     this.isDeleted = false,
@@ -76,7 +76,7 @@ class ProviderModel with ProviderModelMappable {
       'avatar': avatar,
       'iban': iban,
       'commercial_registration_number': commercialRegistrationNumber,
-      'status': status?.name,
+      // 'status': status?.name,
       'phone_number': phoneNumber,
       'auth_id': authId,
       'is_deleted': isDeleted,
