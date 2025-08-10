@@ -23,8 +23,10 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final homeBloc = GetIt.I<HomeBloc>();
 
-    return BlocProvider.value(
-      value: homeBloc,
+    // return BlocProvider.value(
+    //   value: homeBloc,
+    return BlocProvider(
+      create: (context) => HomeBloc()..add(FetchServicesProvidedEvent()),
 
       child: Builder(
         builder: (context) {
