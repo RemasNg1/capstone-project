@@ -8,6 +8,7 @@ import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_spacing.dart';
 import 'package:final_project/style/app_text_styles.dart';
 import 'package:final_project/style/theme_provider.dart';
+import 'package:final_project/utils/upload_single_image.dart';
 import 'package:final_project/widgets/avatar.dart';
 import 'package:final_project/widgets/custom_list_tile.dart';
 import 'package:final_project/widgets/custom_switch.dart';
@@ -18,6 +19,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class ClientProfileScreen extends StatelessWidget {
@@ -79,6 +81,7 @@ class ClientProfileScreen extends StatelessWidget {
               appBar: AppBar(
                 title: Text("profile.title".tr()),
                 centerTitle: true,
+                automaticallyImplyLeading: false,
               ),
               body: SafeArea(
                 child: SingleChildScrollView(
@@ -87,20 +90,23 @@ class ClientProfileScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Avatar(
-                        isNotGuest: bloc.isNotGuest,
+                        isGuest: bloc.isGuest,
                         imagePath:
                             state.user.avatar ??
                             'https://i.pinimg.com/736x/df/16/57/df165790d80fa38530f128f350fb315a.jpg',
                         onEditTap: () async {
-                          // final picker = ImagePicker();
-                          // final pickedFile = await picker.pickImage(
-                          //   source: ImageSource.gallery,
-                          // );
+                          final picker = ImagePicker();
+                          final pickedFile = await picker.pickImage(
+                            source: ImageSource.gallery,
+                          );
 
-                          // if (pickedFile != null) {
-                          //   final file = File(pickedFile.path);
-                          //   bloc.add(UpdateAvatarEvent(file));
-                          // }
+                          if (pickedFile != null) {
+                            final url = await uploadSingleImage(pickedFile);
+                            if (url != null) {
+                              final bloc = context.read<ClientProfileBloc>();
+                              bloc.add(UpdateAvatarEvent(url));
+                            }
+                          }
                         },
                       ),
 
@@ -116,7 +122,7 @@ class ClientProfileScreen extends StatelessWidget {
                       AppSpacing.h16,
 
                       AppSpacing.h32,
-                      bloc.isNotGuest
+                      !bloc.isGuest
                           ? Column(
                               children: [
                                 Row(
@@ -314,7 +320,7 @@ class ClientProfileScreen extends StatelessWidget {
                           );
                         },
                       ),
-                      bloc.isNotGuest
+                      !bloc.isGuest
                           ? CustomListTile(
                               leadingIcon: SvgPicture.asset(
                                 "assets/icons/logout.svg",

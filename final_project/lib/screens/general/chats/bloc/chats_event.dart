@@ -31,3 +31,5 @@ class ProviderSendMessage extends ChatsEvent {
 
   ProviderSendMessage({required this.userInput});
 }
+
+class UpdateConversationList extends ChatsEvent {}

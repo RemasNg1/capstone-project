@@ -23,3 +23,8 @@ class UpdateProfileInfoEvent extends ProviderProfileEvent {
     required this.phone,
   });
 }
+
+class UpdateAvatarEvent extends ProviderProfileEvent {
+  final String avatarUrl;
+  UpdateAvatarEvent(this.avatarUrl);
+}

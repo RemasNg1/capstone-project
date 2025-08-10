@@ -15,6 +15,6 @@ class UpdateProfileInfoEvent extends ClientProfileEvent {
 }
 
 class UpdateAvatarEvent extends ClientProfileEvent {
-  final File newAvatarFile;
-  UpdateAvatarEvent(this.newAvatarFile);
+  final String avatarUrl;
+  UpdateAvatarEvent(this.avatarUrl);
 }

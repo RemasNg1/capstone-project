@@ -39,6 +39,10 @@ class CustomTextFormField extends StatelessWidget {
       },
       maxLines: maxLines,
       keyboardType: keyboardType,
+      textInputAction: TextInputAction.done,
+      onFieldSubmitted: (_) {
+        FocusScope.of(context).unfocus();
+      },
       decoration: InputDecoration(
         labelText: labelText,
         prefixIcon: icon,

@@ -26,7 +26,7 @@ class ClientProfileBloc extends Bloc<ClientProfileEvent, ClientProfileState> {
   TextEditingController emailController = TextEditingController();
   Box get box => Hive.box('userInfo');
   String? get userTypeString => box.get('userType');
-  bool get isNotGuest => userTypeString != EnumUserType.guest.name;
+  bool get isGuest => userTypeString == EnumUserType.guest.name;
   ClientModel? currentUser;
   final Map<String, String> clientPrivacyKeys = {
     "privacy_policy.title_1": "privacy_policy.body_1",
@@ -42,17 +42,17 @@ class ClientProfileBloc extends Bloc<ClientProfileEvent, ClientProfileState> {
     on<LoadClientProfileEvent>(loadProfileMethod);
     on<UpdateProfileInfoEvent>(updateMethod);
     on<LogoutEvent>(logoutMethod);
-    // on<UpdateAvatarEvent>((event, emit) async {
-    // emit(ClientProfileUpdatingState());
-    //     try {
-    //       final updatedUser = await Auth.updateUserAvatar(event.newAvatarFile);
-    //       currentUser = updatedUser;
-
-    //       emit(ClientProfileLoadedState(updatedUser));
-    //     } catch (e) {
-    //       emit(ClientProfileUpdateFailedState(e.toString()));
-    //     }
-    // });
+    on<UpdateAvatarEvent>((event, emit) async {
+      emit(ClientProfileUpdatingState());
+      try {
+        final updatedUser = await Auth.updateUserAvatar(event.avatarUrl);
+        currentUser = updatedUser;
+        emit(ClientProfileUpdatedState());
+      } catch (e) {
+        log("Error updating avatar: $e");
+        emit(ClientProfileUpdateFailedState("Error updating avatar: $e"));
+      }
+    });
   }
 
   FutureOr<void> logoutMethod(
@@ -77,7 +77,7 @@ class ClientProfileBloc extends Bloc<ClientProfileEvent, ClientProfileState> {
         log("test");
         currentUser = ClientModel(
           name: "Guest",
-          status: EnumUserStatus.offline,
+          // status: EnumUserStatus.offline,
           phoneNumber: "00000",
         );
         // nameController.text = "guest";

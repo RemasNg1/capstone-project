@@ -7,6 +7,7 @@ import 'package:final_project/style/app_colors.dart';
 import 'package:final_project/style/app_spacing.dart';
 import 'package:final_project/style/app_text_styles.dart';
 import 'package:final_project/style/theme_provider.dart';
+import 'package:final_project/utils/upload_single_image.dart';
 import 'package:final_project/widgets/avatar.dart';
 import 'package:final_project/widgets/custom_list_tile.dart';
 import 'package:final_project/widgets/custom_switch.dart';
@@ -17,6 +18,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class ProviderProfileScreen extends StatelessWidget {
@@ -100,7 +102,20 @@ class ProviderProfileScreen extends StatelessWidget {
                         imagePath:
                             state.user.avatar ??
                             'https://i.imgur.com/ZDM3MLB.png',
-                        onEditTap: () {},
+                        onEditTap: () async {
+                          final picker = ImagePicker();
+                          final pickedFile = await picker.pickImage(
+                            source: ImageSource.gallery,
+                          );
+
+                          if (pickedFile != null) {
+                            final url = await uploadSingleImage(pickedFile);
+                            if (url != null) {
+                              final bloc = context.read<ProviderProfileBloc>();
+                              bloc.add(UpdateAvatarEvent(url));
+                            }
+                          }
+                        },
                       ),
 
                       AppSpacing.h16,

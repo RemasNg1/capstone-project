@@ -69,7 +69,7 @@ class ConversationScreen extends StatelessWidget {
                                   maxRadius: 30,
                                   backgroundImage: NetworkImage(
                                     messages[index].providers?.avatar ??
-                                        'https://www.arabiaweddings.com/sites/default/files/styles/max980/public/listing/2020/01/14/jwan_hall.jpg?itok=svPe8vrk',
+                                        'https://imgur.com/ZDM3MLB',
                                   ),
                                 ),
                                 title: Text(

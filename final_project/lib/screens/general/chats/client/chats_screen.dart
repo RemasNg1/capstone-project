@@ -11,9 +11,7 @@ class ChattingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String avatar =
-        sender.providers?.avatar ??
-        "https://www.arabiaweddings.com/sites/default/files/styles/max980/public/listing/2020/01/14/jwan_hall.jpg?itok=svPe8vrk";
+    String avatar = sender.providers?.avatar ?? "https://imgur.com/ZDM3MLB";
     String name = sender.providers?.nameEn ?? "Provider";
     //  String authId=sender.providers!.nameEn!;
 
@@ -31,6 +29,7 @@ class ChattingScreen extends StatelessWidget {
                 children: [
                   BackButton(
                     onPressed: () {
+                      FocusScope.of(context).unfocus();
                       bloc.chatController.dispose();
                       bloc.chatController = InMemoryChatController();
                       Navigator.pop(context);

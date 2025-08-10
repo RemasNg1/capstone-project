@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:final_project/data_layer/auth_layer.dart';
@@ -32,6 +33,8 @@ class ProviderProfileBloc
   TextEditingController phoneController = TextEditingController();
   TextEditingController ibanController = TextEditingController();
   TextEditingController crNumber = TextEditingController();
+  ProviderModel? currentUser;
+
   final dataLayer = GetIt.I.get<DataLayer>();
 
   ProviderModel? currentProvider;
@@ -39,6 +42,17 @@ class ProviderProfileBloc
     on<LogoutEvent>(logoutMethod);
     on<UpdateProfileInfoEvent>(updateMethod);
     on<LoadProviderProfileEvent>(loadProfileMethod);
+    on<UpdateAvatarEvent>((event, emit) async {
+      emit(ClientProfileUpdatingState());
+      try {
+        final updatedUser = await Auth.updateProviderAvatar(event.avatarUrl);
+        currentUser = updatedUser;
+        emit(ClientProfileUpdatedState());
+      } catch (e) {
+        log("Error updating avatar: $e");
+        emit(ClientProfileUpdateFailedState("Error updating avatar: $e"));
+      }
+    });
   }
 
   FutureOr<void> loadProfileMethod(

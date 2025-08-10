@@ -24,76 +24,81 @@ class OtpBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = context.read<AuthBloc>();
 
-    return Container(
-      height: context.getHeight(factor: 0.4),
-      padding: MediaQuery.of(context).viewInsets.add(const EdgeInsets.all(24)),
-      decoration: BoxDecoration(
-        color: Theme.of(context).scaffoldBackgroundColor,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+    return Padding(
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          LocalizedAlignedText(
-            text: "auth.enter_otp".tr(),
-            style: AppTextStyles.interSize26(
-              context,
-            ).copyWith(color: Theme.of(context).colorScheme.primary),
-          ),
-          AppSpacing.h4,
-          LocalizedAlignedText(
-            text: "auth.enter_otp_description".tr(),
-            style: AppTextStyles.interSize14(
-              context,
-            ).copyWith(color: Theme.of(context).colorScheme.onSurface),
-          ),
-          AppSpacing.h16,
-          AppSpacing.h16,
-          Pinput(length: 6, onCompleted: onCompleted),
-          AppSpacing.h24,
-          BlocBuilder<AuthBloc, AuthState>(
-            builder: (context, state) {
-              return Column(
-                children: [
-                  Directionality(
-                    textDirection: ui.TextDirection.ltr,
-                    child: SlideCountdownSeparated(
-                      key: ValueKey(bloc.resendOtpCounter),
-                      decoration: BoxDecoration(),
-                      duration: Duration(seconds: 60),
-                      separatorType: SeparatorType.symbol,
-                      separator: ":",
-                      slideDirection: SlideDirection.none,
-                      style: AppTextStyles.interSize16(context).copyWith(
-                        color: Theme.of(context).colorScheme.onSurface,
+      child: Container(
+        height: context.getHeight(factor: 0.4),
+        padding: EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            LocalizedAlignedText(
+              text: "auth.enter_otp".tr(),
+              style: AppTextStyles.interSize26(
+                context,
+              ).copyWith(color: Theme.of(context).colorScheme.primary),
+            ),
+            AppSpacing.h4,
+            LocalizedAlignedText(
+              text: "auth.enter_otp_description".tr(),
+              style: AppTextStyles.interSize14(
+                context,
+              ).copyWith(color: Theme.of(context).colorScheme.onSurface),
+            ),
+            AppSpacing.h16,
+            AppSpacing.h16,
+            Pinput(length: 6, onCompleted: onCompleted),
+            AppSpacing.h24,
+            BlocBuilder<AuthBloc, AuthState>(
+              builder: (context, state) {
+                return Column(
+                  children: [
+                    Directionality(
+                      textDirection: ui.TextDirection.ltr,
+                      child: SlideCountdownSeparated(
+                        key: ValueKey(bloc.resendOtpCounter),
+                        decoration: BoxDecoration(),
+                        duration: Duration(seconds: 60),
+                        separatorType: SeparatorType.symbol,
+                        separator: ":",
+                        slideDirection: SlideDirection.none,
+                        style: AppTextStyles.interSize16(context).copyWith(
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                        onDone: () {
+                          bloc.add(EnableResendOtpEvent());
+                        },
                       ),
-                      onDone: () {
-                        bloc.add(EnableResendOtpEvent());
-                      },
                     ),
-                  ),
 
-                  AppSpacing.h8,
+                    AppSpacing.h8,
 
-                  CustomRichText(
-                    normalText: 'auth.did_not_receive_otp'.tr(),
-                    linkText: 'auth.resend'.tr(),
-                    onLinkTap: bloc.canResendOtp
-                        ? () {
-                            bloc.add(
-                              ResendOtpEvent(
-                                email: bloc.emailController.text,
-                                isSignUp: isSignUp,
-                              ),
-                            );
-                          }
-                        : null,
-                  ),
-                ],
-              );
-            },
-          ),
-        ],
+                    CustomRichText(
+                      normalText: 'auth.did_not_receive_otp'.tr(),
+                      linkText: 'auth.resend'.tr(),
+                      onLinkTap: bloc.canResendOtp
+                          ? () {
+                              bloc.add(
+                                ResendOtpEvent(
+                                  email: bloc.emailController.text,
+                                  isSignUp: isSignUp,
+                                ),
+                              );
+                            }
+                          : null,
+                    ),
+                  ],
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

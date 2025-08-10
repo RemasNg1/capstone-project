@@ -66,7 +66,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       } else {
         currentUser = ClientModel(
           name: "Guest",
-          status: EnumUserStatus.online,
+          // status: EnumUserStatus.online,
           phoneNumber: "0000",
         );
       }
