@@ -53,27 +53,27 @@ class CheckoutScreen extends StatelessWidget {
               total: service.price! * 1.15,
             ),
             AppSpacing.h72,
-            ElevatedButton(
-              onPressed: () {
-                CustomResultDialog.show(
-                  context,
-                  icon: Icons.check_circle,
-                  iconColor: AppColors.blue,
-                  title: 'bookingReview.payment_success'.tr(),
-                  message: 'bookingReview.wait_for_acceptance'.tr(),
-                  buttonText: 'bookingReview.back_to_home'.tr(),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ClientBottomNavbarScreen(),
-                      ),
-                    );
-                  },
-                );
-              },
-              child: Text("click"),
-            ),
+            // ElevatedButton(
+            //   onPressed: () {
+            //     CustomResultDialog.show(
+            //       context,
+            //       icon: Icons.check_circle,
+            //       iconColor: AppColors.blue,
+            //       title: 'bookingReview.payment_success'.tr(),
+            //       message: 'bookingReview.wait_for_acceptance'.tr(),
+            //       buttonText: 'bookingReview.back_to_home'.tr(),
+            //       onPressed: () {
+            //         Navigator.push(
+            //           context,
+            //           MaterialPageRoute(
+            //             builder: (context) => ClientBottomNavbarScreen(),
+            //           ),
+            //         );
+            //       },
+            //     );
+            //   },
+            //   child: Text("click"),
+            // ),
             Directionality(
               textDirection: ui.TextDirection.ltr,
               child: Theme(
